@@ -1,12 +1,12 @@
 import React from 'react';
-import {StatusBar} from 'react-native';
-import {NavigationNativeContainer} from '@react-navigation/native';
-import {Provider} from 'react-redux';
+import { StatusBar } from 'react-native';
+import { NavigationNativeContainer } from '@react-navigation/native';
+import { Provider } from 'react-redux';
 
 import TabNavigator from './navigation/TabNavigator';
 import configureStore from './store';
 
-declare var global: {HermesInternal: null | {}};
+declare var global: { HermesInternal: null | {} };
 
 const store = configureStore(undefined);
 

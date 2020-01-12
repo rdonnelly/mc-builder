@@ -6,7 +6,7 @@ import { base } from '../styles';
 export default () => {
   return (
     <View style={base.container}>
-      <Text>Decks</Text>
+      <Text>Cards</Text>
     </View>
   );
 };

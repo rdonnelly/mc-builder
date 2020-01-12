@@ -1,5 +1,5 @@
 import React from 'react';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
 
 import CardsStackNavigator from './CardsStackNavigator';
@@ -13,13 +13,14 @@ export default () => (
     initialRouteName="Cards"
     tabBarOptions={{
       activeTintColor: '#e91e63',
-    }}>
+    }}
+  >
     <Tab.Screen
       name="Cards"
       component={CardsStackNavigator}
       options={{
         tabBarLabel: 'Cards',
-        tabBarIcon: ({color, size}) => (
+        tabBarIcon: ({ color, size }) => (
           <FontAwesomeIcon name="files-medical" color={color} size={size} />
         ),
       }}
@@ -29,7 +30,7 @@ export default () => (
       component={DecksStackNavigator}
       options={{
         tabBarLabel: 'Decks',
-        tabBarIcon: ({color, size}) => (
+        tabBarIcon: ({ color, size }) => (
           <FontAwesomeIcon name="books" color={color} size={size} />
         ),
       }}
@@ -39,7 +40,7 @@ export default () => (
       component={SettingsStackNavigator}
       options={{
         tabBarLabel: 'Settings',
-        tabBarIcon: ({color, size}) => (
+        tabBarIcon: ({ color, size }) => (
           <FontAwesomeIcon name="cogs" color={color} size={size} />
         ),
       }}

@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import InAppBrowser from 'react-native-inappbrowser-reborn';
 
-import {base, colors} from '../styles';
+import { base, colors } from '../styles';
 
 const styles = StyleSheet.create({
   container: {

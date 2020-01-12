@@ -1,12 +1,14 @@
 import React from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
+import { createStackNavigator } from '@react-navigation/stack';
 
-import CardsScreen from '../screens/CardsScreen';
+import CardListScreen from '../screens/CardListScreen';
+import CardDetailScreen from '../screens/CardDetailScreen';
 
 const Stack = createStackNavigator();
 
 export default () => (
-  <Stack.Navigator>
-    <Stack.Screen name="Cards" component={CardsScreen} />
+  <Stack.Navigator initialRouteName="CardList">
+    <Stack.Screen name="CardList" component={CardListScreen} />
+    <Stack.Screen name="CardDetail" component={CardDetailScreen} />
   </Stack.Navigator>
 );

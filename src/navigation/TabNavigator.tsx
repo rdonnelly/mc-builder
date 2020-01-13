@@ -5,6 +5,7 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
 import CardsStackNavigator from './CardsStackNavigator';
 import DecksStackNavigator from './DecksStackNavigator';
 import SettingsStackNavigator from './SettingsStackNavigator';
+import { colors } from '../styles';
 
 const Tab = createBottomTabNavigator();
 
@@ -12,7 +13,7 @@ export default () => (
   <Tab.Navigator
     initialRouteName="Cards"
     tabBarOptions={{
-      activeTintColor: '#e91e63',
+      activeTintColor: colors.brand,
     }}
   >
     <Tab.Screen

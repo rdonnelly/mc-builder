@@ -1,12 +1,15 @@
 import * as React from 'react';
-import { Text, View } from 'react-native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RouteProp } from '@react-navigation/native';
 
-import { base } from '../styles';
+import { CardStackParamList } from '../navigation/CardsStackNavigator';
+import CardDetail from '../components/CardDetail';
 
-export default () => {
-  return (
-    <View style={base.container}>
-      <Text>Cards</Text>
-    </View>
-  );
+const CardDetailScreen: React.FunctionComponent<{
+  navigation: StackNavigationProp<CardStackParamList, 'CardDetail'>;
+  route: RouteProp<CardStackParamList, 'CardDetail'>;
+}> = ({ route }) => {
+  return <CardDetail code={route.params.code} />;
 };
+
+export default CardDetailScreen;

@@ -22,24 +22,24 @@ podInstall() {
 }
 
 build() {
-  xcodebuild -workspace $PWD/ios/SWDBrowser.xcworkspace \
-             -scheme SWDBrowser \
+  xcodebuild -workspace $PWD/ios/MCBuilder.xcworkspace \
+             -scheme MCBuilder \
              -destination generic/platform=iOS \
              build
 }
 
 archive() {
-  xcodebuild -workspace $PWD/ios/SWDBrowser.xcworkspace \
-             -scheme SWDBrowser \
+  xcodebuild -workspace $PWD/ios/MCBuilder.xcworkspace \
+             -scheme MCBuilder \
              -sdk iphoneos \
              -configuration AppStoreDistribution \
-             -archivePath $PWD/ios/build/SWDBrowser.xcarchive \
+             -archivePath $PWD/ios/build/MCBuilder.xcarchive \
              archive
 }
 
 exportArchive() {
   xcodebuild -exportArchive \
-             -archivePath $PWD/ios/build/SWDBrowser.xcarchive \
+             -archivePath $PWD/ios/build/MCBuilder.xcarchive \
              -exportOptionsPlist $PWD/ios/exportOptions.plist \
              -exportPath $PWD/ios/build \
              -allowProvisioningUpdates
@@ -47,7 +47,7 @@ exportArchive() {
 
 upload() {
   xcrun altool --upload-app \
-               -f $PWD/ios/build/SWDBrowser.ipa \
+               -f $PWD/ios/build/MCBuilder.ipa \
                -u $@ \
                -p "@keychain:AC_PASSWORD"
 }

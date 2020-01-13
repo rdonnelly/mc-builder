@@ -12,7 +12,10 @@
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "build:pod": "scripts/build.sh podInstall"
+    "build:pod": "scripts/build.sh podInstall",
+    "build:push": "scripts/build.sh push",
+    "build:getVersion": "scripts/build.sh getVersion",
+    "build:setVersion": "scripts/build.sh setVersion"
   },
   "dependencies": {
     "@react-native-community/masked-view": "^0.1.5",

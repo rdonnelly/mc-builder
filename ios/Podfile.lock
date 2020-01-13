@@ -219,7 +219,7 @@ PODS:
     - React-cxxreact (= 0.61.5)
     - React-jsi (= 0.61.5)
     - ReactCommon/jscallinvoker (= 0.61.5)
-  - RNCMaskedView (0.1.5):
+  - RNCMaskedView (0.1.6):
     - React
   - RNDeviceInfo (5.4.1):
     - React
@@ -372,7 +372,7 @@ SPEC CHECKSUMS:
   React-RCTText: 9ccc88273e9a3aacff5094d2175a605efa854dbe
   React-RCTVibration: a49a1f42bf8f5acf1c3e297097517c6b3af377ad
   ReactCommon: 198c7c8d3591f975e5431bec1b0b3b581aa1c5dd
-  RNCMaskedView: dd13f9f7b146a9ad82f9b7eb6c9b5548fcf6e990
+  RNCMaskedView: a88953beefbd347a29072d9eba90e42945fe291e
   RNDeviceInfo: 0e40d9a9031252d2525d8b69a4b3fa8689efcea4
   RNGestureHandler: 02905abe54e1f6e59c081a10b4bd689721e17aa6
   RNInAppBrowser: 9936b2e23ab7ed9b6ac938eb1c4a656b95292e11

@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* MCBuilderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* MCBuilderTests.m */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
-		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		280706742F0834A818DD5A41 /* libPods-MCBuilderTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 605C68BAF3E30ABE45B411BF /* libPods-MCBuilderTests.a */; };
@@ -22,6 +21,7 @@
 		5B53B8A66E464005B963A000 /* FontAwesome5_Pro_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 133BB4EB5D6749349DD968ED /* FontAwesome5_Pro_Solid.ttf */; };
 		72BB03EB0F754EB3B0F5C676 /* FontAwesome5_Pro_Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 86D9D74DE3DA49D2BCB731CD /* FontAwesome5_Pro_Light.ttf */; };
 		7424FE6F2FC8D5BDA52A4DFF /* libPods-MCBuilder-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A85ED6C9C8564006996A9341 /* libPods-MCBuilder-tvOSTests.a */; };
+		95116DB023D3EA1600C9D72A /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95116DAF23D3EA1600C9D72A /* Launch Screen.storyboard */; };
 		B4A1534EECBD41298F719E6D /* FontAwesome5_Pro_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 20C73997C35D4F24A3398312 /* FontAwesome5_Pro_Brands.ttf */; };
 		FEA30E18C76E408AA3BD11D4 /* FontAwesome5_Pro_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 136FD2C64CFC44CAB855AFA2 /* FontAwesome5_Pro_Regular.ttf */; };
 /* End PBXBuildFile section */
@@ -55,7 +55,6 @@
 		13B07F961A680F5B00A75B9A /* MCBuilder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MCBuilder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = MCBuilder/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = MCBuilder/AppDelegate.m; sourceTree = "<group>"; };
-		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = MCBuilder/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = MCBuilder/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = MCBuilder/main.m; sourceTree = "<group>"; };
@@ -68,6 +67,7 @@
 		5ACDA8841001F6B82F8D46A3 /* Pods-MCBuilder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MCBuilder.debug.xcconfig"; path = "Target Support Files/Pods-MCBuilder/Pods-MCBuilder.debug.xcconfig"; sourceTree = "<group>"; };
 		605C68BAF3E30ABE45B411BF /* libPods-MCBuilderTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MCBuilderTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		86D9D74DE3DA49D2BCB731CD /* FontAwesome5_Pro_Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Pro_Light.ttf; path = ../assets/fonts/FontAwesome5_Pro_Light.ttf; sourceTree = "<group>"; };
+		95116DAF23D3EA1600C9D72A /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		A83BFBD6D2E724BC175BFA7F /* libPods-MCBuilder-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MCBuilder-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A85ED6C9C8564006996A9341 /* libPods-MCBuilder-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MCBuilder-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEAF7E6A2B4856C45EDC0315 /* Pods-MCBuilder-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MCBuilder-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-MCBuilder-tvOSTests/Pods-MCBuilder-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -138,8 +138,8 @@
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
-				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				95116DAF23D3EA1600C9D72A /* Launch Screen.storyboard */,
 			);
 			name = MCBuilder;
 			sourceTree = "<group>";
@@ -361,11 +361,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				B4A1534EECBD41298F719E6D /* FontAwesome5_Pro_Brands.ttf in Resources */,
 				72BB03EB0F754EB3B0F5C676 /* FontAwesome5_Pro_Light.ttf in Resources */,
 				FEA30E18C76E408AA3BD11D4 /* FontAwesome5_Pro_Regular.ttf in Resources */,
 				5B53B8A66E464005B963A000 /* FontAwesome5_Pro_Solid.ttf in Resources */,
+				95116DB023D3EA1600C9D72A /* Launch Screen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -641,18 +641,6 @@
 		};
 /* End PBXTargetDependency section */
 
-/* Begin PBXVariantGroup section */
-		13B07FB11A68108700A75B9A /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				13B07FB21A68108700A75B9A /* Base */,
-			);
-			name = LaunchScreen.xib;
-			path = MCBuilder;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
-
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -702,17 +690,18 @@
 			baseConfigurationReference = 5ACDA8841001F6B82F8D46A3 /* Pods-MCBuilder.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 8;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = EZ4AQB6GC7;
 				INFOPLIST_FILE = MCBuilder/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.rdonnelly.MCBuilder;
+				PRODUCT_BUNDLE_IDENTIFIER = us.com.rdonnelly.mcbuilder;
 				PRODUCT_NAME = MCBuilder;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -724,16 +713,17 @@
 			baseConfigurationReference = 08E0A7B750C08AF95E377553 /* Pods-MCBuilder.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = EZ4AQB6GC7;
 				INFOPLIST_FILE = MCBuilder/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.rdonnelly.MCBuilder;
+				PRODUCT_BUNDLE_IDENTIFIER = us.com.rdonnelly.mcbuilder;
 				PRODUCT_NAME = MCBuilder;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";

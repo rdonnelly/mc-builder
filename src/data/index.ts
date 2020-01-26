@@ -2,7 +2,7 @@ export {
   Card as CardModel,
   getCard,
   getCards,
-  getCardsFiltered,
+  getFilteredCards,
 } from './models/Card';
 export {
   Faction as FactionModel,

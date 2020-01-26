@@ -1,19 +1,19 @@
 import * as React from 'react';
-import { useRef } from 'react';
-import { StyleSheet } from 'react-native';
 import { RouteProp, useScrollToTop } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { StyleSheet } from 'react-native';
+import { useRef } from 'react';
 import styled from 'styled-components/native';
 
 import { CardStackParamList } from '../navigation/CardsStackNavigator';
-import CardListItem from '../components/CardListItem';
 import { base, colors } from '../styles';
+import CardListItem from '../components/CardListItem';
 
 import {
   CardModel,
   getCards,
-  getCardsFiltered,
   getFaction,
+  getFilteredCards,
   getPack,
   getType,
 } from '../data';
@@ -28,7 +28,7 @@ const CardListScreen: React.FunctionComponent<{
   const filter = (route.params || {}).filter;
   const filterCode = (route.params || {}).code;
   const cards =
-    filter && filterCode ? getCardsFiltered(filter, filterCode) : getCards();
+    filter && filterCode ? getFilteredCards(filter, filterCode) : getCards();
 
   if (filter && filterCode) {
     let filterName = null;

@@ -17,7 +17,9 @@ export default function RootStackScreen() {
       <DecksModalNavigator.Screen
         name="DecksAdd"
         component={DecksAddScreen}
-        options={{ headerShown: false, stackPresentation: 'modal' }}
+        options={{
+          stackPresentation: 'modal',
+        }}
       />
     </DecksModalNavigator.Navigator>
   );

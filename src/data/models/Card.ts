@@ -1,5 +1,5 @@
 import { ICardRaw } from '../types';
-import { getFactions } from '../models/Faction';
+import { factionRank, getFactions } from '../models/Faction';
 import { getPacks } from '../models/Pack';
 import { getSets } from '../models/Set';
 import { getTypes } from '../models/Type';
@@ -60,6 +60,10 @@ export class Card {
 
   get setName() {
     return (this.set || {}).name;
+  }
+
+  get setQuantity() {
+    return this.raw.quantity;
   }
 
   get type() {
@@ -268,9 +272,12 @@ export const getCards = () =>
       return 0;
     });
 
-export const getCardsFiltered = (filter: string, filterCode: string) => {
+export const getFilteredCards = (filter: string, filterCode: string) => {
   if (filter === 'faction') {
     return getCards().filter((card) => card.factionCode === filterCode);
+  }
+  if (filter === 'set') {
+    return getCards().filter((card) => card.setCode === filterCode);
   }
   if (filter === 'pack') {
     return getCards().filter((card) => card.packCode === filterCode);
@@ -282,5 +289,46 @@ export const getCardsFiltered = (filter: string, filterCode: string) => {
   return getCards();
 };
 
+export const getSubsetOfCards = (codes: string[]) =>
+  getCards().filter((card) => codes.includes(card.code));
+
+export const getEligibleCards = (factionCode) =>
+  getCards()
+    .filter((card) => {
+      if (![factionCode, 'basic'].includes(card.factionCode)) {
+        return false;
+      }
+
+      if (
+        ![
+          'ally',
+          'attachment',
+          'event',
+          'resource',
+          'support',
+          'upgrade',
+        ].includes(card.typeCode)
+      ) {
+        return false;
+      }
+
+      return true;
+    })
+    .sort((a, b) => {
+      if (factionRank[a.factionCode] > factionRank[b.factionCode]) {
+        return 1;
+      }
+      if (factionRank[b.factionCode] > factionRank[a.factionCode]) {
+        return -1;
+      }
+      if (a.code > b.code) {
+        return 1;
+      }
+      if (b.code > a.code) {
+        return -1;
+      }
+      return 0;
+    });
+
 export const getCard = (code: string) =>
-  getCards().find((c) => c.code === code);
+  getCards().find((card) => card.code === code);

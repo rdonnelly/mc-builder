@@ -1,6 +1,7 @@
 export interface IDeck {
   code: string;
   name: string;
-  identityCode: string;
+  setCode: string;
   aspectCode: string;
+  cards: { [field: string]: string };
 }

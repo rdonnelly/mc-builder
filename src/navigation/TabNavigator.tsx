@@ -1,11 +1,11 @@
-import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
+import React from 'react';
 
+import { colors } from '../styles';
 import CardsStackNavigator from './CardsStackNavigator';
 import DecksModalNavigator from './DecksModalNavigator';
 import SettingsStackNavigator from './SettingsStackNavigator';
-import { colors } from '../styles';
 
 const Tab = createBottomTabNavigator();
 
@@ -22,7 +22,7 @@ export default () => (
       options={{
         tabBarLabel: 'Cards',
         tabBarIcon: ({ color, size }) => (
-          <FontAwesomeIcon name="files-medical" color={color} size={size} />
+          <FontAwesomeIcon name="stream" color={color} size={size} />
         ),
       }}
     />
@@ -32,7 +32,7 @@ export default () => (
       options={{
         tabBarLabel: 'Decks',
         tabBarIcon: ({ color, size }) => (
-          <FontAwesomeIcon name="books" color={color} size={size} />
+          <FontAwesomeIcon name="layer-group" color={color} size={size} />
         ),
       }}
     />
@@ -42,7 +42,7 @@ export default () => (
       options={{
         tabBarLabel: 'Settings',
         tabBarIcon: ({ color, size }) => (
-          <FontAwesomeIcon name="cogs" color={color} size={size} />
+          <FontAwesomeIcon name="cog" color={color} size={size} />
         ),
       }}
     />

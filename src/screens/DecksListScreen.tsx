@@ -1,16 +1,17 @@
-import React, { useRef } from 'react';
-import { Text, TouchableOpacity } from 'react-native';
-import { useScrollToTop } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { TouchableOpacity } from 'react-native';
+import { useScrollToTop } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
+import React, { useRef } from 'react';
 import styled from 'styled-components/native';
 
 import { DecksStackParamList } from '../navigation/DecksStackNavigator';
-import DecksListItem from '../components/DecksListItem';
-import { StoreState } from '../store';
 import { IDeck } from '../store/types';
+import { StoreState } from '../store';
+import DecksListItem from '../components/DecksListItem';
 
-import { base } from '../styles';
+import { base, colors } from '../styles';
 
 const DecksListScreen: React.FunctionComponent<{
   navigation: StackNavigationProp<DecksStackParamList, 'DecksList'>;
@@ -24,7 +25,7 @@ const DecksListScreen: React.FunctionComponent<{
     headerRight: () => {
       return (
         <TouchableOpacity onPress={() => navigation.navigate('DecksAdd')}>
-          <Text>Add Deck</Text>
+          <FontAwesomeIcon name="layer-plus" color={colors.white} size={24} />
         </TouchableOpacity>
       );
     },

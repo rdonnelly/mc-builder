@@ -22,7 +22,7 @@ const DecksListItem: React.FunctionComponent<{
           </DeckDetailsName>
           <DeckDetailsInfo>
             <DeckDetailsInfoText>
-              <Text>{deck.identityCode}</Text>
+              <Text>{deck.setCode}</Text>
               <Text>&nbsp;&middot;&nbsp;</Text>
               <Text>{deck.aspectCode}</Text>
             </DeckDetailsInfoText>

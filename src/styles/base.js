@@ -62,7 +62,6 @@ export default {
     border-radius: 8px;
     border-width: 0;
     color: ${colors.darkGray};
-    flex: 1 1 auto;
     font-size: 20px;
     line-height: 24px;
     padding: 12px;

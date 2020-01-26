@@ -1,3 +1,4 @@
+import { Action, configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import {
   FLUSH,
   PAUSE,
@@ -8,12 +9,13 @@ import {
   persistReducer,
   persistStore,
 } from 'redux-persist';
-import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
+import { ThunkAction } from 'redux-thunk';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import rootReducer from './reducers';
 
 export type StoreState = ReturnType<typeof rootReducer>;
+export type AppThunk = ThunkAction<void, StoreState, null, Action<string>>;
 
 const persistConfig = {
   key: 'root',

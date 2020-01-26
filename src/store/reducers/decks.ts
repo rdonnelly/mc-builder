@@ -1,14 +1,15 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import uuidv4 from 'uuid/v4';
 
 import { IDeck } from '../types';
+import { getFilteredCards } from '../../data/models/Card';
 
 const initialState = [
   {
     code: 'test',
     name: 'Test Initial Deck',
-    identityCode: '01001',
-    aspectCode: 'aggression',
+    setCode: 'spider_man',
+    aspectCode: 'justice',
+    cards: {},
   },
 ] as IDeck[];
 
@@ -19,14 +20,28 @@ const decksSlice = createSlice({
     addDeck(
       state,
       action: PayloadAction<{
+        code: string;
         name: string;
-        identityCode: string;
+        setCode: string;
         aspectCode: string;
       }>,
     ) {
-      const code = uuidv4();
-      const { name, identityCode, aspectCode } = action.payload;
-      state.push({ code, name, identityCode, aspectCode });
+      const { code, name, setCode, aspectCode } = action.payload;
+      const setCards = getFilteredCards('set', setCode);
+      const deckCards = {};
+      setCards.forEach((card) => {
+        deckCards[card.code] = card.setQuantity;
+      });
+
+      const deck: IDeck = {
+        code,
+        name,
+        setCode,
+        aspectCode,
+        cards: deckCards,
+      };
+
+      state.push(deck);
     },
     reset() {
       return initialState;

@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { useSelector } from 'react-redux';
 
 import { DecksStackParamList } from '../navigation/DecksStackNavigator';
-import DeckDetail from '../components/DeckDetail';
-import { StoreState } from '../store';
 import { IDeck } from '../store/types';
+import { StoreState } from '../store';
+import DeckDetail from '../components/DeckDetail';
 
 const DeckDetailScreen: React.FunctionComponent<{
   navigation: StackNavigationProp<DecksStackParamList, 'DeckDetail'>;
@@ -17,7 +17,7 @@ const DeckDetailScreen: React.FunctionComponent<{
   const deck = decks.find((d) => d.code === code);
 
   navigation.setOptions({
-    headerTitle: code,
+    headerTitle: deck.name,
   });
 
   return <DeckDetail deck={deck} />;

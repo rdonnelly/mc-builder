@@ -18,7 +18,18 @@ export class Type {
   }
 }
 
-export const getTypes = () => typesRaw.map((typeRaw) => new Type(typeRaw));
+export const getTypes = () =>
+  typesRaw
+    .map((typeRaw) => new Type(typeRaw))
+    .sort((a, b) => {
+      if (a.code > b.code) {
+        return 1;
+      }
+      if (b.code > a.code) {
+        return -1;
+      }
+      return 0;
+    });
 
 export const getType = (code: string) => {
   return (

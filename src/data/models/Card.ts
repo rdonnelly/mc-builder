@@ -255,7 +255,18 @@ const cards = [].concat(
   require('marvelsdb-json-data/pack/thor.json'),
 );
 
-export const getCards = () => cards.map((raw) => new Card(raw));
+export const getCards = () =>
+  cards
+    .map((raw) => new Card(raw))
+    .sort((a, b) => {
+      if (a.code > b.code) {
+        return 1;
+      }
+      if (b.code > a.code) {
+        return -1;
+      }
+      return 0;
+    });
 
 export const getCardsFiltered = (filter: string, filterCode: string) => {
   if (filter === 'faction') {

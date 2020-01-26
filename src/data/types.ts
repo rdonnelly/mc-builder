@@ -40,6 +40,7 @@ export interface ICardRaw {
 export interface IFactionRaw {
   code: string;
   name: string;
+  is_primary: boolean;
 }
 
 export interface IPackRaw {

@@ -22,7 +22,18 @@ export class Pack {
   }
 }
 
-export const getPacks = () => packsRaw.map((packRaw) => new Pack(packRaw));
+export const getPacks = () =>
+  packsRaw
+    .map((packRaw) => new Pack(packRaw))
+    .sort((a, b) => {
+      if (a.code > b.code) {
+        return 1;
+      }
+      if (b.code > a.code) {
+        return -1;
+      }
+      return 0;
+    });
 
 export const getPack = (code: string) => {
   return (

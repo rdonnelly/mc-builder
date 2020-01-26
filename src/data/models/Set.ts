@@ -18,7 +18,18 @@ export class Set {
   }
 }
 
-export const getSets = () => setsRaw.map((setRaw) => new Set(setRaw));
+export const getSets = () =>
+  setsRaw
+    .map((setRaw) => new Set(setRaw))
+    .sort((a, b) => {
+      if (a.code > b.code) {
+        return 1;
+      }
+      if (b.code > a.code) {
+        return -1;
+      }
+      return 0;
+    });
 
 export const getSet = (code: string) => {
   return (

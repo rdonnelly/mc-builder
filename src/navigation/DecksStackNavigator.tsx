@@ -1,11 +1,17 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import DecksScreen from '../screens/DecksScreen';
+import DecksListScreen from '../screens/DecksListScreen';
+import DeckDetailScreen from '../screens/DeckDetailScreen';
 
 import { colors } from '../styles';
 
-const Stack = createStackNavigator();
+export type DecksStackParamList = {
+  DecksList: undefined;
+  DeckDetail: { code: string };
+};
+
+const Stack = createStackNavigator<DecksStackParamList>();
 
 export default () => (
   <Stack.Navigator
@@ -19,9 +25,16 @@ export default () => (
   >
     <Stack.Screen
       name="DecksList"
-      component={DecksScreen}
+      component={DecksListScreen}
       options={{
         title: 'Decks',
+      }}
+    />
+    <Stack.Screen
+      name="DeckDetail"
+      component={DeckDetailScreen}
+      options={{
+        title: '',
       }}
     />
   </Stack.Navigator>

@@ -56,6 +56,17 @@ export default {
     color: ${(props) => (props.active ? colors.brand : colors.lightGrayDark)};
     margin-top: 2px;
   `,
+
+  TextInput: styled.TextInput`
+    background-color: ${colors.white};
+    border-radius: 8px;
+    border-width: 0;
+    color: ${colors.darkGray};
+    flex: 1 1 auto;
+    font-size: 20px;
+    line-height: 24px;
+    padding: 12px;
+  `,
 };
 
 // export default StyleSheet.create({

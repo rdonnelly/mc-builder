@@ -1,35 +1,33 @@
 import * as React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 import styled from 'styled-components/native';
 
+import { IDeck } from '../store/types';
 import { base, colors } from '../styles';
 
 export const ITEM_HEIGHT = 64;
 
-const CardListItem: React.FunctionComponent<{
-  card: any;
-  isSelected: boolean;
+const DecksListItem: React.FunctionComponent<{
+  deck: IDeck;
   onPressItem: any;
-}> = ({ card, onPressItem }) => {
+}> = ({ deck, onPressItem }) => {
   return (
     <Container>
-      <ListItemInner onPress={() => onPressItem(card.code)}>
-        <CardDetails>
-          <CardDetailsName>
-            <CardDetailsNameText numberOfLines={1}>
-              {card.name}
-            </CardDetailsNameText>
-          </CardDetailsName>
-          <CardDetailsInfo>
-            <CardDetailsInfoText>
-              <Text>{card.typeName}</Text>
+      <ListItemInner onPress={() => onPressItem(deck.code)}>
+        <DeckDetails>
+          <DeckDetailsName>
+            <DeckDetailsNameText numberOfLines={1}>
+              {deck.name}
+            </DeckDetailsNameText>
+          </DeckDetailsName>
+          <DeckDetailsInfo>
+            <DeckDetailsInfoText>
+              <Text>{deck.identityCode}</Text>
               <Text>&nbsp;&middot;&nbsp;</Text>
-              <Text>{card.packName}</Text>
-              <Text>&nbsp;&middot;&nbsp;</Text>
-              <Text>{card.cardCode}</Text>
-            </CardDetailsInfoText>
-          </CardDetailsInfo>
-        </CardDetails>
+              <Text>{deck.aspectCode}</Text>
+            </DeckDetailsInfoText>
+          </DeckDetailsInfo>
+        </DeckDetails>
         <ListChevronWrapper>
           <ListChevron name={'chevron-right'} size={16} />
         </ListChevronWrapper>
@@ -56,28 +54,28 @@ const ListItemInner = styled.TouchableOpacity`
   width: 100%;
 `;
 
-const CardDetails = styled.View`
+const DeckDetails = styled.View`
   align-items: flex-start;
   flex: 1 1 auto;
   flex-direction: column;
   justify-content: center;
 `;
 
-const CardDetailsName = styled.View`
+const DeckDetailsName = styled.View`
   padding-bottom: 2px;
 `;
 
-const CardDetailsNameText = styled.Text`
+const DeckDetailsNameText = styled.Text`
   color: ${colors.darkGray};
   font-size: 18px;
   font-weight: 600;
 `;
 
-const CardDetailsInfo = styled.View`
+const DeckDetailsInfo = styled.View`
   flex-direction: row;
 `;
 
-const CardDetailsInfoText = styled.Text`
+const DeckDetailsInfoText = styled.Text`
   color: ${colors.gray};
   font-size: 13px;
   font-weight: 500;
@@ -87,4 +85,4 @@ const ListChevronWrapper = styled(base.ListChevronWrapper)``;
 
 const ListChevron = styled(base.ListChevron)``;
 
-export default CardListItem;
+export default DecksListItem;

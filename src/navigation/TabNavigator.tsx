@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
 
 import CardsStackNavigator from './CardsStackNavigator';
-import DecksStackNavigator from './DecksStackNavigator';
+import DecksModalNavigator from './DecksModalNavigator';
 import SettingsStackNavigator from './SettingsStackNavigator';
 import { colors } from '../styles';
 
@@ -28,7 +28,7 @@ export default () => (
     />
     <Tab.Screen
       name="Decks"
-      component={DecksStackNavigator}
+      component={DecksModalNavigator}
       options={{
         tabBarLabel: 'Decks',
         tabBarIcon: ({ color, size }) => (

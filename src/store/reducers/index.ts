@@ -1,5 +1,6 @@
-const initialState = {};
+import { combineReducers } from 'redux';
+import decksReducer from './decks';
 
-export default (state = initialState /*, action*/) => {
-  return state;
-};
+export default combineReducers({
+  decks: decksReducer,
+});

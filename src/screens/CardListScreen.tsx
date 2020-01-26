@@ -1,59 +1,81 @@
 import * as React from 'react';
 import { useRef } from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
-import { useScrollToTop } from '@react-navigation/native';
+import { StyleSheet } from 'react-native';
+import { RouteProp, useScrollToTop } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import styled from 'styled-components/native';
 
 import { CardStackParamList } from '../navigation/CardsStackNavigator';
 import CardListItem from '../components/CardListItem';
 import { base, colors } from '../styles';
 
-import { ICardRaw, cards } from '../data';
-
-const styles = StyleSheet.create({
-  container: {
-    ...base.container,
-    backgroundColor: colors.lightGray,
-  },
-  list: {
-    backgroundColor: colors.white,
-    flex: 1,
-    width: '100%',
-  },
-  listContent: {
-    paddingBottom: 16,
-  },
-  footer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: 8,
-    paddingTop: 16,
-  },
-  footerText: {
-    color: colors.gray,
-    fontSize: 14,
-    fontWeight: '800',
-    marginBottom: 16,
-    textAlign: 'center',
-  },
-});
+import {
+  CardModel,
+  getCards,
+  getCardsFiltered,
+  getFaction,
+  getPack,
+  getType,
+} from '../data';
 
 const CardListScreen: React.FunctionComponent<{
-  navigation: StackNavigationProp<CardStackParamList, 'CardList'>;
-}> = (props) => {
+  navigation: StackNavigationProp<CardStackParamList, 'CardsList'>;
+  route: RouteProp<CardStackParamList, 'CardsList'>;
+}> = ({ navigation, route }) => {
   const flatListRef = useRef(null);
-
   useScrollToTop(flatListRef);
 
+  const filter = (route.params || {}).filter;
+  const filterCode = (route.params || {}).code;
+  const cards =
+    filter && filterCode ? getCardsFiltered(filter, filterCode) : getCards();
+
+  if (filter && filterCode) {
+    let filterName = null;
+    if (filter === 'faction') {
+      filterName = getFaction(filterCode).name;
+    }
+    if (filter === 'pack') {
+      filterName = getPack(filterCode).name;
+    }
+    if (filter === 'type') {
+      filterName = getType(filterCode).name;
+    }
+
+    if (filterName) {
+      navigation.setOptions({
+        headerTitle: filterName,
+      });
+    }
+  }
+
+  const handlePressFactions = () => {
+    if (navigation) {
+      navigation.navigate('FactionsList');
+    }
+  };
+
+  const handlePressPacks = () => {
+    if (navigation) {
+      navigation.navigate('PacksList');
+    }
+  };
+
+  const handlePressTypes = () => {
+    if (navigation) {
+      navigation.navigate('TypesList');
+    }
+  };
+
   const handlePressItem = (code: string) => {
-    if (props.navigation) {
-      props.navigation.navigate('CardDetail', {
+    if (navigation) {
+      navigation.navigate('CardDetail', {
         code,
       });
     }
   };
 
-  const renderCard = ({ item: card }: { item: ICardRaw }) => (
+  const renderCard = ({ item: card }: { item: CardModel }) => (
     <CardListItem
       card={card}
       isSelected={false}
@@ -67,28 +89,67 @@ const CardListScreen: React.FunctionComponent<{
     }
 
     return (
-      <View style={styles.footer}>
-        <Text style={styles.footerText}>
+      <ListFooter>
+        <ListFooterText>
           Showing {cards.length} Card
           {cards.length === 1 ? '' : 's'}
-        </Text>
-      </View>
+        </ListFooterText>
+      </ListFooter>
     );
   };
 
   return (
-    <View style={base.container}>
+    <Container>
       <FlatList
         ref={flatListRef}
         renderItem={renderCard}
         data={cards}
-        keyExtractor={(card: ICardRaw) => card.code}
-        style={styles.list}
-        contentContainerStyle={styles.listContent}
+        keyExtractor={(card: CardModel) => card.code}
         ListFooterComponent={renderFooter}
       />
-    </View>
+      {!filter && !filterCode && (
+        <Filters>
+          <FiltersButton onPress={handlePressFactions}>
+            <FiltersButtonText>Factions</FiltersButtonText>
+          </FiltersButton>
+          <FiltersButton onPress={handlePressPacks}>
+            <FiltersButtonText>Packs</FiltersButtonText>
+          </FiltersButton>
+          <FiltersButton onPress={handlePressTypes}>
+            <FiltersButtonText>Types</FiltersButtonText>
+          </FiltersButton>
+        </Filters>
+      )}
+    </Container>
   );
 };
+
+const Container = styled(base.Container)``;
+const Filters = styled.View`
+  background-color: ${colors.white};
+  border-top-color: ${colors.gray};
+  border-top-width: ${StyleSheet.hairlineWidth}px;
+  flex-direction: row;
+  padding-horizontal: 8px;
+  width: 100%;
+`;
+
+const FiltersButton = styled(base.Button)`
+  background-color: ${colors.lightGray};
+  flex: 1 1 0;
+  margin: 8px;
+`;
+
+const FiltersButtonText = styled(base.ButtonText)`
+  color: ${colors.brand};
+  font-size: 16px;
+  line-height: 18px;
+`;
+
+const FlatList = styled(base.FlatList)``;
+
+const ListFooter = styled(base.ListFooter)``;
+
+const ListFooterText = styled(base.ListFooterText)``;
 
 export default CardListScreen;

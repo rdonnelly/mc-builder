@@ -1,12 +1,14 @@
 import * as React from 'react';
-import { Text, View } from 'react-native';
+import styled from 'styled-components/native';
 
-import { base } from '../styles';
+import { base, colors } from '../styles';
 
-export default () => {
-  return (
-    <View style={base.container}>
-      <Text>Decks</Text>
-    </View>
-  );
+const DecksScreen: React.FunctionComponent<{}> = () => {
+  return <Container />;
 };
+
+const Container = styled(base.Container)`
+  background-color: ${colors.lightGray};
+`;
+
+export default DecksScreen;

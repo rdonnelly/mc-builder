@@ -1,61 +1,91 @@
 import * as React from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import DeviceInfo from 'react-native-device-info';
+import Html from 'react-native-render-html';
+import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
+import styled from 'styled-components/native';
 
+import { shareImageUrl } from '../utils/Share';
 import { base, colors } from '../styles';
 
-import { ICardRaw, cards } from '../data';
+import { CardModel } from '../data';
+
+const isTablet = DeviceInfo.isTablet();
 
 const styles = StyleSheet.create({
-  container: {
-    ...base.container,
-  },
-  imageWrapper: {
-    backgroundColor: colors.white,
-    height: 440,
-    marginBottom: 16,
-    padding: 16,
-    width: '100%',
-  },
-  imageWrapperBlue: {
-    borderBottomColor: colors.blue,
-    borderBottomWidth: 8,
-    borderTopColor: colors.blue,
-    borderTopWidth: 8,
-  },
-  image: {
-    height: '100%',
-    width: '100%',
+  cardDetailText: {
+    color: colors.darkGray,
+    fontSize: isTablet ? 20 : 17,
+    fontWeight: '500',
+    letterSpacing: isTablet ? -0.54 : -0.408,
   },
 });
 
-const CardDetail: React.FunctionComponent<{
-  code: string;
-}> = ({ code }) => {
-  const card: ICardRaw | undefined = cards.find((c) => c.code === code);
+const handleImageLongPress = (card: CardModel) => {
+  ReactNativeHapticFeedback.trigger('impactHeavy');
+  shareImageUrl(card.imageSrc);
+};
 
-  if (card == null) {
+const renderCardText = (card: CardModel) => {
+  let { text: cardText } = card;
+
+  if (!cardText) {
     return null;
   }
 
-  const imageSrc = `https://marvelcdb.com/bundles/cards/${code}.jpg`;
+  const customTagStyles = {
+    i: { fontStyle: 'italic', fontWeight: '700' },
+    p: { marginTop: 0, marginBottom: 0 },
+  };
 
   return (
-    <View style={styles.container}>
-      <Text>{card.name}</Text>
-      <View style={styles.imageWrapper}>
-        <TouchableOpacity
-          activeOpacity={0.9}
-          // onLongPress={this.handleImageLongPress}
-        >
-          <Image
-            style={styles.image}
-            resizeMode="contain"
-            source={{ uri: imageSrc }}
-          />
-        </TouchableOpacity>
-      </View>
-    </View>
+    <CardDetailTextWrapper>
+      <Html
+        html={cardText}
+        baseFontStyle={styles.cardDetailText}
+        tagsStyles={customTagStyles}
+      />
+    </CardDetailTextWrapper>
   );
 };
+
+const CardDetail: React.FunctionComponent<{
+  card: CardModel;
+}> = ({ card }) => {
+  return (
+    <Container>
+      <View>{renderCardText(card)}</View>
+      <ImageWrapper
+        activeOpacity={0.9}
+        onLongPress={() => handleImageLongPress(card)}
+      >
+        <Image resizeMode="contain" source={{ uri: card.imageSrc }} />
+      </ImageWrapper>
+    </Container>
+  );
+};
+
+const Container = styled(base.Container)``;
+
+const ImageWrapper = styled.TouchableOpacity`
+  height: 440px;
+  margin-bottom: 16px;
+  padding: 16px;
+  width: 100%;
+`;
+
+const Image = styled.Image`
+  height: 100%;
+  width: 100%;
+`;
+
+const CardDetailTextWrapper = styled.View`
+  background-color: ${colors.lightGray};
+  border-radius: 4px;
+  margin-bottom: 16px;
+  padding-horizontal: 12px;
+  padding-vertical: 16px;
+  width: 100%;
+`;
 
 export default CardDetail;

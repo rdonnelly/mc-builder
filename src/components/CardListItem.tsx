@@ -1,121 +1,102 @@
 import * as React from 'react';
-import {
-  StyleSheet,
-  Text,
-  TextStyle,
-  TouchableOpacity,
-  View,
-  ViewStyle,
-} from 'react-native';
-import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
+import { StyleSheet, Text, View } from 'react-native';
+import styled from 'styled-components/native';
 
 import { base, colors } from '../styles';
 
-import { ICardRaw } from '../data';
+export const ITEM_HEIGHT = 64;
 
-export const ITEM_HEIGHT = 58;
-
-const styles = StyleSheet.create({
-  container: {
-    ...base.container,
-    backgroundColor: colors.lightGray,
-    borderBottomColor: colors.lightGrayDark,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    flexDirection: 'column',
-    height: ITEM_HEIGHT,
-    justifyContent: 'center',
-  },
-  containerSelected: {
-    backgroundColor: colors.white,
-  },
-  containerTappable: {
-    alignItems: 'center',
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingHorizontal: 8,
-    width: '100%',
-  },
-  cardDetails: {
-    alignItems: 'flex-start',
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
-  },
-  cardDetailsName: {
-    paddingVertical: 1,
-  },
-  cardDetailsNameText: {
-    color: colors.darkGray,
-    fontSize: 18,
-    fontWeight: '600',
-  },
-  cardDetailsInfo: {
-    flexDirection: 'row',
-    paddingVertical: 1,
-  },
-  cardDetailsInfoText: {
-    color: colors.gray,
-    fontSize: 13,
-    fontWeight: '500',
-  },
-  chevronWrapper: {},
-  chevron: {
-    color: colors.lightGrayDark,
-    marginTop: 2,
-  },
-  chevronSelected: {
-    color: colors.brand,
-  },
-});
+// const CardListItem: React.FunctionComponent<{
+//   card: any;
+//   isSelected: boolean;
+//   onPressItem: any;
+// }> = ({ card, onPressItem }) => {
+//   return (
+//     <View>
+//       <Text numberOfLines={1}>{card.name}</Text>
+//     </View>
+//   );
+// };
 
 const CardListItem: React.FunctionComponent<{
-  card: ICardRaw;
+  card: any;
   isSelected: boolean;
   onPressItem: any;
-}> = ({ card, isSelected, onPressItem }) => {
-  const rowStyles: ViewStyle[] = [styles.container];
-  const chevronStyles: TextStyle[] = [styles.chevron];
-  if (isSelected) {
-    rowStyles.push(styles.containerSelected);
-    chevronStyles.push(styles.chevronSelected);
-  }
-
+}> = ({ card, onPressItem }) => {
   return (
-    <View style={rowStyles}>
-      <TouchableOpacity
-        onPress={() => onPressItem(card.code)}
-        style={styles.containerTappable}
-      >
-        <View style={styles.cardDetails}>
-          <View style={styles.cardDetailsName}>
-            <Text style={styles.cardDetailsNameText} numberOfLines={1}>
+    <Container>
+      <ListItemInner onPress={() => onPressItem(card.code)}>
+        <CardDetails>
+          <CardDetailsName>
+            <CardDetailsNameText numberOfLines={1}>
               {card.name}
-            </Text>
-          </View>
-          <View style={styles.cardDetailsInfo}>
-            <Text style={styles.cardDetailsInfoText}>
-              <Text>
-                {card.pack_code}&nbsp;{card.position}
-              </Text>
-              <Text>&nbsp;&middot;&nbsp;{card.type_code}</Text>
-              <Text>&nbsp;&middot;&nbsp;{card.set_code}</Text>
-              {card.cost != null && (
-                <Text>&nbsp;&middot;&nbsp;{card.cost}</Text>
-              )}
-            </Text>
-          </View>
-        </View>
-        <View style={styles.chevronWrapper}>
-          <FontAwesomeIcon
-            name={'chevron-right'}
-            size={16}
-            style={chevronStyles}
-          />
-        </View>
-      </TouchableOpacity>
-    </View>
+            </CardDetailsNameText>
+          </CardDetailsName>
+          <CardDetailsInfo>
+            <CardDetailsInfoText>
+              <Text>{card.typeName}</Text>
+              <Text>&nbsp;&middot;&nbsp;</Text>
+              <Text>{card.packName}</Text>
+              <Text>&nbsp;&middot;&nbsp;</Text>
+              <Text>{card.cardCode}</Text>
+            </CardDetailsInfoText>
+          </CardDetailsInfo>
+        </CardDetails>
+        <ListChevronWrapper>
+          <ListChevron name={'chevron-right'} size={16} />
+        </ListChevronWrapper>
+      </ListItemInner>
+    </Container>
   );
 };
+
+const Container = styled(base.Container)`
+  background-color: ${colors.lightGray};
+  border-bottom-color: ${colors.lightGrayDark};
+  border-bottom-width: ${StyleSheet.hairlineWidth}px;
+  flex-direction: column;
+  height: ${ITEM_HEIGHT}px;
+  justify-content: center;
+`;
+
+const ListItemInner = styled.TouchableOpacity`
+  align-items: center;
+  flex: 1 1 auto;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-horizontal: 16px;
+  width: 100%;
+`;
+
+const CardDetails = styled.View`
+  align-items: flex-start;
+  flex: 1 1 auto;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+const CardDetailsName = styled.View`
+  padding-bottom: 2px;
+`;
+
+const CardDetailsNameText = styled.Text`
+  color: ${colors.darkGray};
+  font-size: 18px;
+  font-weight: 600;
+`;
+
+const CardDetailsInfo = styled.View`
+  flex-direction: row;
+`;
+
+const CardDetailsInfoText = styled.Text`
+  color: ${colors.gray};
+  font-size: 13px;
+  font-weight: 500;
+`;
+
+const ListChevronWrapper = styled(base.ListChevronWrapper)``;
+
+const ListChevron = styled(base.ListChevron)``;
 
 export default CardListItem;

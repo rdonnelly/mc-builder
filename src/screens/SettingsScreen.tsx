@@ -4,35 +4,36 @@ import {
   Linking,
   ScrollView,
   StyleSheet,
-  Text,
   TouchableOpacity,
-  View,
 } from 'react-native';
 import InAppBrowser from 'react-native-inappbrowser-reborn';
+import styled from 'styled-components/native';
 
 import { base, colors } from '../styles';
 
-const styles = StyleSheet.create({
-  container: {
-    ...base.container,
-    backgroundColor: colors.lightGray,
-  },
-  information: {
-    borderColor: colors.lightGrayDark,
-    borderTopWidth: StyleSheet.hairlineWidth,
-    marginBottom: 24,
-    paddingHorizontal: 16,
-    paddingTop: 24,
-  },
-  disclaimerText: {
-    color: colors.gray,
-    textAlign: 'center',
-  },
-  linkText: {
-    color: colors.brand,
-    textAlign: 'center',
-  },
-});
+const SettingsScreen: React.FunctionComponent<{}> = () => {
+  return (
+    <Container>
+      <ScrollView>
+        <Information>
+          <DisclaimerText>
+            The information presented in this app about Marvel Champions, both
+            literal and graphical, is copyrighted by Fantasy Flight Games. This
+            app is not produced by, endorsed by, supported by, or affiliated
+            with Fantasy Flight Games.
+          </DisclaimerText>
+        </Information>
+
+        <Information>
+          <TouchableOpacity onPress={visitWebpage}>
+            <LinkText>Designed and Developed by</LinkText>
+            <LinkText>Ryan Donnelly</LinkText>
+          </TouchableOpacity>
+        </Information>
+      </ScrollView>
+    </Container>
+  );
+};
 
 const visitWebpage = async () => {
   try {
@@ -55,26 +56,26 @@ const visitWebpage = async () => {
   }
 };
 
-export default () => {
-  return (
-    <View style={styles.container}>
-      <ScrollView>
-        <View style={styles.information}>
-          <Text style={styles.disclaimerText}>
-            The information presented in this app about Marvel Champions, both
-            literal and graphical, is copyrighted by Fantasy Flight Games. This
-            app is not produced by, endorsed by, supported by, or affiliated
-            with Fantasy Flight Games.
-          </Text>
-        </View>
+const Container = styled(base.Container)`
+  background-color: ${colors.lightGray};
+`;
 
-        <View style={styles.information}>
-          <TouchableOpacity onPress={visitWebpage}>
-            <Text style={styles.linkText}>Designed and Developed by</Text>
-            <Text style={styles.linkText}>Ryan Donnelly</Text>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
-    </View>
-  );
-};
+const Information = styled.View`
+  border-top-color: ${colors.lightGrayDark};
+  border-top-width: ${StyleSheet.hairlineWidth}px;
+  margin-bottom: 24px;
+  padding-horizontal: 16px;
+  padding-top: 24px;
+`;
+
+const DisclaimerText = styled.Text`
+  color: ${colors.gray};
+  text-align: center;
+`;
+
+const LinkText = styled.Text`
+  color: ${colors.brand};
+  text-align: center;
+`;
+
+export default SettingsScreen;

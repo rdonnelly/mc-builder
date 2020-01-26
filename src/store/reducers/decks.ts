@@ -3,11 +3,18 @@ import uuidv4 from 'uuid/v4';
 
 import { IDeck } from '../types';
 
+const initialState = [
+  {
+    code: 'test',
+    name: 'Test Initial Deck',
+    identityCode: '01001',
+    aspectCode: 'aggression',
+  },
+] as IDeck[];
+
 const decksSlice = createSlice({
   name: 'decks',
-  initialState: [
-    { code: 'ryan', name: 'hello there!', identityCode: 'a', aspectCode: 'b' },
-  ] as IDeck[],
+  initialState: initialState,
   reducers: {
     addDeck(
       state,
@@ -21,8 +28,11 @@ const decksSlice = createSlice({
       const { name, identityCode, aspectCode } = action.payload;
       state.push({ code, name, identityCode, aspectCode });
     },
+    reset() {
+      return initialState;
+    },
   },
 });
 
-export const { addDeck } = decksSlice.actions;
+export const { addDeck, reset } = decksSlice.actions;
 export default decksSlice.reducer;

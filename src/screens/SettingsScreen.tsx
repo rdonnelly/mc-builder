@@ -6,12 +6,20 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
+import { useDispatch } from 'react-redux';
 import InAppBrowser from 'react-native-inappbrowser-reborn';
 import styled from 'styled-components/native';
 
 import { base, colors } from '../styles';
+import { reset } from '../store/reducers/decks';
 
 const SettingsScreen: React.FunctionComponent<{}> = () => {
+  const dispatch = useDispatch();
+
+  const clearStore = () => {
+    dispatch(reset());
+  };
+
   return (
     <Container>
       <ScrollView>
@@ -28,6 +36,12 @@ const SettingsScreen: React.FunctionComponent<{}> = () => {
           <TouchableOpacity onPress={visitWebpage}>
             <LinkText>Designed and Developed by</LinkText>
             <LinkText>Ryan Donnelly</LinkText>
+          </TouchableOpacity>
+        </Information>
+
+        <Information>
+          <TouchableOpacity onPress={clearStore}>
+            <LinkText>Clear Store</LinkText>
           </TouchableOpacity>
         </Information>
       </ScrollView>

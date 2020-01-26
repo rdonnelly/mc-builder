@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
 import { Button } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useDispatch } from 'react-redux';
+import React, { useState } from 'react';
 import styled from 'styled-components/native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { DecksStackParamList } from '../navigation/DecksStackNavigator';
 import { addDeck } from '../store/reducers/decks';

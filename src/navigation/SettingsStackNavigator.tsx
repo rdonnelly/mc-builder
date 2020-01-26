@@ -1,11 +1,11 @@
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
 
 import SettingsScreen from '../screens/SettingsScreen';
 
 import { colors } from '../styles';
 
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 
 export default () => (
   <Stack.Navigator

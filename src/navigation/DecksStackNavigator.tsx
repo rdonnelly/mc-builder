@@ -1,8 +1,8 @@
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
 
-import DecksListScreen from '../screens/DecksListScreen';
 import DeckDetailScreen from '../screens/DeckDetailScreen';
+import DecksListScreen from '../screens/DecksListScreen';
 
 import { colors } from '../styles';
 
@@ -11,7 +11,7 @@ export type DecksStackParamList = {
   DeckDetail: { code: string };
 };
 
-const Stack = createStackNavigator<DecksStackParamList>();
+const Stack = createNativeStackNavigator<DecksStackParamList>();
 
 export default () => (
   <Stack.Navigator

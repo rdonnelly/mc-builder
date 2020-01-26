@@ -1,11 +1,11 @@
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
 
+import CardDetailScreen from '../screens/CardDetailScreen';
 import CardListScreen from '../screens/CardListScreen';
 import FactionListScreen from '../screens/FactionListScreen';
 import PackListScreen from '../screens/PackListScreen';
 import TypeListScreen from '../screens/TypeListScreen';
-import CardDetailScreen from '../screens/CardDetailScreen';
 
 import { colors } from '../styles';
 
@@ -17,7 +17,7 @@ export type CardStackParamList = {
   CardDetail: { code: string };
 };
 
-const Stack = createStackNavigator<CardStackParamList>();
+const Stack = createNativeStackNavigator<CardStackParamList>();
 
 export default () => {
   return (

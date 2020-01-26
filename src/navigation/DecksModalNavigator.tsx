@@ -1,14 +1,14 @@
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
 
-import DecksStackNavigator from './DecksStackNavigator';
 import DecksAddScreen from '../screens/DecksAddScreen';
+import DecksStackNavigator from './DecksStackNavigator';
 
-const DecksModalNavigator = createStackNavigator();
+const DecksModalNavigator = createNativeStackNavigator();
 
 export default function RootStackScreen() {
   return (
-    <DecksModalNavigator.Navigator mode="modal">
+    <DecksModalNavigator.Navigator>
       <DecksModalNavigator.Screen
         name="Decks"
         component={DecksStackNavigator}
@@ -17,7 +17,7 @@ export default function RootStackScreen() {
       <DecksModalNavigator.Screen
         name="DecksAdd"
         component={DecksAddScreen}
-        options={{ headerShown: false }}
+        options={{ headerShown: false, stackPresentation: 'modal' }}
       />
     </DecksModalNavigator.Navigator>
   );

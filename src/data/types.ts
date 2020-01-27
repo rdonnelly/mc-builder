@@ -13,7 +13,7 @@ export interface ICardRaw {
   enemy_horror: number;
   exceptional: boolean;
   exile: boolean;
-  faction_code: string; // TODO
+  faction_code: string;
   flavor: string;
   health: number;
   illustrator: string;
@@ -34,7 +34,7 @@ export interface ICardRaw {
   subtype_code?: string | null;
   text: string;
   traits: string;
-  type_code: string; // TODO
+  type_code: string;
 }
 
 export interface IFactionRaw {
@@ -52,6 +52,7 @@ export interface IPackRaw {
 export interface ISetRaw {
   code: string;
   name: string;
+  type: string;
 }
 
 export interface ITypeRaw {

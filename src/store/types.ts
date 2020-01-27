@@ -3,5 +3,5 @@ export interface IDeck {
   name: string;
   setCode: string;
   aspectCode: string;
-  cards: { [field: string]: string };
+  cards: { [field: string]: number };
 }

@@ -8,8 +8,8 @@ import uuidv4 from 'uuid/v4';
 import { DecksStackParamList } from '../navigation/DecksStackNavigator';
 import { addDeck } from '../store/reducers/decks';
 import { base, colors } from '../styles';
+import { getHeroSets } from '../data/models/Set';
 import { getPrimaryFactions } from '../data/models/Faction';
-import { getSets } from '../data/models/Set';
 
 const DecksAddScreen: React.FunctionComponent<{
   navigation: StackNavigationProp<DecksStackParamList, 'DecksList'>;
@@ -19,7 +19,7 @@ const DecksAddScreen: React.FunctionComponent<{
   const [deckAspect, handleDeckAspectChange] = useState('protection');
   const dispatch = useDispatch();
 
-  const sets = getSets();
+  const sets = getHeroSets();
   const aspects = getPrimaryFactions();
 
   const insets = useSafeArea();
@@ -95,8 +95,9 @@ const DecksAddScreen: React.FunctionComponent<{
 };
 
 const Container = styled(base.Container)<{ paddingBottom: number }>`
-  padding-horizontal: 16px;
   padding-bottom: ${(props) => props.paddingBottom}px;
+  padding-horizontal: 16px;
+  padding-top: 64px;
 `;
 
 const Form = styled.View`

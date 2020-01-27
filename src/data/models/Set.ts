@@ -16,6 +16,10 @@ export class Set {
   get name() {
     return this.raw.name;
   }
+
+  get type() {
+    return this.raw.type;
+  }
 }
 
 export const getSets = () =>
@@ -30,6 +34,8 @@ export const getSets = () =>
       }
       return 0;
     });
+
+export const getHeroSets = () => getSets().filter((set) => set.type === 'hero');
 
 export const getSet = (code: string) => {
   return (

@@ -23,8 +23,7 @@ const ListItem: React.FunctionComponent<{
 };
 
 const Container = styled(base.Container)`
-  background-color: ${(props) =>
-    props.active ? colors.white : colors.lightGray};
+  background-color: ${colors.lightGray};
   border-bottom-color: ${colors.lightGrayDark};
   border-bottom-width: ${StyleSheet.hairlineWidth}px;
   flex-direction: column;

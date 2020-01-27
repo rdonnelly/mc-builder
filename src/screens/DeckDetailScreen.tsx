@@ -3,6 +3,7 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useSelector } from 'react-redux';
 
+import { DeckModel } from '../data';
 import { DecksStackParamList } from '../navigation/DecksStackNavigator';
 import { IDeck } from '../store/types';
 import { StoreState } from '../store';
@@ -15,12 +16,13 @@ const DeckDetailScreen: React.FunctionComponent<{
   const decks: IDeck[] = useSelector((state: StoreState) => state.decks);
   const code = route.params.code;
   const deck = decks.find((d) => d.code === code);
+  const deckModel = new DeckModel(deck);
 
   navigation.setOptions({
     headerTitle: deck.name,
   });
 
-  return <DeckDetail deck={deck} />;
+  return <DeckDetail deck={deckModel} />;
 };
 
 export default DeckDetailScreen;

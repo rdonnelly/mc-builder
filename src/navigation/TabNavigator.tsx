@@ -4,7 +4,7 @@ import React from 'react';
 
 import { colors } from '../styles';
 import CardsStackNavigator from './CardsStackNavigator';
-import DecksModalNavigator from './DecksModalNavigator';
+import DecksStackNavigator from './DecksStackNavigator';
 import SettingsStackNavigator from './SettingsStackNavigator';
 
 const Tab = createBottomTabNavigator();
@@ -28,7 +28,7 @@ export default () => (
     />
     <Tab.Screen
       name="Decks"
-      component={DecksModalNavigator}
+      component={DecksStackNavigator}
       options={{
         tabBarLabel: 'Decks',
         tabBarIcon: ({ color, size }) => (

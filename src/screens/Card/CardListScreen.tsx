@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
 import { RouteProp, useScrollToTop } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useRef } from 'react';
+import React from 'react';
 import styled from 'styled-components/native';
 
 import {
@@ -22,17 +22,6 @@ const CardListScreen: React.FunctionComponent<{
 }> = ({ navigation, route }) => {
   const flatListRef = useRef(null);
   useScrollToTop(flatListRef);
-  // useEffect(() => {
-  //   const unsubscribe = navigation.addListener('tabPress', (e) => {
-  //     // Prevent default behavior
-  //
-  //     e.preventDefault();
-  //     // Do something manually
-  //     // ...
-  //   });
-  //
-  //   return unsubscribe;
-  // }, [navigation]);
 
   const filter = (route.params || {}).filter;
   const filterCode = (route.params || {}).code;

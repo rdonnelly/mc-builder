@@ -82,6 +82,18 @@ export class Card {
     return this.raw.text;
   }
 
+  get backText() {
+    return this.raw.back_text;
+  }
+
+  get attackText() {
+    return this.raw.attack_text;
+  }
+
+  get schemeText() {
+    return this.raw.scheme_text;
+  }
+
   get isUnique() {
     return this.raw.is_unique || false;
   }

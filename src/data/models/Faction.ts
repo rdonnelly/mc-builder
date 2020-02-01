@@ -3,11 +3,12 @@ import factionsRaw from 'marvelsdb-json-data/factions.json';
 import { IFactionRaw } from '../types';
 
 export const factionRank = {
-  aggression: 0,
-  justice: 0,
-  leadership: 0,
-  protection: 0,
-  basic: 1,
+  hero: 0,
+  aggression: 1,
+  justice: 1,
+  leadership: 1,
+  protection: 1,
+  basic: 2,
 };
 
 export class Faction {

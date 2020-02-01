@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import styled from 'styled-components/native';
 
@@ -8,6 +9,14 @@ import DeckEditList from './DeckEditList';
 const DeckEdit: React.FunctionComponent<{
   deck: DeckModel;
 }> = ({ deck }) => {
+  const navigation = useNavigation();
+
+  const handlePressItem = () => {
+    if (navigation) {
+      navigation.goBack();
+    }
+  };
+
   return (
     <Container>
       <Summary>
@@ -23,7 +32,7 @@ const DeckEdit: React.FunctionComponent<{
       </Summary>
       <DeckEditList deck={deck} />
       <FloatingControls>
-        <FloatingControlsSaveButton>
+        <FloatingControlsSaveButton onPress={() => handlePressItem()}>
           <FloatingControlsButtonText>Save</FloatingControlsButtonText>
         </FloatingControlsSaveButton>
       </FloatingControls>

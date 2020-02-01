@@ -292,13 +292,9 @@ export const getFilteredCards = (filter: string, filterCode: string) => {
 export const getSubsetOfCards = (codes: string[]) =>
   getCards().filter((card) => codes.includes(card.code));
 
-export const getEligibleCards = (factionCode) =>
+export const getEligibleCards = (factionCode: string, codes: string[]) =>
   getCards()
     .filter((card) => {
-      if (![factionCode, 'basic'].includes(card.factionCode)) {
-        return false;
-      }
-
       if (
         ![
           'ally',
@@ -308,6 +304,13 @@ export const getEligibleCards = (factionCode) =>
           'support',
           'upgrade',
         ].includes(card.typeCode)
+      ) {
+        return false;
+      }
+
+      if (
+        ![factionCode, 'basic'].includes(card.factionCode) &&
+        !codes.includes(card.code)
       ) {
         return false;
       }

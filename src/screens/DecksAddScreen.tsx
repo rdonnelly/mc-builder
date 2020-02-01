@@ -14,9 +14,9 @@ import { getPrimaryFactions } from '../data/models/Faction';
 const DecksAddScreen: React.FunctionComponent<{
   navigation: StackNavigationProp<DecksStackParamList, 'DecksList'>;
 }> = ({ navigation }) => {
-  const [deckName, handleDeckNameChange] = useState('New Black Panther Deck');
-  const [deckSet, handleDeckSetChange] = useState('black_panther');
-  const [deckAspect, handleDeckAspectChange] = useState('protection');
+  const [deckName, handleDeckNameChange] = useState('');
+  const [deckSet, handleDeckSetChange] = useState('');
+  const [deckAspect, handleDeckAspectChange] = useState('');
   const dispatch = useDispatch();
 
   const sets = getHeroSets();
@@ -26,19 +26,22 @@ const DecksAddScreen: React.FunctionComponent<{
 
   const submit = () => {
     const deckCode = uuidv4();
-    dispatch(
-      addDeck({
-        code: deckCode,
-        name: deckName,
-        setCode: deckSet,
-        aspectCode: deckAspect,
-      }),
-    );
+    if (deckName && deckSet && deckAspect) {
+      dispatch(
+        addDeck({
+          code: deckCode,
+          name: deckName,
+          setCode: deckSet,
+          aspectCode: deckAspect,
+        }),
+      );
 
-    if (navigation) {
-      navigation.navigate('DeckDetail', {
-        code: deckCode,
-      });
+      if (navigation) {
+        navigation.goBack();
+        navigation.navigate('DeckDetail', {
+          code: deckCode,
+        });
+      }
     }
   };
 
@@ -59,6 +62,7 @@ const DecksAddScreen: React.FunctionComponent<{
           selectedValue={deckSet}
           onValueChange={(value) => handleDeckSetChange(value)}
         >
+          <Picker.Item label={'Select a Hero'} value={''} key={'deafult'} />
           {sets.map((faction) => (
             <Picker.Item
               label={faction.name}
@@ -72,6 +76,7 @@ const DecksAddScreen: React.FunctionComponent<{
           selectedValue={deckAspect}
           onValueChange={(value) => handleDeckAspectChange(value)}
         >
+          <Picker.Item label={'Select an Aspect'} value={''} key={'deafult'} />
           {aspects.map((faction) => (
             <Picker.Item
               label={faction.name}

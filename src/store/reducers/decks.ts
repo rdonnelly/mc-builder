@@ -57,11 +57,14 @@ const decksSlice = createSlice({
       }>,
     ) {
       const { deckCode, cardCode } = action.payload;
-      // find card
-      // if found, increment count
-      // else add card with count=1
       const deck = state.find((d) => d.code === deckCode);
-      deck.cards[cardCode] += 1;
+      if (deck != null) {
+        if ({}.hasOwnProperty.call(deck.cards, cardCode)) {
+          deck.cards[cardCode] += 1;
+        } else {
+          deck.cards[cardCode] = 1;
+        }
+      }
     },
     removeCardFromDeck(
       state,
@@ -71,11 +74,16 @@ const decksSlice = createSlice({
       }>,
     ) {
       const { deckCode, cardCode } = action.payload;
-      // find card
-      // if found, decrement count
-      // if count=1, splice
       const deck = state.find((d) => d.code === deckCode);
-      deck.cards[cardCode] -= 1;
+      if (deck != null) {
+        if ({}.hasOwnProperty.call(deck.cards, cardCode)) {
+          deck.cards[cardCode] -= 1;
+        }
+
+        if (deck.cards[cardCode] === 0) {
+          delete deck.cards[cardCode];
+        }
+      }
     },
     reset() {
       return initialState;

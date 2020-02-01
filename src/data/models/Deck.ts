@@ -21,15 +21,13 @@ export class Deck {
   }
 
   get cards() {
-    return getSubsetOfCards(Object.keys(this.raw.cards)).map((card) => {
-      return {
-        card,
-        code: card.code,
-        name: card.name,
-        typeCode: card.typeCode,
-        count: this.raw.cards[card.code],
-      };
-    });
+    return getSubsetOfCards(Object.keys(this.raw.cards)).map((card) => ({
+      card,
+      code: card.code,
+      name: card.name,
+      typeCode: card.typeCode,
+      count: this.raw.cards[card.code],
+    }));
   }
 
   get cardCount() {
@@ -42,7 +40,15 @@ export class Deck {
   }
 
   get eligibleCards() {
-    return getEligibleCards(this.aspectCode);
+    return getEligibleCards(this.aspectCode, Object.keys(this.raw.cards)).map(
+      (card) => ({
+        card,
+        code: card.code,
+        name: card.name,
+        typeCode: card.typeCode,
+        count: this.raw.cards[card.code],
+      }),
+    );
   }
 
   get heroCard() {

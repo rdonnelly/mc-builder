@@ -8,23 +8,25 @@ import { base } from '../styles';
 const List: React.FunctionComponent<{
   name: string;
   items: any[];
-  handlePressItem: any;
+  count?: number;
+  renderItem?: any;
+  handlePressItem?: any;
   listRef?: React.MutableRefObject<any>;
-}> = ({ name, items, handlePressItem, listRef }) => {
-  const renderItem = ({ item }) => (
+}> = ({ name, items, count, renderItem, handlePressItem, listRef }) => {
+  const defaultRenderItem = ({ item }) => (
     <ListItem item={item} handlePressItem={handlePressItem} />
   );
 
   const renderFooter = () => {
-    if (items.length === 0) {
+    if (count === 0 || items.length === 0) {
       return null;
     }
 
     return (
       <ListFooter>
         <ListFooterText>
-          Showing {items.length} {name}
-          {items.length === 1 ? '' : 's'}
+          Showing {count || items.length} {name}
+          {count === 1 || items.length === 1 ? '' : 's'}
         </ListFooterText>
       </ListFooter>
     );
@@ -34,7 +36,7 @@ const List: React.FunctionComponent<{
     <Container style={base.container}>
       <FlatList
         ref={listRef}
-        renderItem={renderItem}
+        renderItem={renderItem != null ? renderItem : defaultRenderItem}
         data={items}
         keyExtractor={(item) => item.code}
         ListFooterComponent={renderFooter}

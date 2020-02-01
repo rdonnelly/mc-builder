@@ -7,6 +7,7 @@ import styled from 'styled-components/native';
 import { DeckModel } from '../data';
 import { base, colors } from '../styles';
 import { deleteDeck } from '../store/reducers/decks';
+import CardListItem from './CardListItem';
 import List from './List';
 
 const DeckDetail: React.FunctionComponent<{
@@ -15,6 +16,23 @@ const DeckDetail: React.FunctionComponent<{
   const deckListRef = useRef(null);
   const dispatch = useDispatch();
   const navigation = useNavigation();
+
+  const handlePressItem = (code: string) => {
+    if (navigation) {
+      navigation.navigate('DeckEditCardDetail', {
+        code,
+      });
+    }
+  };
+
+  const renderCard = ({ item: card }) => (
+    <CardListItem
+      card={card.card}
+      count={card.count || 0}
+      isSelected={false}
+      onPressItem={() => handlePressItem(card.code)}
+    />
+  );
 
   const handleDeleteDeck = () => {
     Alert.alert(
@@ -50,16 +68,15 @@ const DeckDetail: React.FunctionComponent<{
       <CardList
         name="Card"
         items={deck.cards}
-        handlePressItem={() => {}}
+        count={deck.cardCount}
+        renderItem={renderCard}
         listRef={deckListRef}
       />
       <FloatingControls>
-        <FloatingControlsEditButton>
-          <FloatingControlsButtonText
-            onPress={() => navigation.navigate('DeckEdit', { code: deck.code })}
-          >
-            Edit
-          </FloatingControlsButtonText>
+        <FloatingControlsEditButton
+          onPress={() => navigation.navigate('DeckEdit', { code: deck.code })}
+        >
+          <FloatingControlsButtonText>Edit</FloatingControlsButtonText>
         </FloatingControlsEditButton>
         <FloatingControlsDeleteButton onPress={() => handleDeleteDeck()}>
           <FloatingControlsButtonText>Delete</FloatingControlsButtonText>

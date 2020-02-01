@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { IDeck } from '../types';
-import { getFilteredCards } from '../../data/models/Card';
+import { getCard, getFilteredCards } from '../../data/models/Card';
 
 const initialState = [] as IDeck[];
 
@@ -57,10 +57,13 @@ const decksSlice = createSlice({
       }>,
     ) {
       const { deckCode, cardCode } = action.payload;
+      const card = getCard(cardCode);
       const deck = state.find((d) => d.code === deckCode);
       if (deck != null) {
         if ({}.hasOwnProperty.call(deck.cards, cardCode)) {
-          deck.cards[cardCode] += 1;
+          if (!card.isUnique && deck.cards[cardCode] <= 3) {
+            deck.cards[cardCode] += 1;
+          }
         } else {
           deck.cards[cardCode] = 1;
         }

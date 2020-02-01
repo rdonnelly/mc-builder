@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, ScrollView } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import Html from 'react-native-render-html';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
@@ -54,18 +54,24 @@ const CardDetail: React.FunctionComponent<{
 }> = ({ card }) => {
   return (
     <Container>
-      <View>{renderCardText(card)}</View>
-      <ImageWrapper
-        activeOpacity={0.9}
-        onLongPress={() => handleImageLongPress(card)}
-      >
-        <Image resizeMode="contain" source={{ uri: card.imageSrc }} />
-      </ImageWrapper>
+      <ContainerScrollView>
+        {renderCardText(card)}
+        <ImageWrapper
+          activeOpacity={0.9}
+          onLongPress={() => handleImageLongPress(card)}
+        >
+          <Image resizeMode="contain" source={{ uri: card.imageSrc }} />
+        </ImageWrapper>
+      </ContainerScrollView>
     </Container>
   );
 };
 
 const Container = styled(base.Container)``;
+
+const ContainerScrollView = styled(ScrollView)`
+  flex: 1 1 auto;
+`;
 
 const ImageWrapper = styled.TouchableOpacity`
   height: 440px;

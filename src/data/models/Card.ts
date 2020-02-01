@@ -82,6 +82,10 @@ export class Card {
     return this.raw.text;
   }
 
+  get isUnique() {
+    return this.raw.is_unique || false;
+  }
+
   get imageSrc() {
     const packCode = String(this.pack.cgdbId).padStart(2, '0');
     return `https://lcgcdn.s3.amazonaws.com/mc/MC${packCode}en_${

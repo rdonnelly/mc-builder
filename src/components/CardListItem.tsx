@@ -25,9 +25,18 @@ const CardListItem: React.FunctionComponent<{
   const decrement = () =>
     dispatch(removeCardFromDeck({ cardCode: card.code, deckCode }));
 
+  const incrementIsDisabled =
+    (card.isUnique && count >= 1) || count >= 3 || card.factionCode === 'hero';
+  const decrementIsDisabled = count <= 0 || card.factionCode === 'hero';
+
   return (
     <Container>
       <ListItemInner onPress={() => onPressItem(card.code)}>
+        {count != null && (
+          <CardCount active={count > 0}>
+            <CardCountText active={count > 0}>{count}</CardCountText>
+          </CardCount>
+        )}
         <CardDetails>
           <CardDetailsName>
             <CardDetailsNameText numberOfLines={1}>
@@ -44,20 +53,31 @@ const CardListItem: React.FunctionComponent<{
             </CardDetailsInfoText>
           </CardDetailsInfo>
         </CardDetails>
-        {showEditControls === true && card.factionCode !== 'hero' && (
+        {showEditControls === true && (
           <CardControls>
-            <CardCountIncrementButton onPress={() => increment()}>
-              <FontAwesomeIcon name="plus" color={colors.green} size={16} />
+            <CardCountIncrementButton
+              inactive={incrementIsDisabled}
+              onPress={() => increment()}
+            >
+              <FontAwesomeIcon
+                name="plus"
+                color={
+                  incrementIsDisabled ? colors.lightGrayDark : colors.green
+                }
+                size={16}
+              />
             </CardCountIncrementButton>
-            <CardCountDecrementButton onPress={() => decrement()}>
-              <FontAwesomeIcon name="minus" color={colors.red} size={16} />
+            <CardCountDecrementButton
+              inactive={decrementIsDisabled}
+              onPress={() => decrement()}
+            >
+              <FontAwesomeIcon
+                name="minus"
+                color={decrementIsDisabled ? colors.lightGrayDark : colors.red}
+                size={16}
+              />
             </CardCountDecrementButton>
           </CardControls>
-        )}
-        {count != null && (
-          <CardCount active={count > 0}>
-            <CardCountText active={count > 0}>{count}</CardCountText>
-          </CardCount>
         )}
         <ListChevronWrapper>
           <ListChevron name={'chevron-right'} size={16} />
@@ -127,19 +147,26 @@ const CardCountButton = styled.TouchableOpacity`
   width: 32px;
 `;
 
-const CardCountIncrementButton = styled(CardCountButton)`
-  border-color: ${colors.green};
+const CardCountIncrementButton = styled(CardCountButton)<{
+  inactive?: boolean;
+}>`
+  border-color: ${(props) =>
+    props.inactive ? colors.lightGrayDark : colors.green};
 `;
 
-const CardCountDecrementButton = styled(CardCountButton)`
-  border-color: ${colors.red};
+const CardCountDecrementButton = styled(CardCountButton)<{
+  inactive?: boolean;
+}>`
+  border-color: ${(props) =>
+    props.inactive ? colors.lightGrayDark : colors.red};
 `;
 
 const CardCount = styled.View<{ active?: boolean }>`
   background-color: ${(props) =>
     props.active ? colors.white : colors.lightGray};
   align-items: center;
-  border: 2px solid ${(props) => (props.active ? colors.blue : colors.gray)};
+  border: 2px solid
+    ${(props) => (props.active ? colors.blue : colors.lightGrayDark)};
   border-radius: 16px;
   height: 32px;
   justify-content: center;
@@ -148,7 +175,7 @@ const CardCount = styled.View<{ active?: boolean }>`
 `;
 
 const CardCountText = styled.Text<{ active?: boolean }>`
-  color: ${(props) => (props.active ? colors.blue : colors.gray)};
+  color: ${(props) => (props.active ? colors.blue : colors.lightGrayDark)};
   font-size: 16px;
   font-weight: 800;
 `;

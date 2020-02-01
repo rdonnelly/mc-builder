@@ -44,7 +44,8 @@ export default () => (
       name="DecksAdd"
       component={DecksAddScreen}
       options={{
-        stackPresentation: 'modal',
+        title: 'Decks',
+        // stackPresentation: 'modal',
       }}
     />
     <Stack.Screen

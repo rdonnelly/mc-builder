@@ -1,5 +1,7 @@
 import { IDeck } from '../../store/types';
 import { getEligibleCards, getSubsetOfCards } from './Card';
+import { getFactions } from './Faction';
+import { getSets } from './Set';
 
 export class Deck {
   raw: IDeck;
@@ -16,8 +18,28 @@ export class Deck {
     return this.raw.name;
   }
 
+  get aspect() {
+    return getFactions().find((f) => f.code === this.raw.aspectCode);
+  }
+
   get aspectCode() {
     return this.raw.aspectCode;
+  }
+
+  get aspectName() {
+    return (this.aspect || {}).name;
+  }
+
+  get set() {
+    return getSets().find((f) => f.code === this.raw.setCode);
+  }
+
+  get setCode() {
+    return this.raw.setCode;
+  }
+
+  get setName() {
+    return (this.set || {}).name;
   }
 
   get cards() {

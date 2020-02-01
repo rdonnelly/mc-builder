@@ -1,6 +1,5 @@
 import { StackNavigationProp } from '@react-navigation/stack';
 import { TouchableOpacity } from 'react-native';
-import { useScrollToTop } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
 import React, { useRef } from 'react';
@@ -17,9 +16,6 @@ const DecksListScreen: React.FunctionComponent<{
   navigation: StackNavigationProp<DecksStackParamList, 'DecksList'>;
 }> = ({ navigation }) => {
   const decks = useSelector((state: StoreState) => state.decks);
-
-  const flatListRef = useRef(null);
-  useScrollToTop(flatListRef);
 
   navigation.setOptions({
     headerRight: () => {
@@ -70,7 +66,6 @@ const DecksListScreen: React.FunctionComponent<{
     <Container>
       {decks.length > 0 ? (
         <FlatList
-          ref={flatListRef}
           renderItem={renderCard}
           data={decks}
           keyExtractor={(card: IDeck) => card.code}

@@ -2,6 +2,7 @@ import * as React from 'react';
 import { StyleSheet, Text } from 'react-native';
 import styled from 'styled-components/native';
 
+import { DeckModel } from '../data';
 import { IDeck } from '../store/types';
 import { base, colors } from '../styles';
 
@@ -11,20 +12,21 @@ const DecksListItem: React.FunctionComponent<{
   deck: IDeck;
   onPressItem: any;
 }> = ({ deck, onPressItem }) => {
+  const deckModel = new DeckModel(deck);
   return (
     <Container>
-      <ListItemInner onPress={() => onPressItem(deck.code)}>
+      <ListItemInner onPress={() => onPressItem(deckModel.code)}>
         <DeckDetails>
           <DeckDetailsName>
             <DeckDetailsNameText numberOfLines={1}>
-              {deck.name}
+              {deckModel.name}
             </DeckDetailsNameText>
           </DeckDetailsName>
           <DeckDetailsInfo>
             <DeckDetailsInfoText>
-              <Text>{deck.setCode}</Text>
+              <Text>{deckModel.setName}</Text>
               <Text>&nbsp;&middot;&nbsp;</Text>
-              <Text>{deck.aspectCode}</Text>
+              <Text>{deckModel.aspectName}</Text>
             </DeckDetailsInfoText>
           </DeckDetailsInfo>
         </DeckDetails>

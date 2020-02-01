@@ -1,13 +1,8 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import { RouteProp, useScrollToTop } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { StyleSheet } from 'react-native';
 import { useRef } from 'react';
 import styled from 'styled-components/native';
-
-import { CardStackParamList } from '../navigation/CardsStackNavigator';
-import { base, colors } from '../styles';
-import CardListItem from '../components/CardListItem';
 
 import {
   CardModel,
@@ -16,7 +11,10 @@ import {
   getFilteredCards,
   getPack,
   getType,
-} from '../data';
+} from '../../data';
+import { CardStackParamList } from '../../navigation/CardsStackNavigator';
+import { base, colors } from '../../styles';
+import CardListItem from '../../components/CardListItem';
 
 const CardListScreen: React.FunctionComponent<{
   navigation: StackNavigationProp<CardStackParamList, 'CardsList'>;
@@ -24,6 +22,17 @@ const CardListScreen: React.FunctionComponent<{
 }> = ({ navigation, route }) => {
   const flatListRef = useRef(null);
   useScrollToTop(flatListRef);
+  // useEffect(() => {
+  //   const unsubscribe = navigation.addListener('tabPress', (e) => {
+  //     // Prevent default behavior
+  //
+  //     e.preventDefault();
+  //     // Do something manually
+  //     // ...
+  //   });
+  //
+  //   return unsubscribe;
+  // }, [navigation]);
 
   const filter = (route.params || {}).filter;
   const filterCode = (route.params || {}).code;
@@ -126,24 +135,21 @@ const CardListScreen: React.FunctionComponent<{
 
 const Container = styled(base.Container)``;
 const Filters = styled.View`
-  background-color: ${colors.white};
-  border-top-color: ${colors.gray};
-  border-top-width: ${StyleSheet.hairlineWidth}px;
+  background-color: ${colors.darkGray};
   flex-direction: row;
   padding-horizontal: 8px;
   width: 100%;
 `;
 
 const FiltersButton = styled(base.Button)`
-  background-color: ${colors.lightGray};
+  background-color: ${colors.orange};
   flex: 1 1 0;
-  margin: 8px;
+  margin: 16px 8px;
 `;
 
 const FiltersButtonText = styled(base.ButtonText)`
-  color: ${colors.brand};
+  color: ${colors.white};
   font-size: 16px;
-  line-height: 18px;
 `;
 
 const FlatList = styled(base.FlatList)``;

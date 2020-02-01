@@ -5,11 +5,11 @@ import React, { useState } from 'react';
 import styled from 'styled-components/native';
 import uuidv4 from 'uuid/v4';
 
-import { DecksStackParamList } from '../navigation/DecksStackNavigator';
-import { addDeck } from '../store/reducers/decks';
-import { base, colors } from '../styles';
-import { getHeroSets } from '../data/models/Set';
-import { getPrimaryFactions } from '../data/models/Faction';
+import { DecksStackParamList } from '../../navigation/DecksStackNavigator';
+import { addDeck } from '../../store/reducers/decks';
+import { base, colors } from '../../styles';
+import { getHeroSets } from '../../data/models/Set';
+import { getPrimaryFactions } from '../../data/models/Faction';
 
 const DecksAddScreen: React.FunctionComponent<{
   navigation: StackNavigationProp<DecksStackParamList, 'DecksList'>;

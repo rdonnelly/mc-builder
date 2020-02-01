@@ -15,6 +15,9 @@ export default () => (
       headerStyle: {
         backgroundColor: colors.blue,
       },
+      headerTitleStyle: {
+        fontSize: 20,
+      },
       headerTintColor: colors.white,
     }}
   >

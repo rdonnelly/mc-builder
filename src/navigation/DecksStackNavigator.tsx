@@ -1,11 +1,11 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 
-import CardDetailScreen from '../screens/CardDetailScreen';
-import DeckDetailScreen from '../screens/DeckDetailScreen';
-import DeckEditScreen from '../screens/Decks/DeckEditScreen';
-import DecksAddScreen from '../screens/DecksAddScreen';
-import DecksListScreen from '../screens/DecksListScreen';
+import CardDetailScreen from '../screens/Card/CardDetailScreen';
+import DeckDetailScreen from '../screens/Deck/DeckDetailScreen';
+import DeckEditScreen from '../screens/Deck/DeckEditScreen';
+import DecksAddScreen from '../screens/Deck/DecksAddScreen';
+import DecksListScreen from '../screens/Deck/DecksListScreen';
 
 import { colors } from '../styles';
 
@@ -26,6 +26,9 @@ export default () => (
     screenOptions={{
       headerStyle: {
         backgroundColor: colors.purple,
+      },
+      headerTitleStyle: {
+        fontSize: 20,
       },
       headerTintColor: colors.white,
     }}

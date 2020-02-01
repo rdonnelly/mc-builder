@@ -1,8 +1,8 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 
-import CardDetailScreen from '../screens/CardDetailScreen';
-import CardListScreen from '../screens/CardListScreen';
+import CardDetailScreen from '../screens/Card/CardDetailScreen';
+import CardListScreen from '../screens/Card/CardListScreen';
 import FactionListScreen from '../screens/FactionListScreen';
 import PackListScreen from '../screens/PackListScreen';
 import TypeListScreen from '../screens/TypeListScreen';
@@ -27,6 +27,9 @@ export default () => {
         title: 'Cards',
         headerStyle: {
           backgroundColor: colors.orange,
+        },
+        headerTitleStyle: {
+          fontSize: 20,
         },
         headerTintColor: colors.white,
       }}

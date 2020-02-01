@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 
-import { CardStackParamList } from '../navigation/CardsStackNavigator';
-import CardDetail from '../components/CardDetail';
-import { CardModel, getCard } from '../data';
+import { CardModel, getCard } from '../../data';
+import { CardStackParamList } from '../../navigation/CardsStackNavigator';
+import CardDetail from '../../components/CardDetail';
 
 const CardDetailScreen: React.FunctionComponent<{
   navigation: StackNavigationProp<CardStackParamList, 'CardDetail'>;
@@ -15,6 +15,7 @@ const CardDetailScreen: React.FunctionComponent<{
 
   navigation.setOptions({
     headerTitle: card.name,
+    headerBackTitleVisible: false,
   });
 
   return <CardDetail card={card} />;

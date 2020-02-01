@@ -6,12 +6,12 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
 import React, { useRef } from 'react';
 import styled from 'styled-components/native';
 
-import { DecksStackParamList } from '../navigation/DecksStackNavigator';
-import { IDeck } from '../store/types';
-import { StoreState } from '../store';
-import DecksListItem from '../components/DecksListItem';
+import { DecksStackParamList } from '../../navigation/DecksStackNavigator';
+import { IDeck } from '../../store/types';
+import { StoreState } from '../../store';
+import DecksListItem from '../../components/DecksListItem';
 
-import { base, colors } from '../styles';
+import { base, colors } from '../../styles';
 
 const DecksListScreen: React.FunctionComponent<{
   navigation: StackNavigationProp<DecksStackParamList, 'DecksList'>;

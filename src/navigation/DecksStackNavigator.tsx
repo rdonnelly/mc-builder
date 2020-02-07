@@ -1,3 +1,4 @@
+import { Platform } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 
@@ -45,7 +46,7 @@ export default () => (
       component={DecksAddScreen}
       options={{
         title: 'Decks',
-        // stackPresentation: 'modal',
+        stackPresentation: Platform.OS === 'ios' ? 'modal' : 'push',
       }}
     />
     <Stack.Screen

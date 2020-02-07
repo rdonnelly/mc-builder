@@ -1,4 +1,4 @@
-import { NavigationNativeContainer } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { PersistGate } from 'redux-persist/integration/react';
 import { Provider } from 'react-redux';
 import { StatusBar } from 'react-native';
@@ -15,10 +15,10 @@ export default () => {
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
-        <NavigationNativeContainer>
+        <NavigationContainer>
           <StatusBar barStyle="dark-content" />
           <TabNavigator />
-        </NavigationNativeContainer>
+        </NavigationContainer>
       </PersistGate>
     </Provider>
   );

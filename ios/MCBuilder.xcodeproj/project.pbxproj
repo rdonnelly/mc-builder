@@ -690,7 +690,7 @@
 			baseConfigurationReference = 5ACDA8841001F6B82F8D46A3 /* Pods-MCBuilder.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 17;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = EZ4AQB6GC7;
 				INFOPLIST_FILE = MCBuilder/Info.plist;
@@ -713,7 +713,7 @@
 			baseConfigurationReference = 08E0A7B750C08AF95E377553 /* Pods-MCBuilder.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 17;
 				DEVELOPMENT_TEAM = EZ4AQB6GC7;
 				INFOPLIST_FILE = MCBuilder/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;

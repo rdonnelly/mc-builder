@@ -24,6 +24,7 @@
 		95116DB023D3EA1600C9D72A /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95116DAF23D3EA1600C9D72A /* Launch Screen.storyboard */; };
 		B4A1534EECBD41298F719E6D /* FontAwesome5_Pro_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 20C73997C35D4F24A3398312 /* FontAwesome5_Pro_Brands.ttf */; };
 		FEA30E18C76E408AA3BD11D4 /* FontAwesome5_Pro_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 136FD2C64CFC44CAB855AFA2 /* FontAwesome5_Pro_Regular.ttf */; };
+		ADE86D1AAFB24769B4EE9E77 /* marvel-icons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 991231E52F434A54B38F07F9 /* marvel-icons.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +76,7 @@
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		F95E1CFE7EDF93C85985F12E /* Pods-MCBuilderTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MCBuilderTests.release.xcconfig"; path = "Target Support Files/Pods-MCBuilderTests/Pods-MCBuilderTests.release.xcconfig"; sourceTree = "<group>"; };
+		991231E52F434A54B38F07F9 /* marvel-icons.ttf */ = {isa = PBXFileReference; name = "marvel-icons.ttf"; path = "../assets/fonts/marvel-icons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +166,7 @@
 				86D9D74DE3DA49D2BCB731CD /* FontAwesome5_Pro_Light.ttf */,
 				136FD2C64CFC44CAB855AFA2 /* FontAwesome5_Pro_Regular.ttf */,
 				133BB4EB5D6749349DD968ED /* FontAwesome5_Pro_Solid.ttf */,
+				991231E52F434A54B38F07F9 /* marvel-icons.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -366,6 +369,7 @@
 				FEA30E18C76E408AA3BD11D4 /* FontAwesome5_Pro_Regular.ttf in Resources */,
 				5B53B8A66E464005B963A000 /* FontAwesome5_Pro_Solid.ttf in Resources */,
 				95116DB023D3EA1600C9D72A /* Launch Screen.storyboard in Resources */,
+				ADE86D1AAFB24769B4EE9E77 /* marvel-icons.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -690,7 +694,7 @@
 			baseConfigurationReference = 5ACDA8841001F6B82F8D46A3 /* Pods-MCBuilder.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CURRENT_PROJECT_VERSION = 17;
+				CURRENT_PROJECT_VERSION = 19;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = EZ4AQB6GC7;
 				INFOPLIST_FILE = MCBuilder/Info.plist;
@@ -713,7 +717,7 @@
 			baseConfigurationReference = 08E0A7B750C08AF95E377553 /* Pods-MCBuilder.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CURRENT_PROJECT_VERSION = 17;
+				CURRENT_PROJECT_VERSION = 19;
 				DEVELOPMENT_TEAM = EZ4AQB6GC7;
 				INFOPLIST_FILE = MCBuilder/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;

@@ -2,7 +2,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { TouchableOpacity } from 'react-native';
 import { useSelector } from 'react-redux';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
-import React, { useRef } from 'react';
+import React from 'react';
 import styled from 'styled-components/native';
 
 import { DecksStackParamList } from '../../navigation/DecksStackNavigator';
@@ -21,7 +21,12 @@ const DecksListScreen: React.FunctionComponent<{
     headerRight: () => {
       return (
         <TouchableOpacity onPress={() => navigation.navigate('DecksAdd')}>
-          <FontAwesomeIcon name="layer-plus" color={colors.white} size={24} />
+          <FontAwesomeIcon
+            name="layer-plus"
+            color={colors.white}
+            size={24}
+            solid
+          />
         </TouchableOpacity>
       );
     },

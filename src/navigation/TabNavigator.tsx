@@ -23,7 +23,7 @@ export default () => (
       options={{
         tabBarLabel: 'Cards',
         tabBarIcon: ({ color, size }) => (
-          <FontAwesomeIcon name="stream" color={color} size={size} />
+          <FontAwesomeIcon name="stream" color={color} size={size} solid />
         ),
       }}
     />
@@ -33,7 +33,7 @@ export default () => (
       options={{
         tabBarLabel: 'Decks',
         tabBarIcon: ({ color, size }) => (
-          <FontAwesomeIcon name="layer-group" color={color} size={size} />
+          <FontAwesomeIcon name="layer-group" color={color} size={size} solid />
         ),
       }}
     />
@@ -43,7 +43,7 @@ export default () => (
       options={{
         tabBarLabel: 'Settings',
         tabBarIcon: ({ color, size }) => (
-          <FontAwesomeIcon name="cog" color={color} size={size} />
+          <FontAwesomeIcon name="cog" color={color} size={size} solid />
         ),
       }}
     />

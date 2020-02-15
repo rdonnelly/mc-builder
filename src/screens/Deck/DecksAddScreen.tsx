@@ -47,6 +47,9 @@ const DecksAddScreen: React.FunctionComponent<{
 
   return (
     <Container paddingBottom={insets.bottom}>
+      <Header>
+        <HeaderTitle>Add Deck</HeaderTitle>
+      </Header>
       <Form>
         <TextInput
           autoCapitalize={'none'}
@@ -100,13 +103,29 @@ const DecksAddScreen: React.FunctionComponent<{
 };
 
 const Container = styled(base.Container)<{ paddingBottom: number }>`
-  padding-bottom: ${(props) => props.paddingBottom}px;
-  padding-horizontal: 16px;
-  padding-top: 64px;
+  padding-bottom: ${(props) => Math.max(props.paddingBottom, 16)}px;
+`;
+
+// https://github.com/react-navigation/react-navigation/blob/cea2fc29baae7c5bf3b867fc6bc5911fb8161cf8/packages/stack/src/views/Header/HeaderSegment.tsx
+const Header = styled.View`
+  background-color: ${colors.purple};
+  height: 52px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  width: 100%;
+`;
+
+// https://github.com/react-navigation/react-navigation/blob/cea2fc29baae7c5bf3b867fc6bc5911fb8161cf8/packages/stack/src/views/Header/HeaderTitle.tsx
+const HeaderTitle = styled.Text`
+  color: ${colors.white};
+  font-size: 17px;
+  font-weight: 600;
 `;
 
 const Form = styled.View`
   flex: 1 1 auto;
+  padding-horizontal: 16px;
   width: 100%;
 `;
 
@@ -121,6 +140,7 @@ const Picker = styled.Picker`
 
 const Controls = styled.View`
   flex-direction: row;
+  padding-horizontal: 16px;
 `;
 
 const AddButton = styled(base.Button)`

@@ -19,6 +19,10 @@ export default {
     justify-content: center;
     min-width: 48px;
     padding: 12px;
+    shadow-color: #000;
+    shadow-offset: 1px 3px;
+    shadow-opacity: 0.1;
+    shadow-radius: 4px;
   `,
 
   ButtonText: styled.Text`

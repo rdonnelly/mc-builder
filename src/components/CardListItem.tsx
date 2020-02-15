@@ -34,7 +34,7 @@ const CardListItem: React.FunctionComponent<{
       <ListItemInner onPress={() => onPressItem(card.code)}>
         {count != null && (
           <CardCount active={count > 0}>
-            <CardCountText active={count > 0}>{count}</CardCountText>
+            <CardCountText active={count > 0}>{`x${count}`}</CardCountText>
           </CardCount>
         )}
         <CardDetails>
@@ -55,6 +55,17 @@ const CardListItem: React.FunctionComponent<{
         </CardDetails>
         {showEditControls === true && (
           <CardControls>
+            <CardCountDecrementButton
+              inactive={decrementIsDisabled}
+              onPress={() => decrement()}
+            >
+              <FontAwesomeIcon
+                name="minus"
+                color={decrementIsDisabled ? colors.lightGrayDark : colors.red}
+                size={16}
+                solid
+              />
+            </CardCountDecrementButton>
             <CardCountIncrementButton
               inactive={incrementIsDisabled}
               onPress={() => increment()}
@@ -65,18 +76,9 @@ const CardListItem: React.FunctionComponent<{
                   incrementIsDisabled ? colors.lightGrayDark : colors.green
                 }
                 size={16}
+                solid
               />
             </CardCountIncrementButton>
-            <CardCountDecrementButton
-              inactive={decrementIsDisabled}
-              onPress={() => decrement()}
-            >
-              <FontAwesomeIcon
-                name="minus"
-                color={decrementIsDisabled ? colors.lightGrayDark : colors.red}
-                size={16}
-              />
-            </CardCountDecrementButton>
           </CardControls>
         )}
         <ListChevronWrapper>
@@ -103,6 +105,25 @@ const ListItemInner = styled.TouchableOpacity`
   justify-content: space-between;
   padding-horizontal: 16px;
   width: 100%;
+`;
+
+const CardCount = styled.View<{ active?: boolean }>`
+  background-color: ${(props) =>
+    props.active ? colors.white : colors.lightGray};
+  align-items: center;
+  border: 2px solid
+    ${(props) => (props.active ? colors.lightGrayDark : colors.lightGrayDark)};
+  border-radius: 8px;
+  height: 36px;
+  justify-content: center;
+  margin-right: 16px;
+  width: 36px;
+`;
+
+const CardCountText = styled.Text<{ active?: boolean }>`
+  color: ${(props) => (props.active ? colors.blue : colors.lightGrayDark)};
+  font-size: 16px;
+  font-weight: 800;
 `;
 
 const CardDetails = styled.View`
@@ -134,50 +155,32 @@ const CardDetailsInfoText = styled.Text`
 
 const CardControls = styled.View`
   flex-direction: row;
+  margin-right: 8px;
 `;
 
 const CardCountButton = styled.TouchableOpacity`
   align-items: center;
-  background-color: ${colors.lightGray};
-  border: 2px solid;
-  border-radius: 16px;
+  background-color: ${colors.white};
+  border: 2px solid ${colors.lightGrayDark};
   justify-content: center;
-  margin-right: 8px;
-  height: 32px;
-  width: 32px;
+  height: 36px;
+  width: 36px;
 `;
 
 const CardCountIncrementButton = styled(CardCountButton)<{
   inactive?: boolean;
 }>`
-  border-color: ${(props) =>
-    props.inactive ? colors.lightGrayDark : colors.green};
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border-left-width: 1px;
 `;
 
 const CardCountDecrementButton = styled(CardCountButton)<{
   inactive?: boolean;
 }>`
-  border-color: ${(props) =>
-    props.inactive ? colors.lightGrayDark : colors.red};
-`;
-
-const CardCount = styled.View<{ active?: boolean }>`
-  background-color: ${(props) =>
-    props.active ? colors.white : colors.lightGray};
-  align-items: center;
-  border: 2px solid
-    ${(props) => (props.active ? colors.blue : colors.lightGrayDark)};
-  border-radius: 16px;
-  height: 32px;
-  justify-content: center;
-  margin-right: 8px;
-  width: 32px;
-`;
-
-const CardCountText = styled.Text<{ active?: boolean }>`
-  color: ${(props) => (props.active ? colors.blue : colors.lightGrayDark)};
-  font-size: 16px;
-  font-weight: 800;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  border-right-width: 1px;
 `;
 
 const ListChevronWrapper = styled(base.ListChevronWrapper)``;

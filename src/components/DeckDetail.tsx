@@ -17,6 +17,12 @@ const DeckDetail: React.FunctionComponent<{
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
+  const heroCard = deck.heroCard;
+  const heroCardImageSrc = heroCard ? heroCard.card.imageSrc : null;
+
+  const alterEgoCard = deck.alterEgoCard;
+  const alterEgoCardImageSrc = alterEgoCard ? alterEgoCard.card.imageSrc : null;
+
   const handlePressItem = (code: string) => {
     if (navigation) {
       navigation.navigate('DeckEditCardDetail', {
@@ -56,10 +62,12 @@ const DeckDetail: React.FunctionComponent<{
     <Container>
       <Summary>
         <ImageWrapper>
-          <Image source={{ uri: deck.heroCard.card.imageSrc }} />
+          {heroCardImageSrc && <Image source={{ uri: heroCardImageSrc }} />}
         </ImageWrapper>
         <ImageWrapper>
-          <Image source={{ uri: deck.alterEgoCard.card.imageSrc }} />
+          {alterEgoCardImageSrc && (
+            <Image source={{ uri: alterEgoCardImageSrc }} />
+          )}
         </ImageWrapper>
         <Info>
           <InfoText>Card Count: {deck.cardCount}</InfoText>
@@ -92,14 +100,14 @@ const Container = styled(base.Container)`
 
 const Summary = styled.View`
   flex-direction: row;
-  margin-bottom: 8px;
+  margin: 16px;
 `;
 
 const ImageWrapper = styled.TouchableOpacity`
   height: 100px;
   width: 100px;
   overflow: hidden;
-  margin: 8px;
+  margin-right: 8px;
 `;
 
 const Image = styled.Image`
@@ -110,7 +118,6 @@ const Image = styled.Image`
 
 const Info = styled.View`
   flex: 1 1 auto;
-  padding: 8px;
 `;
 
 const InfoText = styled.Text``;

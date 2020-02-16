@@ -103,6 +103,7 @@ const CardListScreen: React.FunctionComponent<{
         renderItem={renderCard}
         data={cards}
         keyExtractor={(card: CardModel) => card.code}
+        contentContainerStyle={{ paddingBottom: 72 }}
         ListFooterComponent={renderFooter}
       />
       {!filter && !filterCode && (
@@ -122,18 +123,25 @@ const CardListScreen: React.FunctionComponent<{
   );
 };
 
-const Container = styled(base.Container)``;
+const Container = styled(base.Container)`
+  background-color: ${colors.white};
+`;
+
 const Filters = styled.View`
-  background-color: ${colors.darkGray};
+  background-color: rgba(52, 73, 94, 0.1);
   flex-direction: row;
-  padding-horizontal: 8px;
-  width: 100%;
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  right: 8px;
+  border-radius: 4px;
+  padding: 8px 4px;
 `;
 
 const FiltersButton = styled(base.Button)`
-  background-color: ${colors.orange};
+  background-color: ${colors.darkGray};
   flex: 1 1 0;
-  margin: 16px 8px;
+  margin-horizontal: 4px;
 `;
 
 const FiltersButtonText = styled(base.ButtonText)`

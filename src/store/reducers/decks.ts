@@ -61,7 +61,7 @@ const decksSlice = createSlice({
       const deck = state.find((d) => d.code === deckCode);
       if (deck != null) {
         if ({}.hasOwnProperty.call(deck.cards, cardCode)) {
-          if (!card.isUnique && deck.cards[cardCode] <= 3) {
+          if (!card.isUnique && deck.cards[cardCode] < card.deckLimit) {
             deck.cards[cardCode] += 1;
           }
         } else {

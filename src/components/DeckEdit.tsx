@@ -49,19 +49,25 @@ const DeckEdit: React.FunctionComponent<{
 };
 
 const Container = styled(base.Container)`
+  background-color: ${colors.lightGray};
   flex-direction: column;
 `;
 
 const Summary = styled.View`
   flex-direction: row;
   margin: 16px;
+  shadow-color: #000;
+  shadow-offset: 1px 3px;
+  shadow-opacity: 0.1;
+  shadow-radius: 4px;
 `;
 
 const ImageWrapper = styled.TouchableOpacity`
+  border-radius: 8px;
   height: 100px;
-  width: 100px;
-  overflow: hidden;
   margin-right: 8px;
+  overflow: hidden;
+  width: 100px;
 `;
 
 const Image = styled.Image`

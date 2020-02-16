@@ -116,6 +116,7 @@ const DecksCreateFormScreen: React.FunctionComponent<{
 };
 
 const Container = styled(base.Container)<{ paddingBottom: number }>`
+  background-color: ${colors.lightGray};
   padding-top: 16px;
   padding-bottom: ${(props) => Math.max(props.paddingBottom, 16)}px;
 `;
@@ -152,7 +153,7 @@ const TextInput = styled(base.TextInput)`
 `;
 
 const LinkRow = styled.TouchableOpacity`
-  background-color: ${colors.lightGray};
+  background-color: ${colors.white};
   border-bottom-color: ${colors.lightGrayDark};
   border-bottom-width: ${StyleSheet.hairlineWidth}px;
   flex-direction: row;

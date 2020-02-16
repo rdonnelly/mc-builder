@@ -26,7 +26,9 @@ const CardListItem: React.FunctionComponent<{
     dispatch(removeCardFromDeck({ cardCode: card.code, deckCode }));
 
   const incrementIsDisabled =
-    (card.isUnique && count >= 1) || count >= 3 || card.factionCode === 'hero';
+    (card.isUnique && count >= 1) ||
+    count >= card.deckLimit ||
+    card.factionCode === 'hero';
   const decrementIsDisabled = count <= 0 || card.factionCode === 'hero';
 
   return (
@@ -116,7 +118,7 @@ const CardCount = styled.View<{ active?: boolean }>`
   border-radius: 8px;
   height: 36px;
   justify-content: center;
-  margin-right: 16px;
+  margin-right: 8px;
   width: 36px;
 `;
 
@@ -131,6 +133,7 @@ const CardDetails = styled.View`
   flex: 1 1 auto;
   flex-direction: column;
   justify-content: center;
+  margin-right: 8px;
 `;
 
 const CardDetailsName = styled.View`

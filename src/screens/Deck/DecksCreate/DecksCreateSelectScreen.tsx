@@ -103,11 +103,11 @@ const ListItemInnerText = styled.Text`
 const ListIconWrapper = styled.View``;
 
 const ListIcon = styled(base.ListChevron).attrs(() => ({
-  name: 'check',
-  size: 16,
+  name: 'check-circle',
+  size: 20,
   solid: true,
 }))<{ active: boolean }>`
-  color: ${(props) => (props.active ? colors.green : colors.lightGrayDark)};
+  color: ${(props) => (props.active ? colors.green : colors.lightGray)};
 `;
 
 export default DecksCreateScreen;

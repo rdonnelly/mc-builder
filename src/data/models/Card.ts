@@ -98,6 +98,10 @@ export class Card {
     return this.raw.is_unique || false;
   }
 
+  get deckLimit() {
+    return this.raw.deck_limit || 0;
+  }
+
   get imageSrc() {
     const packCode = String(this.pack.cgdbId).padStart(2, '0');
     return `https://lcgcdn.s3.amazonaws.com/mc/MC${packCode}en_${

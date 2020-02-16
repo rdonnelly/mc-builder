@@ -10,7 +10,7 @@ const List: React.FunctionComponent<{
   items: any[];
   count?: number;
   renderItem?: any;
-  handlePressItem?: any;
+  handlePressItem?: (code: string) => void;
   listRef?: React.MutableRefObject<any>;
 }> = ({ name, items, count, renderItem, handlePressItem, listRef }) => {
   const defaultRenderItem = ({ item }) => (

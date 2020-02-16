@@ -20,7 +20,7 @@ const DecksListScreen: React.FunctionComponent<{
   navigation.setOptions({
     headerRight: () => {
       return (
-        <TouchableOpacity onPress={() => navigation.navigate('DecksAdd')}>
+        <TouchableOpacity onPress={() => navigation.navigate('DecksCreate')}>
           <FontAwesomeIcon
             name="layer-plus"
             color={colors.white}

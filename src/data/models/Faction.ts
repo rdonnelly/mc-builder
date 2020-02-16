@@ -49,12 +49,16 @@ export const getPrimaryFactions = () =>
     (faction) => faction.isPrimary === true && faction.code !== 'basic',
   );
 
-export const getFaction = (code: string) => {
-  return (
-    getFactions().find((faction) => faction.code === code) || {
+export const getFaction = (code: string, defaultReturn = undefined) => {
+  if (defaultReturn === undefined) {
+    defaultReturn = {
       code,
       name: 'Unknown',
-      isPrisPrimary: false,
-    }
+      isPrimary: false,
+    };
+  }
+
+  return (
+    getFactions().find((faction) => faction.code === code) || defaultReturn
   );
 };

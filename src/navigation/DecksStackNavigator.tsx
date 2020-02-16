@@ -5,14 +5,14 @@ import React from 'react';
 import CardDetailScreen from '../screens/Card/CardDetailScreen';
 import DeckDetailScreen from '../screens/Deck/DeckDetailScreen';
 import DeckEditScreen from '../screens/Deck/DeckEditScreen';
-import DecksAddScreen from '../screens/Deck/DecksAddScreen';
+import DecksCreateScreen from '../screens/Deck/DecksCreateScreen';
 import DecksListScreen from '../screens/Deck/DecksListScreen';
 
 import { colors } from '../styles';
 
 export type DecksStackParamList = {
   DecksList: undefined;
-  DecksAdd: undefined;
+  DecksCreate: undefined;
   DeckDetail: { code: string };
   DeckDetailCardDetail: { code: string };
   DeckEdit: { code: string };
@@ -42,10 +42,9 @@ export default () => (
       }}
     />
     <Stack.Screen
-      name="DecksAdd"
-      component={DecksAddScreen}
+      name="DecksCreate"
+      component={DecksCreateScreen}
       options={{
-        title: 'Decks',
         stackPresentation: Platform.OS === 'ios' ? 'modal' : 'push',
       }}
     />

@@ -37,11 +37,14 @@ export const getSets = () =>
 
 export const getHeroSets = () => getSets().filter((set) => set.type === 'hero');
 
-export const getSet = (code: string) => {
-  return (
-    getSets().find((set) => set.code === code) || {
+export const getSet = (code: string, defaultReturn = undefined) => {
+  if (defaultReturn === undefined) {
+    defaultReturn = {
       code,
       name: 'Unknown',
-    }
-  );
+      isPrimary: false,
+    };
+  }
+
+  return getSets().find((set) => set.code === code) || defaultReturn;
 };

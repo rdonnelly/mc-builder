@@ -8,7 +8,7 @@ export const ITEM_HEIGHT = 48;
 
 const ListItem: React.FunctionComponent<{
   item: { code: string; name: string };
-  handlePressItem: any;
+  handlePressItem?: (code: string) => void;
 }> = ({ item, handlePressItem }) => {
   return (
     <Container>

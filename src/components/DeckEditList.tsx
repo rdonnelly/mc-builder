@@ -1,9 +1,10 @@
+import { SectionList, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import React, { useRef } from 'react';
+import React from 'react';
 import styled from 'styled-components/native';
 
 import { DeckModel } from '../data';
-import { base } from '../styles';
+import { base, colors } from '../styles';
 import CardListItem from './CardListItem';
 
 export const ITEM_HEIGHT = 64;
@@ -12,7 +13,6 @@ const DeckEditList: React.FunctionComponent<{
   deck: DeckModel;
 }> = ({ deck }) => {
   const navigation = useNavigation();
-  const listRef = useRef(null);
 
   const handlePressItem = (code: string) => {
     if (navigation) {
@@ -21,6 +21,12 @@ const DeckEditList: React.FunctionComponent<{
       });
     }
   };
+
+  const renderSectionHeader = ({ section }) => (
+    <SectionHeader>
+      <SectionHeaderText>{section.title}</SectionHeaderText>
+    </SectionHeader>
+  );
 
   const renderCard = ({ item: card }) => (
     <CardListItem
@@ -35,11 +41,11 @@ const DeckEditList: React.FunctionComponent<{
 
   return (
     <Container>
-      <FlatList
-        ref={listRef}
+      <CardList
+        sections={deck.sectionedEligibleCards}
         renderItem={renderCard}
-        data={deck.eligibleCards}
-        keyExtractor={(item) => item.code}
+        renderSectionHeader={renderSectionHeader}
+        keyExtractor={(item) => item.code || item.title}
       />
     </Container>
   );
@@ -49,6 +55,23 @@ const Container = styled(base.Container)`
   flex-direction: column;
 `;
 
-const FlatList = styled(base.FlatList)``;
+const CardList = styled(SectionList)`
+  flex: 1 1 auto;
+  width: 100%;
+`;
+
+const SectionHeader = styled.View`
+  background-color: ${colors.darkGray};
+  border-bottom-color: ${colors.lightGrayDark};
+  border-bottom-width: ${StyleSheet.hairlineWidth}px;
+  padding-horizontal: 16px;
+  padding-vertical: 4px;
+`;
+
+const SectionHeaderText = styled.Text`
+  color: ${colors.lightGray};
+  font-weight: 800;
+  text-transform: uppercase;
+`;
 
 export default DeckEditList;

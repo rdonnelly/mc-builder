@@ -1,19 +1,17 @@
-import { Alert } from 'react-native';
+import { Alert, SectionList, StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
-import React, { useRef } from 'react';
+import React from 'react';
 import styled from 'styled-components/native';
 
 import { DeckModel } from '../data';
 import { base, colors } from '../styles';
 import { deleteDeck } from '../store/reducers/decks';
 import CardListItem from './CardListItem';
-import List from './List';
 
 const DeckDetail: React.FunctionComponent<{
   deck: DeckModel;
 }> = ({ deck }) => {
-  const deckListRef = useRef(null);
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
@@ -30,6 +28,12 @@ const DeckDetail: React.FunctionComponent<{
       });
     }
   };
+
+  const renderSectionHeader = ({ section }) => (
+    <SectionHeader>
+      <SectionHeaderText>{section.title}</SectionHeaderText>
+    </SectionHeader>
+  );
 
   const renderCard = ({ item: card }) => (
     <CardListItem
@@ -74,11 +78,10 @@ const DeckDetail: React.FunctionComponent<{
         </Info>
       </Summary>
       <CardList
-        name="Card"
-        items={deck.cards}
-        count={deck.cardCount}
+        sections={deck.sectionedCards}
         renderItem={renderCard}
-        listRef={deckListRef}
+        renderSectionHeader={renderSectionHeader}
+        keyExtractor={(item) => item.code || item.title}
       />
       <FloatingControls>
         <FloatingControlsEditButton
@@ -132,11 +135,25 @@ const Info = styled.View`
 
 const InfoText = styled.Text``;
 
-const CardList = styled(List)`
+const CardList = styled(SectionList)`
   flex: 1 1 auto;
+  width: 100%;
 `;
 
-// bottom: 0; left: 0; position: absolute; right: 0; z-index: 1000;
+const SectionHeader = styled.View`
+  background-color: ${colors.darkGray};
+  border-bottom-color: ${colors.lightGrayDark};
+  border-bottom-width: ${StyleSheet.hairlineWidth}px;
+  padding-horizontal: 16px;
+  padding-vertical: 4px;
+`;
+
+const SectionHeaderText = styled.Text`
+  color: ${colors.lightGray};
+  font-weight: 800;
+  text-transform: uppercase;
+`;
+
 const FloatingControls = styled.View`
   background-color: ${colors.darkGray};
   flex-direction: row;

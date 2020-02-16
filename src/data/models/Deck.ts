@@ -47,9 +47,38 @@ export class Deck {
       card,
       code: card.code,
       name: card.name,
+      factionCode: card.factionCode,
       typeCode: card.typeCode,
       count: this.raw.cards[card.code],
     }));
+  }
+
+  get sectionedCards() {
+    const cards = this.cards;
+    const sections = {
+      hero: { code: 'hero', title: 'Hero', data: [] },
+      aspect: { code: 'aspect', title: 'Aspect', data: [] },
+      basic: { code: 'basic', title: 'Basic', data: [] },
+    };
+
+    cards.forEach((card) => {
+      switch (card.factionCode) {
+        case 'hero': {
+          sections.hero.data.push(card);
+          break;
+        }
+        case 'basic': {
+          sections.basic.data.push(card);
+          break;
+        }
+        default: {
+          sections.aspect.data.push(card);
+          break;
+        }
+      }
+    });
+
+    return Object.values(sections);
   }
 
   get cardCount() {
@@ -67,10 +96,39 @@ export class Deck {
         card,
         code: card.code,
         name: card.name,
+        factionCode: card.factionCode,
         typeCode: card.typeCode,
         count: this.raw.cards[card.code],
       }),
     );
+  }
+
+  get sectionedEligibleCards() {
+    const cards = this.eligibleCards;
+    const sections = {
+      hero: { code: 'hero', title: 'Hero', data: [] },
+      aspect: { code: 'aspect', title: 'Aspect', data: [] },
+      basic: { code: 'basic', title: 'Basic', data: [] },
+    };
+
+    cards.forEach((card) => {
+      switch (card.factionCode) {
+        case 'hero': {
+          sections.hero.data.push(card);
+          break;
+        }
+        case 'basic': {
+          sections.basic.data.push(card);
+          break;
+        }
+        default: {
+          sections.aspect.data.push(card);
+          break;
+        }
+      }
+    });
+
+    return Object.values(sections);
   }
 
   get heroCard() {

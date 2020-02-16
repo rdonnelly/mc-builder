@@ -344,6 +344,12 @@ export const getEligibleCards = (factionCode: string, codes: string[]) =>
       if (factionRank[b.factionCode] > factionRank[a.factionCode]) {
         return -1;
       }
+      if (a.typeCode > b.typeCode) {
+        return 1;
+      }
+      if (b.typeCode > a.typeCode) {
+        return -1;
+      }
       if (a.code > b.code) {
         return 1;
       }

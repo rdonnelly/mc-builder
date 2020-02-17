@@ -25,6 +25,7 @@ const DeckEditList: React.FunctionComponent<{
   const renderSectionHeader = ({ section }) => (
     <SectionHeader>
       <SectionHeaderText>{section.title}</SectionHeaderText>
+      <SectionHeaderText>{section.count}</SectionHeaderText>
     </SectionHeader>
   );
 
@@ -64,6 +65,8 @@ const SectionHeader = styled.View`
   background-color: ${colors.darkGray};
   border-bottom-color: ${colors.lightGrayDark};
   border-bottom-width: ${StyleSheet.hairlineWidth}px;
+  flex-direction: row;
+  justify-content: space-between;
   padding-horizontal: 16px;
   padding-vertical: 4px;
 `;

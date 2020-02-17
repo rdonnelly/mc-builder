@@ -42,6 +42,15 @@ export class Deck {
     return (this.set || {}).name;
   }
 
+  get cardCount() {
+    return this.cards.reduce((count, card) => {
+      if (!['alter_ego', 'hero'].includes(card.typeCode)) {
+        count += card.count;
+      }
+      return count;
+    }, 0);
+  }
+
   get cards() {
     return getSubsetOfCards(Object.keys(this.raw.cards)).map((card) => ({
       card,
@@ -56,38 +65,32 @@ export class Deck {
   get sectionedCards() {
     const cards = this.cards;
     const sections = {
-      hero: { code: 'hero', title: 'Hero', data: [] },
-      aspect: { code: 'aspect', title: 'Aspect', data: [] },
-      basic: { code: 'basic', title: 'Basic', data: [] },
+      hero: { code: 'hero', title: 'Hero', count: 0, data: [] },
+      aspect: { code: 'aspect', title: 'Aspect', count: 0, data: [] },
+      basic: { code: 'basic', title: 'Basic', count: 0, data: [] },
     };
 
     cards.forEach((card) => {
       switch (card.factionCode) {
         case 'hero': {
           sections.hero.data.push(card);
+          sections.hero.count += card.count;
           break;
         }
         case 'basic': {
           sections.basic.data.push(card);
+          sections.basic.count += card.count;
           break;
         }
         default: {
           sections.aspect.data.push(card);
+          sections.aspect.count += card.count;
           break;
         }
       }
     });
 
     return Object.values(sections);
-  }
-
-  get cardCount() {
-    return this.cards.reduce((count, card) => {
-      if (!['alter_ego', 'hero'].includes(card.typeCode)) {
-        count += card.count;
-      }
-      return count;
-    }, 0);
   }
 
   get eligibleCards() {
@@ -106,23 +109,26 @@ export class Deck {
   get sectionedEligibleCards() {
     const cards = this.eligibleCards;
     const sections = {
-      hero: { code: 'hero', title: 'Hero', data: [] },
-      aspect: { code: 'aspect', title: 'Aspect', data: [] },
-      basic: { code: 'basic', title: 'Basic', data: [] },
+      hero: { code: 'hero', title: 'Hero', count: 0, data: [] },
+      aspect: { code: 'aspect', title: 'Aspect', count: 0, data: [] },
+      basic: { code: 'basic', title: 'Basic', count: 0, data: [] },
     };
 
     cards.forEach((card) => {
       switch (card.factionCode) {
         case 'hero': {
           sections.hero.data.push(card);
+          sections.hero.count += card.count;
           break;
         }
         case 'basic': {
           sections.basic.data.push(card);
+          sections.basic.count += card.count;
           break;
         }
         default: {
           sections.aspect.data.push(card);
+          sections.aspect.count += card.count;
           break;
         }
       }

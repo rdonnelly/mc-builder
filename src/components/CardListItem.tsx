@@ -13,10 +13,18 @@ const CardListItem: React.FunctionComponent<{
   card: any;
   count?: number;
   deckCode?: string;
+  showPackInfo?: boolean;
   showEditControls?: boolean;
   isSelected: boolean;
   onPressItem: any;
-}> = ({ card, count, deckCode, showEditControls, onPressItem }) => {
+}> = ({
+  card,
+  count,
+  deckCode,
+  showPackInfo = true,
+  showEditControls,
+  onPressItem,
+}) => {
   const dispatch = useDispatch();
 
   const increment = () =>
@@ -30,6 +38,11 @@ const CardListItem: React.FunctionComponent<{
     count >= card.deckLimit ||
     card.factionCode === 'hero';
   const decrementIsDisabled = count <= 0 || card.factionCode === 'hero';
+
+  let infoText = `${card.typeName} · ${card.factionName}`;
+  if (showPackInfo) {
+    infoText = `${card.packName} · ${card.cardCode} · ${infoText}`;
+  }
 
   return (
     <Container>
@@ -46,12 +59,8 @@ const CardListItem: React.FunctionComponent<{
             </CardDetailsNameText>
           </CardDetailsName>
           <CardDetailsInfo>
-            <CardDetailsInfoText>
-              <Text>{card.typeName}</Text>
-              <Text>&nbsp;&middot;&nbsp;</Text>
-              <Text>{card.factionName}</Text>
-              <Text>&nbsp;&middot;&nbsp;</Text>
-              <Text>{card.cardCode}</Text>
+            <CardDetailsInfoText numberOfLines={1}>
+              {infoText}
             </CardDetailsInfoText>
           </CardDetailsInfo>
         </CardDetails>

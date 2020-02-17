@@ -42,6 +42,9 @@ const DeckEdit: React.FunctionComponent<{
             <InfoText>{alterEgoCard.name}</InfoText>
           </InfoItem>
           <InfoItem>
+            <InfoText>{deck.aspectName}</InfoText>
+          </InfoItem>
+          <InfoItem>
             <InfoText>{deck.cardCount} Cards</InfoText>
           </InfoItem>
         </Info>
@@ -93,15 +96,16 @@ const Info = styled.View`
 const InfoItem = styled.View`
   background-color: ${colors.darkGray};
   border-radius: 8px;
-  padding: 4px 8px;
+  padding: 2px 8px;
 `;
 
 const InfoText = styled.Text.attrs(() => ({
   numberOfLines: 1,
 }))`
   color: ${colors.white};
-  font-size: 14;
+  font-size: 14px;
   font-weight: 700;
+  text-align: right;
 `;
 
 const FloatingControls = styled.View`

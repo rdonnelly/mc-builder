@@ -34,6 +34,7 @@ const DeckEditList: React.FunctionComponent<{
       card={card.card}
       count={card.count || 0}
       deckCode={deck.code}
+      showPackInfo={false}
       showEditControls={true}
       isSelected={false}
       onPressItem={() => handlePressItem(card.code)}

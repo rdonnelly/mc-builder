@@ -75,7 +75,15 @@ const DeckDetail: React.FunctionComponent<{
           )}
         </ImageWrapper>
         <Info>
-          <InfoText>Card Count: {deck.cardCount}</InfoText>
+          <InfoItem>
+            <InfoText>{heroCard.name}</InfoText>
+          </InfoItem>
+          <InfoItem>
+            <InfoText>{alterEgoCard.name}</InfoText>
+          </InfoItem>
+          <InfoItem>
+            <InfoText>{deck.cardCount} Cards</InfoText>
+          </InfoItem>
         </Info>
       </Summary>
       <CardList
@@ -106,13 +114,10 @@ const Container = styled(base.Container)`
 const Summary = styled.View`
   flex-direction: row;
   margin: 16px;
-  shadow-color: #000;
-  shadow-offset: 1px 3px;
-  shadow-opacity: 0.1;
-  shadow-radius: 4px;
 `;
 
 const ImageWrapper = styled.TouchableOpacity`
+  background-color: ${colors.lightGray};
   border-radius: 8px;
   height: 100px;
   margin-right: 8px;
@@ -132,9 +137,23 @@ const Image = styled.Image`
 
 const Info = styled.View`
   flex: 1 1 auto;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
-const InfoText = styled.Text``;
+const InfoItem = styled.View`
+  background-color: ${colors.darkGray};
+  border-radius: 8px;
+  padding: 4px 8px;
+`;
+
+const InfoText = styled.Text.attrs(() => ({
+  numberOfLines: 1,
+}))`
+  color: ${colors.white};
+  font-size: 14;
+  font-weight: 700;
+`;
 
 const CardList = styled(SectionList)`
   flex: 1 1 auto;

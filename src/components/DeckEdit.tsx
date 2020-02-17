@@ -35,7 +35,15 @@ const DeckEdit: React.FunctionComponent<{
           )}
         </ImageWrapper>
         <Info>
-          <InfoText>Card Count: {deck.cardCount}</InfoText>
+          <InfoItem>
+            <InfoText>{heroCard.name}</InfoText>
+          </InfoItem>
+          <InfoItem>
+            <InfoText>{alterEgoCard.name}</InfoText>
+          </InfoItem>
+          <InfoItem>
+            <InfoText>{deck.cardCount} Cards</InfoText>
+          </InfoItem>
         </Info>
       </Summary>
       <DeckEditList deck={deck} />
@@ -78,9 +86,23 @@ const Image = styled.Image`
 
 const Info = styled.View`
   flex: 1 1 auto;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
-const InfoText = styled.Text``;
+const InfoItem = styled.View`
+  background-color: ${colors.darkGray};
+  border-radius: 8px;
+  padding: 4px 8px;
+`;
+
+const InfoText = styled.Text.attrs(() => ({
+  numberOfLines: 1,
+}))`
+  color: ${colors.white};
+  font-size: 14;
+  font-weight: 700;
+`;
 
 const FloatingControls = styled.View`
   background-color: ${colors.darkGray};

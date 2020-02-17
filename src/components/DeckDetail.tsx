@@ -182,10 +182,18 @@ const SectionHeaderText = styled.Text`
 `;
 
 const FloatingControls = styled.View`
-  background-color: ${colors.darkGray};
+  background-color: rgba(52, 73, 94, 0.1);
   flex-direction: row;
-  margin-horizontal: -8px;
-  padding: 12px;
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  right: 8px;
+  border-radius: 4px;
+  padding: 8px 4px;
+  shadow-color: #000;
+  shadow-offset: 1px 3px;
+  shadow-opacity: 0.1;
+  shadow-radius: 4px;
 `;
 
 const FloatingControlsEditButton = styled(base.Button)`

@@ -48,6 +48,7 @@ const DeckEditList: React.FunctionComponent<{
         renderItem={renderCard}
         renderSectionHeader={renderSectionHeader}
         keyExtractor={(item) => item.code || item.title}
+        contentContainerStyle={{ paddingBottom: 72 }}
       />
     </Container>
   );

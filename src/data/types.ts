@@ -57,9 +57,12 @@ export interface IFactionRaw {
 }
 
 export interface IPackRaw {
-  code: string;
-  name: string;
   cgdb_id?: number;
+  code: string;
+  date_release: string;
+  name: string;
+  pack_type_code: string;
+  position: number;
 }
 
 export interface ISetRaw {

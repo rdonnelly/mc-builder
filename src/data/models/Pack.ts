@@ -17,8 +17,16 @@ export class Pack {
     return this.raw.name;
   }
 
+  get type() {
+    return this.raw.pack_type_code;
+  }
+
   get cgdbId() {
     return this.raw.cgdb_id;
+  }
+
+  get dateRelease() {
+    return this.raw.date_release;
   }
 }
 
@@ -26,6 +34,18 @@ export const getPacks = () =>
   packsRaw
     .map((packRaw) => new Pack(packRaw))
     .sort((a, b) => {
+      if (
+        (a.dateRelease == null && b.dateRelease != null) ||
+        a.dateRelease > b.dateRelease
+      ) {
+        return 1;
+      }
+      if (
+        (b.dateRelease == null && a.dateRelease != null) ||
+        b.dateRelease > a.dateRelease
+      ) {
+        return -1;
+      }
       if (a.code > b.code) {
         return 1;
       }

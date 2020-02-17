@@ -74,23 +74,23 @@ export class Deck {
       switch (card.factionCode) {
         case 'hero': {
           sections.hero.data.push(card);
-          sections.hero.count += card.count;
+          sections.hero.count += card.count || 0;
           break;
         }
         case 'basic': {
           sections.basic.data.push(card);
-          sections.basic.count += card.count;
+          sections.basic.count += card.count || 0;
           break;
         }
         default: {
           sections.aspect.data.push(card);
-          sections.aspect.count += card.count;
+          sections.aspect.count += card.count || 0;
           break;
         }
       }
     });
 
-    return Object.values(sections);
+    return Object.values(sections).filter((section) => section.count > 0);
   }
 
   get eligibleCards() {
@@ -118,17 +118,17 @@ export class Deck {
       switch (card.factionCode) {
         case 'hero': {
           sections.hero.data.push(card);
-          sections.hero.count += card.count;
+          sections.hero.count += card.count || 0;
           break;
         }
         case 'basic': {
           sections.basic.data.push(card);
-          sections.basic.count += card.count;
+          sections.basic.count += card.count || 0;
           break;
         }
         default: {
           sections.aspect.data.push(card);
-          sections.aspect.count += card.count;
+          sections.aspect.count += card.count || 0;
           break;
         }
       }

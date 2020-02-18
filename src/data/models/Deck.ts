@@ -62,8 +62,21 @@ export class Deck {
     }));
   }
 
+  get filteredCards() {
+    return getSubsetOfCards(Object.keys(this.raw.cards))
+      .filter((card) => !['alter_ego', 'hero'].includes(card.typeCode))
+      .map((card) => ({
+        card,
+        code: card.code,
+        name: card.name,
+        factionCode: card.factionCode,
+        typeCode: card.typeCode,
+        count: this.raw.cards[card.code],
+      }));
+  }
+
   get sectionedCards() {
-    const cards = this.cards;
+    const cards = this.filteredCards;
     const sections = {
       hero: { code: 'hero', title: 'Hero', count: 0, data: [] },
       aspect: { code: 'aspect', title: 'Aspect', count: 0, data: [] },
@@ -146,7 +159,8 @@ export class Deck {
   }
 
   get isLegal() {
-    // TODO what else?
+    // TODO
+    // restricted list
     return this.cardCount >= 40 && this.cardCount <= 50;
   }
 }

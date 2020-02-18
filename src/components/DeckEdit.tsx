@@ -26,14 +26,16 @@ const DeckEdit: React.FunctionComponent<{
   return (
     <Container>
       <Summary>
-        <ImageWrapper>
-          {heroCardImageSrc && <Image source={{ uri: heroCardImageSrc }} />}
-        </ImageWrapper>
-        <ImageWrapper>
-          {alterEgoCardImageSrc && (
-            <Image source={{ uri: alterEgoCardImageSrc }} />
+        <IdentityWrapper onPress={() => handlePressItem(heroCard.code)}>
+          {heroCardImageSrc && (
+            <IdentityImage source={{ uri: heroCardImageSrc }} />
           )}
-        </ImageWrapper>
+        </IdentityWrapper>
+        <IdentityWrapper onPress={() => handlePressItem(alterEgoCard.code)}>
+          {alterEgoCardImageSrc && (
+            <IdentityImage source={{ uri: alterEgoCardImageSrc }} />
+          )}
+        </IdentityWrapper>
         <Info>
           <InfoItem>
             <InfoText>{heroCard.name}</InfoText>
@@ -73,7 +75,9 @@ const Summary = styled.View`
   shadow-radius: 4px;
 `;
 
-const ImageWrapper = styled.TouchableOpacity`
+const IdentityWrapper = styled.TouchableOpacity`
+  background-color: ${colors.lightGray};
+  border: 2px solid ${colors.white};
   border-radius: 8px;
   height: 100px;
   margin-right: 8px;
@@ -81,7 +85,7 @@ const ImageWrapper = styled.TouchableOpacity`
   width: 100px;
 `;
 
-const Image = styled.Image`
+const IdentityImage = styled.Image`
   height: 175px;
   width: 175px;
   left: -50%;

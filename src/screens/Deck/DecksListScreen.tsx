@@ -74,11 +74,19 @@ const DecksListScreen: React.FunctionComponent<{
           renderItem={renderCard}
           data={decks}
           keyExtractor={(card: IDeck) => card.code}
+          contentContainerStyle={{ paddingBottom: 72 }}
           ListFooterComponent={renderFooter}
         />
       ) : (
         renderEmpty()
       )}
+      <FloatingControls>
+        <FloatingControlsButton
+          onPress={() => navigation.navigate('DecksCreate')}
+        >
+          <FloatingControlsButtonText>Create Deck</FloatingControlsButtonText>
+        </FloatingControlsButton>
+      </FloatingControls>
     </Container>
   );
 };
@@ -90,5 +98,29 @@ const FlatList = styled(base.FlatList)``;
 const ListFooter = styled(base.ListFooter)``;
 
 const ListFooterText = styled(base.ListFooterText)``;
+
+const FloatingControls = styled.View`
+  background-color: rgba(52, 73, 94, 0.1);
+  flex-direction: row;
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  right: 8px;
+  border-radius: 4px;
+  padding: 8px 4px;
+  shadow-color: #000;
+  shadow-offset: 1px 3px;
+  shadow-opacity: 0.1;
+  shadow-radius: 4px;
+`;
+
+const FloatingControlsButton = styled(base.Button)`
+  background-color: ${colors.purple};
+  flex: 1 1 auto;
+  margin-horizontal: 8px;
+  padding: 8px;
+`;
+
+const FloatingControlsButtonText = styled(base.ButtonText)``;
 
 export default DecksListScreen;

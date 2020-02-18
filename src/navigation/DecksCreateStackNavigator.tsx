@@ -16,7 +16,7 @@ export default () => (
   <Stack.Navigator
     initialRouteName="DecksCreateForm"
     screenOptions={{
-      title: 'Add Deck',
+      title: 'Create Deck',
       headerStyle: {
         backgroundColor: colors.purple,
       },
@@ -30,7 +30,7 @@ export default () => (
       name="DecksCreateForm"
       component={DecksCreateFormScreen}
       options={{
-        title: 'Add Deck',
+        title: 'Create Deck',
       }}
     />
     <Stack.Screen

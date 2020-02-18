@@ -105,7 +105,7 @@ const DecksCreateFormScreen: React.FunctionComponent<{
 
       <Controls>
         <AddButton onPress={submit}>
-          <AddButtonText>Add Deck</AddButtonText>
+          <AddButtonText>Create Deck</AddButtonText>
         </AddButton>
         <CancelButton onPress={() => navigation.goBack()}>
           <CancelButtonText>Cancel</CancelButtonText>

@@ -81,7 +81,9 @@ const DecksCreateFormScreen: React.FunctionComponent<{
                 navigation.navigate('DecksCreateSelect', { type: 'hero' })
               }
             >
-              <LinkRowText>{set ? set.name : 'Select Hero'}</LinkRowText>
+              <LinkRowText active={set}>
+                {set ? set.name : 'No Hero Selected'}
+              </LinkRowText>
               <LinkRowChevronWrapper>
                 <LinkRowChevron name={'chevron-right'} size={16} />
               </LinkRowChevronWrapper>
@@ -97,8 +99,8 @@ const DecksCreateFormScreen: React.FunctionComponent<{
                 navigation.navigate('DecksCreateSelect', { type: 'aspect' })
               }
             >
-              <LinkRowText>
-                {faction ? faction.name : 'Select Aspect'}
+              <LinkRowText active={faction}>
+                {faction ? faction.name : 'No Aspect Selected'}
               </LinkRowText>
               <LinkRowChevronWrapper>
                 <LinkRowChevron name={'chevron-right'} size={16} />
@@ -166,14 +168,16 @@ const LinkRow = styled.TouchableOpacity`
   background-color: ${colors.white};
   border-bottom-color: ${colors.lightGrayDark};
   border-bottom-width: ${StyleSheet.hairlineWidth}px;
+  border-radius: 8px;
   flex-direction: row;
   justify-content: space-between;
+  margin-horizontal: 16px;
   padding-horizontal: 16px;
   padding-vertical: 16px;
 `;
 
-const LinkRowText = styled.Text`
-  color: ${colors.darkGray};
+const LinkRowText = styled.Text<{ active: boolean }>`
+  color: ${(props) => (props.active ? colors.darkGray : colors.gray)};
   font-size: 18px;
   font-weight: 600;
 `;

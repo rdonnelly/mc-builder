@@ -20,11 +20,11 @@ const DecksCreateFormScreen: React.FunctionComponent<{
     DecksCreateContext,
   );
 
-  const set = getSet(deckSet, false);
-  const faction = getFaction(deckAspect, false);
-
   const dispatch = useDispatch();
   const insets = useSafeArea();
+
+  const set = getSet(deckSet, false);
+  const faction = getFaction(deckAspect, false);
 
   const submit = () => {
     const deckCode = uuidv4();
@@ -49,68 +49,73 @@ const DecksCreateFormScreen: React.FunctionComponent<{
 
   return (
     <Container paddingBottom={insets.bottom}>
-      <Form>
-        <FormSection>
-          <ControlLabel>
-            <ControlLabelText>Deck Name</ControlLabelText>
-          </ControlLabel>
-          <Control>
-            <TextInput
-              autoCapitalize={'none'}
-              autoCorrect={false}
-              clearButtonMode={'always'}
-              editable={true}
-              placeholder={'Deck Name'}
-              placeholderTextColor={colors.gray}
-              value={deckName}
-              onChangeText={(value) => setDeckName(value)}
-            />
-          </Control>
-        </FormSection>
+      <KeyboardAvoidingView
+        behavior={'padding'}
+        keyboardVerticalOffset={insets.top + insets.bottom + 44}
+      >
+        <Form>
+          <FormSection>
+            <ControlLabel>
+              <ControlLabelText>Deck Name</ControlLabelText>
+            </ControlLabel>
+            <Control>
+              <TextInput
+                autoCorrect={false}
+                clearButtonMode={'always'}
+                editable={true}
+                placeholder={'Deck Name'}
+                placeholderTextColor={colors.gray}
+                returnKeyType={'done'}
+                value={deckName}
+                onChangeText={(value) => setDeckName(value)}
+              />
+            </Control>
+          </FormSection>
 
-        <FormSection>
-          <ControlLabel>
-            <ControlLabelText>Select Hero</ControlLabelText>
-          </ControlLabel>
-          <LinkRow
-            onPress={() =>
-              navigation.navigate('DecksCreateSelect', { type: 'hero' })
-            }
-          >
-            <LinkRowText>{set ? set.name : 'Select Hero'}</LinkRowText>
-            <LinkRowChevronWrapper>
-              <LinkRowChevron name={'chevron-right'} size={16} />
-            </LinkRowChevronWrapper>
-          </LinkRow>
-        </FormSection>
+          <FormSection>
+            <ControlLabel>
+              <ControlLabelText>Select Hero</ControlLabelText>
+            </ControlLabel>
+            <LinkRow
+              onPress={() =>
+                navigation.navigate('DecksCreateSelect', { type: 'hero' })
+              }
+            >
+              <LinkRowText>{set ? set.name : 'Select Hero'}</LinkRowText>
+              <LinkRowChevronWrapper>
+                <LinkRowChevron name={'chevron-right'} size={16} />
+              </LinkRowChevronWrapper>
+            </LinkRow>
+          </FormSection>
 
-        <FormSection>
-          <ControlLabel>
-            <ControlLabelText>Select Aspect</ControlLabelText>
-          </ControlLabel>
-          <LinkRow
-            onPress={() =>
-              navigation.navigate('DecksCreateSelect', { type: 'aspect' })
-            }
-          >
-            <LinkRowText>
-              {faction ? faction.name : 'Select Aspect'}
-            </LinkRowText>
-            <LinkRowChevronWrapper>
-              <LinkRowChevron name={'chevron-right'} size={16} />
-            </LinkRowChevronWrapper>
-          </LinkRow>
-        </FormSection>
-      </Form>
+          <FormSection>
+            <ControlLabel>
+              <ControlLabelText>Select Aspect</ControlLabelText>
+            </ControlLabel>
+            <LinkRow
+              onPress={() =>
+                navigation.navigate('DecksCreateSelect', { type: 'aspect' })
+              }
+            >
+              <LinkRowText>
+                {faction ? faction.name : 'Select Aspect'}
+              </LinkRowText>
+              <LinkRowChevronWrapper>
+                <LinkRowChevron name={'chevron-right'} size={16} />
+              </LinkRowChevronWrapper>
+            </LinkRow>
+          </FormSection>
+        </Form>
 
-      <Controls>
-        <AddButton onPress={submit}>
-          <AddButtonText>Create Deck</AddButtonText>
-        </AddButton>
-        <CancelButton onPress={() => navigation.goBack()}>
-          <CancelButtonText>Cancel</CancelButtonText>
-        </CancelButton>
-      </Controls>
+        <Controls>
+          <AddButton onPress={submit}>
+            <AddButtonText>Create Deck</AddButtonText>
+          </AddButton>
+          <CancelButton onPress={() => navigation.goBack()}>
+            <CancelButtonText>Cancel</CancelButtonText>
+          </CancelButton>
+        </Controls>
+      </KeyboardAvoidingView>
     </Container>
   );
 };
@@ -119,6 +124,11 @@ const Container = styled(base.Container)<{ paddingBottom: number }>`
   background-color: ${colors.lightGray};
   padding-top: 16px;
   padding-bottom: ${(props) => Math.max(props.paddingBottom, 16)}px;
+`;
+
+const KeyboardAvoidingView = styled.KeyboardAvoidingView`
+  flex: 1 1 auto;
+  width: 100%;
 `;
 
 const Form = styled.View`

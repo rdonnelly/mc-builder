@@ -13,8 +13,12 @@ export default () => (
   <Tab.Navigator
     initialRouteName="Cards"
     tabBarOptions={{
-      activeTintColor: colors.darkGray,
-      inactiveTintColor: colors.lightGrayDark,
+      activeTintColor: colors.darkGrayDark,
+      inactiveTintColor: colors.gray,
+      inactiveBackgroundColor: colors.lightGray,
+      style: {
+        backgroundColor: colors.lightGray,
+      },
     }}
   >
     <Tab.Screen

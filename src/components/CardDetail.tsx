@@ -1,14 +1,13 @@
-import * as React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import Html from 'react-native-render-html';
+import React from 'react';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import styled from 'styled-components/native';
 
+import { CardModel } from '../data';
 import { base, colors } from '../styles';
 import { shareImageUrl } from '../utils/Share';
-
-import { CardModel } from '../data';
 
 const isTablet = DeviceInfo.isTablet();
 
@@ -27,7 +26,7 @@ const getStats = (card: CardModel) => {
   switch (card.typeCode) {
     case 'hero': {
       stats.push(
-        <Stat>
+        <Stat key={'thwart'}>
           <StatHeader>
             <StatHeaderText>Thwart</StatHeaderText>
           </StatHeader>
@@ -35,7 +34,7 @@ const getStats = (card: CardModel) => {
             <StatDataText>{card.raw.thwart}</StatDataText>
           </StatData>
         </Stat>,
-        <Stat>
+        <Stat key={'attack'}>
           <StatHeader>
             <StatHeaderText>Attack</StatHeaderText>
           </StatHeader>
@@ -43,7 +42,7 @@ const getStats = (card: CardModel) => {
             <StatDataText>{card.raw.attack}</StatDataText>
           </StatData>
         </Stat>,
-        <Stat>
+        <Stat key={'defense'}>
           <StatHeader>
             <StatHeaderText>Defense</StatHeaderText>
           </StatHeader>
@@ -51,7 +50,7 @@ const getStats = (card: CardModel) => {
             <StatDataText>{card.raw.defense}</StatDataText>
           </StatData>
         </Stat>,
-        <Stat>
+        <Stat key={'hand_size'}>
           <StatHeader>
             <StatHeaderText>Hand Size</StatHeaderText>
           </StatHeader>
@@ -59,7 +58,7 @@ const getStats = (card: CardModel) => {
             <StatDataText>{card.raw.hand_size}</StatDataText>
           </StatData>
         </Stat>,
-        <Stat>
+        <Stat key={'health'}>
           <StatHeader>
             <StatHeaderText>Hit Points</StatHeaderText>
           </StatHeader>
@@ -72,7 +71,7 @@ const getStats = (card: CardModel) => {
     }
     case 'alter_ego': {
       stats.push(
-        <Stat>
+        <Stat key={'recover'}>
           <StatHeader>
             <StatHeaderText>Recover</StatHeaderText>
           </StatHeader>
@@ -80,7 +79,7 @@ const getStats = (card: CardModel) => {
             <StatDataText>{card.raw.recover}</StatDataText>
           </StatData>
         </Stat>,
-        <Stat>
+        <Stat key={'hand_size'}>
           <StatHeader>
             <StatHeaderText>Hand Size</StatHeaderText>
           </StatHeader>
@@ -88,7 +87,7 @@ const getStats = (card: CardModel) => {
             <StatDataText>{card.raw.hand_size}</StatDataText>
           </StatData>
         </Stat>,
-        <Stat>
+        <Stat key={'health'}>
           <StatHeader>
             <StatHeaderText>Hit Points</StatHeaderText>
           </StatHeader>
@@ -103,7 +102,7 @@ const getStats = (card: CardModel) => {
     case 'main_scheme': {
       // TODO
       stats.push(
-        <Stat>
+        <Stat key={'base_threat'}>
           <StatHeader>
             <StatHeaderText>Starting Threat</StatHeaderText>
           </StatHeader>
@@ -111,7 +110,7 @@ const getStats = (card: CardModel) => {
             <StatDataText>{card.raw.base_threat}</StatDataText>
           </StatData>
         </Stat>,
-        <Stat>
+        <Stat key={'escalation_threat'}>
           <StatHeader>
             <StatHeaderText>Escalation Threat</StatHeaderText>
           </StatHeader>
@@ -126,7 +125,7 @@ const getStats = (card: CardModel) => {
     case 'attachment': {
       // TODO
       stats.push(
-        <Stat>
+        <Stat key={'attack'}>
           <StatHeader>
             <StatHeaderText>Attack</StatHeaderText>
           </StatHeader>
@@ -134,7 +133,7 @@ const getStats = (card: CardModel) => {
             <StatDataText>{card.raw.attack}</StatDataText>
           </StatData>
         </Stat>,
-        <Stat>
+        <Stat key={'scheme'}>
           <StatHeader>
             <StatHeaderText>Scheme</StatHeaderText>
           </StatHeader>
@@ -153,7 +152,7 @@ const getStats = (card: CardModel) => {
     case 'event': {
       if (card.typeCode !== 'resource') {
         stats.push(
-          <Stat>
+          <Stat key={'cost'}>
             <StatHeader>
               <StatHeaderText>Cost</StatHeaderText>
             </StatHeader>
@@ -166,7 +165,7 @@ const getStats = (card: CardModel) => {
 
       if (card.typeCode === 'ally') {
         stats.push(
-          <Stat>
+          <Stat key={'attack'}>
             <StatHeader>
               <StatHeaderText>Attack</StatHeaderText>
             </StatHeader>
@@ -177,7 +176,7 @@ const getStats = (card: CardModel) => {
               </StatDataText>
             </StatData>
           </Stat>,
-          <Stat>
+          <Stat key={'thwart'}>
             <StatHeader>
               <StatHeaderText>Thwart</StatHeaderText>
             </StatHeader>
@@ -193,7 +192,7 @@ const getStats = (card: CardModel) => {
 
       if (card.raw.health) {
         stats.push(
-          <Stat>
+          <Stat key={'health'}>
             <StatHeader>
               <StatHeaderText>Health</StatHeaderText>
             </StatHeader>
@@ -241,9 +240,10 @@ const handleImageLongPress = (card: CardModel) => {
 
 const CardDetail: React.FunctionComponent<{
   card: CardModel;
-}> = ({ card }) => {
+  width: number;
+}> = ({ card, width }) => {
   return (
-    <Container>
+    <CardContainer width={width}>
       <ContainerScrollView>
         <StatWrapper>{getStats(card)}</StatWrapper>
         {renderCardText(card.text)}
@@ -257,11 +257,15 @@ const CardDetail: React.FunctionComponent<{
           <Image resizeMode="contain" source={{ uri: card.imageSrc }} />
         </ImageWrapper>
       </ContainerScrollView>
-    </Container>
+    </CardContainer>
   );
 };
 
-const Container = styled(base.Container)``;
+// const CardContainer = styled(base.Container)``;
+
+const CardContainer = styled(base.Container)<{ width: number }>`
+  width: ${(props) => props.width}px;
+`;
 
 const ContainerScrollView = styled(ScrollView)`
   flex: 1 1 auto;
@@ -306,7 +310,7 @@ const Image = styled.Image`
 `;
 
 const CardDetailTextWrapper = styled.View`
-  background-color: ${colors.lightGray};
+  background-color: ${colors.white};
   border-radius: 4px;
   flex: 1 1 auto;
   margin-bottom: 16px;

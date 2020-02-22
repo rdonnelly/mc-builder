@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { StatusBar } from 'react-native';
 import React from 'react';
 
+import { CardListProvider } from './context/CardListContext';
 import TabNavigator from './navigation/TabNavigator';
 import configureStore from './store';
 
@@ -13,13 +14,15 @@ const { store, persistor } = configureStore(undefined);
 
 export default () => {
   return (
-    <Provider store={store}>
-      <PersistGate persistor={persistor}>
-        <NavigationContainer>
-          <StatusBar barStyle="dark-content" />
-          <TabNavigator />
-        </NavigationContainer>
-      </PersistGate>
-    </Provider>
+    <CardListProvider>
+      <Provider store={store}>
+        <PersistGate persistor={persistor}>
+          <NavigationContainer>
+            <StatusBar barStyle="dark-content" />
+            <TabNavigator />
+          </NavigationContainer>
+        </PersistGate>
+      </Provider>
+    </CardListProvider>
   );
 };

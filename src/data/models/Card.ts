@@ -1,3 +1,4 @@
+import isDeepEqual from 'lodash/isEqual';
 import memoizeOne from 'memoize-one';
 
 import { ICardRaw } from '../types';
@@ -156,55 +157,61 @@ export const getFilteredCards = memoizeOne(
   },
 );
 
-export const getSubsetOfCards = (codes: string[]) =>
-  getCards().filter((card) => codes.includes(card.code));
+export const getSubsetOfCards = memoizeOne(
+  (codes: string[]) => getCards().filter((card) => codes.includes(card.code)),
+  isDeepEqual,
+);
 
-export const getEligibleCards = (factionCode: string, codes: string[]) =>
-  getCards()
-    .filter((card) => {
-      if (
-        ![
-          'ally',
-          'attachment',
-          'event',
-          'resource',
-          'support',
-          'upgrade',
-        ].includes(card.typeCode)
-      ) {
-        return false;
-      }
+export const getEligibleCards = memoizeOne(
+  (factionCode: string, codes: string[]) =>
+    getCards()
+      .filter((card) => {
+        if (
+          ![
+            'ally',
+            'attachment',
+            'event',
+            'resource',
+            'support',
+            'upgrade',
+          ].includes(card.typeCode)
+        ) {
+          return false;
+        }
 
-      if (
-        ![factionCode, 'basic'].includes(card.factionCode) &&
-        !codes.includes(card.code)
-      ) {
-        return false;
-      }
+        if (
+          ![factionCode, 'basic'].includes(card.factionCode) &&
+          !codes.includes(card.code)
+        ) {
+          return false;
+        }
 
-      return true;
-    })
-    .sort((a, b) => {
-      if (factionRank[a.factionCode] > factionRank[b.factionCode]) {
-        return 1;
-      }
-      if (factionRank[b.factionCode] > factionRank[a.factionCode]) {
-        return -1;
-      }
-      if (a.typeCode > b.typeCode) {
-        return 1;
-      }
-      if (b.typeCode > a.typeCode) {
-        return -1;
-      }
-      if (a.code > b.code) {
-        return 1;
-      }
-      if (b.code > a.code) {
-        return -1;
-      }
-      return 0;
-    });
+        return true;
+      })
+      .sort((a, b) => {
+        if (factionRank[a.factionCode] > factionRank[b.factionCode]) {
+          return 1;
+        }
+        if (factionRank[b.factionCode] > factionRank[a.factionCode]) {
+          return -1;
+        }
+        if (a.typeCode > b.typeCode) {
+          return 1;
+        }
+        if (b.typeCode > a.typeCode) {
+          return -1;
+        }
+        if (a.code > b.code) {
+          return 1;
+        }
+        if (b.code > a.code) {
+          return -1;
+        }
+        return 0;
+      }),
+  isDeepEqual,
+);
 
-export const getCard = (code: string) =>
-  getCards().find((card) => card.code === code);
+export const getCard = memoizeOne((code: string) =>
+  getCards().find((card) => card.code === code),
+);

@@ -1,5 +1,5 @@
+import { Platform, StyleSheet } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { useSafeArea } from 'react-native-safe-area-context';
 import React, { useContext } from 'react';
@@ -50,7 +50,7 @@ const DecksCreateFormScreen: React.FunctionComponent<{
   return (
     <Container paddingBottom={insets.bottom}>
       <KeyboardAvoidingView
-        behavior={'padding'}
+        behavior={Platform.OS === 'ios' ? 'padding' : null}
         keyboardVerticalOffset={insets.top + insets.bottom + 44}
       >
         <Form>

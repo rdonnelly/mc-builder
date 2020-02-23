@@ -196,10 +196,6 @@ const FloatingControls = styled.View`
   right: 8px;
   border-radius: 4px;
   padding: 8px 4px;
-  shadow-color: #000;
-  shadow-offset: 1px 3px;
-  shadow-opacity: 0.1;
-  shadow-radius: 4px;
 `;
 
 const FloatingControlsEditButton = styled(base.Button)`

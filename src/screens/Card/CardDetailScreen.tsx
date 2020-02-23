@@ -1,11 +1,11 @@
 import { Dimensions } from 'react-native';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components/native';
 
 import { CardListContext } from '../../context/CardListContext';
-import { CardModel, getCard } from '../../data';
+import { CardModel } from '../../data';
 import { CardStackParamList } from '../../navigation/CardsStackNavigator';
 import { base, colors } from '../../styles';
 import CardDetail from '../../components/CardDetail';
@@ -27,10 +27,11 @@ const CardDetailScreen: React.FunctionComponent<{
   const { cardList } = useContext(CardListContext);
 
   const code = route.params.code;
-  const card: CardModel = getCard(code);
+
+  const initialScrollIndex = cardList.findIndex((c) => c.code === code);
 
   navigation.setOptions({
-    headerTitle: card.name,
+    headerTitle: cardList[initialScrollIndex].name,
     headerBackTitleVisible: false,
   });
 
@@ -40,11 +41,23 @@ const CardDetailScreen: React.FunctionComponent<{
     index,
   });
 
-  const initialScrollIndex = cardList.findIndex((c) => c.code === code);
-
   const renderItem = ({ item }) => (
     <CardDetail card={item} width={windowWidth - 16} />
   );
+
+  const viewabilityConfig = useRef({ itemVisiblePercentThreshold: 100 });
+
+  const handleViewableItemsChanged = ({ viewableItems }) => {
+    if (viewableItems.length) {
+      navigation.setOptions({
+        headerTitle: viewableItems[0].item.name,
+      });
+    } else {
+      navigation.setOptions({
+        headerTitle: '',
+      });
+    }
+  };
 
   return (
     <Container>
@@ -61,11 +74,11 @@ const CardDetailScreen: React.FunctionComponent<{
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
         initialScrollIndex={initialScrollIndex}
+        viewabilityConfig={viewabilityConfig.current}
+        onViewableItemsChanged={handleViewableItemsChanged}
       />
     </Container>
   );
-
-  // return <CardDetail card={card} code={code} />;
 };
 
 const Container = styled(base.Container)`

@@ -81,6 +81,10 @@ export class Card {
     return (this.type || {}).name;
   }
 
+  get cost() {
+    return this.raw.cost;
+  }
+
   get text() {
     return this.raw.text;
   }
@@ -158,7 +162,42 @@ export const getFilteredCards = memoizeOne(
 );
 
 export const getSubsetOfCards = memoizeOne(
-  (codes: string[]) => getCards().filter((card) => codes.includes(card.code)),
+  (codes: string[]) =>
+    getCards()
+      .filter((card) => codes.includes(card.code))
+      .sort((a, b) => {
+        if (factionRank[a.factionCode] > factionRank[b.factionCode]) {
+          return 1;
+        }
+        if (factionRank[b.factionCode] > factionRank[a.factionCode]) {
+          return -1;
+        }
+        if (a.typeCode > b.typeCode) {
+          return 1;
+        }
+        if (b.typeCode > a.typeCode) {
+          return -1;
+        }
+        if (a.cost > b.cost) {
+          return 1;
+        }
+        if (b.cost > a.cost) {
+          return -1;
+        }
+        if (a.name > b.name) {
+          return 1;
+        }
+        if (b.name > a.name) {
+          return -1;
+        }
+        if (a.code > b.code) {
+          return 1;
+        }
+        if (b.code > a.code) {
+          return -1;
+        }
+        return 0;
+      }),
   isDeepEqual,
 );
 
@@ -199,6 +238,18 @@ export const getEligibleCards = memoizeOne(
           return 1;
         }
         if (b.typeCode > a.typeCode) {
+          return -1;
+        }
+        if (a.cost > b.cost) {
+          return 1;
+        }
+        if (b.cost > a.cost) {
+          return -1;
+        }
+        if (a.name > b.name) {
+          return 1;
+        }
+        if (b.name > a.name) {
           return -1;
         }
         if (a.code > b.code) {

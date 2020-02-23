@@ -1,7 +1,7 @@
 import { Alert, SectionList, StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components/native';
 
 import { CardListContext } from '../context/CardListContext';
@@ -20,10 +20,6 @@ const DeckDetail: React.FunctionComponent<{
 
   const filteredDeckCards = getFilteredDeckCards(deck);
 
-  useEffect(() => {
-    setCardList(filteredDeckCards);
-  }, [filteredDeckCards, setCardList]);
-
   const heroCard = deck.heroCard;
   const heroCardImageSrc = heroCard ? heroCard.card.imageSrc : null;
 
@@ -32,6 +28,7 @@ const DeckDetail: React.FunctionComponent<{
 
   const handlePressItem = (code: string) => {
     if (navigation) {
+      setCardList(filteredDeckCards);
       navigation.navigate('DeckDetailCardDetail', {
         code,
       });

@@ -1,6 +1,6 @@
 import { RouteProp, useScrollToTop } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useContext, useRef } from 'react';
 import styled from 'styled-components/native';
 
 import { CardListContext } from '../../context/CardListContext';
@@ -29,10 +29,6 @@ const CardListScreen: React.FunctionComponent<{
   useScrollToTop(flatListRef);
 
   const { setCardList } = useContext(CardListContext);
-
-  useEffect(() => {
-    setCardList(cards);
-  }, [cards, setCardList]);
 
   if (filter && filterCode) {
     let filterName = null;
@@ -73,6 +69,7 @@ const CardListScreen: React.FunctionComponent<{
 
   const handlePressItem = (code: string) => {
     if (navigation) {
+      setCardList(cards);
       navigation.navigate('CardDetail', {
         code,
       });

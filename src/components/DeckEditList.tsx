@@ -1,6 +1,6 @@
 import { SectionList, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components/native';
 
 import { CardListContext } from '../context/CardListContext';
@@ -19,12 +19,9 @@ const DeckEditList: React.FunctionComponent<{
 
   const eligibleDeckCards = getEligibleDeckCards(deck);
 
-  useEffect(() => {
-    setCardList(eligibleDeckCards);
-  }, [eligibleDeckCards, setCardList]);
-
   const handlePressItem = (code: string) => {
     if (navigation) {
+      setCardList(eligibleDeckCards);
       navigation.navigate('DeckEditCardDetail', {
         code,
       });

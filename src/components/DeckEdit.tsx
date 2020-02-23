@@ -54,7 +54,7 @@ const DeckEdit: React.FunctionComponent<{
       <DeckEditList deck={deck} />
       <FloatingControls>
         <FloatingControlsSaveButton onPress={() => handlePressItem()}>
-          <FloatingControlsButtonText>Save</FloatingControlsButtonText>
+          <FloatingControlsButtonText>Done</FloatingControlsButtonText>
         </FloatingControlsSaveButton>
       </FloatingControls>
     </Container>

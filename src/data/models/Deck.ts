@@ -1,3 +1,6 @@
+import isDeepEqual from 'lodash/isEqual';
+import memoizeOne from 'memoize-one';
+
 import { IDeck } from '../../store/types';
 import { getEligibleCards, getSubsetOfCards } from './Card';
 import { getFactions } from './Faction';
@@ -164,3 +167,21 @@ export class Deck {
     return this.cardCount >= 40 && this.cardCount <= 50;
   }
 }
+
+export const getFilteredDeckCards = memoizeOne((deck) => {
+  const sectionedCards = deck.sectionedCards;
+  const cards = sectionedCards.reduce((acc, section) => {
+    return acc.concat(section.data.map((card) => card.card));
+  }, []);
+
+  return cards.filter((card) => !['alter_ego', 'hero'].includes(card.typeCode));
+}, isDeepEqual);
+
+export const getEligibleDeckCards = memoizeOne((deck) => {
+  const sectionedCards = deck.sectionedEligibleCards;
+  const cards = sectionedCards.reduce((acc, section) => {
+    return acc.concat(section.data.map((card) => card.card));
+  }, []);
+
+  return cards.filter((card) => !['alter_ego', 'hero'].includes(card.typeCode));
+}, isDeepEqual);

@@ -1,9 +1,10 @@
 import { SectionList, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import styled from 'styled-components/native';
 
-import { DeckModel } from '../data';
+import { CardListContext } from '../context/CardListContext';
+import { DeckModel, getEligibleDeckCards } from '../data';
 import { base, colors } from '../styles';
 import CardListItem from './CardListItem';
 
@@ -13,6 +14,14 @@ const DeckEditList: React.FunctionComponent<{
   deck: DeckModel;
 }> = ({ deck }) => {
   const navigation = useNavigation();
+
+  const { setCardList } = useContext(CardListContext);
+
+  const eligibleDeckCards = getEligibleDeckCards(deck);
+
+  useEffect(() => {
+    setCardList(eligibleDeckCards);
+  }, [eligibleDeckCards, setCardList]);
 
   const handlePressItem = (code: string) => {
     if (navigation) {

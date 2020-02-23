@@ -4,7 +4,11 @@ export {
   getCards,
   getFilteredCards,
 } from './models/Card';
-export { Deck as DeckModel } from './models/Deck';
+export {
+  Deck as DeckModel,
+  getFilteredDeckCards,
+  getEligibleDeckCards,
+} from './models/Deck';
 export {
   Faction as FactionModel,
   getFaction,

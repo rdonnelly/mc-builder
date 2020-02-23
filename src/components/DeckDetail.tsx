@@ -1,10 +1,11 @@
 import { Alert, SectionList, StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import styled from 'styled-components/native';
 
-import { DeckModel } from '../data';
+import { CardListContext } from '../context/CardListContext';
+import { DeckModel, getFilteredDeckCards } from '../data';
 import { base, colors } from '../styles';
 import { deleteDeck } from '../store/reducers/decks';
 import CardListItem from './CardListItem';
@@ -14,6 +15,14 @@ const DeckDetail: React.FunctionComponent<{
 }> = ({ deck }) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
+
+  const { setCardList } = useContext(CardListContext);
+
+  const filteredDeckCards = getFilteredDeckCards(deck);
+
+  useEffect(() => {
+    setCardList(filteredDeckCards);
+  }, [filteredDeckCards, setCardList]);
 
   const heroCard = deck.heroCard;
   const heroCardImageSrc = heroCard ? heroCard.card.imageSrc : null;

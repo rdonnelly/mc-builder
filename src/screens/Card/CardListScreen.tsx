@@ -1,9 +1,9 @@
 import { RouteProp, useScrollToTop } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { useRef } from 'react';
-import React from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import styled from 'styled-components/native';
 
+import { CardListContext } from '../../context/CardListContext';
 import {
   CardModel,
   getCards,
@@ -20,13 +20,19 @@ const CardListScreen: React.FunctionComponent<{
   navigation: StackNavigationProp<CardStackParamList, 'CardsList'>;
   route: RouteProp<CardStackParamList, 'CardsList'>;
 }> = ({ navigation, route }) => {
-  const flatListRef = useRef(null);
-  useScrollToTop(flatListRef);
-
   const filter = (route.params || {}).filter;
   const filterCode = (route.params || {}).code;
   const cards =
     filter && filterCode ? getFilteredCards(filter, filterCode) : getCards();
+
+  const flatListRef = useRef(null);
+  useScrollToTop(flatListRef);
+
+  const { setCardList } = useContext(CardListContext);
+
+  useEffect(() => {
+    setCardList(cards);
+  }, [cards, setCardList]);
 
   if (filter && filterCode) {
     let filterName = null;

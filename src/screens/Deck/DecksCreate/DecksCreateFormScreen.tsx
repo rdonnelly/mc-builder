@@ -2,9 +2,9 @@ import { Platform, StyleSheet } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useDispatch } from 'react-redux';
 import { useSafeArea } from 'react-native-safe-area-context';
+import { v4 as uuidv4 } from 'uuid';
 import React, { useContext } from 'react';
 import styled from 'styled-components/native';
-import uuidv4 from 'uuid/v4';
 
 import { DecksCreateContext } from '../../../context/DecksCreateContext';
 import { DecksCreateStackParamList } from '../../../navigation/DecksCreateStackNavigator';

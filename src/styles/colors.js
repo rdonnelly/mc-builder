@@ -30,6 +30,17 @@ const darkGrayDark = 'rgba(44, 62, 80, 1.0)';
 
 const white = '#ffffff';
 
+const icons = {
+  energy: '#f6be33',
+  energyDark: '#86671b',
+  mental: '#b7c9eb',
+  mentalDark: '#5c72c1',
+  physical: '#ee9080',
+  physicalDark: '#aa3220',
+  wild: '#45bc5c',
+  wildDark: '#247034',
+};
+
 export default {
   turquoise,
   turquoiseDark,
@@ -81,6 +92,9 @@ export default {
   cardRed: red,
   cardYellow: yellow,
   cardGray: grayDark,
+
+  // icons
+  icons,
 };
 
 // transparent: 'transparent',

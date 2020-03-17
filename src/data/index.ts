@@ -6,8 +6,8 @@ export {
 } from './models/Card';
 export {
   Deck as DeckModel,
-  getDeckCards,
-  getEligibleDeckCards,
+  getCardsForDeck,
+  getEligibleCardsForDeck,
 } from './models/Deck';
 export {
   Faction as FactionModel,

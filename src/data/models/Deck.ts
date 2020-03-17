@@ -2,16 +2,39 @@ import _ from 'lodash';
 import isDeepEqual from 'lodash/isEqual';
 import memoizeOne from 'memoize-one';
 
-import { IDeck, IDeckCard } from '../../store/types';
-import { getCard, getEligibleCards } from './Card';
+import { Card, getCard, getEligibleCards } from './Card';
+import {
+  IDeck as IStoreDeck,
+  IDeckCard as IStoreDeckCard,
+} from '../../store/types';
 import { getFactions } from './Faction';
 import { getSets } from './Set';
 
-export class Deck {
-  raw: IDeck;
-  rawCards: IDeckCard[];
+interface IDeckCard {
+  card: Card;
+  code: string;
+  name: string;
+  factionCode: string;
+  typeCode: string;
+  count: number;
+}
 
-  constructor(deck: IDeck, cards: IDeckCard[]) {
+interface IDeckCardSection {
+  code: string;
+  title: string;
+  count: number;
+  data: IDeckCard[];
+}
+
+interface IDeckCardSections {
+  [code: string]: IDeckCardSection;
+}
+
+export class Deck {
+  raw: IStoreDeck;
+  rawCards: IStoreDeckCard[];
+
+  constructor(deck: IStoreDeck, cards?: IStoreDeckCard[]) {
     this.raw = deck;
     this.rawCards = cards;
   }
@@ -48,7 +71,7 @@ export class Deck {
     return (this.set || {}).name;
   }
 
-  get cardCount() {
+  get cardCount(): number {
     return this.cards.reduce((count, card) => {
       if (!['alter_ego', 'hero'].includes(card.typeCode)) {
         count += card.count;
@@ -57,7 +80,7 @@ export class Deck {
     }, 0);
   }
 
-  get cards() {
+  get cards(): IDeckCard[] {
     return Object.values(this.rawCards).map((deckCard) => {
       const card = getCard(deckCard.cardCode);
       return {
@@ -71,19 +94,28 @@ export class Deck {
     });
   }
 
-  get deckCards() {
-    return this.cards.filter(
-      (card) => !['alter_ego', 'hero'].includes(card.typeCode),
-    );
-  }
-
-  get sectionedCards() {
+  get sectionedCards(): IDeckCardSection[] {
     const cards = this.cards;
-    const sections = {
-      identity: { code: 'identity', title: 'Identity', count: 0, data: [] },
+    const sections: IDeckCardSections = {
+      identity: {
+        code: 'identity',
+        title: 'Identity',
+        count: 0,
+        data: [],
+      },
       hero: { code: 'hero', title: 'Hero', count: 0, data: [] },
-      aspect: { code: 'aspect', title: 'Aspect', count: 0, data: [] },
-      basic: { code: 'basic', title: 'Basic', count: 0, data: [] },
+      aspect: {
+        code: 'aspect',
+        title: 'Aspect',
+        count: 0,
+        data: [],
+      },
+      basic: {
+        code: 'basic',
+        title: 'Basic',
+        count: 0,
+        data: [],
+      },
     };
 
     cards.forEach((card) => {
@@ -114,7 +146,7 @@ export class Deck {
     return Object.values(sections).filter((section) => section.count > 0);
   }
 
-  get eligibleCards() {
+  get eligibleCards(): IDeckCard[] {
     const cards = this.cards;
     const cardsObj = _.keyBy(cards, (card) => card.code);
 
@@ -131,12 +163,22 @@ export class Deck {
     }));
   }
 
-  get sectionedEligibleCards() {
+  get sectionedEligibleCards(): IDeckCardSection[] {
     const cards = this.eligibleCards;
-    const sections = {
+    const sections: IDeckCardSections = {
       hero: { code: 'hero', title: 'Hero', count: 0, data: [] },
-      aspect: { code: 'aspect', title: 'Aspect', count: 0, data: [] },
-      basic: { code: 'basic', title: 'Basic', count: 0, data: [] },
+      aspect: {
+        code: 'aspect',
+        title: 'Aspect',
+        count: 0,
+        data: [],
+      },
+      basic: {
+        code: 'basic',
+        title: 'Basic',
+        count: 0,
+        data: [],
+      },
     };
 
     cards.forEach((card) => {
@@ -162,21 +204,21 @@ export class Deck {
     return Object.values(sections);
   }
 
-  get heroCard() {
+  get heroCard(): IDeckCard {
     return this.cards.find((card) => card.typeCode === 'hero');
   }
 
-  get alterEgoCard() {
+  get alterEgoCard(): IDeckCard {
     return this.cards.find((card) => card.typeCode === 'alter_ego');
   }
 
-  get isLegal() {
+  get isLegal(): boolean {
     // TODO restricted list
     return this.cardCount >= 40 && this.cardCount <= 50;
   }
 }
 
-export const getDeckCards = memoizeOne((deck) => {
+export const getCardsForDeck = memoizeOne((deck: Deck): Card[] => {
   const sectionedCards = deck.sectionedCards;
   const cards = sectionedCards.reduce((acc, section) => {
     return acc.concat(section.data.map((card) => card.card));
@@ -185,7 +227,7 @@ export const getDeckCards = memoizeOne((deck) => {
   return cards;
 }, isDeepEqual); // TODO is deep equal necessary?
 
-export const getEligibleDeckCards = memoizeOne((deck) => {
+export const getEligibleCardsForDeck = memoizeOne((deck: Deck): Card[] => {
   const sectionedCards = deck.sectionedEligibleCards;
   const cards = sectionedCards.reduce((acc, section) => {
     return acc.concat(section.data.map((card) => card.card));

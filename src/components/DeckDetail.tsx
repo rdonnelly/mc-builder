@@ -5,7 +5,7 @@ import React, { useContext } from 'react';
 import styled from 'styled-components/native';
 
 import { CardListContext } from '../context/CardListContext';
-import { DeckModel, getDeckCards } from '../data';
+import { DeckModel, getCardsForDeck } from '../data';
 import { base, colors } from '../styles';
 import { deleteDeck } from '../store/actions';
 import CardListItem from './CardListItem';
@@ -18,7 +18,7 @@ const DeckDetail: React.FunctionComponent<{
 
   const { setCardList } = useContext(CardListContext);
 
-  const filteredDeckCards = getDeckCards(deck);
+  const filteredDeckCards = getCardsForDeck(deck);
 
   const heroCard = deck.heroCard;
   const heroCardImageSrc = heroCard ? heroCard.card.imageSrc : null;
@@ -98,7 +98,7 @@ const DeckDetail: React.FunctionComponent<{
         sections={deck.sectionedCards}
         renderItem={renderCard}
         renderSectionHeader={renderSectionHeader}
-        keyExtractor={(item) => item.code || item.title}
+        keyExtractor={(item) => item.code}
         contentContainerStyle={{ paddingBottom: 72 }}
       />
       <FloatingControls>

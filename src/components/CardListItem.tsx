@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
 import styled from 'styled-components/native';
 
-import { addCardToDeck, removeCardFromDeck } from '../store/reducers/decks';
+import { addCardToDeck, removeCardFromDeck } from '../store/actions';
 import { base, colors } from '../styles';
 
 export const ITEM_HEIGHT = 64;
@@ -27,11 +27,9 @@ const CardListItem: React.FunctionComponent<{
 }) => {
   const dispatch = useDispatch();
 
-  const increment = () =>
-    dispatch(addCardToDeck({ cardCode: card.code, deckCode }));
+  const increment = () => dispatch(addCardToDeck(deckCode, card.code));
 
-  const decrement = () =>
-    dispatch(removeCardFromDeck({ cardCode: card.code, deckCode }));
+  const decrement = () => dispatch(removeCardFromDeck(deckCode, card.code));
 
   const incrementIsDisabled =
     (card.isUnique && count >= 1) ||

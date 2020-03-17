@@ -6,7 +6,7 @@ export {
 } from './models/Card';
 export {
   Deck as DeckModel,
-  getFilteredDeckCards,
+  getDeckCards,
   getEligibleDeckCards,
 } from './models/Deck';
 export {

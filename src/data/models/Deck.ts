@@ -1,16 +1,19 @@
+import _ from 'lodash';
 import isDeepEqual from 'lodash/isEqual';
 import memoizeOne from 'memoize-one';
 
-import { IDeck } from '../../store/types';
-import { getEligibleCards, getSubsetOfCards } from './Card';
+import { IDeck, IDeckCard } from '../../store/types';
+import { getCard, getEligibleCards } from './Card';
 import { getFactions } from './Faction';
 import { getSets } from './Set';
 
 export class Deck {
   raw: IDeck;
+  rawCards: IDeckCard[];
 
-  constructor(deck: IDeck) {
+  constructor(deck: IDeck, cards: IDeckCard[]) {
     this.raw = deck;
+    this.rawCards = cards;
   }
 
   get code() {
@@ -55,45 +58,47 @@ export class Deck {
   }
 
   get cards() {
-    return getSubsetOfCards(Object.keys(this.raw.cards)).map((card) => ({
-      card,
-      code: card.code,
-      name: card.name,
-      factionCode: card.factionCode,
-      typeCode: card.typeCode,
-      count: this.raw.cards[card.code],
-    }));
-  }
-
-  get filteredCards() {
-    return getSubsetOfCards(Object.keys(this.raw.cards))
-      .filter((card) => !['alter_ego', 'hero'].includes(card.typeCode))
-      .map((card) => ({
+    return Object.values(this.rawCards).map((deckCard) => {
+      const card = getCard(deckCard.cardCode);
+      return {
         card,
         code: card.code,
         name: card.name,
         factionCode: card.factionCode,
         typeCode: card.typeCode,
-        count: this.raw.cards[card.code],
-      }));
+        count: deckCard.quantity,
+      };
+    });
+  }
+
+  get deckCards() {
+    return this.cards.filter(
+      (card) => !['alter_ego', 'hero'].includes(card.typeCode),
+    );
   }
 
   get sectionedCards() {
-    const cards = this.filteredCards;
+    const cards = this.cards;
     const sections = {
+      identity: { code: 'identity', title: 'Identity', count: 0, data: [] },
       hero: { code: 'hero', title: 'Hero', count: 0, data: [] },
       aspect: { code: 'aspect', title: 'Aspect', count: 0, data: [] },
       basic: { code: 'basic', title: 'Basic', count: 0, data: [] },
     };
 
     cards.forEach((card) => {
-      switch (card.factionCode) {
-        case 'hero': {
+      switch (true) {
+        case card.typeCode === 'hero' || card.typeCode === 'alter_ego': {
+          sections.identity.data.push(card);
+          sections.identity.count += card.count || 0;
+          break;
+        }
+        case card.factionCode === 'hero': {
           sections.hero.data.push(card);
           sections.hero.count += card.count || 0;
           break;
         }
-        case 'basic': {
+        case card.factionCode === 'basic': {
           sections.basic.data.push(card);
           sections.basic.count += card.count || 0;
           break;
@@ -110,16 +115,20 @@ export class Deck {
   }
 
   get eligibleCards() {
-    return getEligibleCards(this.aspectCode, Object.keys(this.raw.cards)).map(
-      (card) => ({
-        card,
-        code: card.code,
-        name: card.name,
-        factionCode: card.factionCode,
-        typeCode: card.typeCode,
-        count: this.raw.cards[card.code],
-      }),
-    );
+    const cards = this.cards;
+    const cardsObj = _.keyBy(cards, (card) => card.code);
+
+    return getEligibleCards(
+      this.aspectCode,
+      cards.map((card) => card.code),
+    ).map((card) => ({
+      card,
+      code: card.code,
+      name: card.name,
+      factionCode: card.factionCode,
+      typeCode: card.typeCode,
+      count: cardsObj[card.code] ? cardsObj[card.code].count : null,
+    }));
   }
 
   get sectionedEligibleCards() {
@@ -162,20 +171,19 @@ export class Deck {
   }
 
   get isLegal() {
-    // TODO
-    // restricted list
+    // TODO restricted list
     return this.cardCount >= 40 && this.cardCount <= 50;
   }
 }
 
-export const getFilteredDeckCards = memoizeOne((deck) => {
+export const getDeckCards = memoizeOne((deck) => {
   const sectionedCards = deck.sectionedCards;
   const cards = sectionedCards.reduce((acc, section) => {
     return acc.concat(section.data.map((card) => card.card));
   }, []);
 
-  return cards.filter((card) => !['alter_ego', 'hero'].includes(card.typeCode));
-}, isDeepEqual);
+  return cards;
+}, isDeepEqual); // TODO is deep equal necessary?
 
 export const getEligibleDeckCards = memoizeOne((deck) => {
   const sectionedCards = deck.sectionedEligibleCards;
@@ -183,5 +191,5 @@ export const getEligibleDeckCards = memoizeOne((deck) => {
     return acc.concat(section.data.map((card) => card.card));
   }, []);
 
-  return cards.filter((card) => !['alter_ego', 'hero'].includes(card.typeCode));
-}, isDeepEqual);
+  return cards;
+}, isDeepEqual); // TODO is deep equal necessary?

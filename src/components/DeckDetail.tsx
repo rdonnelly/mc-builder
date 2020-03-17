@@ -5,9 +5,9 @@ import React, { useContext } from 'react';
 import styled from 'styled-components/native';
 
 import { CardListContext } from '../context/CardListContext';
-import { DeckModel, getFilteredDeckCards } from '../data';
+import { DeckModel, getDeckCards } from '../data';
 import { base, colors } from '../styles';
-import { deleteDeck } from '../store/reducers/decks';
+import { deleteDeck } from '../store/actions';
 import CardListItem from './CardListItem';
 
 const DeckDetail: React.FunctionComponent<{
@@ -18,7 +18,7 @@ const DeckDetail: React.FunctionComponent<{
 
   const { setCardList } = useContext(CardListContext);
 
-  const filteredDeckCards = getFilteredDeckCards(deck);
+  const filteredDeckCards = getDeckCards(deck);
 
   const heroCard = deck.heroCard;
   const heroCardImageSrc = heroCard ? heroCard.card.imageSrc : null;
@@ -62,7 +62,7 @@ const DeckDetail: React.FunctionComponent<{
           text: 'Delete',
           onPress: () => {
             navigation.goBack();
-            dispatch(deleteDeck({ code: deck.code }));
+            dispatch(deleteDeck(deck.code));
           },
           style: 'destructive',
         },
@@ -85,16 +85,12 @@ const DeckDetail: React.FunctionComponent<{
         </IdentityWrapper>
         <Info>
           <InfoItem>
-            <InfoText>{heroCard.name}</InfoText>
-          </InfoItem>
-          <InfoItem>
-            <InfoText>{alterEgoCard.name}</InfoText>
-          </InfoItem>
-          <InfoItem>
+            <InfoLabel>Aspect</InfoLabel>
             <InfoText>{deck.aspectName}</InfoText>
           </InfoItem>
           <InfoItem>
-            <InfoText>{deck.cardCount} Cards</InfoText>
+            <InfoLabel>Deck Size</InfoLabel>
+            <InfoText>{deck.cardCount}</InfoText>
           </InfoItem>
         </Info>
       </Summary>
@@ -133,15 +129,15 @@ const IdentityWrapper = styled.TouchableOpacity`
   background-color: ${colors.lightGray};
   border: 2px solid ${colors.white};
   border-radius: 8px;
-  height: 100px;
+  height: 96px;
   margin-right: 8px;
   overflow: hidden;
-  width: 100px;
+  width: 96px;
 `;
 
 const IdentityImage = styled.Image`
-  height: 175px;
-  width: 175px;
+  height: 176px;
+  width: 176px;
   left: -50%;
 `;
 
@@ -152,18 +148,25 @@ const Info = styled.View`
 `;
 
 const InfoItem = styled.View`
-  background-color: ${colors.darkGray};
-  border-radius: 8px;
+  background-color: ${colors.white};
+  border-radius: 4px;
   padding: 2px 8px;
+`;
+
+const InfoLabel = styled.Text.attrs(() => ({
+  numberOfLines: 1,
+}))`
+  color: ${colors.gray};
+  font-size: 14px;
+  font-weight: 700;
 `;
 
 const InfoText = styled.Text.attrs(() => ({
   numberOfLines: 1,
 }))`
-  color: ${colors.white};
-  font-size: 14px;
-  font-weight: 700;
-  text-align: right;
+  color: ${colors.darkGray};
+  font-size: 18px;
+  font-weight: 600;
 `;
 
 const CardList = styled(SectionList)`

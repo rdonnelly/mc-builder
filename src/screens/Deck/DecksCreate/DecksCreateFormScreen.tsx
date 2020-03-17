@@ -1,3 +1,4 @@
+import 'react-native-get-random-values';
 import { Platform, StyleSheet } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useDispatch } from 'react-redux';
@@ -8,10 +9,10 @@ import styled from 'styled-components/native';
 
 import { DecksCreateContext } from '../../../context/DecksCreateContext';
 import { DecksCreateStackParamList } from '../../../navigation/DecksCreateStackNavigator';
-import { addDeck } from '../../../store/reducers/decks';
 import { base, colors } from '../../../styles';
 import { getFaction } from '../../../data/models/Faction';
 import { getSet } from '../../../data/models/Set';
+import { setUpNewDeck } from '../../../store/actions';
 
 const DecksCreateFormScreen: React.FunctionComponent<{
   navigation: StackNavigationProp<DecksCreateStackParamList, 'DecksCreateForm'>;
@@ -29,14 +30,7 @@ const DecksCreateFormScreen: React.FunctionComponent<{
   const submit = () => {
     const deckCode = uuidv4();
     if (deckName && deckSet && deckAspect) {
-      dispatch(
-        addDeck({
-          code: deckCode,
-          name: deckName,
-          setCode: deckSet,
-          aspectCode: deckAspect,
-        }),
-      );
+      dispatch(setUpNewDeck(deckCode, deckName, deckSet, deckAspect));
 
       if (navigation) {
         navigation.goBack();

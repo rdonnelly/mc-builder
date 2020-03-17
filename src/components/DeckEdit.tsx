@@ -26,28 +26,24 @@ const DeckEdit: React.FunctionComponent<{
   return (
     <Container>
       <Summary>
-        <IdentityWrapper onPress={() => handlePressItem(heroCard.code)}>
+        <IdentityWrapper>
           {heroCardImageSrc && (
             <IdentityImage source={{ uri: heroCardImageSrc }} />
           )}
         </IdentityWrapper>
-        <IdentityWrapper onPress={() => handlePressItem(alterEgoCard.code)}>
+        <IdentityWrapper>
           {alterEgoCardImageSrc && (
             <IdentityImage source={{ uri: alterEgoCardImageSrc }} />
           )}
         </IdentityWrapper>
         <Info>
           <InfoItem>
-            <InfoText>{heroCard.name}</InfoText>
-          </InfoItem>
-          <InfoItem>
-            <InfoText>{alterEgoCard.name}</InfoText>
-          </InfoItem>
-          <InfoItem>
+            <InfoLabel>Aspect</InfoLabel>
             <InfoText>{deck.aspectName}</InfoText>
           </InfoItem>
           <InfoItem>
-            <InfoText>{deck.cardCount} Cards</InfoText>
+            <InfoLabel>Deck Size</InfoLabel>
+            <InfoText>{deck.cardCount}</InfoText>
           </InfoItem>
         </Info>
       </Summary>
@@ -79,15 +75,15 @@ const IdentityWrapper = styled.TouchableOpacity`
   background-color: ${colors.lightGray};
   border: 2px solid ${colors.white};
   border-radius: 8px;
-  height: 100px;
+  height: 96px;
   margin-right: 8px;
   overflow: hidden;
-  width: 100px;
+  width: 96px;
 `;
 
 const IdentityImage = styled.Image`
-  height: 175px;
-  width: 175px;
+  height: 176px;
+  width: 176px;
   left: -50%;
 `;
 
@@ -98,18 +94,25 @@ const Info = styled.View`
 `;
 
 const InfoItem = styled.View`
-  background-color: ${colors.darkGray};
-  border-radius: 8px;
+  background-color: ${colors.white};
+  border-radius: 4px;
   padding: 2px 8px;
+`;
+
+const InfoLabel = styled.Text.attrs(() => ({
+  numberOfLines: 1,
+}))`
+  color: ${colors.gray};
+  font-size: 14px;
+  font-weight: 700;
 `;
 
 const InfoText = styled.Text.attrs(() => ({
   numberOfLines: 1,
 }))`
-  color: ${colors.white};
-  font-size: 14px;
-  font-weight: 700;
-  text-align: right;
+  color: ${colors.darkGray};
+  font-size: 18px;
+  font-weight: 600;
 `;
 
 const FloatingControls = styled.View`

@@ -85,8 +85,16 @@ export class Card {
     return this.raw.cost;
   }
 
+  get flavor() {
+    return this.raw.flavor;
+  }
+
   get text() {
     return this.raw.text;
+  }
+
+  get backFlavor() {
+    return this.raw.back_flavor;
   }
 
   get backText() {

@@ -8,63 +8,143 @@ import styled from 'styled-components/native';
 import { CardModel } from '../data';
 import { base, colors } from '../styles';
 import { shareImageUrl } from '../utils/Share';
+import CardParser from '../utils/CardParser';
+import Icon, { IconCode } from '../components/Icon';
 
 const isTablet = DeviceInfo.isTablet();
 
 const styles = StyleSheet.create({
   cardDetailText: {
-    color: colors.darkGray,
+    color: colors.primary,
     fontSize: isTablet ? 20 : 17,
     fontWeight: '500',
     letterSpacing: isTablet ? -0.54 : -0.408,
   },
+  cardDetailFlavor: {
+    color: colors.primary,
+    fontSize: isTablet ? 16 : 14,
+    fontStyle: 'italic',
+    fontWeight: '600',
+    letterSpacing: isTablet ? -0.54 : -0.408,
+    textAlign: 'center',
+  },
 });
 
-const getStats = (card: CardModel) => {
+const renderCardText = (card: CardModel, key: string, isFlavor = false) => {
+  let text = card[key];
+
+  if (text == null) {
+    return null;
+  }
+
+  text = CardParser.replaceEmphasis(text);
+  text = CardParser.replaceLineBreaks(text);
+  text = CardParser.replaceIconPlaceholders(text);
+
+  const customRenderers = {
+    icon: { renderer: CardParser.iconRenderer, wrapper: 'Text' },
+  };
+
+  const customTagStyles = {
+    em: { fontStyle: 'italic', fontWeight: 'bold' },
+    i: { fontStyle: 'italic', fontWeight: 'normal' },
+    p: { marginTop: 0, marginBottom: 0 },
+  };
+
+  return (
+    <CardDetailTextContainerSection key={`card-text-${key}`}>
+      <Html
+        html={text}
+        baseFontStyle={
+          isFlavor ? styles.cardDetailFlavor : styles.cardDetailText
+        }
+        tagsStyles={customTagStyles}
+        renderers={customRenderers}
+      />
+    </CardDetailTextContainerSection>
+  );
+};
+
+const handleImageLongPress = (card: CardModel) => {
+  ReactNativeHapticFeedback.trigger('impactHeavy');
+  shareImageUrl(card.imageSrc);
+};
+
+const CardDetailInfo: React.FunctionComponent<{
+  card: CardModel;
+}> = ({ card }) => {
+  return (
+    <CardDetailInfoContainer>
+      <CardDetailInfoContainerSubtitle>
+        <CardDetailInfoContainerSubtitleText>
+          {card.raw.subname}
+        </CardDetailInfoContainerSubtitleText>
+      </CardDetailInfoContainerSubtitle>
+      <CardDetailInfoContainerTypes>
+        <CardDetailInfoContainerTypesTextBold>
+          {`${card.typeName}.`}
+        </CardDetailInfoContainerTypesTextBold>
+        {card.raw.traits && (
+          <CardDetailInfoContainerTypesText>
+            {` ${card.raw.traits}`}
+          </CardDetailInfoContainerTypesText>
+        )}
+      </CardDetailInfoContainerTypes>
+    </CardDetailInfoContainer>
+  );
+};
+
+const CardDetailStats: React.FunctionComponent<{
+  card: CardModel;
+}> = ({ card }) => {
   const stats = [];
   // https://github.com/zzorba/marvelsdb/blob/89a8b0aacdb00a561e1c3b237c67654254a1cad8/src/AppBundle/Resources/public/js/app.format.js
   switch (card.typeCode) {
     case 'hero': {
       stats.push(
         <Stat key={'thwart'}>
-          <StatHeader>
-            <StatHeaderText>Thwart</StatHeaderText>
-          </StatHeader>
           <StatData>
             <StatDataText>{card.raw.thwart}</StatDataText>
           </StatData>
-        </Stat>,
-        <Stat key={'attack'}>
           <StatHeader>
-            <StatHeaderText>Attack</StatHeaderText>
+            <StatHeaderText>THW</StatHeaderText>
           </StatHeader>
+        </Stat>,
+        <StatSpacer key={'attack-spacer'} />,
+        <Stat key={'attack'}>
           <StatData>
             <StatDataText>{card.raw.attack}</StatDataText>
           </StatData>
-        </Stat>,
-        <Stat key={'defense'}>
           <StatHeader>
-            <StatHeaderText>Defense</StatHeaderText>
+            <StatHeaderText>ATK</StatHeaderText>
           </StatHeader>
+        </Stat>,
+        <StatSpacer key={'defense-spacer'} />,
+        <Stat key={'defense'}>
           <StatData>
             <StatDataText>{card.raw.defense}</StatDataText>
           </StatData>
-        </Stat>,
-        <Stat key={'hand_size'}>
           <StatHeader>
-            <StatHeaderText>Hand Size</StatHeaderText>
+            <StatHeaderText>DEF</StatHeaderText>
           </StatHeader>
+        </Stat>,
+        <StatSpacer key={'hand-spacer'} />,
+        <Stat key={'hand-size'}>
           <StatData>
             <StatDataText>{card.raw.hand_size}</StatDataText>
           </StatData>
-        </Stat>,
-        <Stat key={'health'}>
           <StatHeader>
-            <StatHeaderText>Hit Points</StatHeaderText>
+            <StatHeaderText>HAND</StatHeaderText>
           </StatHeader>
+        </Stat>,
+        <StatSpacer key={'health-spacer'} />,
+        <Stat key={'health'}>
           <StatData>
             <StatDataText>{card.raw.health}</StatDataText>
           </StatData>
+          <StatHeader>
+            <StatHeaderText>HP</StatHeaderText>
+          </StatHeader>
         </Stat>,
       );
       break;
@@ -72,52 +152,83 @@ const getStats = (card: CardModel) => {
     case 'alter_ego': {
       stats.push(
         <Stat key={'recover'}>
-          <StatHeader>
-            <StatHeaderText>Recover</StatHeaderText>
-          </StatHeader>
           <StatData>
             <StatDataText>{card.raw.recover}</StatDataText>
           </StatData>
-        </Stat>,
-        <Stat key={'hand_size'}>
           <StatHeader>
-            <StatHeaderText>Hand Size</StatHeaderText>
+            <StatHeaderText>REC</StatHeaderText>
           </StatHeader>
+        </Stat>,
+        <StatSpacer key={'hand-spacer'} />,
+        <Stat key={'hand-size'}>
           <StatData>
             <StatDataText>{card.raw.hand_size}</StatDataText>
           </StatData>
-        </Stat>,
-        <Stat key={'health'}>
           <StatHeader>
-            <StatHeaderText>Hit Points</StatHeaderText>
+            <StatHeaderText>HAND</StatHeaderText>
           </StatHeader>
+        </Stat>,
+        <StatSpacer key={'health-spacer'} />,
+        <Stat key={'health'}>
           <StatData>
             <StatDataText>{card.raw.health}</StatDataText>
           </StatData>
+          <StatHeader>
+            <StatHeaderText>HP</StatHeaderText>
+          </StatHeader>
         </Stat>,
       );
       break;
     }
     case 'side_scheme':
     case 'main_scheme': {
-      // TODO
       stats.push(
-        <Stat key={'base_threat'}>
-          <StatHeader>
-            <StatHeaderText>Starting Threat</StatHeaderText>
-          </StatHeader>
+        card.raw.threat == null ? null : (
+          <Stat key={'threat-threat'}>
+            <StatData>
+              <StatDataText>
+                {card.raw.threat}
+                <Icon code={IconCode.perHero} size={16} />
+              </StatDataText>
+            </StatData>
+            <StatHeader>
+              <StatHeaderText>TARGET THREAT</StatHeaderText>
+            </StatHeader>
+          </Stat>
+        ),
+        card.raw.threat == null ? null : <StatSpacer key={'threat-spacer'} />,
+        <Stat key={'base-threat'}>
           <StatData>
-            <StatDataText>{card.raw.base_threat}</StatDataText>
+            <StatDataText>
+              {card.raw.base_threat}
+              {!card.raw.base_threat || card.raw.base_threat_fixed ? null : (
+                <Icon code={IconCode.perHero} size={16} />
+              )}
+            </StatDataText>
           </StatData>
-        </Stat>,
-        <Stat key={'escalation_threat'}>
           <StatHeader>
-            <StatHeaderText>Escalation Threat</StatHeaderText>
+            <StatHeaderText>BASE THREAT</StatHeaderText>
           </StatHeader>
-          <StatData>
-            <StatDataText>{card.raw.escalation_threat}</StatDataText>
-          </StatData>
         </Stat>,
+        card.raw.escalation_threat == null ? null : (
+          <StatSpacer key={'escalation-spacer'} />
+        ),
+        card.raw.escalation_threat == null ? null : (
+          <Stat key={'escalation-threat'}>
+            <StatData>
+              <StatDataText>
+                +{card.raw.escalation_threat}
+                {!card.raw.escalation_threat ||
+                card.raw.escalation_threat_fixed ? null : (
+                  <Icon code={IconCode.perHero} size={16} />
+                )}
+              </StatDataText>
+            </StatData>
+            <StatHeader>
+              <StatHeaderText>ESC THREAT</StatHeaderText>
+            </StatHeader>
+          </Stat>
+        ),
       );
 
       break;
@@ -126,20 +237,21 @@ const getStats = (card: CardModel) => {
       // TODO
       stats.push(
         <Stat key={'attack'}>
-          <StatHeader>
-            <StatHeaderText>Attack</StatHeaderText>
-          </StatHeader>
           <StatData>
             <StatDataText>{card.raw.attack}</StatDataText>
           </StatData>
-        </Stat>,
-        <Stat key={'scheme'}>
           <StatHeader>
-            <StatHeaderText>Scheme</StatHeaderText>
+            <StatHeaderText>ATK</StatHeaderText>
           </StatHeader>
+        </Stat>,
+        <StatSpacer key={'scheme-spacer'} />,
+        <Stat key={'scheme'}>
           <StatData>
             <StatDataText>{card.raw.scheme}</StatDataText>
           </StatData>
+          <StatHeader>
+            <StatHeaderText>SCH</StatHeaderText>
+          </StatHeader>
         </Stat>,
       );
       break;
@@ -153,52 +265,59 @@ const getStats = (card: CardModel) => {
       if (card.typeCode !== 'resource') {
         stats.push(
           <Stat key={'cost'}>
-            <StatHeader>
-              <StatHeaderText>Cost</StatHeaderText>
-            </StatHeader>
             <StatData>
               <StatDataText>{card.raw.cost}</StatDataText>
             </StatData>
+            <StatHeader>
+              <StatHeaderText>COST</StatHeaderText>
+            </StatHeader>
           </Stat>,
         );
       }
 
       if (card.typeCode === 'ally') {
         stats.push(
+          <StatSpacer key={'attack-spacer'} />,
           <Stat key={'attack'}>
-            <StatHeader>
-              <StatHeaderText>Attack</StatHeaderText>
-            </StatHeader>
             <StatData>
               <StatDataText>
                 {card.raw.attack}
-                {'*'.repeat(card.raw.attack_cost || 0)}
+                {[...Array(card.raw.attack_cost || 0).keys()].map((i) => (
+                  <Icon code={IconCode.cost} size={16} key={`icon-${i}`} />
+                ))}
               </StatDataText>
             </StatData>
-          </Stat>,
-          <Stat key={'thwart'}>
             <StatHeader>
-              <StatHeaderText>Thwart</StatHeaderText>
+              <StatHeaderText>ATK</StatHeaderText>
             </StatHeader>
+          </Stat>,
+          <StatSpacer key={'thwart-spacer'} />,
+          <Stat key={'thwart'}>
             <StatData>
               <StatDataText>
-                {card.raw.thwart}
-                {'*'.repeat(card.raw.thwart_cost || 0)}
+                {card.raw.thwart != null ? card.raw.thwart : '–'}
+                {[...Array(card.raw.thwart_cost || 0).keys()].map((i) => (
+                  <Icon code={IconCode.cost} size={20} key={`icon-${i}`} />
+                ))}
               </StatDataText>
             </StatData>
+            <StatHeader>
+              <StatHeaderText>THW</StatHeaderText>
+            </StatHeader>
           </Stat>,
         );
       }
 
       if (card.raw.health) {
         stats.push(
+          <StatSpacer key={'health-spacer'} />,
           <Stat key={'health'}>
-            <StatHeader>
-              <StatHeaderText>Health</StatHeaderText>
-            </StatHeader>
             <StatData>
               <StatDataText>{card.raw.health}</StatDataText>
             </StatData>
+            <StatHeader>
+              <StatHeaderText>HP</StatHeaderText>
+            </StatHeader>
           </Stat>,
         );
       }
@@ -209,33 +328,78 @@ const getStats = (card: CardModel) => {
     case 'minion':
       break;
   }
-  return stats;
+  return <CardDetailStatsContainer>{stats}</CardDetailStatsContainer>;
 };
 
-const renderCardText = (text: string) => {
-  if (!text) {
-    return null;
+const renderCardSchemeTraits = (card: CardModel) => {
+  const icons = [];
+
+  if (card.raw.scheme_acceleration) {
+    icons.push(
+      <Icon code={IconCode.acceleration} color={colors.primary} size={40} />,
+    );
   }
 
-  const customTagStyles = {
-    i: { fontStyle: 'italic', fontWeight: '700' },
-    p: { marginTop: 0, marginBottom: 0 },
-  };
+  if (card.raw.scheme_crisis) {
+    icons.push(
+      <Icon code={IconCode.crisis} color={colors.primary} size={40} />,
+    );
+  }
 
-  return (
-    <CardDetailTextWrapper>
-      <Html
-        html={text}
-        baseFontStyle={styles.cardDetailText}
-        tagsStyles={customTagStyles}
-      />
-    </CardDetailTextWrapper>
+  if (card.raw.scheme_hazard) {
+    icons.push(
+      <Icon code={IconCode.hazard} color={colors.primary} size={40} />,
+    );
+  }
+
+  return icons.length === 0 ? null : (
+    <CardDetailTextContainerTraits>
+      <CardDetailTextContainerTraitsText>
+        {icons}
+      </CardDetailTextContainerTraitsText>
+    </CardDetailTextContainerTraits>
   );
 };
 
-const handleImageLongPress = (card: CardModel) => {
-  ReactNativeHapticFeedback.trigger('impactHeavy');
-  shareImageUrl(card.imageSrc);
+const CardDetailText: React.FunctionComponent<{
+  card: CardModel;
+}> = ({ card }) => {
+  const sections = [
+    renderCardText(card, 'backFlavor', true),
+    renderCardText(card, 'backText'),
+    renderCardText(card, 'flavor', true),
+    renderCardSchemeTraits(card),
+    renderCardText(card, 'text'),
+    renderCardText(card, 'attackText'),
+    renderCardText(card, 'schemeText'),
+  ]
+    .filter((section) => section != null)
+    .reduce((newSections, section, i) => {
+      if (i !== 0) {
+        newSections.push(
+          <CardDetailTextContainerDivider key={`card-text-divider-${i}`} />,
+        );
+      }
+
+      newSections.push(section);
+
+      return newSections;
+    }, []);
+
+  return <CardDetailTextContainer>{sections}</CardDetailTextContainer>;
+};
+
+const CardDetailImage: React.FunctionComponent<{
+  card: CardModel;
+}> = ({ card }) => {
+  return (
+    <CardDetailImageContainer
+      activeOpacity={0.9}
+      onLongPress={() => handleImageLongPress(card)}
+    >
+      <Image resizeMode="contain" source={{ uri: card.imageSrc }} />
+    </CardDetailImageContainer>
+  );
 };
 
 const CardDetail: React.FunctionComponent<{
@@ -243,27 +407,20 @@ const CardDetail: React.FunctionComponent<{
   width: number;
 }> = ({ card, width }) => {
   return (
-    <CardContainer width={width}>
+    <CardDetailContainer width={width}>
       <ContainerScrollView>
-        <StatWrapper>{getStats(card)}</StatWrapper>
-        {renderCardText(card.text)}
-        {renderCardText(card.backText)}
-        {renderCardText(card.attackText)}
-        {renderCardText(card.schemeText)}
-        <ImageWrapper
-          activeOpacity={0.9}
-          onLongPress={() => handleImageLongPress(card)}
-        >
-          <Image resizeMode="contain" source={{ uri: card.imageSrc }} />
-        </ImageWrapper>
+        <CardDetailInfo card={card} />
+        <CardDetailStats card={card} />
+        <CardDetailText card={card} />
+        <CardDetailImage card={card} />
       </ContainerScrollView>
-    </CardContainer>
+    </CardDetailContainer>
   );
 };
 
-// const CardContainer = styled(base.Container)``;
-
-const CardContainer = styled(base.Container)<{ width: number }>`
+const CardDetailContainer = styled(base.Container)<{ width: number }>`
+  background-color: ${colors.white};
+  padding-vertical: 16px;
   width: ${(props) => props.width}px;
 `;
 
@@ -272,16 +429,36 @@ const ContainerScrollView = styled(ScrollView)`
   width: 100%;
 `;
 
-const StatWrapper = styled.View`
+const CardDetailInfoContainer = styled(base.Container)`
+  margin-bottom: 16px;
+`;
+
+const CardDetailInfoContainerSubtitle = styled.View``;
+
+const CardDetailInfoContainerSubtitleText = styled.Text``;
+
+const CardDetailInfoContainerTypes = styled.View`
   flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  margin-horizontal: 8px;
+`;
+
+const CardDetailInfoContainerTypesText = styled.Text``;
+
+const CardDetailInfoContainerTypesTextBold = styled.Text`
+  font-weight: bold;
+`;
+
+const CardDetailStatsContainer = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 16px;
 `;
 
 const Stat = styled.View`
-  margin: 8px;
-  padding: 8px;
+  background-color: ${colors.lightGray};
+  border-radius: 4px;
+  flex: 1;
+  justify-content: flex-end;
+  padding: 16px;
 `;
 
 const StatHeader = styled.View``;
@@ -294,10 +471,43 @@ const StatHeaderText = styled.Text`
 const StatData = styled.View``;
 
 const StatDataText = styled.Text`
-  font-size: 20px;
+  color: ${colors.primary};
+  font-size: 22px;
+  font-weight: bold;
 `;
 
-const ImageWrapper = styled.TouchableOpacity`
+const StatSpacer = styled.View`
+  width: 16px;
+`;
+
+const CardDetailTextContainer = styled.View`
+  background-color: ${colors.lightGray};
+  border-radius: 4px;
+  flex: 1 1 auto;
+  margin-bottom: 16px;
+  padding-horizontal: 16px;
+  padding-top: 16px;
+  width: 100%;
+`;
+
+const CardDetailTextContainerSection = styled.View`
+  margin-bottom: 16px;
+`;
+
+const CardDetailTextContainerTraits = styled(CardDetailTextContainerSection)``;
+
+const CardDetailTextContainerTraitsText = styled.Text`
+  text-align: center;
+`;
+
+const CardDetailTextContainerDivider = styled.View`
+  background-color: ${colors.lightGrayDark};
+  height: ${StyleSheet.hairlineWidth}px;
+  margin-horizontal: 32px;
+  margin-bottom: 16px;
+`;
+
+const CardDetailImageContainer = styled.TouchableOpacity`
   height: 440px;
   margin-bottom: 16px;
   padding: 16px;
@@ -306,16 +516,6 @@ const ImageWrapper = styled.TouchableOpacity`
 
 const Image = styled.Image`
   height: 100%;
-  width: 100%;
-`;
-
-const CardDetailTextWrapper = styled.View`
-  background-color: ${colors.white};
-  border-radius: 4px;
-  flex: 1 1 auto;
-  margin-bottom: 16px;
-  padding-horizontal: 16px;
-  padding-vertical: 16px;
   width: 100%;
 `;
 

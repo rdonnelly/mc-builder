@@ -4,7 +4,8 @@ export interface ICardRaw {
   attack_text?: string;
   back_flavor: string;
   back_text: string;
-  base_threat: string;
+  base_threat?: number;
+  base_threat_fixed?: boolean;
   code: string;
   cost?: number | null;
   deck_limit: number;
@@ -16,7 +17,8 @@ export interface ICardRaw {
   enemy_evade: number;
   enemy_fight: number;
   enemy_horror: number;
-  escalation_threat: number;
+  escalation_threat?: number;
+  escalation_threat_fixed?: boolean;
   exceptional: boolean;
   exile: boolean;
   faction_code: string;
@@ -34,6 +36,9 @@ export interface ICardRaw {
   recover?: number;
   restrictions: string;
   scheme?: number;
+  scheme_acceleration?: boolean;
+  scheme_crisis?: boolean;
+  scheme_hazard?: boolean;
   scheme_text?: string;
   set_code: string;
   skill_agility: number;
@@ -44,6 +49,7 @@ export interface ICardRaw {
   subname: string;
   subtype_code?: string | null;
   text: string;
+  threat?: number;
   thwart?: number;
   thwart_cost?: number;
   traits: string;

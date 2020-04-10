@@ -36,13 +36,13 @@ const CardDetailScreen: React.FunctionComponent<{
   });
 
   const getItemLayout = (_data: CardModel, index: number) => ({
-    length: windowWidth - 16,
-    offset: (windowWidth - 16) * index,
+    length: windowWidth - 32,
+    offset: (windowWidth - 32) * index,
     index,
   });
 
   const renderItem = ({ item }) => (
-    <CardDetail card={item} width={windowWidth - 16} />
+    <CardDetail card={item} width={windowWidth - 32} />
   );
 
   const viewabilityConfig = useRef({ itemVisiblePercentThreshold: 100 });
@@ -82,13 +82,12 @@ const CardDetailScreen: React.FunctionComponent<{
 };
 
 const Container = styled(base.Container)`
-  background-color: ${colors.lightGray};
-  margin-horizontal: 8px;
+  background-color: ${colors.white};
+  padding-horizontal: 16px;
   width: auto;
 `;
 
 const FlatList = styled(base.FlatList)`
-  background-color: ${colors.lightGray};
   flex: 1 1 auto;
   width: 100%;
   height: 100%;

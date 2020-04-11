@@ -105,12 +105,45 @@ export class Card {
     return this.raw.attack_text;
   }
 
+  get boostText() {
+    if (this.raw.boost_text == null) {
+      return null;
+    }
+    return `[special] <b>Boost</b>: ${this.raw.boost_text}`;
+  }
+
   get schemeText() {
     return this.raw.scheme_text;
   }
 
+  get resources() {
+    if (
+      !this.raw.resource_energy &&
+      !this.raw.resource_mental &&
+      !this.raw.resource_physical &&
+      !this.raw.resource_wild
+    ) {
+      return null;
+    }
+
+    return {
+      energy: this.raw.resource_energy,
+      mental: this.raw.resource_mental,
+      physical: this.raw.resource_physical,
+      wild: this.raw.resource_wild,
+    };
+  }
+
   get isUnique() {
     return this.raw.is_unique || false;
+  }
+
+  get packPosition() {
+    return this.raw.position;
+  }
+
+  get setPosition() {
+    return this.raw.set_position;
   }
 
   get deckLimit() {

@@ -28,6 +28,10 @@ export class Pack {
   get dateRelease() {
     return this.raw.date_release;
   }
+
+  get size() {
+    return this.raw.size;
+  }
 }
 
 export const getPacks = () =>

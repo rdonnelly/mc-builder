@@ -14,6 +14,9 @@ import Icon, { IconCode } from '../components/Icon';
 const isTablet = DeviceInfo.isTablet();
 
 const styles = StyleSheet.create({
+  scrollViewContentContainer: {
+    paddingVertical: 16,
+  },
   cardDetailText: {
     color: colors.primary,
     fontSize: isTablet ? 20 : 17,
@@ -47,7 +50,7 @@ const renderCardText = (card: CardModel, key: string, isFlavor = false) => {
 
   const customTagStyles = {
     em: { fontStyle: 'italic', fontWeight: 'bold' },
-    i: { fontStyle: 'italic', fontWeight: 'normal' },
+    i: { fontStyle: 'italic', fontWeight: '500' },
     p: { marginTop: 0, marginBottom: 0 },
   };
 
@@ -75,11 +78,13 @@ const CardDetailInfo: React.FunctionComponent<{
 }> = ({ card }) => {
   return (
     <CardDetailInfoContainer>
-      <CardDetailInfoContainerSubtitle>
-        <CardDetailInfoContainerSubtitleText>
-          {card.raw.subname}
-        </CardDetailInfoContainerSubtitleText>
-      </CardDetailInfoContainerSubtitle>
+      {card.raw.subname != null && (
+        <CardDetailInfoContainerSubtitle>
+          <CardDetailInfoContainerSubtitleText>
+            {card.raw.subname}
+          </CardDetailInfoContainerSubtitleText>
+        </CardDetailInfoContainerSubtitle>
+      )}
       <CardDetailInfoContainerTypes>
         <CardDetailInfoContainerTypesTextBold>
           {`${card.typeName}.`}
@@ -188,7 +193,11 @@ const CardDetailStats: React.FunctionComponent<{
             <StatData>
               <StatDataText>
                 {card.raw.threat}
-                <Icon code={IconCode.perHero} size={16} />
+                <Icon
+                  code={IconCode.perHero}
+                  color={colors.darkGray}
+                  size={16}
+                />
               </StatDataText>
             </StatData>
             <StatHeader>
@@ -202,7 +211,11 @@ const CardDetailStats: React.FunctionComponent<{
             <StatDataText>
               {card.raw.base_threat}
               {!card.raw.base_threat || card.raw.base_threat_fixed ? null : (
-                <Icon code={IconCode.perHero} size={16} />
+                <Icon
+                  code={IconCode.perHero}
+                  color={colors.darkGray}
+                  size={16}
+                />
               )}
             </StatDataText>
           </StatData>
@@ -220,7 +233,11 @@ const CardDetailStats: React.FunctionComponent<{
                 +{card.raw.escalation_threat}
                 {!card.raw.escalation_threat ||
                 card.raw.escalation_threat_fixed ? null : (
-                  <Icon code={IconCode.perHero} size={16} />
+                  <Icon
+                    code={IconCode.perHero}
+                    color={colors.darkGray}
+                    size={16}
+                  />
                 )}
               </StatDataText>
             </StatData>
@@ -234,25 +251,30 @@ const CardDetailStats: React.FunctionComponent<{
       break;
     }
     case 'attachment': {
-      // TODO
       stats.push(
-        <Stat key={'attack'}>
-          <StatData>
-            <StatDataText>{card.raw.attack}</StatDataText>
-          </StatData>
-          <StatHeader>
-            <StatHeaderText>ATK</StatHeaderText>
-          </StatHeader>
-        </Stat>,
-        <StatSpacer key={'scheme-spacer'} />,
-        <Stat key={'scheme'}>
-          <StatData>
-            <StatDataText>{card.raw.scheme}</StatDataText>
-          </StatData>
-          <StatHeader>
-            <StatHeaderText>SCH</StatHeaderText>
-          </StatHeader>
-        </Stat>,
+        card.raw.attack == null ? null : (
+          <Stat key={'attack'}>
+            <StatData>
+              <StatDataText>+{card.raw.attack}</StatDataText>
+            </StatData>
+            <StatHeader>
+              <StatHeaderText>ATK</StatHeaderText>
+            </StatHeader>
+          </Stat>
+        ),
+        card.raw.attack == null || card.raw.scheme == null ? null : (
+          <StatSpacer key={'scheme-spacer'} />
+        ),
+        card.raw.scheme == null ? null : (
+          <Stat key={'scheme'}>
+            <StatData>
+              <StatDataText>+{card.raw.scheme}</StatDataText>
+            </StatData>
+            <StatHeader>
+              <StatHeaderText>SCH</StatHeaderText>
+            </StatHeader>
+          </Stat>
+        ),
       );
       break;
     }
@@ -283,7 +305,12 @@ const CardDetailStats: React.FunctionComponent<{
               <StatDataText>
                 {card.raw.attack}
                 {[...Array(card.raw.attack_cost || 0).keys()].map((i) => (
-                  <Icon code={IconCode.cost} size={16} key={`icon-${i}`} />
+                  <Icon
+                    code={IconCode.cost}
+                    color={colors.darkGray}
+                    size={16}
+                    key={`icon-${i}`}
+                  />
                 ))}
               </StatDataText>
             </StatData>
@@ -297,7 +324,12 @@ const CardDetailStats: React.FunctionComponent<{
               <StatDataText>
                 {card.raw.thwart != null ? card.raw.thwart : '–'}
                 {[...Array(card.raw.thwart_cost || 0).keys()].map((i) => (
-                  <Icon code={IconCode.cost} size={20} key={`icon-${i}`} />
+                  <Icon
+                    code={IconCode.cost}
+                    color={colors.darkGray}
+                    size={16}
+                    key={`icon-${i}`}
+                  />
                 ))}
               </StatDataText>
             </StatData>
@@ -326,6 +358,56 @@ const CardDetailStats: React.FunctionComponent<{
     }
     case 'villain':
     case 'minion':
+      stats.push(
+        <Stat key={'scheme'}>
+          <StatData>
+            <StatDataText>{card.raw.scheme}</StatDataText>
+          </StatData>
+          <StatHeader>
+            <StatHeaderText>SCH</StatHeaderText>
+          </StatHeader>
+        </Stat>,
+        <StatSpacer key={'attack-spacer'} />,
+        <Stat key={'attack'}>
+          <StatData>
+            <StatDataText>{card.raw.attack}</StatDataText>
+          </StatData>
+          <StatHeader>
+            <StatHeaderText>ATK</StatHeaderText>
+          </StatHeader>
+        </Stat>,
+        <StatSpacer key={'health-spacer'} />,
+        <Stat key={'health'}>
+          <StatData>
+            <StatDataText>
+              {card.raw.health}
+              {card.typeCode === 'villain' ? (
+                <Icon
+                  code={IconCode.perHero}
+                  color={colors.darkGray}
+                  size={16}
+                />
+              ) : null}
+            </StatDataText>
+          </StatData>
+          <StatHeader>
+            <StatHeaderText>HP</StatHeaderText>
+          </StatHeader>
+        </Stat>,
+        card.typeCode !== 'villain' ? null : (
+          <StatSpacer key={'stage-spacer'} />
+        ),
+        card.typeCode !== 'villain' ? null : (
+          <Stat key={'stage'}>
+            <StatData>
+              <StatDataText>{card.raw.stage}</StatDataText>
+            </StatData>
+            <StatHeader>
+              <StatHeaderText>STAGE</StatHeaderText>
+            </StatHeader>
+          </Stat>
+        ),
+      );
       break;
   }
   return <CardDetailStatsContainer>{stats}</CardDetailStatsContainer>;
@@ -336,19 +418,19 @@ const renderCardSchemeTraits = (card: CardModel) => {
 
   if (card.raw.scheme_acceleration) {
     icons.push(
-      <Icon code={IconCode.acceleration} color={colors.primary} size={40} />,
+      <Icon code={IconCode.acceleration} color={colors.darkGray} size={40} />,
     );
   }
 
   if (card.raw.scheme_crisis) {
     icons.push(
-      <Icon code={IconCode.crisis} color={colors.primary} size={40} />,
+      <Icon code={IconCode.crisis} color={colors.darkGray} size={40} />,
     );
   }
 
   if (card.raw.scheme_hazard) {
     icons.push(
-      <Icon code={IconCode.hazard} color={colors.primary} size={40} />,
+      <Icon code={IconCode.hazard} color={colors.darkGray} size={40} />,
     );
   }
 
@@ -372,6 +454,7 @@ const CardDetailText: React.FunctionComponent<{
     renderCardText(card, 'text'),
     renderCardText(card, 'attackText'),
     renderCardText(card, 'schemeText'),
+    renderCardText(card, 'boostText'),
   ]
     .filter((section) => section != null)
     .reduce((newSections, section, i) => {
@@ -389,6 +472,73 @@ const CardDetailText: React.FunctionComponent<{
   return <CardDetailTextContainer>{sections}</CardDetailTextContainer>;
 };
 
+const CardDetailFooter: React.FunctionComponent<{
+  card: CardModel;
+}> = ({ card }) => {
+  return (
+    <CardDetailFooterContainer>
+      {card.resources == null ? null : (
+        <CardDetailFooterContainerResource>
+          {[...Array(card.resources.energy || 0).keys()].map((i) => (
+            <Icon
+              code={IconCode.energy}
+              color={colors.darkGray}
+              size={16}
+              key={`icon-energy-${i}`}
+            />
+          ))}
+          {[...Array(card.resources.mental || 0).keys()].map((i) => (
+            <Icon
+              code={IconCode.mental}
+              color={colors.darkGray}
+              size={16}
+              key={`icon-mental-${i}`}
+            />
+          ))}
+          {[...Array(card.resources.physical || 0).keys()].map((i) => (
+            <Icon
+              code={IconCode.physical}
+              color={colors.darkGray}
+              size={16}
+              key={`icon-physical-${i}`}
+            />
+          ))}
+          {[...Array(card.resources.wild || 0).keys()].map((i) => (
+            <Icon
+              code={IconCode.wild}
+              color={colors.darkGray}
+              size={16}
+              key={`icon-wild-${i}`}
+            />
+          ))}
+        </CardDetailFooterContainerResource>
+      )}
+      <CardDetailFooterContainerSet>
+        <CardDetailFooterContainerSetText>
+          {card.setName != null
+            ? `${card.setName} (#${card.setPosition})`
+            : card.factionName}
+        </CardDetailFooterContainerSetText>
+      </CardDetailFooterContainerSet>
+      {card.raw.boost == null && card.boostText == null ? null : (
+        <CardDetailFooterContainerBoost>
+          {card.boostText && (
+            <Icon code={IconCode.special} color={colors.darkGray} size={16} />
+          )}
+          {[...Array(card.raw.boost || 0).keys()].map((i) => (
+            <Icon
+              code={IconCode.boost}
+              color={colors.darkGray}
+              size={16}
+              key={`icon-${i}`}
+            />
+          ))}
+        </CardDetailFooterContainerBoost>
+      )}
+    </CardDetailFooterContainer>
+  );
+};
+
 const CardDetailImage: React.FunctionComponent<{
   card: CardModel;
 }> = ({ card }) => {
@@ -402,17 +552,35 @@ const CardDetailImage: React.FunctionComponent<{
   );
 };
 
+const CardDetailPack: React.FunctionComponent<{
+  card: CardModel;
+}> = ({ card }) => {
+  return (
+    <CardDetailPackContainer>
+      <CardDetailPackContainerText>{`${card.pack.name} (${
+        card.packPosition
+      } / ${card.pack.size})`}</CardDetailPackContainerText>
+    </CardDetailPackContainer>
+  );
+};
+
 const CardDetail: React.FunctionComponent<{
   card: CardModel;
   width: number;
 }> = ({ card, width }) => {
   return (
     <CardDetailContainer width={width}>
-      <ContainerScrollView>
+      <ContainerScrollView
+        contentContainerStyle={styles.scrollViewContentContainer}
+        showsHorizontalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
+      >
         <CardDetailInfo card={card} />
         <CardDetailStats card={card} />
         <CardDetailText card={card} />
+        <CardDetailFooter card={card} />
         <CardDetailImage card={card} />
+        <CardDetailPack card={card} />
       </ContainerScrollView>
     </CardDetailContainer>
   );
@@ -420,7 +588,6 @@ const CardDetail: React.FunctionComponent<{
 
 const CardDetailContainer = styled(base.Container)<{ width: number }>`
   background-color: ${colors.white};
-  padding-vertical: 16px;
   width: ${(props) => props.width}px;
 `;
 
@@ -430,20 +597,36 @@ const ContainerScrollView = styled(ScrollView)`
 `;
 
 const CardDetailInfoContainer = styled(base.Container)`
+  background-color: ${colors.lightGray};
+  border-radius: 4px;
   margin-bottom: 16px;
+  padding-horizontal: 16px;
+  padding-vertical: 8px;
 `;
 
-const CardDetailInfoContainerSubtitle = styled.View``;
+const CardDetailInfoContainerSubtitle = styled.View`
+  margin-bottom: 4px;
+`;
 
-const CardDetailInfoContainerSubtitleText = styled.Text``;
+const CardDetailInfoContainerSubtitleText = styled.Text`
+  color: ${colors.darkGray};
+  font-size: 17px;
+  font-weight: 500;
+`;
 
 const CardDetailInfoContainerTypes = styled.View`
   flex-direction: row;
 `;
 
-const CardDetailInfoContainerTypesText = styled.Text``;
+const CardDetailInfoContainerTypesText = styled.Text`
+  color: ${colors.darkGray};
+  font-size: 17px;
+  font-weight: 500;
+`;
 
 const CardDetailInfoContainerTypesTextBold = styled.Text`
+  color: ${colors.darkGray};
+  font-size: 17px;
   font-weight: bold;
 `;
 
@@ -461,19 +644,19 @@ const Stat = styled.View`
   padding: 16px;
 `;
 
+const StatData = styled.View``;
+
+const StatDataText = styled.Text`
+  color: ${colors.darkGray};
+  font-size: 22px;
+  font-weight: bold;
+`;
+
 const StatHeader = styled.View``;
 
 const StatHeaderText = styled.Text`
   color: ${colors.grayDark};
   font-weight: 700;
-`;
-
-const StatData = styled.View``;
-
-const StatDataText = styled.Text`
-  color: ${colors.primary};
-  font-size: 22px;
-  font-weight: bold;
 `;
 
 const StatSpacer = styled.View`
@@ -507,6 +690,33 @@ const CardDetailTextContainerDivider = styled.View`
   margin-bottom: 16px;
 `;
 
+const CardDetailFooterContainer = styled.View`
+  background-color: ${colors.lightGray};
+  border-radius: 4px;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-horizontal: 16px;
+  padding-vertical: 8px;
+`;
+
+const CardDetailFooterContainerResource = styled.View`
+  flex-direction: row;
+`;
+
+const CardDetailFooterContainerSet = styled.View`
+  flex-direction: row;
+`;
+
+const CardDetailFooterContainerSetText = styled.Text`
+  color: ${colors.darkGray};
+  font-weight: 600;
+`;
+
+const CardDetailFooterContainerBoost = styled.View`
+  flex-direction: row;
+`;
+
 const CardDetailImageContainer = styled.TouchableOpacity`
   height: 440px;
   margin-bottom: 16px;
@@ -517,6 +727,19 @@ const CardDetailImageContainer = styled.TouchableOpacity`
 const Image = styled.Image`
   height: 100%;
   width: 100%;
+`;
+
+const CardDetailPackContainer = styled.View`
+  align-items: center;
+  margin-bottom: 16px;
+  padding-horizontal: 16px;
+  padding-vertical: 8px;
+`;
+
+const CardDetailPackContainerText = styled.Text`
+  color: ${colors.darkGray};
+  font-size: 17px;
+  font-style: italic;
 `;
 
 export default CardDetail;

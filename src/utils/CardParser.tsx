@@ -11,7 +11,7 @@ const ICON_REPLACEMENTS = Object.freeze({
   energy: '<icon code="energy"></icon>',
   hazard: '<icon code="hazard"></icon>',
   mental: '<icon code="mental"></icon>',
-  perHero: '<icon code="perHero"></icon>',
+  per_hero: '<icon code="perHero"></icon>',
   physical: '<icon code="physical"></icon>',
   special: '<icon code="special"></icon>',
   unique: '<icon code="unique"></icon>',
@@ -58,7 +58,7 @@ export default {
   },
 
   replaceEmphasis(text: string): string {
-    return text.replace(/\[\[([\w]+)\]\]/gi, '<em>$1</em>');
+    return text.replace(/\[\[([ \w]+)\]\]/gi, '<em>$1</em>');
   },
 
   replaceLineBreaks(text: string): string {

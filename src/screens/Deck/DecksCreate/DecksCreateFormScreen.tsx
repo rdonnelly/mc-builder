@@ -50,24 +50,6 @@ const DecksCreateFormScreen: React.FunctionComponent<{
         <Form>
           <FormSection>
             <ControlLabel>
-              <ControlLabelText>Deck Name</ControlLabelText>
-            </ControlLabel>
-            <Control>
-              <TextInput
-                autoCorrect={false}
-                clearButtonMode={'always'}
-                editable={true}
-                placeholder={'Deck Name'}
-                placeholderTextColor={colors.gray}
-                returnKeyType={'done'}
-                value={deckName}
-                onChangeText={(value) => setDeckName(value)}
-              />
-            </Control>
-          </FormSection>
-
-          <FormSection>
-            <ControlLabel>
               <ControlLabelText>Select Hero</ControlLabelText>
             </ControlLabel>
             <LinkRow
@@ -100,6 +82,24 @@ const DecksCreateFormScreen: React.FunctionComponent<{
                 <LinkRowChevron name={'chevron-right'} size={16} />
               </LinkRowChevronWrapper>
             </LinkRow>
+          </FormSection>
+
+          <FormSection>
+            <ControlLabel>
+              <ControlLabelText>Deck Name</ControlLabelText>
+            </ControlLabel>
+            <Control>
+              <TextInput
+                autoCorrect={false}
+                clearButtonMode={'always'}
+                editable={true}
+                placeholder={'Deck Name'}
+                placeholderTextColor={colors.gray}
+                returnKeyType={'done'}
+                value={deckName}
+                onChangeText={(value) => setDeckName(value)}
+              />
+            </Control>
           </FormSection>
         </Form>
 

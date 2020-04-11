@@ -1,7 +1,13 @@
 import { Dimensions } from 'react-native';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import styled from 'styled-components/native';
 
 import { CardListContext } from '../../context/CardListContext';
@@ -18,11 +24,15 @@ const CardDetailScreen: React.FunctionComponent<{
     Dimensions.get('window').width,
   );
 
-  useEffect(() => {
-    const handler = ({ window }) => setWindowWidth(window.width);
-    Dimensions.addEventListener('change', handler);
-    return () => Dimensions.removeEventListener('change', handler);
+  const dimensionsChangeHandler = useCallback(({ window }) => {
+    setWindowWidth(window.width);
   }, []);
+
+  useEffect(() => {
+    Dimensions.addEventListener('change', dimensionsChangeHandler);
+    return () =>
+      Dimensions.removeEventListener('change', dimensionsChangeHandler);
+  }, [dimensionsChangeHandler]);
 
   const { cardList } = useContext(CardListContext);
 
@@ -47,7 +57,7 @@ const CardDetailScreen: React.FunctionComponent<{
 
   const viewabilityConfig = useRef({ itemVisiblePercentThreshold: 100 });
 
-  const handleViewableItemsChanged = ({ viewableItems }) => {
+  const handleViewableItemsChanged = useRef(({ viewableItems }) => {
     if (viewableItems.length) {
       navigation.setOptions({
         headerTitle: viewableItems[0].item.name,
@@ -57,7 +67,7 @@ const CardDetailScreen: React.FunctionComponent<{
         headerTitle: '',
       });
     }
-  };
+  });
 
   return (
     <Container>
@@ -75,7 +85,7 @@ const CardDetailScreen: React.FunctionComponent<{
         showsHorizontalScrollIndicator={false}
         initialScrollIndex={initialScrollIndex}
         viewabilityConfig={viewabilityConfig.current}
-        onViewableItemsChanged={handleViewableItemsChanged}
+        onViewableItemsChanged={handleViewableItemsChanged.current}
       />
     </Container>
   );

@@ -516,7 +516,9 @@ const CardDetailFooter: React.FunctionComponent<{
       <CardDetailFooterContainerSet>
         <CardDetailFooterContainerSetText>
           {card.setName != null
-            ? `${card.setName} (#${card.setPosition})`
+            ? `${card.setName} ${
+                card.setPosition ? `(#${card.setPosition})` : ''
+              }`
             : card.factionName}
         </CardDetailFooterContainerSetText>
       </CardDetailFooterContainerSet>

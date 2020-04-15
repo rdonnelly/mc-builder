@@ -159,14 +159,22 @@ export class Card {
 }
 
 const cards = [].concat(
-  require('marvelsdb-json-data/pack/cap.json'),
+  require('marvelsdb-json-data/pack/bkw_encounter.json'),
+  require('marvelsdb-json-data/pack/bkw.json'),
   require('marvelsdb-json-data/pack/cap_encounter.json'),
-  require('marvelsdb-json-data/pack/gob_encounter.json'),
-  require('marvelsdb-json-data/pack/core.json'),
+  require('marvelsdb-json-data/pack/cap.json'),
   require('marvelsdb-json-data/pack/core_encounter.json'),
-  require('marvelsdb-json-data/pack/msm.json'),
+  require('marvelsdb-json-data/pack/core.json'),
+  require('marvelsdb-json-data/pack/drs_encounter.json'),
+  require('marvelsdb-json-data/pack/drs.json'),
+  require('marvelsdb-json-data/pack/gob_encounter.json'),
+  // require('marvelsdb-json-data/pack/hlk_encounter.json'),
+  require('marvelsdb-json-data/pack/hlk.json'),
   require('marvelsdb-json-data/pack/msm_encounter.json'),
+  require('marvelsdb-json-data/pack/msm.json'),
+  require('marvelsdb-json-data/pack/thor_encounter.json'),
   require('marvelsdb-json-data/pack/thor.json'),
+  require('marvelsdb-json-data/pack/twc_encounter.json'),
 );
 
 export const getCards = memoizeOne(() =>

@@ -11,7 +11,6 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		280706742F0834A818DD5A41 /* libPods-MCBuilderTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 605C68BAF3E30ABE45B411BF /* libPods-MCBuilderTests.a */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -21,10 +20,11 @@
 		5B53B8A66E464005B963A000 /* FontAwesome5_Pro_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 133BB4EB5D6749349DD968ED /* FontAwesome5_Pro_Solid.ttf */; };
 		72BB03EB0F754EB3B0F5C676 /* FontAwesome5_Pro_Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 86D9D74DE3DA49D2BCB731CD /* FontAwesome5_Pro_Light.ttf */; };
 		7424FE6F2FC8D5BDA52A4DFF /* libPods-MCBuilder-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A85ED6C9C8564006996A9341 /* libPods-MCBuilder-tvOSTests.a */; };
+		9385C42D49277102ECF8DD51 /* libPods-MCBuilder-MCBuilderTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DFCF5D144514A5B44204497 /* libPods-MCBuilder-MCBuilderTests.a */; };
 		95116DB023D3EA1600C9D72A /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95116DAF23D3EA1600C9D72A /* Launch Screen.storyboard */; };
+		ADE86D1AAFB24769B4EE9E77 /* marvel-icons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 991231E52F434A54B38F07F9 /* marvel-icons.ttf */; };
 		B4A1534EECBD41298F719E6D /* FontAwesome5_Pro_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 20C73997C35D4F24A3398312 /* FontAwesome5_Pro_Brands.ttf */; };
 		FEA30E18C76E408AA3BD11D4 /* FontAwesome5_Pro_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 136FD2C64CFC44CAB855AFA2 /* FontAwesome5_Pro_Regular.ttf */; };
-		ADE86D1AAFB24769B4EE9E77 /* marvel-icons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 991231E52F434A54B38F07F9 /* marvel-icons.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,14 +61,18 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = MCBuilder/main.m; sourceTree = "<group>"; };
 		19F36ADC6F1F73D2321E7CCC /* Pods-MCBuilder-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MCBuilder-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-MCBuilder-tvOS/Pods-MCBuilder-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		20C73997C35D4F24A3398312 /* FontAwesome5_Pro_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Pro_Brands.ttf; path = ../assets/fonts/FontAwesome5_Pro_Brands.ttf; sourceTree = "<group>"; };
+		250A1ECDEB8CD8ADA0F37713 /* Pods-MCBuilder-MCBuilderTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MCBuilder-MCBuilderTests.debug.xcconfig"; path = "Target Support Files/Pods-MCBuilder-MCBuilderTests/Pods-MCBuilder-MCBuilderTests.debug.xcconfig"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* MCBuilder-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MCBuilder-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* MCBuilder-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MCBuilder-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C3634B0B4A825BE277FA428 /* Pods-MCBuilder-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MCBuilder-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-MCBuilder-tvOSTests/Pods-MCBuilder-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		5A401CA55CC27FC04E6CB57F /* Pods-MCBuilderTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MCBuilderTests.debug.xcconfig"; path = "Target Support Files/Pods-MCBuilderTests/Pods-MCBuilderTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5ACDA8841001F6B82F8D46A3 /* Pods-MCBuilder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MCBuilder.debug.xcconfig"; path = "Target Support Files/Pods-MCBuilder/Pods-MCBuilder.debug.xcconfig"; sourceTree = "<group>"; };
-		605C68BAF3E30ABE45B411BF /* libPods-MCBuilderTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MCBuilderTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8291807CC6A6548BBD79CCAA /* Pods-MCBuilder-MCBuilderTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MCBuilder-MCBuilderTests.release.xcconfig"; path = "Target Support Files/Pods-MCBuilder-MCBuilderTests/Pods-MCBuilder-MCBuilderTests.release.xcconfig"; sourceTree = "<group>"; };
 		86D9D74DE3DA49D2BCB731CD /* FontAwesome5_Pro_Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Pro_Light.ttf; path = ../assets/fonts/FontAwesome5_Pro_Light.ttf; sourceTree = "<group>"; };
+		8DFCF5D144514A5B44204497 /* libPods-MCBuilder-MCBuilderTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MCBuilder-MCBuilderTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		95116DAF23D3EA1600C9D72A /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		951D6DF2244670D100DF0E77 /* MCBuilder-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MCBuilder-Bridging-Header.h"; sourceTree = "<group>"; };
+		991231E52F434A54B38F07F9 /* marvel-icons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "marvel-icons.ttf"; path = "../assets/fonts/marvel-icons.ttf"; sourceTree = "<group>"; };
 		A83BFBD6D2E724BC175BFA7F /* libPods-MCBuilder-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MCBuilder-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A85ED6C9C8564006996A9341 /* libPods-MCBuilder-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MCBuilder-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEAF7E6A2B4856C45EDC0315 /* Pods-MCBuilder-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MCBuilder-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-MCBuilder-tvOSTests/Pods-MCBuilder-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -76,7 +80,6 @@
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		F95E1CFE7EDF93C85985F12E /* Pods-MCBuilderTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MCBuilderTests.release.xcconfig"; path = "Target Support Files/Pods-MCBuilderTests/Pods-MCBuilderTests.release.xcconfig"; sourceTree = "<group>"; };
-		991231E52F434A54B38F07F9 /* marvel-icons.ttf */ = {isa = PBXFileReference; name = "marvel-icons.ttf"; path = "../assets/fonts/marvel-icons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,7 +87,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				280706742F0834A818DD5A41 /* libPods-MCBuilderTests.a in Frameworks */,
+				9385C42D49277102ECF8DD51 /* libPods-MCBuilder-MCBuilderTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -142,6 +145,7 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				95116DAF23D3EA1600C9D72A /* Launch Screen.storyboard */,
+				951D6DF2244670D100DF0E77 /* MCBuilder-Bridging-Header.h */,
 			);
 			name = MCBuilder;
 			sourceTree = "<group>";
@@ -154,7 +158,7 @@
 				DA18079233B0FB52E47A4011 /* libPods-MCBuilder.a */,
 				A83BFBD6D2E724BC175BFA7F /* libPods-MCBuilder-tvOS.a */,
 				A85ED6C9C8564006996A9341 /* libPods-MCBuilder-tvOSTests.a */,
-				605C68BAF3E30ABE45B411BF /* libPods-MCBuilderTests.a */,
+				8DFCF5D144514A5B44204497 /* libPods-MCBuilder-MCBuilderTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -216,6 +220,8 @@
 				3C3634B0B4A825BE277FA428 /* Pods-MCBuilder-tvOSTests.release.xcconfig */,
 				5A401CA55CC27FC04E6CB57F /* Pods-MCBuilderTests.debug.xcconfig */,
 				F95E1CFE7EDF93C85985F12E /* Pods-MCBuilderTests.release.xcconfig */,
+				250A1ECDEB8CD8ADA0F37713 /* Pods-MCBuilder-MCBuilderTests.debug.xcconfig */,
+				8291807CC6A6548BBD79CCAA /* Pods-MCBuilder-MCBuilderTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -231,6 +237,7 @@
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
+				CA81E5CBB375D67A36383D75 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -308,8 +315,8 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 940;
-				ORGANIZATIONNAME = Facebook;
+				LastUpgradeCheck = 1140;
+				ORGANIZATIONNAME = "";
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
@@ -317,6 +324,7 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = EZ4AQB6GC7;
+						LastSwiftMigration = 1140;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -331,10 +339,9 @@
 			};
 			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "MCBuilder" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
 				Base,
 			);
@@ -482,7 +489,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MCBuilderTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-MCBuilder-MCBuilderTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -553,6 +560,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CA81E5CBB375D67A36383D75 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MCBuilder-MCBuilderTests/Pods-MCBuilder-MCBuilderTests-resources.sh",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Feather.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Foundation.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Octicons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Zocial.ttf",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AntDesign.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Entypo.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EvilIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Feather.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Brands.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Regular.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Solid.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Fontisto.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Foundation.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Ionicons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialCommunityIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Octicons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SimpleLineIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Zocial.ttf",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MCBuilder-MCBuilderTests/Pods-MCBuilder-MCBuilderTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -648,7 +703,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5A401CA55CC27FC04E6CB57F /* Pods-MCBuilderTests.debug.xcconfig */;
+			baseConfigurationReference = 250A1ECDEB8CD8ADA0F37713 /* Pods-MCBuilder-MCBuilderTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -658,6 +713,10 @@
 				INFOPLIST_FILE = MCBuilderTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-DFB_SONARKIT_ENABLED=1",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -671,13 +730,17 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F95E1CFE7EDF93C85985F12E /* Pods-MCBuilderTests.release.xcconfig */;
+			baseConfigurationReference = 8291807CC6A6548BBD79CCAA /* Pods-MCBuilder-MCBuilderTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = MCBuilderTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-DFB_SONARKIT_ENABLED=1",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -694,12 +757,21 @@
 			baseConfigurationReference = 5ACDA8841001F6B82F8D46A3 /* Pods-MCBuilder.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 33;
-				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = EZ4AQB6GC7;
+				ENABLE_BITCODE = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"FB_SONARKIT_ENABLED=1",
+				);
 				INFOPLIST_FILE = MCBuilder/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-DFB_SONARKIT_ENABLED=1",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -707,6 +779,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = us.com.rdonnelly.mcbuilder;
 				PRODUCT_NAME = MCBuilder;
+				SWIFT_OBJC_BRIDGING_HEADER = "MCBuilder-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -717,11 +792,16 @@
 			baseConfigurationReference = 08E0A7B750C08AF95E377553 /* Pods-MCBuilder.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 33;
 				DEVELOPMENT_TEAM = EZ4AQB6GC7;
 				INFOPLIST_FILE = MCBuilder/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-DFB_SONARKIT_ENABLED=1",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -729,6 +809,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = us.com.rdonnelly.mcbuilder;
 				PRODUCT_NAME = MCBuilder;
+				SWIFT_OBJC_BRIDGING_HEADER = "MCBuilder-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -749,6 +831,10 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "MCBuilder-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-DFB_SONARKIT_ENABLED=1",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -777,6 +863,10 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "MCBuilder-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-DFB_SONARKIT_ENABLED=1",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -804,6 +894,10 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "MCBuilder-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-DFB_SONARKIT_ENABLED=1",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -831,6 +925,10 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "MCBuilder-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-DFB_SONARKIT_ENABLED=1",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -891,6 +989,12 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "/usr/lib/swift $(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
+					"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)",
+					"$(inherited)",
+				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -937,6 +1041,12 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "/usr/lib/swift $(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
+					"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)",
+					"$(inherited)",
+				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;

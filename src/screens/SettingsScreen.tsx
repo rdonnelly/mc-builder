@@ -88,7 +88,7 @@ const DisclaimerText = styled.Text`
 `;
 
 const LinkText = styled.Text`
-  color: ${colors.brand};
+  color: ${colors.blue};
   text-align: center;
 `;
 

@@ -1,11 +1,17 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
 import React from 'react';
+import styled from 'styled-components/native';
 
 import { colors } from '../styles';
 import CardsStackNavigator from './CardsStackNavigator';
 import DecksStackNavigator from './DecksStackNavigator';
 import SettingsStackNavigator from './SettingsStackNavigator';
+
+const TabBarLabel = styled.Text<{ color: string }>`
+  color: ${(props) => (props.color ? props.color : 'darkGrayDark')};
+  font-size: 12px;
+`;
 
 const Tab = createBottomTabNavigator();
 
@@ -25,9 +31,18 @@ export default () => (
       name="Cards"
       component={CardsStackNavigator}
       options={{
-        tabBarLabel: 'Cards',
-        tabBarIcon: ({ color, size }) => (
-          <FontAwesomeIcon name="stream" color={color} size={size} solid />
+        tabBarLabel: ({ focused }) => (
+          <TabBarLabel color={focused ? colors.orange : colors.gray}>
+            Cards
+          </TabBarLabel>
+        ),
+        tabBarIcon: ({ focused, size }) => (
+          <FontAwesomeIcon
+            name="stream"
+            color={focused ? colors.orange : colors.gray}
+            size={size}
+            solid
+          />
         ),
       }}
     />
@@ -35,9 +50,18 @@ export default () => (
       name="Decks"
       component={DecksStackNavigator}
       options={{
-        tabBarLabel: 'Decks',
-        tabBarIcon: ({ color, size }) => (
-          <FontAwesomeIcon name="layer-group" color={color} size={size} solid />
+        tabBarLabel: ({ focused }) => (
+          <TabBarLabel color={focused ? colors.purple : colors.gray}>
+            Decks
+          </TabBarLabel>
+        ),
+        tabBarIcon: ({ focused, size }) => (
+          <FontAwesomeIcon
+            name="layer-group"
+            color={focused ? colors.purple : colors.gray}
+            size={size}
+            solid
+          />
         ),
       }}
     />
@@ -45,9 +69,18 @@ export default () => (
       name="Settings"
       component={SettingsStackNavigator}
       options={{
-        tabBarLabel: 'Settings',
-        tabBarIcon: ({ color, size }) => (
-          <FontAwesomeIcon name="cog" color={color} size={size} solid />
+        tabBarLabel: ({ focused }) => (
+          <TabBarLabel color={focused ? colors.blue : colors.gray}>
+            Settings
+          </TabBarLabel>
+        ),
+        tabBarIcon: ({ focused, size }) => (
+          <FontAwesomeIcon
+            name="cog"
+            color={focused ? colors.blue : colors.gray}
+            size={size}
+            solid
+          />
         ),
       }}
     />

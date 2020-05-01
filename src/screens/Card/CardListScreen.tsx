@@ -142,7 +142,7 @@ const Filters = styled.View`
 `;
 
 const FiltersButton = styled(base.Button)`
-  background-color: ${colors.darkGray};
+  background-color: ${colors.orange};
   flex: 1 1 0;
   margin-horizontal: 4px;
 `;

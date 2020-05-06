@@ -74,6 +74,7 @@
     "postinstall-postinstall": "^2.1.0",
     "react-native-dotenv": "^0.2.0",
     "react-test-renderer": "16.11.0",
+    "reactotron-react-native": "^5.0.0",
     "typescript": "^3.7.3",
     "typescript-plugin-styled-components": "^1.4.4"
   },

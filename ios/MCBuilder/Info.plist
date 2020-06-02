@@ -40,7 +40,9 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string/>
+	<string></string>
+	<key>NSMainNibFile</key>
+	<string>LaunchScreen</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>FontAwesome5_Pro_Brands.ttf</string>
@@ -56,14 +58,10 @@
 	</dict>
 	<key>UILaunchStoryboardName</key>
 	<string>Launch Screen</string>
-	<key>UIMainStoryboardFile</key>
-	<string>Launch Screen</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
 	</array>
-	<key>UIRequiresFullScreen</key>
-	<false/>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

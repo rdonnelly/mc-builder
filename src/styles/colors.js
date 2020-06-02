@@ -30,15 +30,36 @@ const darkGrayDark = 'rgba(44, 62, 80, 1.0)';
 
 const white = '#ffffff';
 
+const factions = {
+  aggression: red,
+  aggressionDark: redDark,
+  basic: gray,
+  basicDark: grayDark,
+  justice: yellow,
+  justiceDark: yellowDark,
+  leadership: blue,
+  leadershipDark: blueDark,
+  protection: green,
+  protectionDark: greenDark,
+};
+
 const icons = {
   energy: '#f6be33',
+  energyBackground: '#f6be33',
   energyDark: '#86671b',
+  energyTint: '#86671b',
   mental: '#b7c9eb',
+  mentalBackground: '#5c72c1',
   mentalDark: '#5c72c1',
+  mentalTint: '#b7c9eb',
   physical: '#ee9080',
+  physicalBackground: '#aa3220',
   physicalDark: '#aa3220',
+  physicalTint: '#ee9080',
   wild: '#45bc5c',
+  wildBackground: '#247034',
   wildDark: '#247034',
+  wildTint: '#45bc5c',
 };
 
 export default {
@@ -75,23 +96,19 @@ export default {
   white,
 
   primary: darkGray,
+  subdued: grayDark,
 
   brand: orange,
   brandDark: orangeDark,
-
-  // header
-  headerTint: white,
-  headerBackground: orange,
-
-  // tabs
-  tabActiveTint: orange,
-  tabInactiveTint: gray,
 
   // card colors
   cardBlue: blue,
   cardRed: red,
   cardYellow: yellow,
   cardGray: grayDark,
+
+  // factions
+  factions,
 
   // icons
   icons,

@@ -1,15 +1,15 @@
-import { Dimensions } from 'react-native';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, {
-  useCallback,
+  // useCallback,
   useContext,
-  useEffect,
+  // useEffect,
   useRef,
-  useState,
+  // useState,
 } from 'react';
 import styled from 'styled-components/native';
 
+import { AppContext } from '../../context/AppContext';
 import { CardListContext } from '../../context/CardListContext';
 import { CardModel } from '../../data';
 import { CardStackParamList } from '../../navigation/CardsStackNavigator';
@@ -20,21 +20,8 @@ const CardDetailScreen: React.FunctionComponent<{
   navigation: StackNavigationProp<CardStackParamList, 'CardDetail'>;
   route: RouteProp<CardStackParamList, 'CardDetail'>;
 }> = ({ navigation, route }) => {
-  const [windowWidth, setWindowWidth] = useState(
-    Dimensions.get('window').width,
-  );
-
-  const dimensionsChangeHandler = useCallback(({ window }) => {
-    setWindowWidth(window.width);
-  }, []);
-
-  useEffect(() => {
-    Dimensions.addEventListener('change', dimensionsChangeHandler);
-    return () =>
-      Dimensions.removeEventListener('change', dimensionsChangeHandler);
-  }, [dimensionsChangeHandler]);
-
   const { cardList } = useContext(CardListContext);
+  const { windowWidth } = useContext(AppContext);
 
   const code = route.params.code;
 

@@ -104,12 +104,12 @@ const DecksCreateFormScreen: React.FunctionComponent<{
         </Form>
 
         <Controls>
-          <AddButton onPress={submit}>
-            <AddButtonText>Create Deck</AddButtonText>
-          </AddButton>
           <CancelButton onPress={() => navigation.goBack()}>
             <CancelButtonText>Cancel</CancelButtonText>
           </CancelButton>
+          <AddButton onPress={submit}>
+            <AddButtonText>Create Deck</AddButtonText>
+          </AddButton>
         </Controls>
       </KeyboardAvoidingView>
     </Container>
@@ -187,8 +187,8 @@ const Controls = styled.View`
 
 const AddButton = styled(base.Button)`
   background-color: ${colors.green};
-  flex: 1;
-  margin-right: 8px;
+  flex: 3;
+  margin-left: 4px;
 `;
 
 const AddButtonText = styled(base.ButtonText)``;
@@ -196,7 +196,7 @@ const AddButtonText = styled(base.ButtonText)``;
 const CancelButton = styled(base.Button)`
   background-color: ${colors.lightGrayDark};
   flex: 1;
-  margin-left: 8px;
+  margin-right: 4px;
 `;
 
 const CancelButtonText = styled(base.ButtonText)``;

@@ -116,7 +116,7 @@ const FloatingControls = styled.View`
 const FloatingControlsButton = styled(base.Button)`
   background-color: ${colors.purple};
   flex: 1 1 auto;
-  margin-horizontal: 8px;
+  margin-horizontal: 4px;
 `;
 
 const FloatingControlsButtonText = styled(base.ButtonText)``;

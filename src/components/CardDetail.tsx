@@ -11,6 +11,11 @@ import { shareImageUrl } from '../utils/Share';
 import CardParser from '../utils/CardParser';
 import Icon, { IconCode } from '../components/Icon';
 
+enum CardImageHeight {
+  LANDSCAPE = 300,
+  PORTRAIT = 419,
+}
+
 const isTablet = DeviceInfo.isTablet();
 
 const styles = StyleSheet.create({
@@ -24,7 +29,7 @@ const styles = StyleSheet.create({
     letterSpacing: isTablet ? -0.54 : -0.408,
   },
   cardDetailFlavor: {
-    color: colors.primary,
+    color: colors.subdued,
     fontSize: isTablet ? 16 : 14,
     fontStyle: 'italic',
     fontWeight: '600',
@@ -475,53 +480,59 @@ const CardDetailText: React.FunctionComponent<{
 const CardDetailFooter: React.FunctionComponent<{
   card: CardModel;
 }> = ({ card }) => {
+  let factionOrSetText = '';
+  if (card.setName != null) {
+    factionOrSetText = card.setName;
+    if (card.setPosition != null) {
+      const setNumbers = [];
+      for (let i = 0, j = card.raw.quantity; i < j; i++) {
+        setNumbers.push(`#${card.setPosition + i}`);
+      }
+      factionOrSetText += ` (${setNumbers.join(', ')})`;
+    }
+  } else {
+    factionOrSetText = card.factionName;
+  }
+
+  card.setName != null ? card.setName : card.factionName;
+  const factionColor =
+    card.setName == null ? colors.factions[`${card.factionCode}Dark`] : null;
+
+  const resources = card.resources;
+  const resourceIcons =
+    resources == null
+      ? null
+      : Object.keys(resources).reduce((icons, resourceKey) => {
+          if (!resources[resourceKey]) {
+            return icons;
+          }
+
+          icons.push(
+            ...Array(resources[resourceKey])
+              .fill('')
+              .map((_val, i) => (
+                <CardDetailFooterContainerResourceWrapper
+                  color={colors.icons[`${resourceKey}Background`]}
+                  key={`resource_icon_${i}`}
+                >
+                  <Icon
+                    code={IconCode[resourceKey]}
+                    color={colors.icons[`${resourceKey}Tint`]}
+                  />
+                </CardDetailFooterContainerResourceWrapper>
+              )),
+          );
+
+          return icons;
+        }, []);
+
   return (
     <CardDetailFooterContainer>
-      {card.resources == null ? null : (
+      {resources != null && (
         <CardDetailFooterContainerResource>
-          {[...Array(card.resources.energy || 0).keys()].map((i) => (
-            <Icon
-              code={IconCode.energy}
-              color={colors.darkGray}
-              size={16}
-              key={`icon-energy-${i}`}
-            />
-          ))}
-          {[...Array(card.resources.mental || 0).keys()].map((i) => (
-            <Icon
-              code={IconCode.mental}
-              color={colors.darkGray}
-              size={16}
-              key={`icon-mental-${i}`}
-            />
-          ))}
-          {[...Array(card.resources.physical || 0).keys()].map((i) => (
-            <Icon
-              code={IconCode.physical}
-              color={colors.darkGray}
-              size={16}
-              key={`icon-physical-${i}`}
-            />
-          ))}
-          {[...Array(card.resources.wild || 0).keys()].map((i) => (
-            <Icon
-              code={IconCode.wild}
-              color={colors.darkGray}
-              size={16}
-              key={`icon-wild-${i}`}
-            />
-          ))}
+          {resourceIcons}
         </CardDetailFooterContainerResource>
       )}
-      <CardDetailFooterContainerSet>
-        <CardDetailFooterContainerSetText>
-          {card.setName != null
-            ? `${card.setName} ${
-                card.setPosition ? `(#${card.setPosition})` : ''
-              }`
-            : card.factionName}
-        </CardDetailFooterContainerSetText>
-      </CardDetailFooterContainerSet>
       {card.raw.boost == null && card.boostText == null ? null : (
         <CardDetailFooterContainerBoost>
           {card.boostText && (
@@ -537,6 +548,11 @@ const CardDetailFooter: React.FunctionComponent<{
           ))}
         </CardDetailFooterContainerBoost>
       )}
+      <CardDetailFooterContainerSet>
+        <CardDetailFooterContainerSetText color={factionColor}>
+          {factionOrSetText}
+        </CardDetailFooterContainerSetText>
+      </CardDetailFooterContainerSet>
     </CardDetailFooterContainer>
   );
 };
@@ -544,8 +560,12 @@ const CardDetailFooter: React.FunctionComponent<{
 const CardDetailImage: React.FunctionComponent<{
   card: CardModel;
 }> = ({ card }) => {
+  const cardHeight = ['main_scheme', 'side_scheme'].includes(card.typeCode)
+    ? CardImageHeight.LANDSCAPE
+    : CardImageHeight.PORTRAIT;
   return (
     <CardDetailImageContainer
+      height={cardHeight}
       activeOpacity={0.9}
       onLongPress={() => handleImageLongPress(card)}
     >
@@ -559,9 +579,7 @@ const CardDetailPack: React.FunctionComponent<{
 }> = ({ card }) => {
   return (
     <CardDetailPackContainer>
-      <CardDetailPackContainerText>{`${card.pack.name} (${
-        card.packPosition
-      } / ${card.pack.size})`}</CardDetailPackContainerText>
+      <CardDetailPackContainerText>{`${card.pack.name} (${card.packPosition} / ${card.pack.size})`}</CardDetailPackContainerText>
     </CardDetailPackContainer>
   );
 };
@@ -634,15 +652,18 @@ const CardDetailInfoContainerTypesTextBold = styled.Text`
 
 const CardDetailStatsContainer = styled.View`
   flex-direction: row;
+  flex-wrap: wrap;
   justify-content: space-between;
-  margin-bottom: 16px;
+  margin-horizontal: -8px;
 `;
 
 const Stat = styled.View`
   background-color: ${colors.lightGray};
   border-radius: 4px;
-  flex: 1;
+  flex: 1 1 80px;
   justify-content: flex-end;
+  margin-bottom: 16px;
+  margin-horizontal: 8px;
   padding: 16px;
 `;
 
@@ -661,9 +682,7 @@ const StatHeaderText = styled.Text`
   font-weight: 700;
 `;
 
-const StatSpacer = styled.View`
-  width: 16px;
-`;
+const StatSpacer = styled.View``;
 
 const CardDetailTextContainer = styled.View`
   background-color: ${colors.lightGray};
@@ -693,6 +712,7 @@ const CardDetailTextContainerDivider = styled.View`
 `;
 
 const CardDetailFooterContainer = styled.View`
+  align-items: center;
   background-color: ${colors.lightGray};
   border-radius: 4px;
   flex-direction: row;
@@ -706,12 +726,23 @@ const CardDetailFooterContainerResource = styled.View`
   flex-direction: row;
 `;
 
+const CardDetailFooterContainerResourceWrapper = styled.View<{
+  color: string;
+}>`
+  background-color: ${(props) => (props.color ? props.color : colors.darkGray)};
+  border-radius: 4px;
+  margin-right: 4px;
+  padding: 4px;
+`;
+
 const CardDetailFooterContainerSet = styled.View`
   flex-direction: row;
 `;
 
-const CardDetailFooterContainerSetText = styled.Text`
-  color: ${colors.darkGray};
+const CardDetailFooterContainerSetText = styled.Text<{
+  color: string;
+}>`
+  color: ${(props) => (props.color ? props.color : colors.darkGray)};
   font-weight: 600;
 `;
 
@@ -719,10 +750,12 @@ const CardDetailFooterContainerBoost = styled.View`
   flex-direction: row;
 `;
 
-const CardDetailImageContainer = styled.TouchableOpacity`
-  height: 440px;
+const CardDetailImageContainer = styled.TouchableOpacity<{
+  height: CardImageHeight;
+}>`
+  height: ${(props) => props.height}px;
   margin-bottom: 16px;
-  padding: 16px;
+  padding-horizontal: 0px;
   width: 100%;
 `;
 

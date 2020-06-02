@@ -1,16 +1,64 @@
 import * as React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 import { useDispatch } from 'react-redux';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
 import styled from 'styled-components/native';
 
+import { CardModel } from '../data';
 import { addCardToDeck, removeCardFromDeck } from '../store/actions';
 import { base, colors } from '../styles';
+import Icon, { IconCode } from '../components/Icon';
 
 export const ITEM_HEIGHT = 64;
 
+const getFactionOrSetText = (card) => {
+  const text = card.setName != null ? card.setName : card.factionName;
+  const color =
+    card.setName == null
+      ? colors.factions[`${card.factionCode}Dark`]
+      : card.factionCode === 'encounter'
+      ? colors.orange
+      : colors.purpleDark;
+
+  return (
+    <CardDetailsInfoFactionOrSet color={color}>
+      {text}
+    </CardDetailsInfoFactionOrSet>
+  );
+};
+
+const getResourceIcons = (card) => {
+  const resources = card.resources;
+  if (resources == null) {
+    return null;
+  }
+
+  return Object.keys(resources).reduce(
+    (icons, resourceKey) => {
+      if (!resources[resourceKey]) {
+        return icons;
+      }
+
+      icons.push(
+        ...Array(resources[resourceKey])
+          .fill('')
+          .map((_val, i) => (
+            <Icon
+              code={IconCode[resourceKey]}
+              color={colors.icons[resourceKey]}
+              key={`resource_icon_${i}`}
+            />
+          )),
+      );
+
+      return icons;
+    },
+    [<Text key={'resource_icon_separator'}> · </Text>],
+  );
+};
+
 const CardListItem: React.FunctionComponent<{
-  card: any;
+  card: CardModel;
   count?: number;
   deckCode?: string;
   showPackInfo?: boolean;
@@ -37,9 +85,18 @@ const CardListItem: React.FunctionComponent<{
     card.factionCode === 'hero';
   const decrementIsDisabled = count <= 0 || card.factionCode === 'hero';
 
-  let infoText = `${card.typeName} · ${card.factionName}`;
+  let infoText = '';
+
+  if (card.typeCode === 'villain' && card.raw.stage != null) {
+    infoText = `${infoText} · ${card.typeName} · Stage ${card.raw.stage}`;
+  } else {
+    infoText = `${infoText} · ${card.typeName}`;
+  }
+
+  let packText = '';
+
   if (showPackInfo) {
-    infoText = `${card.packName} · ${card.cardCode} · ${infoText}`;
+    packText = ` · ${card.packCode.toUpperCase()} · ${card.cardCode}`;
   }
 
   return (
@@ -58,7 +115,10 @@ const CardListItem: React.FunctionComponent<{
           </CardDetailsName>
           <CardDetailsInfo>
             <CardDetailsInfoText numberOfLines={1}>
+              {getFactionOrSetText(card)}
               {infoText}
+              {getResourceIcons(card)}
+              {packText}
             </CardDetailsInfoText>
           </CardDetailsInfo>
         </CardDetails>
@@ -159,6 +219,14 @@ const CardDetailsInfo = styled.View`
 
 const CardDetailsInfoText = styled.Text`
   color: ${colors.gray};
+  font-size: 13px;
+  font-weight: 500;
+`;
+
+const CardDetailsInfoFactionOrSet = styled.Text<{
+  color?: string;
+}>`
+  color: ${(props) => (props.color ? props.color : colors.gray)};
   font-size: 13px;
   font-weight: 500;
 `;

@@ -19,7 +19,7 @@ export default () => (
   <Tab.Navigator
     initialRouteName="Cards"
     tabBarOptions={{
-      activeTintColor: colors.darkGrayDark,
+      activeTintColor: colors.darkGray,
       inactiveTintColor: colors.gray,
       inactiveBackgroundColor: colors.lightGray,
       style: {
@@ -31,11 +31,6 @@ export default () => (
       name="Cards"
       component={CardsStackNavigator}
       options={{
-        tabBarLabel: ({ focused }) => (
-          <TabBarLabel color={focused ? colors.orange : colors.gray}>
-            Cards
-          </TabBarLabel>
-        ),
         tabBarIcon: ({ focused, size }) => (
           <FontAwesomeIcon
             name="stream"
@@ -50,11 +45,6 @@ export default () => (
       name="Decks"
       component={DecksStackNavigator}
       options={{
-        tabBarLabel: ({ focused }) => (
-          <TabBarLabel color={focused ? colors.purple : colors.gray}>
-            Decks
-          </TabBarLabel>
-        ),
         tabBarIcon: ({ focused, size }) => (
           <FontAwesomeIcon
             name="layer-group"
@@ -69,11 +59,6 @@ export default () => (
       name="Settings"
       component={SettingsStackNavigator}
       options={{
-        tabBarLabel: ({ focused }) => (
-          <TabBarLabel color={focused ? colors.blue : colors.gray}>
-            Settings
-          </TabBarLabel>
-        ),
         tabBarIcon: ({ focused, size }) => (
           <FontAwesomeIcon
             name="cog"

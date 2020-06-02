@@ -17,7 +17,20 @@ const SettingsScreen: React.FunctionComponent<{}> = () => {
   const dispatch = useDispatch();
 
   const clearStore = () => {
-    dispatch(reset());
+    Alert.alert(
+      'Reset Application Data?',
+      'This will erase all content and settings (including decks). This data cannot be recovered. Are you sure you want to reset the app?',
+      [
+        { text: 'Cancel' },
+        {
+          text: 'Reset',
+          onPress: () => {
+            dispatch(reset());
+          },
+          style: 'destructive',
+        },
+      ],
+    );
   };
 
   return (
@@ -41,7 +54,7 @@ const SettingsScreen: React.FunctionComponent<{}> = () => {
 
         <Information>
           <TouchableOpacity onPress={clearStore}>
-            <LinkText>Clear Store</LinkText>
+            <LinkText>Reset Application Data</LinkText>
           </TouchableOpacity>
         </Information>
       </ScrollView>
@@ -56,8 +69,8 @@ const visitWebpage = async () => {
       await InAppBrowser.open(url, {
         // iOS Properties
         dismissButtonStyle: 'done',
-        preferredBarTintColor: colors.headerTint,
-        preferredControlTintColor: colors.headerBackground,
+        preferredBarTintColor: colors.white,
+        preferredControlTintColor: colors.blue,
         readerMode: false,
         // Android Properties
         showTitle: true,

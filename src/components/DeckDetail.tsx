@@ -204,15 +204,13 @@ const FloatingControls = styled.View`
 const FloatingControlsEditButton = styled(base.Button)`
   background-color: ${colors.purple};
   flex: 1 1 auto;
-  margin-horizontal: 8px;
-  padding: 8px;
+  margin-horizontal: 4px;
 `;
 
 const FloatingControlsDeleteButton = styled(base.Button)`
   background-color: ${colors.red};
   flex: 1 1 auto;
-  margin-horizontal: 8px;
-  padding: 8px;
+  margin-horizontal: 4px;
 `;
 
 const FloatingControlsButtonText = styled(base.ButtonText)``;

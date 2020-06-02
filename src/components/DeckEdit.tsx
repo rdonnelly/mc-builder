@@ -65,10 +65,6 @@ const Container = styled(base.Container)`
 const Summary = styled.View`
   flex-direction: row;
   margin: 16px;
-  shadow-color: #000;
-  shadow-offset: 1px 3px;
-  shadow-opacity: 0.1;
-  shadow-radius: 4px;
 `;
 
 const IdentityWrapper = styled.TouchableOpacity`
@@ -129,8 +125,7 @@ const FloatingControls = styled.View`
 const FloatingControlsSaveButton = styled(base.Button)`
   background-color: ${colors.green};
   flex: 1 1 auto;
-  margin-horizontal: 8px;
-  padding: 8px;
+  margin-horizontal: 4px;
 `;
 
 const FloatingControlsButtonText = styled(base.ButtonText)``;

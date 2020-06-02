@@ -1,4 +1,4 @@
-import { Dimensions, useWindowDimensions } from 'react-native';
+import { useWindowDimensions } from 'react-native';
 import React from 'react';
 
 const AppContext = React.createContext({
@@ -7,13 +7,6 @@ const AppContext = React.createContext({
 
 const AppProvider = (props) => {
   const window = useWindowDimensions();
-
-  console.log(
-    'AppProvider',
-    window.width,
-    Dimensions.get('window').width,
-    Dimensions.get('screen').width,
-  );
 
   const contextValue = {
     windowWidth: window.width,

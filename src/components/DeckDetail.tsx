@@ -5,7 +5,7 @@ import React, { useContext } from 'react';
 import styled from 'styled-components/native';
 
 import { CardListContext } from '../context/CardListContext';
-import { DeckModel, getCardsForDeck } from '../data';
+import { CardModel, DeckModel, getCardsForDeck } from '../data';
 import { base, colors } from '../styles';
 import { deleteDeck } from '../store/actions';
 import CardListItem from './CardListItem';
@@ -98,8 +98,8 @@ const DeckDetail: React.FunctionComponent<{
         sections={deck.sectionedCards}
         renderItem={renderCard}
         renderSectionHeader={renderSectionHeader}
-        keyExtractor={(item) => item.code}
-        contentContainerStyle={{ paddingBottom: 72 }}
+        keyExtractor={(item: CardModel) => item.code}
+        contentContainerStyle={{ paddingBottom: 80 }}
       />
       <FloatingControls>
         <FloatingControlsEditButton

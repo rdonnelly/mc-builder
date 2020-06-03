@@ -4,7 +4,7 @@ import React, { useContext } from 'react';
 import styled from 'styled-components/native';
 
 import { CardListContext } from '../context/CardListContext';
-import { DeckModel, getEligibleCardsForDeck } from '../data';
+import { CardModel, DeckModel, getEligibleCardsForDeck } from '../data';
 import { base, colors } from '../styles';
 import CardListItem from './CardListItem';
 
@@ -53,8 +53,8 @@ const DeckEditList: React.FunctionComponent<{
         sections={deck.sectionedEligibleCards}
         renderItem={renderCard}
         renderSectionHeader={renderSectionHeader}
-        keyExtractor={(item) => item.code || item.title}
-        contentContainerStyle={{ paddingBottom: 72 }}
+        keyExtractor={(item: CardModel) => item.code}
+        contentContainerStyle={{ paddingBottom: 80 }}
       />
     </Container>
   );

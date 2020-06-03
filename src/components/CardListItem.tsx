@@ -75,15 +75,17 @@ const CardListItem: React.FunctionComponent<{
 }) => {
   const dispatch = useDispatch();
 
-  const increment = () => dispatch(addCardToDeck(deckCode, card.code));
-
-  const decrement = () => dispatch(removeCardFromDeck(deckCode, card.code));
-
   const incrementIsDisabled =
     (card.isUnique && count >= 1) ||
     count >= card.deckLimit ||
     card.factionCode === 'hero';
   const decrementIsDisabled = count <= 0 || card.factionCode === 'hero';
+
+  const increment = () =>
+    !incrementIsDisabled && dispatch(addCardToDeck(deckCode, card));
+
+  const decrement = () =>
+    !decrementIsDisabled && dispatch(removeCardFromDeck(deckCode, card));
 
   let infoText = '';
 
@@ -125,8 +127,8 @@ const CardListItem: React.FunctionComponent<{
         {showEditControls === true && (
           <CardControls>
             <CardCountDecrementButton
-              inactive={decrementIsDisabled}
               onPress={() => decrement()}
+              inactive={decrementIsDisabled}
             >
               <FontAwesomeIcon
                 name="minus"
@@ -136,8 +138,8 @@ const CardListItem: React.FunctionComponent<{
               />
             </CardCountDecrementButton>
             <CardCountIncrementButton
-              inactive={incrementIsDisabled}
               onPress={() => increment()}
+              inactive={incrementIsDisabled}
             >
               <FontAwesomeIcon
                 name="plus"
@@ -236,9 +238,12 @@ const CardControls = styled.View`
   margin-right: 8px;
 `;
 
-const CardCountButton = styled.TouchableOpacity`
+const CardCountButton = styled.TouchableOpacity<{
+  inactive?: boolean;
+}>`
   align-items: center;
-  background-color: ${colors.white};
+  background-color: ${(props) =>
+    props.inactive ? colors.lightGray : colors.white};
   border: 2px solid ${colors.lightGrayDark};
   justify-content: center;
   height: 36px;

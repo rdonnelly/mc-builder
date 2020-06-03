@@ -2,6 +2,7 @@ import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
 
 import { AppThunk } from '.';
+import { CardModel, getFilteredCards } from '../data';
 import {
   addDeckCardsToDeck,
   createDeck,
@@ -13,7 +14,6 @@ import {
   removeDeckCards,
   updateDeckCards,
 } from './reducers/deckCards';
-import { getFilteredCards } from '../data/models/Card';
 
 export const setUpNewDeck = (
   deckCode: string,
@@ -55,7 +55,7 @@ export const setUpNewDeck = (
   }
 };
 
-export const addCardToDeck = (deckCode: string, cardCode: string): AppThunk => (
+export const addCardToDeck = (deckCode: string, card: CardModel): AppThunk => (
   dispatch,
   getState,
 ) => {
@@ -64,7 +64,7 @@ export const addCardToDeck = (deckCode: string, cardCode: string): AppThunk => (
     (candidateDeckCard) => {
       if (
         deck.deckCardCodes.includes(candidateDeckCard.code) &&
-        candidateDeckCard.cardCode === cardCode
+        candidateDeckCard.cardCode === card.code
       ) {
         return true;
       }
@@ -74,16 +74,18 @@ export const addCardToDeck = (deckCode: string, cardCode: string): AppThunk => (
   );
 
   if (deckCard !== undefined) {
-    dispatch(
-      updateDeckCards({
-        deckCards: [
-          {
-            ...deckCard,
-            quantity: deckCard.quantity + 1,
-          },
-        ],
-      }),
-    );
+    if (deckCard.quantity < card.deckLimit) {
+      dispatch(
+        updateDeckCards({
+          deckCards: [
+            {
+              ...deckCard,
+              quantity: deckCard.quantity + 1,
+            },
+          ],
+        }),
+      );
+    }
   } else {
     const newDeckCardCode = uuidv4();
     dispatch(
@@ -91,7 +93,7 @@ export const addCardToDeck = (deckCode: string, cardCode: string): AppThunk => (
         deckCards: [
           {
             code: newDeckCardCode,
-            cardCode,
+            cardCode: card.code,
             quantity: 1,
           },
         ],
@@ -106,14 +108,14 @@ export const addCardToDeck = (deckCode: string, cardCode: string): AppThunk => (
 
 export const removeCardFromDeck = (
   deckCode: string,
-  cardCode: string,
+  card: CardModel,
 ): AppThunk => (dispatch, getState) => {
   const deck = getState().decks.entities[deckCode];
   const deckCard = Object.values(getState().deckCards.entities).find(
     (candidateDeckCard) => {
       if (
         deck.deckCardCodes.includes(candidateDeckCard.code) &&
-        candidateDeckCard.cardCode === cardCode
+        candidateDeckCard.cardCode === card.code
       ) {
         return true;
       }

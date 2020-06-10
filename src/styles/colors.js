@@ -47,7 +47,7 @@ const icons = {
   energy: '#f6be33',
   energyBackground: '#f6be33',
   energyTint: '#86671b',
-  mental: '#5c72c1',
+  mental: '#b7c9eb',
   mentalBackground: '#5c72c1',
   mentalTint: '#b7c9eb',
   physical: '#ee9080',

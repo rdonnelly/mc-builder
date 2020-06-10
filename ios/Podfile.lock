@@ -1,9 +1,9 @@
 PODS:
   - boost-for-react-native (1.63.0)
-  - BugsnagReactNative (2.23.8):
-    - BugsnagReactNative/Core (= 2.23.8)
+  - BugsnagReactNative (2.23.9):
+    - BugsnagReactNative/Core (= 2.23.9)
     - React
-  - BugsnagReactNative/Core (2.23.8):
+  - BugsnagReactNative/Core (2.23.9):
     - React
   - CocoaAsyncSocket (7.6.4)
   - CocoaLibEvent (1.0.0)
@@ -240,7 +240,7 @@ PODS:
   - React-jsinspector (0.62.2)
   - react-native-get-random-values (1.4.0):
     - React
-  - react-native-safe-area-context (3.0.2):
+  - react-native-safe-area-context (3.0.3):
     - React
   - react-native-webview (10.2.3):
     - React
@@ -487,7 +487,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
-  BugsnagReactNative: 0aacb961ccd13b4eb4ca44928b811d76b97d646d
+  BugsnagReactNative: 10fc11d9a29800052b3747eb45e7c903b3b057d5
   CocoaAsyncSocket: 694058e7c0ed05a9e217d1b3c7ded962f4180845
   CocoaLibEvent: 2fab71b8bd46dd33ddb959f7928ec5909f838e3f
   DoubleConversion: 5805e889d232975c086db112ece9ed034df7a0b2
@@ -513,7 +513,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 1540d1c01bb493ae3124ed83351b1b6a155db7da
   React-jsinspector: 512e560d0e985d0e8c479a54a4e5c147a9c83493
   react-native-get-random-values: 2b7500cdb68066aba87cdccd97067c29e16ffe95
-  react-native-safe-area-context: b11a34881faac509cad5578726c98161ad4d275c
+  react-native-safe-area-context: 45e98227f3d65b31d384a5d0950aec4bf73a884c
   react-native-webview: 0bacc79175bc44869e4c1a015b9bc21df8cf4feb
   React-RCTActionSheet: f41ea8a811aac770e0cc6e0ad6b270c644ea8b7c
   React-RCTAnimation: 49ab98b1c1ff4445148b72a3d61554138565bad0

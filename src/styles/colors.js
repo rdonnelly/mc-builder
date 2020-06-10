@@ -46,19 +46,15 @@ const factions = {
 const icons = {
   energy: '#f6be33',
   energyBackground: '#f6be33',
-  energyDark: '#86671b',
   energyTint: '#86671b',
-  mental: '#b7c9eb',
+  mental: '#5c72c1',
   mentalBackground: '#5c72c1',
-  mentalDark: '#5c72c1',
   mentalTint: '#b7c9eb',
   physical: '#ee9080',
   physicalBackground: '#aa3220',
-  physicalDark: '#aa3220',
   physicalTint: '#ee9080',
   wild: '#45bc5c',
   wildBackground: '#247034',
-  wildDark: '#247034',
   wildTint: '#45bc5c',
 };
 

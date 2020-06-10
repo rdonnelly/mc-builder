@@ -1,4 +1,4 @@
-package com.mcbuilder;
+package com.rdonnelly.mcbuilder;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;

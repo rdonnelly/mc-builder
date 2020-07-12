@@ -42,7 +42,7 @@ const CardDetailScreen: React.FunctionComponent<{
     <CardDetail card={item} width={windowWidth - 32} />
   );
 
-  const viewabilityConfig = useRef({ itemVisiblePercentThreshold: 100 });
+  const viewabilityConfig = useRef({ itemVisiblePercentThreshold: 90 });
 
   const handleViewableItemsChanged = useRef(({ viewableItems }) => {
     if (viewableItems.length) {

@@ -45,7 +45,8 @@ export default () => (
       name="DecksCreate"
       component={DecksCreateScreen}
       options={{
-        stackPresentation: Platform.OS === 'ios' ? 'modal' : 'push',
+        headerShown: false,
+        stackPresentation: Platform.OS === 'ios' ? 'modal' : 'transparentModal',
       }}
     />
     <Stack.Screen

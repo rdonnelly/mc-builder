@@ -44,7 +44,7 @@ const DecksCreateFormScreen: React.FunctionComponent<{
   return (
     <Container paddingBottom={insets.bottom}>
       <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : null}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         keyboardVerticalOffset={insets.top + insets.bottom + 44}
       >
         <Form>
@@ -127,7 +127,7 @@ const KeyboardAvoidingView = styled.KeyboardAvoidingView`
   width: 100%;
 `;
 
-const Form = styled.View`
+const Form = styled.ScrollView`
   flex: 1 1 auto;
   width: 100%;
 `;

@@ -6,6 +6,7 @@ import React from 'react';
 
 import { AppProvider } from './context/AppContext';
 import { CardListProvider } from './context/CardListContext';
+import { colors } from './styles';
 import TabNavigator from './navigation/TabNavigator';
 import configureStore from './store';
 
@@ -20,7 +21,11 @@ export default () => {
         <Provider store={store}>
           <PersistGate persistor={persistor}>
             <NavigationContainer>
-              <StatusBar barStyle="dark-content" />
+              <StatusBar
+                barStyle="light-content"
+                translucent={true}
+                backgroundColor={colors.darkGray}
+              />
               <TabNavigator />
             </NavigationContainer>
           </PersistGate>

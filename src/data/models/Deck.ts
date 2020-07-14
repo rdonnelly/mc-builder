@@ -218,20 +218,10 @@ export class Deck {
   }
 }
 
-export const getCardsForDeck = memoizeOne((deck: Deck): Card[] => {
-  const sectionedCards = deck.sectionedCards;
-  const cards = sectionedCards.reduce((acc, section) => {
-    return acc.concat(section.data.map((card) => card.card));
-  }, []);
+export const getCardListForDeck = memoizeOne((deck: Deck): Card[] => {
+  return deck.cards.map((card) => card.card);
+}, isDeepEqual); // TODO compare deck code, but cards array can change
 
-  return cards;
-}, isDeepEqual); // TODO is deep equal necessary?
-
-export const getEligibleCardsForDeck = memoizeOne((deck: Deck): Card[] => {
-  const sectionedCards = deck.sectionedEligibleCards;
-  const cards = sectionedCards.reduce((acc, section) => {
-    return acc.concat(section.data.map((card) => card.card));
-  }, []);
-
-  return cards;
-}, isDeepEqual); // TODO is deep equal necessary?
+export const getEligibleCardListForDeck = memoizeOne((deck: Deck): Card[] => {
+  return deck.eligibleCards.map((card) => card.card);
+}, isDeepEqual); // TODO compare deck code, but restricted cards can change

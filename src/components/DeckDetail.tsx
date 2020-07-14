@@ -5,7 +5,7 @@ import React, { useContext } from 'react';
 import styled from 'styled-components/native';
 
 import { CardListContext } from '../context/CardListContext';
-import { CardModel, DeckModel, getCardsForDeck } from '../data';
+import { CardModel, DeckModel, getCardListForDeck } from '../data';
 import { base, colors } from '../styles';
 import { deleteDeck } from '../store/actions';
 import CardListItem from './CardListItem';
@@ -18,7 +18,7 @@ const DeckDetail: React.FunctionComponent<{
 
   const { setCardList } = useContext(CardListContext);
 
-  const filteredDeckCards = getCardsForDeck(deck);
+  const filteredDeckCards = getCardListForDeck(deck);
 
   const heroCard = deck.heroCard;
   const heroCardImageSrc = heroCard ? heroCard.card.imageSrc : null;

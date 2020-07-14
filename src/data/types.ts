@@ -1,3 +1,30 @@
+export interface IFactionRaw {
+  code: string;
+  name: string;
+  is_primary: boolean;
+}
+
+export interface IPackRaw {
+  cgdb_id?: number;
+  code: string;
+  date_release: string;
+  name: string;
+  pack_type_code: string;
+  position: number;
+  size: number;
+}
+
+export interface ISetRaw {
+  code: string;
+  name: string;
+  type: string;
+}
+
+export interface ITypeRaw {
+  code: string;
+  name: string;
+}
+
 export interface ICardRaw {
   attack_cost?: number;
   attack_text?: string;
@@ -62,30 +89,4 @@ export interface ICardRaw {
   thwart?: number;
   traits: string;
   type_code: string;
-}
-
-export interface IFactionRaw {
-  code: string;
-  name: string;
-  is_primary: boolean;
-}
-
-export interface IPackRaw {
-  cgdb_id?: number;
-  code: string;
-  date_release: string;
-  name: string;
-  pack_type_code: string;
-  position: number;
-}
-
-export interface ISetRaw {
-  code: string;
-  name: string;
-  type: string;
-}
-
-export interface ITypeRaw {
-  code: string;
-  name: string;
 }

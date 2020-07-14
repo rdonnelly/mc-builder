@@ -19,10 +19,7 @@ export class Card {
   }
 
   get cardCode() {
-    return this.raw.code
-      .slice(2)
-      .replace(/^0+/, '')
-      .toUpperCase();
+    return this.raw.code.slice(2).replace(/^0+/, '').toUpperCase();
   }
 
   get name() {
@@ -152,9 +149,7 @@ export class Card {
 
   get imageSrc() {
     const packCode = String(this.pack.cgdbId).padStart(2, '0');
-    return `https://lcgcdn.s3.amazonaws.com/mc/MC${packCode}en_${
-      this.cardCode
-    }.jpg`;
+    return `https://lcgcdn.s3.amazonaws.com/mc/MC${packCode}en_${this.cardCode}.jpg`;
   }
 }
 

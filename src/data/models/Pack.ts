@@ -32,38 +32,32 @@ export class Pack {
   get size() {
     return this.raw.size;
   }
+
+  get position() {
+    return this.raw.position;
+  }
 }
 
 export const getPacks = () =>
   packsRaw
     .map((packRaw) => new Pack(packRaw))
     .sort((a, b) => {
-      if (
-        (a.dateRelease == null && b.dateRelease != null) ||
-        a.dateRelease > b.dateRelease
-      ) {
+      if (a.position > b.position) {
         return 1;
       }
-      if (
-        (b.dateRelease == null && a.dateRelease != null) ||
-        b.dateRelease > a.dateRelease
-      ) {
-        return -1;
-      }
-      if (a.code > b.code) {
-        return 1;
-      }
-      if (b.code > a.code) {
+      if (b.position > a.position) {
         return -1;
       }
       return 0;
     });
 
-export const getPack = (code: string) => {
-  return (
-    getPacks().find((pack) => pack.code === code) || {
+export const getPack = (code: string, defaultReturn = undefined) => {
+  if (defaultReturn === undefined) {
+    defaultReturn = {
       code,
       name: 'Unknown',
-    }
-  );
+    };
+  }
+
+  return getPacks().find((pack) => pack.code === code) || defaultReturn;
 };

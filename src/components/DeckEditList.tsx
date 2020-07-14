@@ -4,7 +4,7 @@ import React, { useContext } from 'react';
 import styled from 'styled-components/native';
 
 import { CardListContext } from '../context/CardListContext';
-import { CardModel, DeckModel, getEligibleCardsForDeck } from '../data';
+import { CardModel, DeckModel, getEligibleCardListForDeck } from '../data';
 import { base, colors } from '../styles';
 import CardListItem from './CardListItem';
 
@@ -17,7 +17,7 @@ const DeckEditList: React.FunctionComponent<{
 
   const { setCardList } = useContext(CardListContext);
 
-  const eligibleDeckCards = getEligibleCardsForDeck(deck);
+  const eligibleDeckCards = getEligibleCardListForDeck(deck);
 
   const handlePressItem = (code: string) => {
     if (navigation) {

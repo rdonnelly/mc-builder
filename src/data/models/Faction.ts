@@ -4,6 +4,7 @@ import { IFactionRaw } from '../types';
 
 export const factionRank = {
   hero: 0,
+  encounter: 0,
   aggression: 1,
   justice: 1,
   leadership: 1,
@@ -27,7 +28,7 @@ export class Faction {
   }
 
   get isPrimary() {
-    return this.raw.is_primary;
+    return !!this.raw.is_primary;
   }
 }
 
@@ -35,6 +36,12 @@ export const getFactions = () =>
   factionsRaw
     .map((factionRaw) => new Faction(factionRaw))
     .sort((a, b) => {
+      if (factionRank[a.code] > factionRank[b.code]) {
+        return 1;
+      }
+      if (factionRank[b.code] > factionRank[a.code]) {
+        return -1;
+      }
       if (a.code > b.code) {
         return 1;
       }

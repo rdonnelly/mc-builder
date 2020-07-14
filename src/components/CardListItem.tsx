@@ -11,14 +11,16 @@ import Icon, { IconCode } from '../components/Icon';
 
 export const ITEM_HEIGHT = 64;
 
-const getFactionOrSetText = (card) => {
+const getFactionOrSetText = (card: CardModel) => {
   const text = card.setName != null ? card.setName : card.factionName;
   const color =
     card.setName == null
       ? colors.factions[`${card.factionCode}Dark`]
+      : card.typeCode === 'villain'
+      ? colors.purple
       : card.factionCode === 'encounter'
       ? colors.orange
-      : colors.purpleDark;
+      : colors.grayDark;
 
   return (
     <CardDetailsInfoFactionOrSet color={color}>

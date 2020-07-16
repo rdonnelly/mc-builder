@@ -4,6 +4,12 @@ import memoizeOne from 'memoize-one';
 
 import { Card, getCard, getEligibleCards } from './Card';
 import {
+  FactionCode,
+  FactionCodes,
+  TypeCode,
+  TypeCodes,
+} from '../generatedTypes';
+import {
   IDeck as IStoreDeck,
   IDeckCard as IStoreDeckCard,
 } from '../../store/types';
@@ -14,8 +20,8 @@ interface IDeckCard {
   card: Card;
   code: string;
   name: string;
-  factionCode: string;
-  typeCode: string;
+  factionCode: FactionCode;
+  typeCode: TypeCode;
   count: number;
 }
 
@@ -73,7 +79,10 @@ export class Deck {
 
   get cardCount(): number {
     return this.cards.reduce((count, card) => {
-      if (!['alter_ego', 'hero'].includes(card.typeCode)) {
+      if (
+        card.typeCode !== TypeCodes.ALTER_EGO &&
+        card.typeCode !== TypeCodes.HERO
+      ) {
         count += card.count;
       }
       return count;
@@ -120,17 +129,18 @@ export class Deck {
 
     cards.forEach((card) => {
       switch (true) {
-        case card.typeCode === 'hero' || card.typeCode === 'alter_ego': {
+        case card.typeCode === TypeCodes.HERO ||
+          card.typeCode === TypeCodes.ALTER_EGO: {
           sections.identity.data.push(card);
           sections.identity.count += card.count || 0;
           break;
         }
-        case card.factionCode === 'hero': {
+        case card.factionCode === FactionCodes.HERO: {
           sections.hero.data.push(card);
           sections.hero.count += card.count || 0;
           break;
         }
-        case card.factionCode === 'basic': {
+        case card.factionCode === FactionCodes.BASIC: {
           sections.basic.data.push(card);
           sections.basic.count += card.count || 0;
           break;
@@ -183,12 +193,12 @@ export class Deck {
 
     cards.forEach((card) => {
       switch (card.factionCode) {
-        case 'hero': {
+        case FactionCodes.HERO: {
           sections.hero.data.push(card);
           sections.hero.count += card.count || 0;
           break;
         }
-        case 'basic': {
+        case FactionCodes.BASIC: {
           sections.basic.data.push(card);
           sections.basic.count += card.count || 0;
           break;
@@ -205,11 +215,11 @@ export class Deck {
   }
 
   get heroCard(): IDeckCard {
-    return this.cards.find((card) => card.typeCode === 'hero');
+    return this.cards.find((card) => card.typeCode === TypeCodes.HERO);
   }
 
   get alterEgoCard(): IDeckCard {
-    return this.cards.find((card) => card.typeCode === 'alter_ego');
+    return this.cards.find((card) => card.typeCode === TypeCodes.ALTER_EGO);
   }
 
   get isLegal(): boolean {

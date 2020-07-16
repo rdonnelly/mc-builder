@@ -1,6 +1,7 @@
 import setsRaw from 'marvelsdb-json-data/sets.json';
 
 import { ISetRaw } from '../types';
+import { TypeCodes } from '../generatedTypes';
 
 export class Set {
   raw: ISetRaw;
@@ -24,7 +25,7 @@ export class Set {
 
 export const getSets = () =>
   setsRaw
-    .map((setRaw) => new Set(setRaw))
+    .map((setRaw) => new Set(setRaw as ISetRaw))
     .sort((a, b) => {
       if (a.code > b.code) {
         return 1;
@@ -35,7 +36,8 @@ export const getSets = () =>
       return 0;
     });
 
-export const getHeroSets = () => getSets().filter((set) => set.type === 'hero');
+export const getHeroSets = () =>
+  getSets().filter((set) => set.type === TypeCodes.HERO);
 
 export const getSet = (code: string, defaultReturn = undefined) => {
   if (defaultReturn === undefined) {

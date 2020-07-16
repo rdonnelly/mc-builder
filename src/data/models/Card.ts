@@ -1,6 +1,7 @@
 import isDeepEqual from 'lodash/isEqual';
 import memoizeOne from 'memoize-one';
 
+import { FactionCode, PackCode, SetCode, TypeCode } from '../generatedTypes';
 import { ICardRaw } from '../types';
 import { factionRank, getFactions } from '../models/Faction';
 import { getPacks } from '../models/Pack';
@@ -148,6 +149,12 @@ export class Card {
   }
 
   get imageSrc() {
+    const cgdbId = this.pack.cgdbId;
+
+    if (cgdbId == null) {
+      return null;
+    }
+
     const packCode = String(this.pack.cgdbId).padStart(2, '0');
     return `https://lcgcdn.s3.amazonaws.com/mc/MC${packCode}en_${this.cardCode}.jpg`;
   }
@@ -187,7 +194,10 @@ export const getCards = memoizeOne(() =>
 );
 
 export const getFilteredCards = memoizeOne(
-  (filter: string, filterCode: string) => {
+  (
+    filter: 'faction' | 'pack' | 'set' | 'type',
+    filterCode: FactionCode | PackCode | SetCode | TypeCode,
+  ) => {
     if (filter === 'faction') {
       return getCards().filter((card) => card.factionCode === filterCode);
     }
@@ -209,40 +219,8 @@ export const getSubsetOfCards = memoizeOne(
   (codes: string[]) =>
     getCards()
       .filter((card) => codes.includes(card.code))
-      .sort((a, b) => {
-        if (factionRank[a.factionCode] > factionRank[b.factionCode]) {
-          return 1;
-        }
-        if (factionRank[b.factionCode] > factionRank[a.factionCode]) {
-          return -1;
-        }
-        if (a.typeCode > b.typeCode) {
-          return 1;
-        }
-        if (b.typeCode > a.typeCode) {
-          return -1;
-        }
-        if (a.cost > b.cost) {
-          return 1;
-        }
-        if (b.cost > a.cost) {
-          return -1;
-        }
-        if (a.name > b.name) {
-          return 1;
-        }
-        if (b.name > a.name) {
-          return -1;
-        }
-        if (a.code > b.code) {
-          return 1;
-        }
-        if (b.code > a.code) {
-          return -1;
-        }
-        return 0;
-      }),
-  isDeepEqual,
+      .sort(cardSorter),
+  isDeepEqual, // TODO remove deep equal
 );
 
 export const getEligibleCards = memoizeOne(
@@ -271,41 +249,43 @@ export const getEligibleCards = memoizeOne(
 
         return true;
       })
-      .sort((a, b) => {
-        if (factionRank[a.factionCode] > factionRank[b.factionCode]) {
-          return 1;
-        }
-        if (factionRank[b.factionCode] > factionRank[a.factionCode]) {
-          return -1;
-        }
-        if (a.typeCode > b.typeCode) {
-          return 1;
-        }
-        if (b.typeCode > a.typeCode) {
-          return -1;
-        }
-        if (a.cost > b.cost) {
-          return 1;
-        }
-        if (b.cost > a.cost) {
-          return -1;
-        }
-        if (a.name > b.name) {
-          return 1;
-        }
-        if (b.name > a.name) {
-          return -1;
-        }
-        if (a.code > b.code) {
-          return 1;
-        }
-        if (b.code > a.code) {
-          return -1;
-        }
-        return 0;
-      }),
-  isDeepEqual,
+      .sort(cardSorter),
+  isDeepEqual, // TODO remove deep equal
 );
+
+const cardSorter = (a, b) => {
+  if (factionRank[a.factionCode] > factionRank[b.factionCode]) {
+    return 1;
+  }
+  if (factionRank[b.factionCode] > factionRank[a.factionCode]) {
+    return -1;
+  }
+  if (a.typeCode > b.typeCode) {
+    return 1;
+  }
+  if (b.typeCode > a.typeCode) {
+    return -1;
+  }
+  if (a.cost > b.cost) {
+    return 1;
+  }
+  if (b.cost > a.cost) {
+    return -1;
+  }
+  if (a.name > b.name) {
+    return 1;
+  }
+  if (b.name > a.name) {
+    return -1;
+  }
+  if (a.code > b.code) {
+    return 1;
+  }
+  if (b.code > a.code) {
+    return -1;
+  }
+  return 0;
+};
 
 export const getCard = memoizeOne((code: string) =>
   getCards().find((card) => card.code === code),

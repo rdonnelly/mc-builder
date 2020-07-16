@@ -1,5 +1,6 @@
 import factionsRaw from 'marvelsdb-json-data/factions.json';
 
+import { FactionCodes } from '../generatedTypes';
 import { IFactionRaw } from '../types';
 
 export const factionRank = {
@@ -34,7 +35,7 @@ export class Faction {
 
 export const getFactions = () =>
   factionsRaw
-    .map((factionRaw) => new Faction(factionRaw))
+    .map((factionRaw) => new Faction(factionRaw as IFactionRaw))
     .sort((a, b) => {
       if (factionRank[a.code] > factionRank[b.code]) {
         return 1;
@@ -53,7 +54,8 @@ export const getFactions = () =>
 
 export const getPrimaryFactions = () =>
   getFactions().filter(
-    (faction) => faction.isPrimary === true && faction.code !== 'basic',
+    (faction) =>
+      faction.isPrimary === true && faction.code !== FactionCodes.BASIC,
   );
 
 export const getFaction = (code: string, defaultReturn = undefined) => {

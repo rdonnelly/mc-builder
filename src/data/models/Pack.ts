@@ -40,7 +40,7 @@ export class Pack {
 
 export const getPacks = () =>
   packsRaw
-    .map((packRaw) => new Pack(packRaw))
+    .map((packRaw) => new Pack(packRaw as IPackRaw))
     .sort((a, b) => {
       if (a.position > b.position) {
         return 1;

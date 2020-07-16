@@ -1,12 +1,14 @@
+import { FactionCode, PackCode, SetCode, TypeCode } from './generatedTypes';
+
 export interface IFactionRaw {
-  code: string;
+  code: FactionCode;
   name: string;
   is_primary: boolean;
 }
 
 export interface IPackRaw {
   cgdb_id?: number;
-  code: string;
+  code: PackCode;
   date_release: string;
   name: string;
   pack_type_code: string;
@@ -15,13 +17,13 @@ export interface IPackRaw {
 }
 
 export interface ISetRaw {
-  code: string;
+  code: SetCode;
   name: string;
   type: string;
 }
 
 export interface ITypeRaw {
-  code: string;
+  code: TypeCode;
   name: string;
 }
 
@@ -38,7 +40,6 @@ export interface ICardRaw {
   code: string;
   cost?: number;
   deck_limit: number;
-  // deck_options: [];
   deck_requirements: string;
   defense?: number;
   double_sided: boolean;
@@ -50,7 +51,7 @@ export interface ICardRaw {
   escalation_threat?: number;
   exceptional: boolean;
   exile: boolean;
-  faction_code: string;
+  faction_code: FactionCode;
   flavor: string;
   hand_size?: number;
   health_per_hero?: number;
@@ -58,7 +59,7 @@ export interface ICardRaw {
   illustrator: string;
   is_unique: boolean;
   name: string;
-  pack_code: string;
+  pack_code: PackCode;
   permanent: boolean;
   position: number;
   quantity: number;
@@ -73,7 +74,7 @@ export interface ICardRaw {
   scheme_hazard?: boolean;
   scheme_text?: string;
   scheme?: number;
-  set_code: string;
+  set_code: SetCode;
   set_position: number;
   skill_agility: number;
   skill_combat: number;
@@ -88,5 +89,5 @@ export interface ICardRaw {
   thwart_cost?: number;
   thwart?: number;
   traits: string;
-  type_code: string;
+  type_code: TypeCode;
 }

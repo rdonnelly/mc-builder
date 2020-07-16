@@ -1,3 +1,5 @@
+import { FactionCode, SetCode } from '../data';
+
 type EntityCode = string;
 
 interface IDictionary<T> {
@@ -12,8 +14,8 @@ interface IEntityState<T> {
 export interface IDeck {
   code: string;
   name: string;
-  setCode: string;
-  aspectCode: string;
+  setCode: SetCode;
+  aspectCode: FactionCode;
   deckCardCodes: string[];
 }
 

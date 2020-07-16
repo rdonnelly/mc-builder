@@ -20,7 +20,7 @@ export class Type {
 
 export const getTypes = () =>
   typesRaw
-    .map((typeRaw) => new Type(typeRaw))
+    .map((typeRaw) => new Type(typeRaw as ITypeRaw))
     .sort((a, b) => {
       if (a.code > b.code) {
         return 1;

@@ -579,7 +579,7 @@ const CardDetailPack: React.FunctionComponent<{
 }> = ({ card }) => {
   return (
     <CardDetailPackContainer>
-      <CardDetailPackContainerText>{`${card.pack.name} (${card.packPosition} / ${card.pack.size})`}</CardDetailPackContainerText>
+      <CardDetailPackContainerText>{`${card.pack.name} #${card.packPosition}`}</CardDetailPackContainerText>
     </CardDetailPackContainer>
   );
 };

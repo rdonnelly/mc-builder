@@ -15,6 +15,9 @@ export type DecksCreateStackParamList = {
 
 const Stack = createNativeStackNavigator();
 
+const isIOS = Platform.OS === 'ios';
+const HEADER_HEIGHT = Platform.OS === 'ios' ? 44 : 56;
+
 const KeyboardAvoidingView = styled.KeyboardAvoidingView`
   flex: 1 1 auto;
   width: 100%;
@@ -22,8 +25,8 @@ const KeyboardAvoidingView = styled.KeyboardAvoidingView`
 
 export default () => (
   <KeyboardAvoidingView
-    behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-    keyboardVerticalOffset={44}
+    behavior={isIOS ? 'padding' : undefined}
+    keyboardVerticalOffset={HEADER_HEIGHT}
   >
     <Stack.Navigator
       initialRouteName="DecksCreateForm"

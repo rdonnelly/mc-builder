@@ -1,6 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import _ from 'lodash';
 
+import { FactionCode, SetCode } from 'src/data';
 import { IDeck, IDeckState } from '../types';
 
 const initialState = {
@@ -17,8 +18,8 @@ const decksSlice = createSlice({
       action: PayloadAction<{
         code: string;
         name: string;
-        setCode: string;
-        aspectCode: string;
+        setCode: SetCode;
+        aspectCode: FactionCode;
       }>,
     ) {
       const { payload } = action;

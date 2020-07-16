@@ -1,6 +1,7 @@
 import packsRaw from 'marvelsdb-json-data/packs.json';
 
 import { IPackRaw } from '../types';
+import { PackCode } from '../generatedTypes';
 
 export class Pack {
   raw: IPackRaw;
@@ -51,7 +52,7 @@ export const getPacks = () =>
       return 0;
     });
 
-export const getPack = (code: string, defaultReturn = undefined) => {
+export const getPack = (code: PackCode, defaultReturn = undefined) => {
   if (defaultReturn === undefined) {
     defaultReturn = {
       code,

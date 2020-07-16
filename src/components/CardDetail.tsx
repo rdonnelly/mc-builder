@@ -50,7 +50,7 @@ const renderCardText = (card: CardModel, key: string, isFlavor = false) => {
   text = CardParser.replaceIconPlaceholders(text);
 
   const customRenderers = {
-    icon: { renderer: CardParser.iconRenderer, wrapper: 'Text' },
+    icon: { renderer: CardParser.iconRenderer, wrapper: 'Text' as const },
   };
 
   const customTagStyles = {

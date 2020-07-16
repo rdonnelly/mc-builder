@@ -1,7 +1,7 @@
 import { Platform, Share } from 'react-native';
 import RNFetchBlob from 'rn-fetch-blob';
 
-export function shareImageUrl(url) {
+export function shareImageUrl(url: string) {
   if (Platform.OS === 'ios') {
     return RNFetchBlob.fetch('GET', url, {}).then((res) => {
       const { status } = res.info();
@@ -15,7 +15,7 @@ export function shareImageUrl(url) {
         return Share.share(shareImage);
       }
 
-      return false;
+      return Promise.reject();
     });
   }
 

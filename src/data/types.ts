@@ -1,5 +1,14 @@
 import { FactionCode, PackCode, SetCode, TypeCode } from './generatedTypes';
 
+export enum FilterCodes {
+  FACTION = 'faction',
+  PACK = 'pack',
+  SET = 'set',
+  TYPE = 'type',
+}
+
+export type FilterCode = 'faction' | 'pack' | 'set' | 'type';
+
 export interface IFactionRaw {
   code: FactionCode;
   name: string;

@@ -2,7 +2,7 @@ import isDeepEqual from 'lodash/isEqual';
 import memoizeOne from 'memoize-one';
 
 import { FactionCode, PackCode, SetCode, TypeCode } from '../generatedTypes';
-import { ICardRaw } from '../types';
+import { FilterCode, ICardRaw } from '../types';
 import { factionRank, getFactions } from '../models/Faction';
 import { getPacks } from '../models/Pack';
 import { getSets } from '../models/Set';
@@ -195,7 +195,7 @@ export const getCards = memoizeOne(() =>
 
 export const getFilteredCards = memoizeOne(
   (
-    filter: 'faction' | 'pack' | 'set' | 'type',
+    filter: FilterCode,
     filterCode: FactionCode | PackCode | SetCode | TypeCode,
   ) => {
     if (filter === 'faction') {

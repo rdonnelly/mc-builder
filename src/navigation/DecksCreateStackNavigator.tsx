@@ -10,6 +10,7 @@ import DecksCreateSelectScreen from '../screens/Deck/DecksCreate/DecksCreateSele
 export type DecksCreateStackParamList = {
   DecksCreateForm: undefined;
   DecksCreateSelect: { type: 'hero' | 'aspect' };
+  DeckDetail: { code: string };
 };
 
 const Stack = createNativeStackNavigator();

@@ -1,7 +1,7 @@
 import setsRaw from 'marvelsdb-json-data/sets.json';
 
 import { ISetRaw } from '../types';
-import { TypeCodes } from '../generatedTypes';
+import { SetCode, TypeCodes } from '../generatedTypes';
 
 export class Set {
   raw: ISetRaw;
@@ -39,7 +39,7 @@ export const getSets = () =>
 export const getHeroSets = () =>
   getSets().filter((set) => set.type === TypeCodes.HERO);
 
-export const getSet = (code: string, defaultReturn = undefined) => {
+export const getSet = (code: SetCode, defaultReturn = undefined) => {
   if (defaultReturn === undefined) {
     defaultReturn = {
       code,

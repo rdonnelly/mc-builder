@@ -1,6 +1,6 @@
 import factionsRaw from 'marvelsdb-json-data/factions.json';
 
-import { FactionCodes } from '../generatedTypes';
+import { FactionCode, FactionCodes } from '../generatedTypes';
 import { IFactionRaw } from '../types';
 
 export const factionRank = {
@@ -58,7 +58,7 @@ export const getPrimaryFactions = () =>
       faction.isPrimary === true && faction.code !== FactionCodes.BASIC,
   );
 
-export const getFaction = (code: string, defaultReturn = undefined) => {
+export const getFaction = (code: FactionCode, defaultReturn = undefined) => {
   if (defaultReturn === undefined) {
     defaultReturn = {
       code,

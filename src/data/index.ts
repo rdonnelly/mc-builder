@@ -28,3 +28,6 @@ export type {
   TypeCode,
 } from './generatedTypes';
 export { FactionCodes, PackCodes, SetCodes, TypeCodes } from './generatedTypes';
+
+export type { FilterCode } from './types';
+export { FilterCodes } from './types';

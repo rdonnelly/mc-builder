@@ -6,6 +6,9 @@ import styled from 'styled-components/native';
 import { CardListContext } from '../../context/CardListContext';
 import {
   CardModel,
+  FactionCode,
+  PackCode,
+  TypeCode,
   getCards,
   getFaction,
   getFilteredCards,
@@ -33,13 +36,13 @@ const CardListScreen: React.FunctionComponent<{
   if (filter && filterCode) {
     let filterName = null;
     if (filter === 'faction') {
-      filterName = getFaction(filterCode).name;
+      filterName = getFaction(filterCode as FactionCode).name;
     }
     if (filter === 'pack') {
-      filterName = getPack(filterCode).name;
+      filterName = getPack(filterCode as PackCode).name;
     }
     if (filter === 'type') {
-      filterName = getType(filterCode).name;
+      filterName = getType(filterCode as TypeCode).name;
     }
 
     if (filterName) {

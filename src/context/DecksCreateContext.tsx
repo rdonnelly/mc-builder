@@ -1,7 +1,17 @@
 import React from 'react';
 
+import { FactionCode, SetCode } from 'src/data';
 import { getFaction } from '../data/models/Faction';
 import { getSet } from '../data/models/Set';
+
+interface IDecksCreateContext {
+  deckName: string;
+  setDeckName: (deckName: string) => void;
+  deckSet: SetCode;
+  setDeckSet: (set: SetCode) => void;
+  deckAspect: FactionCode;
+  setDeckAspect: (aspect: FactionCode) => void;
+}
 
 const DecksCreateContext = React.createContext({
   deckName: undefined,
@@ -10,14 +20,14 @@ const DecksCreateContext = React.createContext({
   setDeckSet: undefined,
   deckAspect: undefined,
   setDeckAspect: undefined,
-});
+} as IDecksCreateContext);
 
 const DecksCreateProvider = (props) => {
-  const [deckName, setDeckName] = React.useState('');
-  const [deckSet, setDeckSet] = React.useState('');
-  const [deckAspect, setDeckAspect] = React.useState('');
+  const [deckName, setDeckName] = React.useState(null);
+  const [deckSet, setDeckSet] = React.useState(null);
+  const [deckAspect, setDeckAspect] = React.useState(null);
 
-  const updateDeckSet = (newDeckSet: string) => {
+  const updateDeckSet = (newDeckSet: SetCode) => {
     setDeckSet(newDeckSet);
     if (deckAspect && deckName === '') {
       const set = getSet(newDeckSet, false);
@@ -26,7 +36,7 @@ const DecksCreateProvider = (props) => {
     }
   };
 
-  const updateDeckAspect = (newDeckAspect: string) => {
+  const updateDeckAspect = (newDeckAspect: FactionCode) => {
     setDeckAspect(newDeckAspect);
     if (deckSet && deckName === '') {
       const set = getSet(deckSet, false);

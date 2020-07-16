@@ -1,6 +1,7 @@
 import { createNativeStackNavigator } from 'react-native-screens/native-stack';
 import React from 'react';
 
+import { FactionCode, FilterCode, PackCode, SetCode, TypeCode } from '../data';
 import CardDetailScreen from '../screens/Card/CardDetailScreen';
 import CardListScreen from '../screens/Card/CardListScreen';
 import FactionListScreen from '../screens/FactionListScreen';
@@ -10,7 +11,10 @@ import TypeListScreen from '../screens/TypeListScreen';
 import { colors } from '../styles';
 
 export type CardStackParamList = {
-  CardsList: { filter?: string; code?: string };
+  CardsList: {
+    filter?: FilterCode;
+    code?: FactionCode | PackCode | SetCode | TypeCode;
+  };
   FactionsList: undefined;
   PacksList: undefined;
   TypesList: undefined;

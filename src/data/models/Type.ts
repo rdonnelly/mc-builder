@@ -1,6 +1,7 @@
 import typesRaw from 'marvelsdb-json-data/types.json';
 
 import { ITypeRaw } from '../types';
+import { TypeCode } from '../generatedTypes';
 
 export class Type {
   raw: ITypeRaw;
@@ -31,7 +32,7 @@ export const getTypes = () =>
       return 0;
     });
 
-export const getType = (code: string) => {
+export const getType = (code: TypeCode) => {
   return (
     getTypes().find((type) => type.code === code) || {
       code,

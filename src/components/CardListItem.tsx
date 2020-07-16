@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
 import styled from 'styled-components/native';
 
-import { CardModel } from '../data';
+import { CardModel, FactionCodes, TypeCodes } from '../data';
 import { addCardToDeck, removeCardFromDeck } from '../store/actions';
 import { base, colors } from '../styles';
 import Icon, { IconCode } from '../components/Icon';
@@ -16,9 +16,9 @@ const getFactionOrSetText = (card: CardModel) => {
   const color =
     card.setName == null
       ? colors.factions[`${card.factionCode}Dark`]
-      : card.typeCode === 'villain'
+      : card.typeCode === TypeCodes.VILLAIN
       ? colors.purple
-      : card.factionCode === 'encounter'
+      : card.factionCode === FactionCodes.ENCOUNTER
       ? colors.orange
       : colors.grayDark;
 
@@ -91,7 +91,7 @@ const CardListItem: React.FunctionComponent<{
 
   let infoText = '';
 
-  if (card.typeCode === 'villain' && card.raw.stage != null) {
+  if (card.typeCode === TypeCodes.VILLAIN && card.raw.stage != null) {
     infoText = `${infoText} · ${card.typeName} · Stage ${card.raw.stage}`;
   } else {
     infoText = `${infoText} · ${card.typeName}`;

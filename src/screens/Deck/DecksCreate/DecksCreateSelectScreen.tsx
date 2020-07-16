@@ -7,6 +7,7 @@ import styled from 'styled-components/native';
 
 import { DecksCreateContext } from '../../../context/DecksCreateContext';
 import { DecksCreateStackParamList } from '../../../navigation/DecksCreateStackNavigator';
+import { FactionCode, SetCode } from 'src/data';
 import { base, colors } from '../../../styles';
 import { getHeroSets } from '../../../data/models/Set';
 import { getPrimaryFactions } from '../../../data/models/Faction';
@@ -36,12 +37,12 @@ const DecksCreateScreen: React.FunctionComponent<{
 
   const items = route.params.type === 'hero' ? sets : aspects;
 
-  const handlePressItem = (code: string) => {
+  const handlePressItem = (code: FactionCode | SetCode) => {
     if (route.params.type === 'hero') {
-      setDeckSet(code);
+      setDeckSet(code as SetCode);
     }
     if (route.params.type === 'aspect') {
-      setDeckAspect(code);
+      setDeckAspect(code as FactionCode);
     }
     navigation.pop();
   };

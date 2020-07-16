@@ -2,7 +2,13 @@ import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
 
 import { AppThunk } from '.';
-import { CardModel, getFilteredCards } from '../data';
+import {
+  CardModel,
+  FactionCode,
+  FilterCodes,
+  SetCode,
+  getFilteredCards,
+} from '../data';
 import {
   addDeckCardsToDeck,
   createDeck,
@@ -18,8 +24,8 @@ import {
 export const setUpNewDeck = (
   deckCode: string,
   deckName: string,
-  deckSet: string,
-  deckAspect: string,
+  deckSet: SetCode,
+  deckAspect: FactionCode,
 ): AppThunk => (dispatch) => {
   if (deckName && deckSet && deckAspect) {
     dispatch(
@@ -33,7 +39,7 @@ export const setUpNewDeck = (
 
     const deckCardCodes = [];
     const deckCardData = [];
-    const setCards = getFilteredCards('set', deckSet);
+    const setCards = getFilteredCards(FilterCodes.SET, deckSet);
 
     setCards.forEach((card) => {
       if (card.factionCode === 'hero') {

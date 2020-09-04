@@ -2,6 +2,7 @@ import fs from 'fs';
 
 import factionsRaw from 'marvelsdb-json-data/factions.json';
 import packsRaw from 'marvelsdb-json-data/packs.json';
+import setTypesRaw from 'marvelsdb-json-data/settypes.json';
 import setsRaw from 'marvelsdb-json-data/sets.json';
 import typesRaw from 'marvelsdb-json-data/types.json';
 
@@ -60,6 +61,27 @@ fs.appendFileSync(FILE, 'export type SetCode =\n');
 setsRaw.forEach((set, i) => {
   fs.appendFileSync(FILE, `  | '${set.code}'`);
   if (i < setsRaw.length - 1) {
+    fs.appendFileSync(FILE, '\n');
+  } else {
+    fs.appendFileSync(FILE, ';\n\n');
+  }
+});
+
+// SET TYPES
+
+fs.appendFileSync(FILE, 'export enum SetTypeCodes {\n');
+setTypesRaw.forEach((setType) => {
+  fs.appendFileSync(
+    FILE,
+    `  ${setType.code.toUpperCase()} = '${setType.code}',\n`,
+  );
+});
+fs.appendFileSync(FILE, '}\n\n');
+
+fs.appendFileSync(FILE, 'export type SetTypeCode =\n');
+setTypesRaw.forEach((setType, i) => {
+  fs.appendFileSync(FILE, `  | '${setType.code}'`);
+  if (i < setTypesRaw.length - 1) {
     fs.appendFileSync(FILE, '\n');
   } else {
     fs.appendFileSync(FILE, ';\n\n');

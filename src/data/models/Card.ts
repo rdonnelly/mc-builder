@@ -1,8 +1,15 @@
 import isDeepEqual from 'lodash/isEqual';
 import memoizeOne from 'memoize-one';
 
-import { FactionCode, PackCode, SetCode, TypeCode } from '../generatedTypes';
-import { FilterCode, ICardRaw } from '../types';
+import {
+  FactionCode,
+  FactionCodes,
+  PackCode,
+  SetCode,
+  TypeCode,
+  TypeCodes,
+} from '../generatedTypes';
+import { FilterCode, FilterCodes, ICardRaw } from '../types';
 import { factionRank, getFactions } from '../models/Faction';
 import { getPacks } from '../models/Pack';
 import { getSets } from '../models/Set';
@@ -195,23 +202,51 @@ export const getCards = memoizeOne(() =>
 
 export const getFilteredCards = memoizeOne(
   (
-    filter: FilterCode,
-    filterCode: FactionCode | PackCode | SetCode | TypeCode,
+    searchTerm: string,
+    filter?: FilterCode,
+    filterCode?: FactionCode | PackCode | SetCode | TypeCode,
   ) => {
-    if (filter === 'faction') {
-      return getCards().filter((card) => card.factionCode === filterCode);
-    }
-    if (filter === 'set') {
-      return getCards().filter((card) => card.setCode === filterCode);
-    }
-    if (filter === 'pack') {
-      return getCards().filter((card) => card.packCode === filterCode);
-    }
-    if (filter === 'type') {
-      return getCards().filter((card) => card.typeCode === filterCode);
+    let filteredCards = getCards();
+
+    if (searchTerm) {
+      const strippedSearchTerm = searchTerm
+        .toLowerCase()
+        .replace(/[^A-Za-z0-9]/g, '');
+
+      filteredCards = filteredCards.filter((card) => {
+        const cardName = card.name.toLowerCase().replace(/[^A-Za-z0-9]/g, '');
+        return cardName.includes(strippedSearchTerm);
+      });
     }
 
-    return getCards();
+    switch (filter) {
+      case FilterCodes.FACTION: {
+        filteredCards = filteredCards.filter(
+          (card) => card.factionCode === filterCode,
+        );
+        break;
+      }
+      case FilterCodes.PACK: {
+        filteredCards = filteredCards.filter(
+          (card) => card.packCode === filterCode,
+        );
+        break;
+      }
+      case FilterCodes.SET: {
+        filteredCards = filteredCards.filter(
+          (card) => card.setCode === filterCode,
+        );
+        break;
+      }
+      case FilterCodes.TYPE: {
+        filteredCards = filteredCards.filter(
+          (card) => card.typeCode === filterCode,
+        );
+        break;
+      }
+    }
+
+    return filteredCards;
   },
 );
 
@@ -229,19 +264,19 @@ export const getEligibleCards = memoizeOne(
       .filter((card) => {
         if (
           ![
-            'ally',
-            'attachment',
-            'event',
-            'resource',
-            'support',
-            'upgrade',
+            TypeCodes.ALLY as string,
+            TypeCodes.ATTACHMENT as string,
+            TypeCodes.EVENT as string,
+            TypeCodes.RESOURCE as string,
+            TypeCodes.SUPPORT as string,
+            TypeCodes.UPGRADE as string,
           ].includes(card.typeCode)
         ) {
           return false;
         }
 
         if (
-          ![factionCode, 'basic'].includes(card.factionCode) &&
+          ![factionCode, FactionCodes.BASIC].includes(card.factionCode) &&
           !codes.includes(card.code)
         ) {
           return false;

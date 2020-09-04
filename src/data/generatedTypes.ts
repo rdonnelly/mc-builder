@@ -29,6 +29,12 @@ export enum PackCodes {
   BKW = 'bkw',
   DRS = 'drs',
   HLK = 'hlk',
+  TRORS = 'trors',
+  TOAFK = 'toafk',
+  ANT = 'ant',
+  WSP = 'wsp',
+  QSV = 'qsv',
+  SCW = 'scw',
 }
 
 export type PackCode =
@@ -40,7 +46,13 @@ export type PackCode =
   | 'thor'
   | 'bkw'
   | 'drs'
-  | 'hlk';
+  | 'hlk'
+  | 'trors'
+  | 'toafk'
+  | 'ant'
+  | 'wsp'
+  | 'qsv'
+  | 'scw';
 
 export enum SetCodes {
   RHINO = 'rhino',
@@ -134,6 +146,23 @@ export type SetCode =
   | 'doctor_strange_nemesis'
   | 'hulk'
   | 'hulk_nemesis';
+
+export enum SetTypeCodes {
+  VILLAIN = 'villain',
+  HERO = 'hero',
+  NEMESIS = 'nemesis',
+  MODULAR = 'modular',
+  STANDARD = 'standard',
+  EXPERT = 'expert',
+}
+
+export type SetTypeCode =
+  | 'villain'
+  | 'hero'
+  | 'nemesis'
+  | 'modular'
+  | 'standard'
+  | 'expert';
 
 export enum TypeCodes {
   MAIN_SCHEME = 'main_scheme',

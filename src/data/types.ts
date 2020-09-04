@@ -28,7 +28,7 @@ export interface IPackRaw {
 export interface ISetRaw {
   code: SetCode;
   name: string;
-  type: string;
+  card_set_type_code: string;
 }
 
 export interface ITypeRaw {

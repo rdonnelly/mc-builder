@@ -1,12 +1,13 @@
 import { RouteProp, useScrollToTop } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { useContext, useRef } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import styled from 'styled-components/native';
 
 import { CardListContext } from '../../context/CardListContext';
 import {
   CardModel,
   FactionCode,
+  FilterCodes,
   PackCode,
   TypeCode,
   getCards,
@@ -19,29 +20,38 @@ import { CardStackParamList } from '../../navigation/CardsStackNavigator';
 import { base, colors } from '../../styles';
 import CardListItem from '../../components/CardListItem';
 
-const CardListScreen: React.FunctionComponent<{
+const CardListScreen = ({
+  navigation,
+  route,
+}: {
   navigation: StackNavigationProp<CardStackParamList, 'CardsList'>;
   route: RouteProp<CardStackParamList, 'CardsList'>;
-}> = ({ navigation, route }) => {
+}) => {
+  const [searchTerm, setSearchTerm] = useState(null);
   const filter = (route.params || {}).filter;
   const filterCode = (route.params || {}).code;
+
   const cards =
-    filter && filterCode ? getFilteredCards(filter, filterCode) : getCards();
+    searchTerm || (filter && filterCode)
+      ? getFilteredCards(searchTerm, filter, filterCode)
+      : getCards();
 
   const flatListRef = useRef(null);
   useScrollToTop(flatListRef);
+
+  const searchInputRef = useRef(null);
 
   const { setCardList } = useContext(CardListContext);
 
   if (filter && filterCode) {
     let filterName = null;
-    if (filter === 'faction') {
+    if (filter === FilterCodes.FACTION) {
       filterName = getFaction(filterCode as FactionCode).name;
     }
-    if (filter === 'pack') {
+    if (filter === FilterCodes.PACK) {
       filterName = getPack(filterCode as PackCode).name;
     }
-    if (filter === 'type') {
+    if (filter === FilterCodes.TYPE) {
       filterName = getType(filterCode as TypeCode).name;
     }
 
@@ -51,6 +61,12 @@ const CardListScreen: React.FunctionComponent<{
       });
     }
   }
+
+  // TODO
+  // TODO
+  // TODO
+  // TODO
+  // TODO use useCallback for all these event handlers
 
   const handlePressFactions = () => {
     if (navigation) {
@@ -79,6 +95,22 @@ const CardListScreen: React.FunctionComponent<{
     }
   };
 
+  const handleSubmitFromSearch = (event) => {
+    const query = event.nativeEvent.text;
+    setSearchTerm(query);
+  };
+
+  const handleChangeFromSearch = (event) => {
+    const query = event.nativeEvent.text;
+    if (!query) {
+      setSearchTerm(null);
+    }
+  };
+
+  const handleScrollBeginDrag = () => {
+    searchInputRef.current.blur();
+  };
+
   const renderCard = ({ item: card }: { item: CardModel }) => (
     <CardListItem
       card={card}
@@ -86,6 +118,25 @@ const CardListScreen: React.FunctionComponent<{
       onPressItem={handlePressItem}
     />
   );
+
+  const renderHeader = () => {
+    return (
+      <ListHeader>
+        <ListHeaderInput
+          autoCapitalize={'none'}
+          autoCorrect={false}
+          clearButtonMode={'always'}
+          placeholder={'Search'}
+          placeholderTextColor={colors.gray}
+          ref={searchInputRef}
+          returnKeyType={'search'}
+          onSubmitEditing={handleSubmitFromSearch}
+          onChange={handleChangeFromSearch}
+          defaultValue={searchTerm}
+        />
+      </ListHeader>
+    );
+  };
 
   const renderFooter = () => {
     if (cards.length === 0) {
@@ -110,6 +161,8 @@ const CardListScreen: React.FunctionComponent<{
         data={cards}
         keyExtractor={(card: CardModel) => card.code}
         contentContainerStyle={{ paddingBottom: 72 }}
+        onScrollBeginDrag={handleScrollBeginDrag}
+        ListHeaderComponent={renderHeader}
         ListFooterComponent={renderFooter}
       />
       {!filter && !filterCode && (
@@ -156,6 +209,14 @@ const FiltersButtonText = styled(base.ButtonText)`
 `;
 
 const FlatList = styled(base.FlatList)``;
+
+const ListHeader = styled(base.ListHeader)`
+  background-color: ${colors.lightGray};
+`;
+
+const ListHeaderInput = styled(base.TextInput)`
+  flex: 1 1 0;
+`;
 
 const ListFooter = styled(base.ListFooter)``;
 

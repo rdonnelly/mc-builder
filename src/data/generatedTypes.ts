@@ -29,6 +29,7 @@ export enum PackCodes {
   BKW = 'bkw',
   DRS = 'drs',
   HLK = 'hlk',
+  RON = 'ron',
   TRORS = 'trors',
   TOAFK = 'toafk',
   ANT = 'ant',
@@ -47,6 +48,7 @@ export type PackCode =
   | 'bkw'
   | 'drs'
   | 'hlk'
+  | 'ron'
   | 'trors'
   | 'toafk'
   | 'ant'
@@ -99,6 +101,11 @@ export enum SetCodes {
   DOCTOR_STRANGE_NEMESIS = 'doctor_strange_nemesis',
   HULK = 'hulk',
   HULK_NEMESIS = 'hulk_nemesis',
+  KREE_FANATIC = 'kree_fanatic',
+  HAWKEYE = 'hawkeye',
+  HAWKEYE_NEMESIS = 'hawkeye_nemesis',
+  SPIDER_WOMAN = 'spider_woman',
+  SPIDER_WOMAN_NEMESIS = 'spider_woman_nemesis',
 }
 
 export type SetCode =
@@ -145,7 +152,12 @@ export type SetCode =
   | 'invocation'
   | 'doctor_strange_nemesis'
   | 'hulk'
-  | 'hulk_nemesis';
+  | 'hulk_nemesis'
+  | 'kree_fanatic'
+  | 'hawkeye'
+  | 'hawkeye_nemesis'
+  | 'spider_woman'
+  | 'spider_woman_nemesis';
 
 export enum SetTypeCodes {
   VILLAIN = 'villain',

@@ -563,7 +563,10 @@ const CardDetailImage: React.FunctionComponent<{
   const cardHeight = ['main_scheme', 'side_scheme'].includes(card.typeCode)
     ? CardImageHeight.LANDSCAPE
     : CardImageHeight.PORTRAIT;
-  return (
+
+  const imageSrc = card.imageSrc;
+
+  return imageSrc ? (
     <CardDetailImageContainer
       height={cardHeight}
       activeOpacity={0.9}
@@ -571,7 +574,7 @@ const CardDetailImage: React.FunctionComponent<{
     >
       <Image resizeMode="contain" source={{ uri: card.imageSrc }} />
     </CardDetailImageContainer>
-  );
+  ) : null;
 };
 
 const CardDetailPack: React.FunctionComponent<{

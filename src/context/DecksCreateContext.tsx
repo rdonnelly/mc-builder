@@ -29,7 +29,7 @@ const DecksCreateProvider = (props) => {
 
   const updateDeckSet = (newDeckSet: SetCode) => {
     setDeckSet(newDeckSet);
-    if (deckAspect && deckName === '') {
+    if (deckAspect && (deckName == null || deckName === '')) {
       const set = getSet(newDeckSet, false);
       const faction = getFaction(deckAspect, false);
       setDeckName(`${set.name} - ${faction.name}`);
@@ -38,7 +38,7 @@ const DecksCreateProvider = (props) => {
 
   const updateDeckAspect = (newDeckAspect: FactionCode) => {
     setDeckAspect(newDeckAspect);
-    if (deckSet && deckName === '') {
+    if (deckSet && (deckName == null || deckName === '')) {
       const set = getSet(deckSet, false);
       const faction = getFaction(newDeckAspect, false);
       setDeckName(`${set.name} - ${faction.name}`);

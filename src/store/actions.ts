@@ -42,7 +42,7 @@ export const setUpNewDeck = (
     const setCards = getFilteredCards(null, FilterCodes.SET, deckSet);
 
     setCards.forEach((card) => {
-      if (card.factionCode === 'hero') {
+      if (card.factionCode !== FactionCodes.ENCOUNTER) {
         const code = uuidv4();
         deckCardCodes.push(code);
         deckCardData.push({

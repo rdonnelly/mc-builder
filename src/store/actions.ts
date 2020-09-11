@@ -7,6 +7,7 @@ import {
   FactionCode,
   FilterCodes,
   SetCode,
+  SetCodes,
   getFilteredCards,
 } from '../data';
 import {
@@ -39,18 +40,22 @@ export const setUpNewDeck = (
 
     const deckCardCodes = [];
     const deckCardData = [];
-    const setCards = getFilteredCards(null, FilterCodes.SET, deckSet);
+    const setsArray = [deckSet, `${deckSet}_nemesis` as SetCode];
+
+    if (deckSet === SetCodes.DOCTOR_STRANGE) {
+      setsArray.push(SetCodes.INVOCATION);
+    }
+
+    const setCards = getFilteredCards(null, FilterCodes.SET, setsArray);
 
     setCards.forEach((card) => {
-      if (card.factionCode !== FactionCodes.ENCOUNTER) {
-        const code = uuidv4();
-        deckCardCodes.push(code);
-        deckCardData.push({
-          code,
-          cardCode: card.code,
-          quantity: card.setQuantity,
-        });
-      }
+      const code = uuidv4();
+      deckCardCodes.push(code);
+      deckCardData.push({
+        code,
+        cardCode: card.code,
+        quantity: card.setQuantity,
+      });
     });
 
     dispatch(createDeckCards({ deckCards: deckCardData }));

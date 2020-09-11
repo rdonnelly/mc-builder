@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
 const renderCardText = (card: CardModel, key: string, isFlavor = false) => {
   let text = card[key];
 
-  if (text == null) {
+  if (text == null || text === '') {
     return null;
   }
 

@@ -80,8 +80,8 @@ const CardListItem: React.FunctionComponent<{
   const incrementIsDisabled =
     (card.isUnique && count >= 1) ||
     count >= card.deckLimit ||
-    card.factionCode === 'hero';
-  const decrementIsDisabled = count <= 0 || card.factionCode === 'hero';
+    card.setCode != null;
+  const decrementIsDisabled = count <= 0 || card.setCode != null;
 
   const increment = () =>
     !incrementIsDisabled && dispatch(addCardToDeck(deckCode, card));
@@ -126,7 +126,7 @@ const CardListItem: React.FunctionComponent<{
             </CardDetailsInfoText>
           </CardDetailsInfo>
         </CardDetails>
-        {showEditControls === true && (
+        {showEditControls === true ? (
           <CardControls>
             <CardCountDecrementButton
               onPress={() => decrement()}
@@ -153,7 +153,7 @@ const CardListItem: React.FunctionComponent<{
               />
             </CardCountIncrementButton>
           </CardControls>
-        )}
+        ) : null}
         <ListChevronWrapper>
           <ListChevron name={'chevron-right'} size={16} />
         </ListChevronWrapper>

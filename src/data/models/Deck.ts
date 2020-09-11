@@ -6,6 +6,8 @@ import { Card, getCard, getEligibleCards } from './Card';
 import {
   FactionCode,
   FactionCodes,
+  SetCode,
+  SetCodes,
   TypeCode,
   TypeCodes,
 } from '../generatedTypes';
@@ -21,6 +23,7 @@ interface IDeckCard {
   code: string;
   name: string;
   factionCode: FactionCode;
+  setCode: SetCode;
   typeCode: TypeCode;
   count: number;
 }
@@ -80,6 +83,8 @@ export class Deck {
   get cardCount(): number {
     return this.cards.reduce((count, card) => {
       if (
+        card.factionCode !== FactionCodes.ENCOUNTER &&
+        card.setCode !== SetCodes.INVOCATION &&
         card.typeCode !== TypeCodes.ALTER_EGO &&
         card.typeCode !== TypeCodes.HERO
       ) {
@@ -97,6 +102,7 @@ export class Deck {
         code: card.code,
         name: card.name,
         factionCode: card.factionCode,
+        setCode: card.setCode,
         typeCode: card.typeCode,
         count: deckCard.quantity,
       };
@@ -125,6 +131,18 @@ export class Deck {
         count: 0,
         data: [],
       },
+      invocation: {
+        code: 'invocation',
+        title: 'Invocation',
+        count: 0,
+        data: [],
+      },
+      encounter: {
+        code: 'encounter',
+        title: 'Encounter',
+        count: 0,
+        data: [],
+      },
     };
 
     cards.forEach((card) => {
@@ -133,6 +151,17 @@ export class Deck {
           card.typeCode === TypeCodes.ALTER_EGO: {
           sections.identity.data.push(card);
           sections.identity.count += card.count || 0;
+          break;
+        }
+        case card.factionCode === FactionCodes.HERO &&
+          card.setCode === SetCodes.INVOCATION: {
+          sections.invocation.data.push(card);
+          sections.invocation.count += card.count || 0;
+          break;
+        }
+        case card.factionCode === FactionCodes.ENCOUNTER: {
+          sections.encounter.data.push(card);
+          sections.encounter.count += card.count || 0;
           break;
         }
         case card.factionCode === FactionCodes.HERO: {
@@ -168,6 +197,7 @@ export class Deck {
       code: card.code,
       name: card.name,
       factionCode: card.factionCode,
+      setCode: card.setCode,
       typeCode: card.typeCode,
       count: cardsObj[card.code] ? cardsObj[card.code].count : null,
     }));
@@ -192,15 +222,32 @@ export class Deck {
     };
 
     cards.forEach((card) => {
-      switch (card.factionCode) {
-        case FactionCodes.HERO: {
+      switch (true) {
+        case card.typeCode === TypeCodes.HERO ||
+          card.typeCode === TypeCodes.ALTER_EGO: {
+          // IDENTITY
+          break;
+        }
+        case card.factionCode === FactionCodes.HERO &&
+          card.setCode === SetCodes.INVOCATION: {
+          // INVOCATION
+          break;
+        }
+        case card.factionCode === FactionCodes.ENCOUNTER: {
+          // ENCOUNTER (OBLIGATION or NEMESIS)
+          break;
+        }
+        case card.factionCode === FactionCodes.HERO: {
           sections.hero.data.push(card);
           sections.hero.count += card.count || 0;
           break;
         }
-        case FactionCodes.BASIC: {
+        case card.factionCode === FactionCodes.BASIC: {
           sections.basic.data.push(card);
           sections.basic.count += card.count || 0;
+          break;
+        }
+        case card.factionCode === FactionCodes.ENCOUNTER: {
           break;
         }
         default: {

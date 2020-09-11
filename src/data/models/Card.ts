@@ -39,7 +39,7 @@ export class Card {
   }
 
   get factionCode() {
-    return (this.faction || {}).code;
+    return (this.faction || {}).code as FactionCode;
   }
 
   get factionName() {
@@ -207,7 +207,15 @@ export const getFilteredCards = memoizeOne(
   (
     searchTerm: string,
     filter?: FilterCode,
-    filterCode?: FactionCode | PackCode | SetCode | TypeCode,
+    filterCode?:
+      | FactionCode
+      | FactionCode[]
+      | PackCode
+      | PackCode[]
+      | SetCode
+      | SetCode[]
+      | TypeCode
+      | TypeCode[],
   ) => {
     let filteredCards = getCards();
 
@@ -224,26 +232,34 @@ export const getFilteredCards = memoizeOne(
 
     switch (filter) {
       case FilterCodes.FACTION: {
-        filteredCards = filteredCards.filter(
-          (card) => card.factionCode === filterCode,
+        filteredCards = filteredCards.filter((card) =>
+          Array.isArray(filterCode)
+            ? (filterCode as FactionCode[]).includes(card.factionCode)
+            : card.factionCode === filterCode,
         );
         break;
       }
       case FilterCodes.PACK: {
-        filteredCards = filteredCards.filter(
-          (card) => card.packCode === filterCode,
+        filteredCards = filteredCards.filter((card) =>
+          Array.isArray(filterCode)
+            ? (filterCode as PackCode[]).includes(card.packCode)
+            : card.packCode === filterCode,
         );
         break;
       }
       case FilterCodes.SET: {
-        filteredCards = filteredCards.filter(
-          (card) => card.setCode === filterCode,
+        filteredCards = filteredCards.filter((card) =>
+          Array.isArray(filterCode)
+            ? (filterCode as SetCode[]).includes(card.setCode)
+            : card.setCode === filterCode,
         );
         break;
       }
       case FilterCodes.TYPE: {
-        filteredCards = filteredCards.filter(
-          (card) => card.typeCode === filterCode,
+        filteredCards = filteredCards.filter((card) =>
+          Array.isArray(filterCode)
+            ? (filterCode as TypeCode[]).includes(card.typeCode)
+            : card.typeCode === filterCode,
         );
         break;
       }
@@ -292,6 +308,12 @@ export const getEligibleCards = memoizeOne(
 );
 
 const cardSorter = (a, b) => {
+  if (b.setCode != null && a.setCode == null) {
+    return 1;
+  }
+  if (a.setCode != null && b.setCode == null) {
+    return -1;
+  }
   if (factionRank[a.factionCode] > factionRank[b.factionCode]) {
     return 1;
   }

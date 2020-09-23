@@ -278,7 +278,7 @@ export const getSubsetOfCards = memoizeOne(
 );
 
 export const getEligibleCards = memoizeOne(
-  (factionCode: string, codes: string[]) =>
+  (factionCode: string[], codes: string[]) =>
     getCards()
       .filter((card) => {
         if (
@@ -295,7 +295,7 @@ export const getEligibleCards = memoizeOne(
         }
 
         if (
-          ![factionCode, FactionCodes.BASIC].includes(card.factionCode) &&
+          ![...factionCode, FactionCodes.BASIC].includes(card.factionCode) &&
           !codes.includes(card.code)
         ) {
           return false;

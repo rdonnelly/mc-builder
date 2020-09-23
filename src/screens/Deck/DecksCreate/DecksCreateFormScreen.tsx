@@ -25,11 +25,17 @@ const DecksCreateFormScreen: React.FunctionComponent<{
   const insets = useSafeArea();
 
   const set = getSet(deckSet, false);
-  const faction = getFaction(deckAspect, false);
+  const factionNames = deckAspect.map((aspect) => {
+    const faction = getFaction(aspect, false);
+    return faction.name;
+  });
+  const factionText = factionNames.length
+    ? factionNames.join(', ')
+    : 'No Aspect Selected';
 
   const submit = () => {
     const deckCode = uuidv4();
-    if (deckName && deckSet && deckAspect) {
+    if (deckName && deckSet && deckAspect.length) {
       dispatch(setUpNewDeck(deckCode, deckName, deckSet, deckAspect));
 
       if (navigation) {
@@ -71,8 +77,8 @@ const DecksCreateFormScreen: React.FunctionComponent<{
               navigation.navigate('DecksCreateSelect', { type: 'aspect' })
             }
           >
-            <LinkRowText active={faction}>
-              {faction ? faction.name : 'No Aspect Selected'}
+            <LinkRowText active={!!deckAspect.length}>
+              {factionText}
             </LinkRowText>
             <LinkRowChevronWrapper>
               <LinkRowChevron name={'chevron-right'} size={16} />

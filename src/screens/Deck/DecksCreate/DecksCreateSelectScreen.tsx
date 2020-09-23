@@ -2,7 +2,7 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { StyleSheet } from 'react-native';
 import { useSafeArea } from 'react-native-safe-area-context';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components/native';
 
 import { DecksCreateContext } from '../../../context/DecksCreateContext';
@@ -28,6 +28,10 @@ const DecksCreateScreen: React.FunctionComponent<{
     DecksCreateContext,
   );
 
+  const [selectedAspects, setSelectedAspects] = useState<FactionCode[]>(
+    deckAspect,
+  );
+
   const insets = useSafeArea();
 
   navigation.setOptions({
@@ -38,13 +42,37 @@ const DecksCreateScreen: React.FunctionComponent<{
   const items = route.params.type === 'hero' ? sets : aspects;
 
   const handlePressItem = (code: FactionCode | SetCode) => {
+    let isFinishedSelecting = false;
+
     if (route.params.type === 'hero') {
       setDeckSet(code as SetCode);
+      isFinishedSelecting = true;
     }
+
     if (route.params.type === 'aspect') {
-      setDeckAspect(code as FactionCode);
+      let newSelectedAspects: FactionCode[];
+      if (selectedAspects.includes(code as FactionCode)) {
+        newSelectedAspects = selectedAspects.filter(
+          (aspect) => aspect !== code,
+        );
+      } else {
+        newSelectedAspects = [...selectedAspects, code as FactionCode];
+      }
+
+      newSelectedAspects.sort();
+
+      setSelectedAspects(newSelectedAspects);
+      setDeckAspect(newSelectedAspects as FactionCode[]);
+
+      // TODO get aspect count
+      if (newSelectedAspects.length === 2) {
+        isFinishedSelecting = true;
+      }
     }
-    navigation.pop();
+
+    if (isFinishedSelecting) {
+      navigation.pop();
+    }
   };
 
   const renderItem = ({ item }) => (
@@ -53,7 +81,7 @@ const DecksCreateScreen: React.FunctionComponent<{
         <ListItemInnerText>{item.name}</ListItemInnerText>
         <ListIconWrapper>
           <ListIcon
-            active={item.code === deckSet || item.code === deckAspect}
+            active={item.code === deckSet || deckAspect.includes(item.code)}
           />
         </ListIconWrapper>
       </ListItemInner>

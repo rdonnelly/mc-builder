@@ -86,7 +86,7 @@ const DeckDetail: React.FunctionComponent<{
         <Info>
           <InfoItem>
             <InfoLabel>Aspect</InfoLabel>
-            <InfoText>{deck.aspectName}</InfoText>
+            <InfoText>{deck.aspectNames.join(', ')}</InfoText>
           </InfoItem>
           <InfoItem>
             <InfoLabel>Deck Size</InfoLabel>

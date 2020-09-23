@@ -56,16 +56,16 @@ export class Deck {
     return this.raw.name;
   }
 
-  get aspect() {
-    return getFactions().find((f) => f.code === this.raw.aspectCode);
+  get aspects() {
+    return getFactions().filter((f) => this.raw.aspectCodes.includes(f.code));
   }
 
-  get aspectCode() {
-    return this.raw.aspectCode;
+  get aspectCodes() {
+    return this.raw.aspectCodes;
   }
 
-  get aspectName() {
-    return (this.aspect || {}).name;
+  get aspectNames() {
+    return this.aspects.map((a) => a.name);
   }
 
   get set() {
@@ -190,7 +190,7 @@ export class Deck {
     const cardsObj = _.keyBy(cards, (card) => card.code);
 
     return getEligibleCards(
-      this.aspectCode,
+      this.aspectCodes,
       cards.map((card) => card.code),
     ).map((card) => ({
       card,
@@ -271,6 +271,7 @@ export class Deck {
 
   get isLegal(): boolean {
     // TODO restricted list
+    // TODO spider-woman equal double aspect
     return this.cardCount >= 40 && this.cardCount <= 50;
   }
 }

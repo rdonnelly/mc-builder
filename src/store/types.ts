@@ -15,7 +15,7 @@ export interface IDeck {
   code: string;
   name: string;
   setCode: SetCode;
-  aspectCode: FactionCode;
+  aspectCodes: FactionCode[];
   deckCardCodes: string[];
 }
 

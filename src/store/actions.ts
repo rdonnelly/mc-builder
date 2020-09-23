@@ -26,15 +26,15 @@ export const setUpNewDeck = (
   deckCode: string,
   deckName: string,
   deckSet: SetCode,
-  deckAspect: FactionCode,
+  deckAspect: FactionCode[],
 ): AppThunk => (dispatch) => {
-  if (deckName && deckSet && deckAspect) {
+  if (deckName && deckSet && deckAspect.length) {
     dispatch(
       createDeck({
         code: deckCode,
         name: deckName,
         setCode: deckSet,
-        aspectCode: deckAspect,
+        aspectCodes: deckAspect,
       }),
     );
 

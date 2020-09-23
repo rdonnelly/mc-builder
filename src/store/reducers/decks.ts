@@ -19,17 +19,17 @@ const decksSlice = createSlice({
         code: string;
         name: string;
         setCode: SetCode;
-        aspectCode: FactionCode;
+        aspectCodes: FactionCode[];
       }>,
     ) {
       const { payload } = action;
-      const { code, name, setCode, aspectCode } = payload;
+      const { code, name, setCode, aspectCodes } = payload;
 
       const deck: IDeck = {
         code,
         name,
         setCode,
-        aspectCode,
+        aspectCodes,
         deckCardCodes: [],
       };
 

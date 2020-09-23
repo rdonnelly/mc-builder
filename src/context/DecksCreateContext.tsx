@@ -9,8 +9,8 @@ interface IDecksCreateContext {
   setDeckName: (deckName: string) => void;
   deckSet: SetCode;
   setDeckSet: (set: SetCode) => void;
-  deckAspect: FactionCode;
-  setDeckAspect: (aspect: FactionCode) => void;
+  deckAspect: FactionCode[];
+  setDeckAspect: (aspect: FactionCode[]) => void;
 }
 
 const DecksCreateContext = React.createContext({
@@ -25,22 +25,22 @@ const DecksCreateContext = React.createContext({
 const DecksCreateProvider = (props) => {
   const [deckName, setDeckName] = React.useState(null);
   const [deckSet, setDeckSet] = React.useState(null);
-  const [deckAspect, setDeckAspect] = React.useState(null);
+  const [deckAspect, setDeckAspect] = React.useState([]);
 
   const updateDeckSet = (newDeckSet: SetCode) => {
     setDeckSet(newDeckSet);
-    if (deckAspect && (deckName == null || deckName === '')) {
+    if (deckAspect.length && (deckName == null || deckName === '')) {
       const set = getSet(newDeckSet, false);
-      const faction = getFaction(deckAspect, false);
+      const faction = getFaction(deckAspect[0], false);
       setDeckName(`${set.name} - ${faction.name}`);
     }
   };
 
-  const updateDeckAspect = (newDeckAspect: FactionCode) => {
+  const updateDeckAspect = (newDeckAspect: FactionCode[]) => {
     setDeckAspect(newDeckAspect);
     if (deckSet && (deckName == null || deckName === '')) {
       const set = getSet(deckSet, false);
-      const faction = getFaction(newDeckAspect, false);
+      const faction = getFaction(newDeckAspect[0], false);
       setDeckName(`${set.name} - ${faction.name}`);
     }
   };

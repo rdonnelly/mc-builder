@@ -26,7 +26,7 @@ const DecksListItem: React.FunctionComponent<{
             <DeckDetailsInfoText>
               <Text>{deckModel.setName}</Text>
               <Text>&nbsp;&middot;&nbsp;</Text>
-              <Text>{deckModel.aspectName}</Text>
+              <Text>{deckModel.aspectNames.join(', ')}</Text>
             </DeckDetailsInfoText>
           </DeckDetailsInfo>
         </DeckDetails>

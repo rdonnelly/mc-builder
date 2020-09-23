@@ -38,6 +38,12 @@ const styles = StyleSheet.create({
   },
 });
 
+const customTagStyles = {
+  em: { fontStyle: 'italic', fontWeight: 'bold' },
+  i: { fontStyle: 'italic', fontWeight: '500' },
+  p: { marginTop: 0, marginBottom: 0 },
+};
+
 const renderCardText = (card: CardModel, key: string, isFlavor = false) => {
   let text = card[key];
 
@@ -51,12 +57,6 @@ const renderCardText = (card: CardModel, key: string, isFlavor = false) => {
 
   const customRenderers = {
     icon: { renderer: CardParser.iconRenderer, wrapper: 'Text' as const },
-  };
-
-  const customTagStyles = {
-    em: { fontStyle: 'italic', fontWeight: 'bold' },
-    i: { fontStyle: 'italic', fontWeight: '500' },
-    p: { marginTop: 0, marginBottom: 0 },
   };
 
   return (

@@ -1,13 +1,13 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { StyleSheet } from 'react-native';
-import { useSafeArea } from 'react-native-safe-area-context';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components/native';
 
 import { DecksCreateContext } from '../../../context/DecksCreateContext';
 import { DecksCreateStackParamList } from '../../../navigation/DecksCreateStackNavigator';
-import { FactionCode, SetCode } from 'src/data';
+import { FactionCode, SetCode, SetCodes } from '../../../data';
 import { base, colors } from '../../../styles';
 import { getHeroSets } from '../../../data/models/Set';
 import { getPrimaryFactions } from '../../../data/models/Faction';
@@ -32,7 +32,7 @@ const DecksCreateScreen: React.FunctionComponent<{
     deckAspect,
   );
 
-  const insets = useSafeArea();
+  const insets = useSafeAreaInsets();
 
   useEffect(() => {
     navigation.setOptions({
@@ -68,7 +68,11 @@ const DecksCreateScreen: React.FunctionComponent<{
       setDeckAspect(newSelectedAspects as FactionCode[]);
 
       // TODO get aspect count
-      if (newSelectedAspects.length === 2) {
+      if (deckSet === SetCodes.SPIDER_WOMAN) {
+        if (newSelectedAspects.length > 1) {
+          isFinishedSelecting = true;
+        }
+      } else if (newSelectedAspects.length > 0) {
         isFinishedSelecting = true;
       }
     }

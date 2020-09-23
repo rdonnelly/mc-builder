@@ -2,7 +2,7 @@ import 'react-native-get-random-values';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { useSafeArea } from 'react-native-safe-area-context';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { v4 as uuidv4 } from 'uuid';
 import React, { useContext } from 'react';
 import styled from 'styled-components/native';
@@ -22,7 +22,7 @@ const DecksCreateFormScreen: React.FunctionComponent<{
   );
 
   const dispatch = useDispatch();
-  const insets = useSafeArea();
+  const insets = useSafeAreaInsets();
 
   const set = getSet(deckSet, false);
   const factionNames = deckAspect.map((aspect) => {

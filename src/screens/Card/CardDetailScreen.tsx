@@ -32,7 +32,7 @@ const CardDetailScreen: React.FunctionComponent<{
     headerBackTitleVisible: false,
   });
 
-  const getItemLayout = (_data: CardModel, index: number) => ({
+  const getItemLayout = (_data: CardModel[], index: number) => ({
     length: windowWidth - 32,
     offset: (windowWidth - 32) * index,
     index,

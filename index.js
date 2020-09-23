@@ -8,15 +8,15 @@ import { name as appName } from './app.json';
 import App from './src/App';
 
 if (__DEV__) {
+  // require('react-native').unstable_enableLogBox();
+
   import('./src/ReactotronConfig').then(() =>
     console.log('Reactotron Configured'),
   );
-
-  require('react-native').unstable_enableLogBox();
+} else {
+  // eslint-disable-next-line no-unused-vars
+  const bugsnag = new Client(BUGSNAG_API_KEY);
 }
-
-// eslint-disable-next-line no-unused-vars
-const bugsnag = new Client(BUGSNAG_API_KEY);
 
 enableScreens();
 

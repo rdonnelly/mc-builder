@@ -56,6 +56,7 @@ const CardListScreen = ({
     }
 
     if (filterName) {
+      // TODO wrap in useEffect
       navigation.setOptions({
         headerTitle: filterName,
       });

@@ -1,7 +1,7 @@
-import * as React from 'react';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
 
 import { DeckModel } from '../../data';
 import { DecksStackParamList } from '../../navigation/DecksStackNavigator';
@@ -25,9 +25,11 @@ const DeckDetailScreen: React.FunctionComponent<{
 
   const deckModel = new DeckModel(deck, deckCardEntities);
 
-  navigation.setOptions({
-    headerTitle: deck.name,
-  });
+  useEffect(() => {
+    navigation.setOptions({
+      headerTitle: deck.name,
+    });
+  }, [deck, navigation]);
 
   return <DeckDetail deck={deckModel} />;
 };

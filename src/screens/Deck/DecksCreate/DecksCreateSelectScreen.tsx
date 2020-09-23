@@ -2,7 +2,7 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { StyleSheet } from 'react-native';
 import { useSafeArea } from 'react-native-safe-area-context';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components/native';
 
 import { DecksCreateContext } from '../../../context/DecksCreateContext';
@@ -34,10 +34,13 @@ const DecksCreateScreen: React.FunctionComponent<{
 
   const insets = useSafeArea();
 
-  navigation.setOptions({
-    headerTitle: route.params.type === 'hero' ? 'Select Hero' : 'Select Aspect',
-    headerBackTitleVisible: false,
-  });
+  useEffect(() => {
+    navigation.setOptions({
+      headerTitle:
+        route.params.type === 'hero' ? 'Select Hero' : 'Select Aspect',
+      headerBackTitleVisible: false,
+    });
+  }, [navigation, route]);
 
   const items = route.params.type === 'hero' ? sets : aspects;
 

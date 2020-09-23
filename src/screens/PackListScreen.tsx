@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import { CardStackParamList } from '../navigation/CardsStackNavigator';

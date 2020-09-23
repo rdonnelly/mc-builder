@@ -1,7 +1,7 @@
-import * as React from 'react';
 import { StyleSheet, Text } from 'react-native';
 import { useDispatch } from 'react-redux';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
+import React from 'react';
 import styled from 'styled-components/native';
 
 import { CardModel, FactionCodes, TypeCodes } from '../data';

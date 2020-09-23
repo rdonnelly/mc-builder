@@ -2,7 +2,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { TouchableOpacity } from 'react-native';
 import { useSelector } from 'react-redux';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components/native';
 
 import { DecksStackParamList } from '../../navigation/DecksStackNavigator';
@@ -17,20 +17,22 @@ const DecksListScreen: React.FunctionComponent<{
   const deckCodes = useSelector((state: StoreState) => state.decks.codes);
   const deckEntities = useSelector((state: StoreState) => state.decks.entities);
 
-  navigation.setOptions({
-    headerRight: () => {
-      return (
-        <TouchableOpacity onPress={() => navigation.navigate('DecksCreate')}>
-          <FontAwesomeIcon
-            name="layer-plus"
-            color={colors.white}
-            size={24}
-            solid
-          />
-        </TouchableOpacity>
-      );
-    },
-  });
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => {
+        return (
+          <TouchableOpacity onPress={() => navigation.navigate('DecksCreate')}>
+            <FontAwesomeIcon
+              name="layer-plus"
+              color={colors.white}
+              size={24}
+              solid
+            />
+          </TouchableOpacity>
+        );
+      },
+    });
+  }, [navigation]);
 
   const handlePressItem = (code: string) => {
     if (navigation) {

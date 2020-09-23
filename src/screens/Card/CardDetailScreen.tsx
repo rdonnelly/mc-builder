@@ -1,12 +1,6 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, {
-  // useCallback,
-  useContext,
-  // useEffect,
-  useRef,
-  // useState,
-} from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import styled from 'styled-components/native';
 
 import { AppContext } from '../../context/AppContext';
@@ -27,10 +21,12 @@ const CardDetailScreen: React.FunctionComponent<{
 
   const initialScrollIndex = cardList.findIndex((c) => c.code === code);
 
-  navigation.setOptions({
-    headerTitle: cardList[initialScrollIndex].name,
-    headerBackTitleVisible: false,
-  });
+  useEffect(() => {
+    navigation.setOptions({
+      headerTitle: cardList[initialScrollIndex].name,
+      headerBackTitleVisible: false,
+    });
+  }, [cardList, initialScrollIndex, navigation]);
 
   const getItemLayout = (_data: CardModel[], index: number) => ({
     length: windowWidth - 32,

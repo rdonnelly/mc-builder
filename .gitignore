@@ -34,6 +34,10 @@ local.properties
 #
 .vscode/
 
+# Nova
+#
+.nova/
+
 # node.js
 #
 node_modules/

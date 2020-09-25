@@ -30,7 +30,7 @@ const DecksCreateFormScreen: React.FunctionComponent<{
     return faction.name;
   });
   const factionText = factionNames.length
-    ? factionNames.join(', ')
+    ? factionNames.join(' + ')
     : 'No Aspect Selected';
 
   const submit = () => {

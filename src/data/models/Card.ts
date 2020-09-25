@@ -269,14 +269,6 @@ export const getFilteredCards = memoizeOne(
   },
 );
 
-export const getSubsetOfCards = memoizeOne(
-  (codes: string[]) =>
-    getCards()
-      .filter((card) => codes.includes(card.code))
-      .sort(cardSorter),
-  isDeepEqual, // TODO remove deep equal
-);
-
 export const getEligibleCards = memoizeOne(
   (factionCode: string[], codes: string[]) =>
     getCards()

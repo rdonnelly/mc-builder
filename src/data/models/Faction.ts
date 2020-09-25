@@ -5,12 +5,12 @@ import { IFactionRaw } from '../types';
 
 export const factionRank = {
   hero: 0,
-  encounter: 0,
-  aggression: 1,
-  justice: 1,
-  leadership: 1,
-  protection: 1,
-  basic: 2,
+  encounter: 1,
+  aggression: 2,
+  justice: 3,
+  leadership: 4,
+  protection: 5,
+  basic: 6,
 };
 
 export class Faction {

@@ -29,7 +29,7 @@ const getFactionOrSetText = (card: CardModel) => {
   );
 };
 
-const getResourceIcons = (card) => {
+const getResourceIcons = (card: CardModel) => {
   const resources = card.resources;
   if (resources == null) {
     return null;
@@ -93,6 +93,8 @@ const CardListItem: React.FunctionComponent<{
 
   if (card.typeCode === TypeCodes.VILLAIN && card.raw.stage != null) {
     infoText = `${infoText} · ${card.typeName} · Stage ${card.raw.stage}`;
+  } else if (card.cost != null) {
+    infoText = `${infoText} · ${card.typeName} · ${card.cost}`;
   } else {
     infoText = `${infoText} · ${card.typeName}`;
   }

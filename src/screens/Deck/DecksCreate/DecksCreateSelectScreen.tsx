@@ -58,8 +58,16 @@ const DecksCreateScreen: React.FunctionComponent<{
         newSelectedAspects = selectedAspects.filter(
           (aspect) => aspect !== code,
         );
+      } else if (
+        deckSet === SetCodes.SPIDER_WOMAN &&
+        selectedAspects.length > 0
+      ) {
+        newSelectedAspects = [
+          ...selectedAspects.slice(-1),
+          code as FactionCode,
+        ];
       } else {
-        newSelectedAspects = [...selectedAspects, code as FactionCode];
+        newSelectedAspects = [code as FactionCode];
       }
 
       newSelectedAspects.sort();

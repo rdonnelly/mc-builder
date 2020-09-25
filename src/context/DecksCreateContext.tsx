@@ -29,19 +29,24 @@ const DecksCreateProvider = (props) => {
 
   const updateDeckSet = (newDeckSet: SetCode) => {
     setDeckSet(newDeckSet);
-    if (deckAspect.length && (deckName == null || deckName === '')) {
-      const set = getSet(newDeckSet, false);
-      const faction = getFaction(deckAspect[0], false);
-      setDeckName(`${set.name} - ${faction.name}`);
-    }
+    setDeckAspect([]);
+    setDeckName(null);
   };
 
   const updateDeckAspect = (newDeckAspect: FactionCode[]) => {
+    const set = getSet(deckSet, false);
+    const oldFaction = getFaction(deckAspect[0], false);
+    const shouldUpdateName =
+      deckSet &&
+      (deckName == null ||
+        deckName === '' ||
+        deckName === `${set.name} - ${oldFaction.name}`);
+
     setDeckAspect(newDeckAspect);
-    if (deckSet && (deckName == null || deckName === '')) {
-      const set = getSet(deckSet, false);
-      const faction = getFaction(newDeckAspect[0], false);
-      setDeckName(`${set.name} - ${faction.name}`);
+
+    if (shouldUpdateName) {
+      const newFaction = getFaction(newDeckAspect[0], false);
+      setDeckName(`${set.name} - ${newFaction.name}`);
     }
   };
 

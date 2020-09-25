@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text } from 'react-native';
 import styled from 'styled-components/native';
+import { StyleSheet, Text } from 'react-native';
 
 import { DeckModel } from '../data';
 import { IDeck } from '../store/types';
@@ -26,7 +26,7 @@ const DecksListItem: React.FunctionComponent<{
             <DeckDetailsInfoText>
               <Text>{deckModel.setName}</Text>
               <Text>&nbsp;&middot;&nbsp;</Text>
-              <Text>{deckModel.aspectNames.join(', ')}</Text>
+              <Text>{deckModel.aspectNames.join(' + ')}</Text>
             </DeckDetailsInfoText>
           </DeckDetailsInfo>
         </DeckDetails>

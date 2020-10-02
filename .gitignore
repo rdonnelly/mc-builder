@@ -69,6 +69,8 @@ buck-out/
 
 # Build Scripts
 ios/exportOptions.plist
+ios-release.bundle
+ios-release.bundle.map
 
 # react-native-dotenv
 .env

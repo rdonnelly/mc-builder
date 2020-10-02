@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import { AppRegistry } from 'react-native';
-import { BUGSNAG_API_KEY } from 'react-native-dotenv';
+import { BUGSNAG_API_KEY } from '@env';
 import { Client } from 'bugsnag-react-native';
 import { enableScreens } from 'react-native-screens';
 

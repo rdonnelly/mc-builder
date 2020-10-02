@@ -56,6 +56,26 @@ push() {
   bumpBuild && podInstall && build && archive && exportArchive && upload $@
 }
 
+uploadToBugSnag() {
+  export $(grep '^BUGSNAG_API_KEY' .env | xargs)
+  VERSION="1.0"
+
+  yarn react-native bundle --platform ios \
+                           --dev false \
+                           --entry-file index.js \
+                           --bundle-output ios-release.bundle \
+                           --sourcemap-output ios-release.bundle.map
+
+  curl --http1.1 https://upload.bugsnag.com/react-native-source-map \
+       -F apiKey=$BUGSNAG_API_KEY \
+       -F appVersion=$VERSION \
+       -F dev=false \
+       -F platform=ios \
+       -F sourceMap=@ios-release.bundle.map \
+       -F bundle=@ios-release.bundle \
+       -F projectRoot=`pwd`
+}
+
 # we must have exactly one task, and maybe some arguments for that task
 # checking for emptiness of the command line argument string is a convenient
 # way to bail out early if we weren't told what to do

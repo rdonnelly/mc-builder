@@ -1,6 +1,6 @@
 import { RouteProp, useScrollToTop } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components/native';
 
 import { CardListContext } from '../../context/CardListContext';
@@ -43,8 +43,8 @@ const CardListScreen = ({
 
   const { setCardList } = useContext(CardListContext);
 
+  let filterName = null;
   if (filter && filterCode) {
-    let filterName = null;
     if (filter === FilterCodes.FACTION) {
       filterName = getFaction(filterCode as FactionCode).name;
     }
@@ -54,14 +54,15 @@ const CardListScreen = ({
     if (filter === FilterCodes.TYPE) {
       filterName = getType(filterCode as TypeCode).name;
     }
+  }
 
+  useEffect(() => {
     if (filterName) {
-      // TODO wrap in useEffect
       navigation.setOptions({
         headerTitle: filterName,
       });
     }
-  }
+  }, [filterName, navigation]);
 
   // TODO
   // TODO

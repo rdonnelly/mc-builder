@@ -56,9 +56,9 @@ push() {
   bumpBuild && podInstall && build && archive && exportArchive && upload $@
 }
 
-uploadToBugSnag() {
+sourceMaps() {
   export $(grep '^BUGSNAG_API_KEY' .env | xargs)
-  VERSION="1.0"
+  VERSION="0.1"
 
   yarn react-native bundle --platform ios \
                            --dev false \

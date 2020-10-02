@@ -2,6 +2,7 @@ import { Alert, SectionList, StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import React, { useContext } from 'react';
+import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import styled from 'styled-components/native';
 
 import { CardListContext } from '../context/CardListContext';
@@ -52,7 +53,15 @@ const DeckDetail: React.FunctionComponent<{
     />
   );
 
+  const handleEditDeck = () => {
+    if (navigation) {
+      ReactNativeHapticFeedback.trigger('impactLight');
+      navigation.navigate('DeckEdit', { code: deck.code });
+    }
+  };
+
   const handleDeleteDeck = () => {
+    ReactNativeHapticFeedback.trigger('impactLight');
     Alert.alert(
       'Delete Deck?',
       'Once deleted, we cannot recover the deck. Are you sure you want to continue?',
@@ -102,9 +111,7 @@ const DeckDetail: React.FunctionComponent<{
         contentContainerStyle={{ paddingBottom: 80 }}
       />
       <FloatingControls>
-        <FloatingControlsEditButton
-          onPress={() => navigation.navigate('DeckEdit', { code: deck.code })}
-        >
+        <FloatingControlsEditButton onPress={() => handleEditDeck()}>
           <FloatingControlsButtonText>Edit</FloatingControlsButtonText>
         </FloatingControlsEditButton>
         <FloatingControlsDeleteButton onPress={() => handleDeleteDeck()}>

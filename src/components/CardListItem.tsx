@@ -2,6 +2,7 @@ import { StyleSheet, Text } from 'react-native';
 import { useDispatch } from 'react-redux';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
 import React from 'react';
+import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import styled from 'styled-components/native';
 
 import { CardModel, FactionCodes, TypeCodes } from '../data';
@@ -83,11 +84,19 @@ const CardListItem: React.FunctionComponent<{
     card.setCode != null;
   const decrementIsDisabled = count <= 0 || card.setCode != null;
 
-  const increment = () =>
-    !incrementIsDisabled && dispatch(addCardToDeck(deckCode, card));
+  const increment = () => {
+    if (!incrementIsDisabled) {
+      ReactNativeHapticFeedback.trigger('selection');
+      dispatch(addCardToDeck(deckCode, card));
+    }
+  };
 
-  const decrement = () =>
-    !decrementIsDisabled && dispatch(removeCardFromDeck(deckCode, card));
+  const decrement = () => {
+    if (!decrementIsDisabled) {
+      ReactNativeHapticFeedback.trigger('selection');
+      dispatch(removeCardFromDeck(deckCode, card));
+    }
+  };
 
   let infoText = '';
 

@@ -1,5 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
+import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import styled from 'styled-components/native';
 
 import { DeckModel } from '../data';
@@ -19,6 +20,7 @@ const DeckEdit: React.FunctionComponent<{
 
   const handlePressItem = () => {
     if (navigation) {
+      ReactNativeHapticFeedback.trigger('impactLight');
       navigation.goBack();
     }
   };

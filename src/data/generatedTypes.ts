@@ -8,6 +8,7 @@ export enum FactionCodes {
   BASIC = 'basic',
   LEADERSHIP = 'leadership',
   PROTECTION = 'protection',
+  CAMPAIGN = 'campaign',
 }
 
 export type FactionCode =
@@ -17,7 +18,8 @@ export type FactionCode =
   | 'hero'
   | 'basic'
   | 'leadership'
-  | 'protection';
+  | 'protection'
+  | 'campaign';
 
 export enum PackCodes {
   CORE = 'core',
@@ -106,6 +108,26 @@ export enum SetCodes {
   HAWKEYE_NEMESIS = 'hawkeye_nemesis',
   SPIDER_WOMAN = 'spider_woman',
   SPIDER_WOMAN_NEMESIS = 'spider_woman_nemesis',
+  CROSSBONES = 'crossbones',
+  EXPER_WEAPON = 'exper_weapon',
+  ABSORBING_MAN = 'absorbing_man',
+  TASKMASTER = 'taskmaster',
+  ZOLA = 'zola',
+  RED_SKULL = 'red_skull',
+  HYDRA_ASSAULT = 'hydra_assault',
+  WEAP_MASTER = 'weap_master',
+  HYDRA_PATROL = 'hydra_patrol',
+  HYDRA_CAMP = 'hydra_camp',
+  EXPCAMP = 'expcamp',
+  KANG = 'kang',
+  TEMPORAL = 'temporal',
+  EXP_KANG = 'exp_kang',
+  ANCHRONAUTS = 'anchronauts',
+  MOT = 'mot',
+  ANT = 'ant',
+  ANT_NEMESIS = 'ant_nemesis',
+  WSP = 'wsp',
+  WSP_NEMESIS = 'wsp_nemesis',
 }
 
 export type SetCode =
@@ -157,7 +179,27 @@ export type SetCode =
   | 'hawkeye'
   | 'hawkeye_nemesis'
   | 'spider_woman'
-  | 'spider_woman_nemesis';
+  | 'spider_woman_nemesis'
+  | 'crossbones'
+  | 'exper_weapon'
+  | 'absorbing_man'
+  | 'taskmaster'
+  | 'zola'
+  | 'red_skull'
+  | 'hydra_assault'
+  | 'weap_master'
+  | 'hydra_patrol'
+  | 'hydra_camp'
+  | 'expcamp'
+  | 'kang'
+  | 'temporal'
+  | 'exp_kang'
+  | 'anchronauts'
+  | 'mot'
+  | 'ant'
+  | 'ant_nemesis'
+  | 'wsp'
+  | 'wsp_nemesis';
 
 export enum SetTypeCodes {
   VILLAIN = 'villain',

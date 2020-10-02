@@ -35,7 +35,7 @@
     "bugsnag-react-native": "^2.23.7",
     "dts-gen": "^0.6.0",
     "lodash": "^4.17.15",
-    "marvelsdb-json-data": "https://github.com/rdonnelly/marvelsdb-json-data.git",
+    "marvelsdb-json-data": "https://github.com/rdonnelly/marvelsdb-json-data.git#main",
     "memoize-one": "^5.1.1",
     "react": "16.13.1",
     "react-native": "0.63.3",

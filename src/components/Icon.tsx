@@ -65,10 +65,11 @@ const Icon: React.FunctionComponent<{
 };
 
 const IconText = styled.Text<{ color?: string; size?: number }>`
-  ${(props) => (props.color != null ? `color: ${props.color}` : null)};
+  ${(props) => (props.color != null ? `color: ${props.color};` : null)};
   ${(props) => (props.size != null ? `font-size: ${props.size}px;` : null)};
 
-  font-family: marvel-icons;
+  font-family: 'marvel-icons';
+  font-weight: normal;
 `;
 
 export default Icon;

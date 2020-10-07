@@ -74,6 +74,13 @@ sourceMaps() {
        -F sourceMap=@ios-release.bundle.map \
        -F bundle=@ios-release.bundle \
        -F projectRoot=`pwd`
+
+  # bugsnag-sourcemaps upload --api-key=$BUGSNAG_API_KEY \
+  #                           --app-version=0.1 \
+  #                           --minifiedFile=android/app/build/generated/assets/react/release/index.android.bundle \
+  #                           --source-map=android/app/build/generated/sourcemaps/react/release/index.android.bundle.map \
+  #                           --minified-url=index.android.bundle \
+  #                           --upload-sources
 }
 
 # we must have exactly one task, and maybe some arguments for that task

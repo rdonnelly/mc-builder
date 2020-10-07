@@ -29,14 +29,14 @@ const DeckEdit: React.FunctionComponent<{
     <Container>
       <Summary>
         <IdentityWrapper>
-          {heroCardImageSrc && (
+          {heroCardImageSrc ? (
             <IdentityImage source={{ uri: heroCardImageSrc }} />
-          )}
+          ) : null}
         </IdentityWrapper>
         <IdentityWrapper>
-          {alterEgoCardImageSrc && (
+          {alterEgoCardImageSrc ? (
             <IdentityImage source={{ uri: alterEgoCardImageSrc }} />
-          )}
+          ) : null}
         </IdentityWrapper>
         <Info>
           <InfoItem>

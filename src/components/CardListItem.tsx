@@ -117,11 +117,11 @@ const CardListItem: React.FunctionComponent<{
   return (
     <Container>
       <ListItemInner onPress={() => onPressItem(card.code)}>
-        {count != null && (
+        {count != null ? (
           <CardCount active={count > 0}>
             <CardCountText active={count > 0}>{`x${count}`}</CardCountText>
           </CardCount>
-        )}
+        ) : null}
         <CardDetails>
           <CardDetailsName>
             <CardDetailsNameText numberOfLines={1}>

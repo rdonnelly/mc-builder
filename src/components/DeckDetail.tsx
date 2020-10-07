@@ -83,14 +83,14 @@ const DeckDetail: React.FunctionComponent<{
     <Container>
       <Summary>
         <IdentityWrapper onPress={() => handlePressItem(heroCard.code)}>
-          {heroCardImageSrc && (
+          {heroCardImageSrc ? (
             <IdentityImage source={{ uri: heroCardImageSrc }} />
-          )}
+          ) : null}
         </IdentityWrapper>
         <IdentityWrapper onPress={() => handlePressItem(alterEgoCard.code)}>
-          {alterEgoCardImageSrc && (
+          {alterEgoCardImageSrc ? (
             <IdentityImage source={{ uri: alterEgoCardImageSrc }} />
-          )}
+          ) : null}
         </IdentityWrapper>
         <Info>
           <InfoItem>

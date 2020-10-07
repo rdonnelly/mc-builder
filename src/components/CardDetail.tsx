@@ -83,22 +83,22 @@ const CardDetailInfo: React.FunctionComponent<{
 }> = ({ card }) => {
   return (
     <CardDetailInfoContainer>
-      {card.raw.subname != null && (
+      {card.raw.subname != null ? (
         <CardDetailInfoContainerSubtitle>
           <CardDetailInfoContainerSubtitleText>
             {card.raw.subname}
           </CardDetailInfoContainerSubtitleText>
         </CardDetailInfoContainerSubtitle>
-      )}
+      ) : null}
       <CardDetailInfoContainerTypes>
         <CardDetailInfoContainerTypesTextBold>
           {`${card.typeName}.`}
         </CardDetailInfoContainerTypesTextBold>
-        {card.raw.traits && (
+        {card.raw.traits ? (
           <CardDetailInfoContainerTypesText>
             {` ${card.raw.traits}`}
           </CardDetailInfoContainerTypesText>
-        )}
+        ) : null}
       </CardDetailInfoContainerTypes>
     </CardDetailInfoContainer>
   );
@@ -528,16 +528,16 @@ const CardDetailFooter: React.FunctionComponent<{
 
   return (
     <CardDetailFooterContainer>
-      {resources != null && (
+      {resources != null ? (
         <CardDetailFooterContainerResource>
           {resourceIcons}
         </CardDetailFooterContainerResource>
-      )}
+      ) : null}
       {card.raw.boost == null && card.boostText == null ? null : (
         <CardDetailFooterContainerBoost>
-          {card.boostText && (
+          {card.boostText ? (
             <Icon code={IconCode.special} color={colors.darkGray} size={16} />
-          )}
+          ) : null}
           {[...Array(card.raw.boost || 0).keys()].map((i) => (
             <Icon
               code={IconCode.boost}

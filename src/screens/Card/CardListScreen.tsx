@@ -167,7 +167,7 @@ const CardListScreen = ({
         ListHeaderComponent={renderHeader}
         ListFooterComponent={renderFooter}
       />
-      {!filter && !filterCode && (
+      {!filter && !filterCode ? (
         <Filters>
           <FiltersButton onPress={handlePressFactions}>
             <FiltersButtonText>Factions</FiltersButtonText>
@@ -179,7 +179,7 @@ const CardListScreen = ({
             <FiltersButtonText>Types</FiltersButtonText>
           </FiltersButton>
         </Filters>
-      )}
+      ) : null}
     </Container>
   );
 };

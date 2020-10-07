@@ -60,7 +60,7 @@ const renderCardText = (card: CardModel, key: string, isFlavor = false) => {
   };
 
   return (
-    <CardDetailTextContainerSection key={`card-text-${key}`}>
+    <CardDetailTextContainerSection key={`card-text-${card.code}-${key}`}>
       <Html
         html={text}
         baseFontStyle={
@@ -465,7 +465,7 @@ const CardDetailText: React.FunctionComponent<{
     .reduce((newSections, section, i) => {
       if (i !== 0) {
         newSections.push(
-          <CardDetailTextContainerDivider key={`card-text-divider-${i}`} />,
+          <CardDetailTextContainerDivider key={`card-text-divider-${card.code}-${i}`} />,
         );
       }
 

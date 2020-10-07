@@ -185,8 +185,8 @@ const cards = [].concat(
   require('marvelsdb-json-data/pack/ron_encounter.json'),
   require('marvelsdb-json-data/pack/thor_encounter.json'),
   require('marvelsdb-json-data/pack/thor.json'),
+  require('marvelsdb-json-data/pack/trors_encounter.json'),
   require('marvelsdb-json-data/pack/trors.json'),
-  require('marvelsdb-json-data/pack/trors_encounters.json'),
   require('marvelsdb-json-data/pack/twc_encounter.json'),
 );
 

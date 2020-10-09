@@ -4,6 +4,8 @@
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 
+#import "RNBootSplash.h"
+
 #ifdef FB_SONARKIT_ENABLED
 #import <FlipperKit/FlipperClient.h>
 #import <FlipperKitLayoutPlugin/FlipperKitLayoutPlugin.h>
@@ -44,27 +46,13 @@ static void InitializeFlipper(UIApplication *application) {
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
 
-  UIView *loadingView = [[UIView alloc] initWithFrame:rootView.bounds];
-
-  UIImageView* launchBackgroundImageView = [[UIImageView alloc] initWithFrame:loadingView.bounds];
-  [launchBackgroundImageView setImage:[UIImage imageNamed:@"Launch-Background"]];
-  [launchBackgroundImageView setContentMode:UIViewContentModeScaleAspectFill];
-  [loadingView addSubview:launchBackgroundImageView];
-
-  UIImageView* launchImageView = [[UIImageView alloc] initWithFrame:loadingView.bounds];
-  [launchImageView setImage:[UIImage imageNamed:@"Launch"]];
-  [launchImageView setContentMode:UIViewContentModeCenter];
-  [loadingView addSubview:launchImageView];
+  [RNBootSplash initWithStoryboard:@"BootSplash" rootView:rootView];
 
   UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-  spinner.color = [[UIColor alloc] initWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0];
-  spinner.center = CGPointMake(loadingView.frame.size.width * 0.5, loadingView.frame.size.height * 0.85);
+  spinner.color = [[UIColor alloc] initWithRed:52.0/255.0 green:73.0/255.0 blue:94.0/255.0 alpha:1.0];
+  spinner.center = CGPointMake(rootView.loadingView.frame.size.width * 0.5, rootView.loadingView.frame.size.height * 0.85);
   [spinner startAnimating];
-  [loadingView addSubview:spinner];
-
-  rootView.loadingView = loadingView;
-  rootView.loadingViewFadeDelay = 0.5;
-  rootView.loadingViewFadeDuration = 0.5;
+  [rootView.loadingView addSubview:spinner];
 
   return YES;
 }

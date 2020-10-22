@@ -60,28 +60,36 @@ sourceMaps() {
   export $(grep '^BUGSNAG_API_KEY' .env | xargs)
   VERSION="0.1"
 
-  yarn react-native bundle --platform ios \
-                           --dev false \
-                           --entry-file index.js \
-                           --bundle-output ios-release.bundle \
-                           --sourcemap-output ios-release.bundle.map
+  # yarn react-native bundle --platform ios \
+  #                          --dev false \
+  #                          --entry-file index.js \
+  #                          --bundle-output ios-release.bundle \
+  #                          --sourcemap-output ios-release.bundle.map
+  #
+  # curl --http1.1 https://upload.bugsnag.com/react-native-source-map \
+  #      -F apiKey=$BUGSNAG_API_KEY \
+  #      -F appVersion=$VERSION \
+  #      -F dev=false \
+  #      -F platform=ios \
+  #      -F sourceMap=@ios-release.bundle.map \
+  #      -F bundle=@ios-release.bundle \
+  #      -F projectRoot=`pwd`
 
-  curl --http1.1 https://upload.bugsnag.com/react-native-source-map \
-       -F apiKey=$BUGSNAG_API_KEY \
-       -F appVersion=$VERSION \
-       -F dev=false \
-       -F platform=ios \
-       -F sourceMap=@ios-release.bundle.map \
-       -F bundle=@ios-release.bundle \
-       -F projectRoot=`pwd`
-
-  # bugsnag-sourcemaps upload --api-key=$BUGSNAG_API_KEY \
-  #                           --app-version=0.1 \
-  #                           --minifiedFile=android/app/build/generated/assets/react/release/index.android.bundle \
-  #                           --source-map=android/app/build/generated/sourcemaps/react/release/index.android.bundle.map \
-  #                           --minified-url=index.android.bundle \
-  #                           --upload-sources
+  npx bugsnag-sourcemaps upload --api-key=$BUGSNAG_API_KEY \
+                                --app-version=$VERSION \
+                                --minifiedFile=android/app/build/generated/assets/react/release/index.android.bundle \
+                                --source-map=android/app/build/generated/sourcemaps/react/release/index.android.bundle.map \
+                                --minified-url=index.android.bundle \
+                                --upload-sources \
+                                --overwrite
 }
+
+# TODO
+
+# update versionCode and versionName in android/app/build.gradle
+# 537  cd android
+# 538  ./gradlew bundleRelease
+
 
 # we must have exactly one task, and maybe some arguments for that task
 # checking for emptiness of the command line argument string is a convenient

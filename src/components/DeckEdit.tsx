@@ -51,9 +51,15 @@ const DeckEdit: React.FunctionComponent<{
       </Summary>
       <DeckEditList deck={deck} />
       <FloatingControls>
-        <FloatingControlsSaveButton onPress={() => handlePressItem()}>
-          <FloatingControlsButtonText>Done</FloatingControlsButtonText>
-        </FloatingControlsSaveButton>
+        <FloatingControlsButtonWrapper onPress={() => handlePressItem()}>
+          {({ pressed }) => (
+            <FloatingControlsSaveButton pressed={pressed}>
+              <FloatingControlsButtonText pressed={pressed}>
+                Done
+              </FloatingControlsButtonText>
+            </FloatingControlsSaveButton>
+          )}
+        </FloatingControlsButtonWrapper>
       </FloatingControls>
     </Container>
   );
@@ -124,12 +130,18 @@ const FloatingControls = styled.View`
   padding: 8px 4px;
 `;
 
-const FloatingControlsSaveButton = styled(base.Button)`
-  background-color: ${colors.green};
+const FloatingControlsButtonWrapper = styled(base.ButtonWrapper)`
   flex: 1 1 auto;
   margin-horizontal: 4px;
 `;
 
-const FloatingControlsButtonText = styled(base.ButtonText)``;
+const FloatingControlsSaveButton = styled(base.Button)<{ pressed?: boolean }>`
+  background-color: ${(props) =>
+    props.pressed ? colors.greenDark : colors.green};
+`;
+
+const FloatingControlsButtonText = styled(base.ButtonText)<{
+  pressed?: boolean;
+}>``;
 
 export default DeckEdit;

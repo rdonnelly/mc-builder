@@ -111,12 +111,24 @@ const DeckDetail: React.FunctionComponent<{
         contentContainerStyle={{ paddingBottom: 80 }}
       />
       <FloatingControls>
-        <FloatingControlsEditButton onPress={() => handleEditDeck()}>
-          <FloatingControlsButtonText>Edit</FloatingControlsButtonText>
-        </FloatingControlsEditButton>
-        <FloatingControlsDeleteButton onPress={() => handleDeleteDeck()}>
-          <FloatingControlsButtonText>Delete</FloatingControlsButtonText>
-        </FloatingControlsDeleteButton>
+        <FloatingControlsButtonWrapper onPress={() => handleEditDeck()}>
+          {({ pressed }) => (
+            <FloatingControlsEditButton pressed={pressed}>
+              <FloatingControlsButtonText pressed={pressed}>
+                Edit
+              </FloatingControlsButtonText>
+            </FloatingControlsEditButton>
+          )}
+        </FloatingControlsButtonWrapper>
+        <FloatingControlsButtonWrapper onPress={() => handleDeleteDeck()}>
+          {({ pressed }) => (
+            <FloatingControlsDeleteButton pressed={pressed}>
+              <FloatingControlsButtonText pressed={pressed}>
+                Delete
+              </FloatingControlsButtonText>
+            </FloatingControlsDeleteButton>
+          )}
+        </FloatingControlsButtonWrapper>
       </FloatingControls>
     </Container>
   );
@@ -208,18 +220,22 @@ const FloatingControls = styled.View`
   padding: 8px 4px;
 `;
 
-const FloatingControlsEditButton = styled(base.Button)`
-  background-color: ${colors.purple};
+const FloatingControlsButtonWrapper = styled(base.ButtonWrapper)`
   flex: 1 1 auto;
   margin-horizontal: 4px;
 `;
 
-const FloatingControlsDeleteButton = styled(base.Button)`
-  background-color: ${colors.red};
-  flex: 1 1 auto;
-  margin-horizontal: 4px;
+const FloatingControlsEditButton = styled(base.Button)<{ pressed?: boolean }>`
+  background-color: ${(props) =>
+    props.pressed ? colors.purpleDark : colors.purple};
 `;
 
-const FloatingControlsButtonText = styled(base.ButtonText)``;
+const FloatingControlsDeleteButton = styled(base.Button)<{ pressed?: boolean }>`
+  background-color: ${(props) => (props.pressed ? colors.redDark : colors.red)};
+`;
+
+const FloatingControlsButtonText = styled(base.ButtonText)<{
+  pressed?: boolean;
+}>``;
 
 export default DeckDetail;

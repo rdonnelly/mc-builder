@@ -1,3 +1,4 @@
+import { ListRenderItem } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { TouchableOpacity } from 'react-native';
 import { useSelector } from 'react-redux';
@@ -42,7 +43,7 @@ const DecksListScreen: React.FunctionComponent<{
     }
   };
 
-  const renderCard = ({ item: deckCode }: { item: string }) => (
+  const renderCard: ListRenderItem<string> = ({ item: deckCode }) => (
     <DecksListItem
       deck={deckEntities[deckCode]}
       onPressItem={handlePressItem}
@@ -86,11 +87,17 @@ const DecksListScreen: React.FunctionComponent<{
         renderEmpty()
       )}
       <FloatingControls>
-        <FloatingControlsButton
+        <FloatingControlsButtonWrapper
           onPress={() => navigation.navigate('DecksCreate')}
         >
-          <FloatingControlsButtonText>Create Deck</FloatingControlsButtonText>
-        </FloatingControlsButton>
+          {({ pressed }) => (
+            <FloatingControlsButton pressed={pressed}>
+              <FloatingControlsButtonText pressed={pressed}>
+                Create Deck
+              </FloatingControlsButtonText>
+            </FloatingControlsButton>
+          )}
+        </FloatingControlsButtonWrapper>
       </FloatingControls>
     </Container>
   );
@@ -115,12 +122,18 @@ const FloatingControls = styled.View`
   padding: 8px 4px;
 `;
 
-const FloatingControlsButton = styled(base.Button)`
-  background-color: ${colors.purple};
+const FloatingControlsButtonWrapper = styled(base.ButtonWrapper)`
   flex: 1 1 auto;
   margin-horizontal: 4px;
 `;
 
-const FloatingControlsButtonText = styled(base.ButtonText)``;
+const FloatingControlsButton = styled(base.Button)<{ pressed?: boolean }>`
+  background-color: ${(props) =>
+    props.pressed ? colors.purpleDark : colors.purple};
+`;
+
+const FloatingControlsButtonText = styled(base.ButtonText)<{
+  pressed?: boolean;
+}>``;
 
 export default DecksListScreen;

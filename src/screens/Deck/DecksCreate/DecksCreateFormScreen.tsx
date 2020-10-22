@@ -106,12 +106,20 @@ const DecksCreateFormScreen: React.FunctionComponent<{
       </Form>
 
       <Controls>
-        <CancelButton onPress={() => navigation.goBack()}>
-          <CancelButtonText>Cancel</CancelButtonText>
-        </CancelButton>
-        <AddButton onPress={submit}>
-          <AddButtonText>Create Deck</AddButtonText>
-        </AddButton>
+        <CancelButtonWrapper onPress={() => navigation.goBack()}>
+          {({ pressed }) => (
+            <CancelButton pressed={pressed}>
+              <CancelButtonText pressed={pressed}>Cancel</CancelButtonText>
+            </CancelButton>
+          )}
+        </CancelButtonWrapper>
+        <AddButtonWrapper onPress={submit}>
+          {({ pressed }) => (
+            <AddButton pressed={pressed}>
+              <AddButtonText pressed={pressed}>Create Deck</AddButtonText>
+            </AddButton>
+          )}
+        </AddButtonWrapper>
       </Controls>
     </Container>
   );
@@ -181,20 +189,28 @@ const Controls = styled.View`
   padding-horizontal: 16px;
 `;
 
-const AddButton = styled(base.Button)`
-  background-color: ${colors.green};
+const AddButtonWrapper = styled(base.ButtonWrapper)`
   flex: 3;
   margin-left: 4px;
 `;
 
-const AddButtonText = styled(base.ButtonText)``;
+const AddButton = styled(base.Button)<{ pressed?: boolean }>`
+  background-color: ${(props) =>
+    props.pressed ? colors.greenDark : colors.green};
+`;
 
-const CancelButton = styled(base.Button)`
-  background-color: ${colors.lightGrayDark};
+const AddButtonText = styled(base.ButtonText)<{ pressed?: boolean }>``;
+
+const CancelButtonWrapper = styled(base.ButtonWrapper)`
   flex: 1;
   margin-right: 4px;
 `;
 
-const CancelButtonText = styled(base.ButtonText)``;
+const CancelButton = styled(base.Button)<{ pressed?: boolean }>`
+  background-color: ${(props) =>
+    props.pressed ? colors.gray : colors.lightGrayDark};
+`;
+
+const CancelButtonText = styled(base.ButtonText)<{ pressed?: boolean }>``;
 
 export default DecksCreateFormScreen;

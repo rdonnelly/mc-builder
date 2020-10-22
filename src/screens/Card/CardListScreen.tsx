@@ -1,5 +1,6 @@
+import { ListRenderItem } from 'react-native';
 import { RouteProp, useScrollToTop } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
+import { orangeDark } from '@react-navigation/orange';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components/native';
 
@@ -113,7 +114,7 @@ const CardListScreen = ({
     searchInputRef.current.blur();
   };
 
-  const renderCard = ({ item: card }: { item: CardModel }) => (
+  const renderCard: ListRenderItem<CardModel> = ({ item: card }) => (
     <CardListItem
       card={card}
       isSelected={false}
@@ -169,15 +170,29 @@ const CardListScreen = ({
       />
       {!filter && !filterCode ? (
         <Filters>
-          <FiltersButton onPress={handlePressFactions}>
-            <FiltersButtonText>Factions</FiltersButtonText>
-          </FiltersButton>
-          <FiltersButton onPress={handlePressPacks}>
-            <FiltersButtonText>Packs</FiltersButtonText>
-          </FiltersButton>
-          <FiltersButton onPress={handlePressTypes}>
-            <FiltersButtonText>Types</FiltersButtonText>
-          </FiltersButton>
+          <FiltersButtonWrapper onPress={handlePressFactions}>
+            {({ pressed }) => (
+              <FiltersButton pressed={pressed}>
+                <FiltersButtonText pressed={pressed}>
+                  Factions
+                </FiltersButtonText>
+              </FiltersButton>
+            )}
+          </FiltersButtonWrapper>
+          <FiltersButtonWrapper>
+            {({ pressed }) => (
+              <FiltersButton pressed={pressed}>
+                <FiltersButtonText pressed={pressed}>Packs</FiltersButtonText>
+              </FiltersButton>
+            )}
+          </FiltersButtonWrapper>
+          <FiltersButtonWrapper onPress={handlePressTypes}>
+            {({ pressed }) => (
+              <FiltersButton pressed={pressed}>
+                <FiltersButtonText pressed={pressed}>Types</FiltersButtonText>
+              </FiltersButton>
+            )}
+          </FiltersButtonWrapper>
         </Filters>
       ) : null}
     </Container>
@@ -199,16 +214,17 @@ const Filters = styled.View`
   padding: 8px 4px;
 `;
 
-const FiltersButton = styled(base.Button)`
-  background-color: ${colors.orange};
+const FiltersButtonWrapper = styled(base.ButtonWrapper)`
   flex: 1 1 0;
   margin-horizontal: 4px;
 `;
 
-const FiltersButtonText = styled(base.ButtonText)`
-  color: ${colors.white};
-  font-size: 16px;
+const FiltersButton = styled(base.Button)<{ pressed?: boolean }>`
+  background-color: ${(props) =>
+    props.pressed ? colors.orangeDark : colors.orange};
 `;
+
+const FiltersButtonText = styled(base.ButtonText)<{ pressed?: boolean }>``;
 
 const FlatList = styled(base.FlatList)``;
 

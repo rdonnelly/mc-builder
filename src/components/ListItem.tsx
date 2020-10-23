@@ -1,5 +1,5 @@
+import { Pressable, StyleSheet } from 'react-native';
 import React from 'react';
-import { StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 
 import { base, colors } from '../styles';
@@ -12,12 +12,16 @@ const ListItem: React.FunctionComponent<{
 }> = ({ item, handlePressItem }) => {
   return (
     <Container>
-      <ListItemInner onPress={() => handlePressItem(item.code)}>
-        <ListItemInnerText>{item.name}</ListItemInnerText>
-        <ListChevronWrapper>
-          <ListChevron name={'chevron-right'} size={16} />
-        </ListChevronWrapper>
-      </ListItemInner>
+      <ListItemPressable onPress={() => handlePressItem(item.code)}>
+        {({ pressed }) => (
+          <ListItemInner pressed={pressed}>
+            <ListItemInnerText>{item.name}</ListItemInnerText>
+            <ListChevronWrapper>
+              <ListChevron name={'chevron-right'} size={16} />
+            </ListChevronWrapper>
+          </ListItemInner>
+        )}
+      </ListItemPressable>
     </Container>
   );
 };
@@ -31,11 +35,16 @@ const Container = styled(base.Container)`
   justify-content: center;
 `;
 
-const ListItemInner = styled.TouchableOpacity`
+const ListItemPressable = styled(Pressable)`
+  width: 100%;
+`;
+
+const ListItemInner = styled.View<{ pressed: boolean }>`
   align-items: center;
   flex: 1 1 auto;
   flex-direction: row;
   justify-content: space-between;
+  opacity: ${(props) => (props.pressed ? 0.4 : 1.0)};
   padding-horizontal: 16px;
   width: 100%;
 `;

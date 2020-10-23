@@ -1,3 +1,4 @@
+import { Pressable } from 'react-native';
 import { ScrollView, StyleSheet } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import Html from 'react-native-render-html';
@@ -465,7 +466,9 @@ const CardDetailText: React.FunctionComponent<{
     .reduce((newSections, section, i) => {
       if (i !== 0) {
         newSections.push(
-          <CardDetailTextContainerDivider key={`card-text-divider-${card.code}-${i}`} />,
+          <CardDetailTextContainerDivider
+            key={`card-text-divider-${card.code}-${i}`}
+          />,
         );
       }
 
@@ -567,13 +570,13 @@ const CardDetailImage: React.FunctionComponent<{
   const imageSrc = card.imageSrc;
 
   return imageSrc ? (
-    <CardDetailImageContainer
-      height={cardHeight}
-      activeOpacity={0.9}
-      onLongPress={() => handleImageLongPress(card)}
-    >
-      <Image resizeMode="contain" source={{ uri: card.imageSrc }} />
-    </CardDetailImageContainer>
+    <Pressable onLongPress={() => handleImageLongPress(card)}>
+      {({ pressed }) => (
+        <CardDetailImageContainer height={cardHeight} pressed={pressed}>
+          <Image resizeMode="contain" source={{ uri: card.imageSrc }} />
+        </CardDetailImageContainer>
+      )}
+    </Pressable>
   ) : null;
 };
 
@@ -753,11 +756,13 @@ const CardDetailFooterContainerBoost = styled.View`
   flex-direction: row;
 `;
 
-const CardDetailImageContainer = styled.TouchableOpacity<{
+const CardDetailImageContainer = styled.View<{
   height: CardImageHeight;
+  pressed: boolean;
 }>`
   height: ${(props) => props.height}px;
   margin-bottom: 16px;
+  opacity: ${(props) => (props.pressed ? 0.9 : 1.0)};
   padding-horizontal: 0px;
   width: 100%;
 `;

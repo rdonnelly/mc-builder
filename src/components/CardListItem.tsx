@@ -1,3 +1,4 @@
+import { Pressable } from 'react-native';
 import { StyleSheet, Text } from 'react-native';
 import { useDispatch } from 'react-redux';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
@@ -115,65 +116,83 @@ const CardListItem: React.FunctionComponent<{
   }
 
   return (
-    <Container>
-      <ListItemInner onPress={() => onPressItem(card.code)}>
-        {count != null ? (
-          <CardCount active={count > 0}>
-            <CardCountText active={count > 0}>{`x${count}`}</CardCountText>
-          </CardCount>
-        ) : null}
-        <CardDetails>
-          <CardDetailsName>
-            <CardDetailsNameText numberOfLines={1}>
-              {card.name}
-            </CardDetailsNameText>
-          </CardDetailsName>
-          <CardDetailsInfo>
-            <CardDetailsInfoText numberOfLines={1}>
-              {getFactionOrSetText(card)}
-              {infoText}
-              {getResourceIcons(card)}
-              {packText}
-            </CardDetailsInfoText>
-          </CardDetailsInfo>
-        </CardDetails>
-        {showEditControls === true ? (
-          <CardControls>
-            <CardCountDecrementButton
-              onPress={() => decrement()}
-              inactive={decrementIsDisabled}
-            >
-              <FontAwesomeIcon
-                name="minus"
-                color={decrementIsDisabled ? colors.lightGrayDark : colors.red}
-                size={16}
-                solid
-              />
-            </CardCountDecrementButton>
-            <CardCountIncrementButton
-              onPress={() => increment()}
-              inactive={incrementIsDisabled}
-            >
-              <FontAwesomeIcon
-                name="plus"
-                color={
-                  incrementIsDisabled ? colors.lightGrayDark : colors.green
-                }
-                size={16}
-                solid
-              />
-            </CardCountIncrementButton>
-          </CardControls>
-        ) : null}
-        <ListChevronWrapper>
-          <ListChevron name={'chevron-right'} size={16} />
-        </ListChevronWrapper>
-      </ListItemInner>
-    </Container>
+    <ListItemOuter>
+      <ListItemPressable onPress={() => onPressItem(card.code)}>
+        {({ pressed }) => (
+          <ListItemInner pressed={pressed}>
+            {count != null ? (
+              <CardCount active={count > 0}>
+                <CardCountText active={count > 0}>{`x${count}`}</CardCountText>
+              </CardCount>
+            ) : null}
+            <CardDetails>
+              <CardDetailsName>
+                <CardDetailsNameText numberOfLines={1}>
+                  {card.name}
+                </CardDetailsNameText>
+              </CardDetailsName>
+              <CardDetailsInfo>
+                <CardDetailsInfoText numberOfLines={1}>
+                  {getFactionOrSetText(card)}
+                  {infoText}
+                  {getResourceIcons(card)}
+                  {packText}
+                </CardDetailsInfoText>
+              </CardDetailsInfo>
+            </CardDetails>
+            {showEditControls === true ? (
+              <CardControls>
+                <CardCountDecrementButton
+                  onPress={() => decrement()}
+                  inactive={decrementIsDisabled}
+                >
+                  {({ pressed }) => (
+                    <FontAwesomeIcon
+                      name="minus"
+                      color={
+                        decrementIsDisabled
+                          ? colors.lightGrayDark
+                          : pressed
+                          ? colors.redDark
+                          : colors.red
+                      }
+                      size={16}
+                      solid
+                    />
+                  )}
+                </CardCountDecrementButton>
+                <CardCountIncrementButton
+                  onPress={() => increment()}
+                  inactive={incrementIsDisabled}
+                >
+                  {({ pressed }) => (
+                    <FontAwesomeIcon
+                      name="plus"
+                      color={
+                        incrementIsDisabled
+                          ? colors.lightGrayDark
+                          : pressed
+                          ? colors.greenDark
+                          : colors.green
+                      }
+                      size={16}
+                      solid
+                    />
+                  )}
+                </CardCountIncrementButton>
+              </CardControls>
+            ) : null}
+            <ListChevronWrapper>
+              <ListChevron name={'chevron-right'} size={16} />
+            </ListChevronWrapper>
+          </ListItemInner>
+        )}
+      </ListItemPressable>
+    </ListItemOuter>
   );
 };
 
-const Container = styled(base.Container)`
+const ListItemOuter = styled(base.Container)`
   background-color: ${colors.lightGray};
   border-bottom-color: ${colors.lightGrayDark};
   border-bottom-width: ${StyleSheet.hairlineWidth}px;
@@ -182,11 +201,14 @@ const Container = styled(base.Container)`
   justify-content: center;
 `;
 
-const ListItemInner = styled.TouchableOpacity`
+const ListItemPressable = styled(Pressable)``;
+
+const ListItemInner = styled.View<{ pressed: boolean }>`
   align-items: center;
-  flex: 1 1 auto;
   flex-direction: row;
+  flex: 1 1 auto;
   justify-content: space-between;
+  opacity: ${(props) => (props.pressed ? 0.4 : 1.0)};
   padding-horizontal: 16px;
   width: 100%;
 `;
@@ -251,7 +273,7 @@ const CardControls = styled.View`
   margin-right: 8px;
 `;
 
-const CardCountButton = styled.TouchableOpacity<{
+const CardCountButton = styled(Pressable)<{
   inactive?: boolean;
 }>`
   align-items: center;

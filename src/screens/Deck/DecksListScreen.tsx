@@ -1,6 +1,6 @@
 import { ListRenderItem } from 'react-native';
+import { Pressable } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { TouchableOpacity } from 'react-native';
 import { useSelector } from 'react-redux';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
 import React, { useEffect } from 'react';
@@ -22,14 +22,16 @@ const DecksListScreen: React.FunctionComponent<{
     navigation.setOptions({
       headerRight: () => {
         return (
-          <TouchableOpacity onPress={() => navigation.navigate('DecksCreate')}>
-            <FontAwesomeIcon
-              name="layer-plus"
-              color={colors.white}
-              size={24}
-              solid
-            />
-          </TouchableOpacity>
+          <Pressable onPress={() => navigation.navigate('DecksCreate')}>
+            {({ pressed }) => (
+              <FontAwesomeIcon
+                name="layer-plus"
+                color={pressed ? colors.purpleDark : colors.white}
+                size={24}
+                solid
+              />
+            )}
+          </Pressable>
         );
       },
     });

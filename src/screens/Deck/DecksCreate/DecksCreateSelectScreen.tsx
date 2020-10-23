@@ -1,6 +1,6 @@
+import { Pressable, StyleSheet } from 'react-native';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components/native';
@@ -92,14 +92,18 @@ const DecksCreateScreen: React.FunctionComponent<{
 
   const renderItem = ({ item }) => (
     <Row>
-      <ListItemInner onPress={() => handlePressItem(item.code)}>
-        <ListItemInnerText>{item.name}</ListItemInnerText>
-        <ListIconWrapper>
-          <ListIcon
-            active={item.code === deckSet || deckAspect.includes(item.code)}
-          />
-        </ListIconWrapper>
-      </ListItemInner>
+      <ListItemPressable onPress={() => handlePressItem(item.code)}>
+        {({ pressed }) => (
+          <ListItemInner pressed={pressed}>
+            <ListItemInnerText>{item.name}</ListItemInnerText>
+            <ListIconWrapper>
+              <ListIcon
+                active={item.code === deckSet || deckAspect.includes(item.code)}
+              />
+            </ListIconWrapper>
+          </ListItemInner>
+        )}
+      </ListItemPressable>
     </Row>
   );
 
@@ -129,13 +133,17 @@ const Row = styled(base.Container)`
   justify-content: center;
 `;
 
-const ListItemInner = styled.TouchableOpacity`
+const ListItemPressable = styled(Pressable)`
+  width: 100%;
+`;
+
+const ListItemInner = styled.View<{ pressed: boolean }>`
   align-items: center;
   flex: 1 1 auto;
   flex-direction: row;
   justify-content: space-between;
+  opacity: ${(props) => (props.pressed ? 0.4 : 1.0)};
   padding-horizontal: 16px;
-  width: 100%;
 `;
 
 const ListItemInnerText = styled.Text`

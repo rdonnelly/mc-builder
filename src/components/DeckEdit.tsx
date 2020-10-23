@@ -1,3 +1,4 @@
+import { Pressable } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
@@ -75,7 +76,7 @@ const Summary = styled.View`
   margin: 16px;
 `;
 
-const IdentityWrapper = styled.TouchableOpacity`
+const IdentityWrapper = styled(Pressable)`
   background-color: ${colors.lightGray};
   border: 2px solid ${colors.white};
   border-radius: 8px;

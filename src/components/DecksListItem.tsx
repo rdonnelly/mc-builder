@@ -1,6 +1,6 @@
+import { Pressable, StyleSheet, Text } from 'react-native';
 import React from 'react';
 import styled from 'styled-components/native';
-import { StyleSheet, Text } from 'react-native';
 
 import { DeckModel } from '../data';
 import { IDeck } from '../store/types';
@@ -15,25 +15,29 @@ const DecksListItem: React.FunctionComponent<{
   const deckModel = new DeckModel(deck);
   return (
     <Container>
-      <ListItemInner onPress={() => onPressItem(deckModel.code)}>
-        <DeckDetails>
-          <DeckDetailsName>
-            <DeckDetailsNameText numberOfLines={1}>
-              {deckModel.name}
-            </DeckDetailsNameText>
-          </DeckDetailsName>
-          <DeckDetailsInfo>
-            <DeckDetailsInfoText>
-              <Text>{deckModel.setName}</Text>
-              <Text>&nbsp;&middot;&nbsp;</Text>
-              <Text>{deckModel.aspectNames.join(' + ')}</Text>
-            </DeckDetailsInfoText>
-          </DeckDetailsInfo>
-        </DeckDetails>
-        <ListChevronWrapper>
-          <ListChevron name={'chevron-right'} size={16} />
-        </ListChevronWrapper>
-      </ListItemInner>
+      <ListItemPressable onPress={() => onPressItem(deckModel.code)}>
+        {({ pressed }) => (
+          <ListItemInner pressed={pressed}>
+            <DeckDetails>
+              <DeckDetailsName>
+                <DeckDetailsNameText numberOfLines={1}>
+                  {deckModel.name}
+                </DeckDetailsNameText>
+              </DeckDetailsName>
+              <DeckDetailsInfo>
+                <DeckDetailsInfoText>
+                  <Text>{deckModel.setName}</Text>
+                  <Text>&nbsp;&middot;&nbsp;</Text>
+                  <Text>{deckModel.aspectNames.join(' + ')}</Text>
+                </DeckDetailsInfoText>
+              </DeckDetailsInfo>
+            </DeckDetails>
+            <ListChevronWrapper>
+              <ListChevron name={'chevron-right'} size={16} />
+            </ListChevronWrapper>
+          </ListItemInner>
+        )}
+      </ListItemPressable>
     </Container>
   );
 };
@@ -47,11 +51,14 @@ const Container = styled(base.Container)`
   justify-content: center;
 `;
 
-const ListItemInner = styled.TouchableOpacity`
+const ListItemPressable = styled(Pressable)``;
+
+const ListItemInner = styled.View<{ pressed: boolean }>`
   align-items: center;
   flex: 1 1 auto;
   flex-direction: row;
   justify-content: space-between;
+  opacity: ${(props) => (props.pressed ? 0.4 : 1.0)};
   padding-horizontal: 16px;
   width: 100%;
 `;

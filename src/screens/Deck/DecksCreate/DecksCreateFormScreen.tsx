@@ -1,6 +1,6 @@
 import 'react-native-get-random-values';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { StyleSheet } from 'react-native';
+import { Pressable, StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { v4 as uuidv4 } from 'uuid';
@@ -54,36 +54,44 @@ const DecksCreateFormScreen: React.FunctionComponent<{
           <ControlLabel>
             <ControlLabelText>Select Hero</ControlLabelText>
           </ControlLabel>
-          <LinkRow
+          <LinkRowPressable
             onPress={() =>
               navigation.navigate('DecksCreateSelect', { type: 'hero' })
             }
           >
-            <LinkRowText active={set}>
-              {set ? set.name : 'No Hero Selected'}
-            </LinkRowText>
-            <LinkRowChevronWrapper>
-              <LinkRowChevron name={'chevron-right'} size={16} />
-            </LinkRowChevronWrapper>
-          </LinkRow>
+            {({ pressed }) => (
+              <LinkRowInner pressed={pressed}>
+                <LinkRowText active={set}>
+                  {set ? set.name : 'No Hero Selected'}
+                </LinkRowText>
+                <LinkRowChevronWrapper>
+                  <LinkRowChevron name={'chevron-right'} size={16} />
+                </LinkRowChevronWrapper>
+              </LinkRowInner>
+            )}
+          </LinkRowPressable>
         </FormSection>
 
         <FormSection>
           <ControlLabel>
             <ControlLabelText>Select Aspect</ControlLabelText>
           </ControlLabel>
-          <LinkRow
+          <LinkRowPressable
             onPress={() =>
               navigation.navigate('DecksCreateSelect', { type: 'aspect' })
             }
           >
-            <LinkRowText active={!!deckAspect.length}>
-              {factionText}
-            </LinkRowText>
-            <LinkRowChevronWrapper>
-              <LinkRowChevron name={'chevron-right'} size={16} />
-            </LinkRowChevronWrapper>
-          </LinkRow>
+            {({ pressed }) => (
+              <LinkRowInner pressed={pressed}>
+                <LinkRowText active={!!deckAspect.length}>
+                  {factionText}
+                </LinkRowText>
+                <LinkRowChevronWrapper>
+                  <LinkRowChevron name={'chevron-right'} size={16} />
+                </LinkRowChevronWrapper>
+              </LinkRowInner>
+            )}
+          </LinkRowPressable>
         </FormSection>
 
         <FormSection>
@@ -162,16 +170,18 @@ const TextInput = styled(base.TextInput)`
   width: 100%;
 `;
 
-const LinkRow = styled.TouchableOpacity`
+const LinkRowPressable = styled(Pressable)``;
+
+const LinkRowInner = styled.View<{ pressed: boolean }>`
   background-color: ${colors.white};
   border-bottom-color: ${colors.lightGrayDark};
   border-bottom-width: ${StyleSheet.hairlineWidth}px;
   border-radius: 8px;
   flex-direction: row;
   justify-content: space-between;
+  opacity: ${(props) => (props.pressed ? 0.5 : 1.0)};
   margin-horizontal: 16px;
-  padding-horizontal: 16px;
-  padding-vertical: 16px;
+  padding: 16px;
 `;
 
 const LinkRowText = styled.Text<{ active: boolean }>`

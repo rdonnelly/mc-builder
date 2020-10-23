@@ -1,4 +1,5 @@
 import { Alert, SectionList, StyleSheet } from 'react-native';
+import { Pressable } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import React, { useContext } from 'react';
@@ -144,7 +145,7 @@ const Summary = styled.View`
   margin: 16px;
 `;
 
-const IdentityWrapper = styled.TouchableOpacity`
+const IdentityWrapper = styled(Pressable)`
   background-color: ${colors.lightGray};
   border: 2px solid ${colors.white};
   border-radius: 8px;

@@ -1,13 +1,13 @@
-import React from 'react';
 import {
   Alert,
   Linking,
+  Pressable,
   ScrollView,
   StyleSheet,
-  TouchableOpacity,
 } from 'react-native';
 import { useDispatch } from 'react-redux';
 import InAppBrowser from 'react-native-inappbrowser-reborn';
+import React from 'react';
 import styled from 'styled-components/native';
 
 import { base, colors } from '../styles';
@@ -46,16 +46,22 @@ const SettingsScreen: React.FunctionComponent<{}> = () => {
         </Information>
 
         <Information>
-          <TouchableOpacity onPress={visitWebpage}>
-            <LinkText>Designed and Developed by</LinkText>
-            <LinkText>Ryan Donnelly</LinkText>
-          </TouchableOpacity>
+          <Pressable onPress={visitWebpage}>
+            {({ pressed }) => (
+              <>
+                <LinkText pressed={pressed}>Designed and Developed by</LinkText>
+                <LinkText pressed={pressed}>Ryan Donnelly</LinkText>
+              </>
+            )}
+          </Pressable>
         </Information>
 
         <Information>
-          <TouchableOpacity onPress={clearStore}>
-            <LinkText>Reset Application Data</LinkText>
-          </TouchableOpacity>
+          <Pressable onPress={clearStore}>
+            {({ pressed }) => (
+              <LinkText pressed={pressed}>Reset Application Data</LinkText>
+            )}
+          </Pressable>
         </Information>
       </ScrollView>
     </Container>
@@ -100,8 +106,8 @@ const DisclaimerText = styled.Text`
   text-align: center;
 `;
 
-const LinkText = styled.Text`
-  color: ${colors.blue};
+const LinkText = styled.Text<{ pressed: boolean }>`
+  color: ${(props) => (props.pressed ? colors.blueDark : colors.blue)};
   text-align: center;
 `;
 

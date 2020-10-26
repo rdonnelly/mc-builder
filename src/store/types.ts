@@ -11,7 +11,7 @@ interface IEntityState<T> {
   codes: EntityCode[];
 }
 
-interface IDeckAttributes {
+export interface IDeckAttributes {
   isFavorite?: boolean;
   isDeleted?: boolean;
   isHidden?: boolean;

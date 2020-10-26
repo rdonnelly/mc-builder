@@ -2,7 +2,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import _ from 'lodash';
 
 import { FactionCode, SetCode } from 'src/data';
-import { IDeck, IDeckState } from '../types';
+import { IDeck, IDeckAttributes, IDeckState } from '../types';
 
 const initialState = {
   codes: [],
@@ -24,6 +24,11 @@ const decksSlice = createSlice({
     ) {
       const { payload } = action;
       const { code, name, setCode, aspectCodes } = payload;
+      const attributes: IDeckAttributes = {
+        isFavorite: false,
+        isHidden: false,
+        isDeleted: false,
+      };
 
       const deck: IDeck = {
         code,
@@ -31,6 +36,7 @@ const decksSlice = createSlice({
         setCode,
         aspectCodes,
         deckCardCodes: [],
+        attributes,
       };
 
       return {

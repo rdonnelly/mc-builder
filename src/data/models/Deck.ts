@@ -274,6 +274,63 @@ export class Deck {
     // TODO spider-woman equal double aspect
     return this.cardCount >= 40 && this.cardCount <= 50;
   }
+
+  get prettyText(): string {
+    const sectionedCards = this.sectionedCards;
+
+    const heroCardsText = this.sectionedCards
+      .find((section) => section.code === 'hero')
+      ?.data.map(
+        (deckCard) =>
+          `${deckCard.count}x ${deckCard.name} (${deckCard.setCode})`,
+      )
+      .join('\n');
+    const aspectCardsText = this.sectionedCards
+      .find((section) => section.code === 'aspect')
+      ?.data.map(
+        (deckCard) =>
+          `${deckCard.count}x ${deckCard.name} (${deckCard.setCode})`,
+      )
+      .join('\n');
+    const basicCardsText = this.sectionedCards
+      .find((section) => section.code === 'basic')
+      ?.data.map(
+        (deckCard) =>
+          `${deckCard.count}x ${deckCard.name} (${deckCard.setCode})`,
+      )
+      .join('\n');
+
+    const text = `${this.name}
+---
+${this.heroCard.name} – ${this.aspects.join(', ')} – ${this.cardCount} Cards
+
+Hero Cards:
+${heroCardsText}
+
+Aspect Cards:
+${aspectCardsText}
+
+Basic Cards:
+${basicCardsText}
+`;
+    return text;
+  }
+
+  get shareableText(): string {
+    const text = JSON.stringify({
+      code: this.code,
+      setCode: this.setCode,
+      aspectCodes: this.aspectCodes,
+      cards: [
+        ...this.rawCards.map((rawCard) => ({
+          code: rawCard.cardCode,
+          quantity: rawCard.quantity,
+        })),
+      ],
+    });
+
+    return text;
+  }
 }
 
 export const getCardListForDeck = memoizeOne((deck: Deck): Card[] => {

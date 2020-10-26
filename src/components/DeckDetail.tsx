@@ -2,6 +2,7 @@ import { Alert, SectionList, StyleSheet } from 'react-native';
 import { Pressable } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
 import React, { useContext } from 'react';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import styled from 'styled-components/native';
@@ -10,6 +11,8 @@ import { CardListContext } from '../context/CardListContext';
 import { CardModel, DeckModel, getCardListForDeck } from '../data';
 import { base, colors } from '../styles';
 import { deleteDeck } from '../store/actions';
+import { setClipboard } from '../utils/Clipboard';
+import { useActionSheet } from '@expo/react-native-action-sheet';
 import CardListItem from './CardListItem';
 
 const DeckDetail: React.FunctionComponent<{
@@ -19,6 +22,8 @@ const DeckDetail: React.FunctionComponent<{
   const navigation = useNavigation();
 
   const { setCardList } = useContext(CardListContext);
+
+  const { showActionSheetWithOptions } = useActionSheet();
 
   const filteredDeckCards = getCardListForDeck(deck);
 
@@ -59,6 +64,48 @@ const DeckDetail: React.FunctionComponent<{
       ReactNativeHapticFeedback.trigger('impactLight');
       navigation.navigate('DeckEdit', { code: deck.code });
     }
+  };
+
+  const handleMenuOpen = () => {
+    ReactNativeHapticFeedback.trigger('impactLight');
+    showActionSheetWithOptions(
+      {
+        options: [
+          'Close',
+          'Copy Pretty Text to Clipboard',
+          'Copy Shareable Text to Clipboard',
+          'Delete Deck',
+        ],
+        destructiveButtonIndex: 3,
+        cancelButtonIndex: 0,
+      },
+      (buttonIndex) => {
+        switch (buttonIndex) {
+          case 1: {
+            handleCopyPrettyDeck();
+            break;
+          }
+          case 2: {
+            handleCopyShareableDeck();
+            break;
+          }
+          case 3: {
+            handleDeleteDeck();
+            break;
+          }
+        }
+      },
+    );
+  };
+
+  const handleCopyPrettyDeck = () => {
+    ReactNativeHapticFeedback.trigger('impactLight');
+    setClipboard(deck.prettyText);
+  };
+
+  const handleCopyShareableDeck = () => {
+    ReactNativeHapticFeedback.trigger('impactLight');
+    setClipboard(deck.shareableText);
   };
 
   const handleDeleteDeck = () => {
@@ -112,7 +159,7 @@ const DeckDetail: React.FunctionComponent<{
         contentContainerStyle={{ paddingBottom: 80 }}
       />
       <FloatingControls>
-        <FloatingControlsButtonWrapper onPress={() => handleEditDeck()}>
+        <FloatingControlsEditButtonWrapper onPress={() => handleEditDeck()}>
           {({ pressed }) => (
             <FloatingControlsEditButton pressed={pressed}>
               <FloatingControlsButtonText pressed={pressed}>
@@ -120,16 +167,19 @@ const DeckDetail: React.FunctionComponent<{
               </FloatingControlsButtonText>
             </FloatingControlsEditButton>
           )}
-        </FloatingControlsButtonWrapper>
-        <FloatingControlsButtonWrapper onPress={() => handleDeleteDeck()}>
+        </FloatingControlsEditButtonWrapper>
+        <FloatingControlsMenuButtonWrapper onPress={() => handleMenuOpen()}>
           {({ pressed }) => (
-            <FloatingControlsDeleteButton pressed={pressed}>
-              <FloatingControlsButtonText pressed={pressed}>
-                Delete
-              </FloatingControlsButtonText>
-            </FloatingControlsDeleteButton>
+            <FloatingControlsMenuButton pressed={pressed}>
+              <FontAwesomeIcon
+                name="ellipsis-h"
+                color={pressed ? colors.lightGray : colors.white}
+                size={16}
+                solid
+              />
+            </FloatingControlsMenuButton>
           )}
-        </FloatingControlsButtonWrapper>
+        </FloatingControlsMenuButtonWrapper>
       </FloatingControls>
     </Container>
   );
@@ -226,13 +276,22 @@ const FloatingControlsButtonWrapper = styled(base.ButtonWrapper)`
   margin-horizontal: 4px;
 `;
 
+const FloatingControlsEditButtonWrapper = styled(FloatingControlsButtonWrapper)`
+  flex: 1;
+`;
+
 const FloatingControlsEditButton = styled(base.Button)<{ pressed?: boolean }>`
   background-color: ${(props) =>
     props.pressed ? colors.purpleDark : colors.purple};
 `;
 
-const FloatingControlsDeleteButton = styled(base.Button)<{ pressed?: boolean }>`
-  background-color: ${(props) => (props.pressed ? colors.redDark : colors.red)};
+const FloatingControlsMenuButtonWrapper = styled(FloatingControlsButtonWrapper)`
+  flex: none;
+`;
+
+const FloatingControlsMenuButton = styled(base.Button)<{ pressed?: boolean }>`
+  background-color: ${(props) =>
+    props.pressed ? colors.darkGrayDark : colors.darkGray};
 `;
 
 const FloatingControlsButtonText = styled(base.ButtonText)<{

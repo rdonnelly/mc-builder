@@ -282,36 +282,36 @@ export class Deck {
       .find((section) => section.code === 'hero')
       ?.data.map(
         (deckCard) =>
-          `${deckCard.count}x ${deckCard.name} (${deckCard.setCode})`,
+          `${deckCard.count}x ${deckCard.name} (${deckCard.card.packCode})`,
       )
       .join('\n');
     const aspectCardsText = this.sectionedCards
       .find((section) => section.code === 'aspect')
       ?.data.map(
         (deckCard) =>
-          `${deckCard.count}x ${deckCard.name} (${deckCard.setCode})`,
+          `${deckCard.count}x ${deckCard.name} (${deckCard.card.packCode})`,
       )
       .join('\n');
     const basicCardsText = this.sectionedCards
       .find((section) => section.code === 'basic')
       ?.data.map(
         (deckCard) =>
-          `${deckCard.count}x ${deckCard.name} (${deckCard.setCode})`,
+          `${deckCard.count}x ${deckCard.name} (${deckCard.card.packCode})`,
       )
       .join('\n');
 
     const text = `${this.name}
 ---
-${this.heroCard.name} – ${this.aspects.join(', ')} – ${this.cardCount} Cards
+${this.heroCard.name} – ${this.aspectNames.join(', ')} – ${this.cardCount} Cards
 
 Hero Cards:
-${heroCardsText}
+${heroCardsText || 'None'}
 
 Aspect Cards:
-${aspectCardsText}
+${aspectCardsText || 'None'}
 
 Basic Cards:
-${basicCardsText}
+${basicCardsText || 'None'}
 `;
     return text;
   }

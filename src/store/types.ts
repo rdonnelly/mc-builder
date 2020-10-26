@@ -11,12 +11,20 @@ interface IEntityState<T> {
   codes: EntityCode[];
 }
 
+interface IDeckAttributes {
+  isFavorite?: boolean;
+  isDeleted?: boolean;
+  isHidden?: boolean;
+  [Key: string]: any;
+}
+
 export interface IDeck {
   code: string;
   name: string;
   setCode: SetCode;
   aspectCodes: FactionCode[];
   deckCardCodes: string[];
+  attributes?: IDeckAttributes;
 }
 
 export interface IDeckState extends IEntityState<IDeck> {}

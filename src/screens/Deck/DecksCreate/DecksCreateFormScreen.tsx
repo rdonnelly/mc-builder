@@ -1,6 +1,6 @@
 import 'react-native-get-random-values';
-import { StackNavigationProp } from '@react-navigation/stack';
 import { Pressable, StyleSheet } from 'react-native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { useDispatch } from 'react-redux';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { v4 as uuidv4 } from 'uuid';
@@ -218,7 +218,7 @@ const CancelButtonWrapper = styled(base.ButtonWrapper)`
 
 const CancelButton = styled(base.Button)<{ pressed?: boolean }>`
   background-color: ${(props) =>
-    props.pressed ? colors.gray : colors.lightGrayDark};
+    props.pressed ? colors.grayDark : colors.gray};
 `;
 
 const CancelButtonText = styled(base.ButtonText)<{ pressed?: boolean }>``;

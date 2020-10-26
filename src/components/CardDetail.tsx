@@ -1,5 +1,4 @@
-import { Pressable } from 'react-native';
-import { ScrollView, StyleSheet } from 'react-native';
+import { Pressable, ScrollView, StyleSheet } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import Html from 'react-native-render-html';
 import React from 'react';

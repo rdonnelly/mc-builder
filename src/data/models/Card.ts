@@ -13,7 +13,7 @@ import { FilterCode, FilterCodes, ICardRaw } from '../types';
 import { factionRank, getFactions } from '../models/Faction';
 import { getPacks } from '../models/Pack';
 import { getSets } from '../models/Set';
-import { getTypes } from '../models/Type';
+import { getTypes, typeRank } from '../models/Type';
 
 export class Card {
   raw: ICardRaw;
@@ -217,19 +217,32 @@ export const getFilteredCards = memoizeOne(
       | SetCode[]
       | TypeCode
       | TypeCode[],
+    cardCodes?: string[],
   ) => {
     let filteredCards = getCards();
 
-    if (searchTerm) {
-      const strippedSearchTerm = searchTerm
-        .toLowerCase()
-        .replace(/[^A-Za-z0-9]/g, '');
+    const formattedSearchTerm =
+      searchTerm != null
+        ? searchTerm.toLowerCase().replace(/[^A-Za-z0-9]/g, '')
+        : null;
 
-      filteredCards = filteredCards.filter((card) => {
+    filteredCards = filteredCards.filter((card) => {
+      if (
+        cardCodes != null &&
+        Array.isArray(cardCodes) &&
+        cardCodes.length &&
+        !cardCodes.includes(card.code)
+      ) {
+        return false;
+      }
+
+      if (formattedSearchTerm) {
         const cardName = card.name.toLowerCase().replace(/[^A-Za-z0-9]/g, '');
-        return cardName.includes(strippedSearchTerm);
-      });
-    }
+        return cardName.includes(formattedSearchTerm);
+      }
+
+      return true;
+    });
 
     switch (filter) {
       case FilterCodes.FACTION: {
@@ -265,6 +278,8 @@ export const getFilteredCards = memoizeOne(
         break;
       }
     }
+
+    filteredCards = filteredCards.sort(cardSorter);
 
     return filteredCards;
   },
@@ -313,10 +328,10 @@ const cardSorter = (a, b) => {
   if (factionRank[b.factionCode] > factionRank[a.factionCode]) {
     return -1;
   }
-  if (a.typeCode > b.typeCode) {
+  if (typeRank[a.typeCode] > typeRank[b.typeCode]) {
     return 1;
   }
-  if (b.typeCode > a.typeCode) {
+  if (typeRank[b.typeCode] > typeRank[a.typeCode]) {
     return -1;
   }
   if (a.cost > b.cost) {
@@ -342,4 +357,19 @@ const cardSorter = (a, b) => {
 
 export const getCard = memoizeOne((code: string) =>
   getCards().find((card) => card.code === code),
+);
+
+export const getIdentityCards = memoizeOne((setCode: SetCode) =>
+  getCards().reduce((identities, card) => {
+    if (card.setCode === setCode) {
+      if (card.typeCode === TypeCodes.ALTER_EGO) {
+        identities.alterEgo = card;
+      }
+      if (card.typeCode === TypeCodes.HERO) {
+        identities.hero = card;
+      }
+    }
+
+    return identities;
+  }, {} as { alterEgo: Card; hero: Card }),
 );

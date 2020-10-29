@@ -6,6 +6,7 @@ import CardDetailScreen from '../screens/Card/CardDetailScreen';
 import DeckDetailScreen from '../screens/Deck/DeckDetailScreen';
 import DeckEditScreen from '../screens/Deck/DeckEditScreen';
 import DecksCreateScreen from '../screens/Deck/DecksCreateScreen';
+import DecksImportScreen from '../screens/Deck/DecksImportScreen';
 import DecksListScreen from '../screens/Deck/DecksListScreen';
 
 import { colors } from '../styles';
@@ -13,6 +14,7 @@ import { colors } from '../styles';
 export type DecksStackParamList = {
   DecksList: undefined;
   DecksCreate: undefined;
+  DecksImport: { deck: any };
   DeckDetail: { code: string };
   DeckDetailCardDetail: { code: string };
   DeckEdit: { code: string };
@@ -44,6 +46,14 @@ export default () => (
     <Stack.Screen
       name="DecksCreate"
       component={DecksCreateScreen}
+      options={{
+        headerShown: false,
+        stackPresentation: Platform.OS === 'ios' ? 'modal' : 'transparentModal',
+      }}
+    />
+    <Stack.Screen
+      name="DecksImport"
+      component={DecksImportScreen}
       options={{
         headerShown: false,
         stackPresentation: Platform.OS === 'ios' ? 'modal' : 'transparentModal',

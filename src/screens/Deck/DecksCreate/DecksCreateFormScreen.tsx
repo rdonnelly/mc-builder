@@ -200,7 +200,7 @@ const Controls = styled.View`
 `;
 
 const AddButtonWrapper = styled(base.ButtonWrapper)`
-  flex: 3;
+  flex: 1 1 auto;
   margin-left: 4px;
 `;
 
@@ -212,7 +212,7 @@ const AddButton = styled(base.Button)<{ pressed?: boolean }>`
 const AddButtonText = styled(base.ButtonText)<{ pressed?: boolean }>``;
 
 const CancelButtonWrapper = styled(base.ButtonWrapper)`
-  flex: 1;
+  flex: 1 1 0;
   margin-right: 4px;
 `;
 

@@ -67,7 +67,7 @@ const CardListItem: React.FunctionComponent<{
   showPackInfo?: boolean;
   showEditControls?: boolean;
   isSelected: boolean;
-  onPressItem: any;
+  onPressItem?: any;
 }> = ({
   card,
   count,
@@ -116,7 +116,10 @@ const CardListItem: React.FunctionComponent<{
 
   return (
     <ListItemOuter>
-      <ListItemPressable onPress={() => onPressItem(card.code)}>
+      <ListItemPressable
+        disabled={onPressItem == null}
+        onPress={() => onPressItem != null && onPressItem(card.code)}
+      >
         {({ pressed }) => (
           <ListItemInner pressed={pressed}>
             {count != null ? (
@@ -181,9 +184,11 @@ const CardListItem: React.FunctionComponent<{
                 </CardCountIncrementButton>
               </CardControls>
             ) : null}
-            <ListChevronWrapper>
-              <ListChevron name={'chevron-right'} size={16} />
-            </ListChevronWrapper>
+            {onPressItem != null ? (
+              <ListChevronWrapper>
+                <ListChevron name={'chevron-right'} size={16} />
+              </ListChevronWrapper>
+            ) : null}
           </ListItemInner>
         )}
       </ListItemPressable>

@@ -37,6 +37,7 @@ const decksSlice = createSlice({
         aspectCodes,
         deckCardCodes: [],
         attributes,
+        version: 0,
       };
 
       return {

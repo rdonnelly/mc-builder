@@ -52,6 +52,10 @@ export class Deck {
     return this.raw.code;
   }
 
+  get version() {
+    return this.raw.version;
+  }
+
   get name() {
     return this.raw.name;
   }
@@ -319,6 +323,8 @@ ${basicCardsText || 'None'}
   get shareableText(): string {
     const text = JSON.stringify({
       code: this.code,
+      version: this.version,
+      name: this.name,
       setCode: this.setCode,
       aspectCodes: this.aspectCodes,
       cards: [

@@ -3,6 +3,24 @@ import typesRaw from 'marvelsdb-json-data/types.json';
 import { ITypeRaw } from '../types';
 import { TypeCode } from '../generatedTypes';
 
+export const typeRank = {
+  hero: 0,
+  alter_ego: 1,
+  ally: 2,
+  event: 3,
+  resource: 4,
+  support: 5,
+  upgrade: 6,
+  villain: 7,
+  main_scheme: 8,
+  side_scheme: 9,
+  attachment: 10,
+  environment: 11,
+  minion: 12,
+  obligation: 13,
+  treachery: 14,
+};
+
 export class Type {
   raw: ITypeRaw;
 

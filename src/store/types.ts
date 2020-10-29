@@ -25,6 +25,7 @@ export interface IDeck {
   aspectCodes: FactionCode[];
   deckCardCodes: string[];
   attributes?: IDeckAttributes;
+  version?: number;
 }
 
 export interface IDeckState extends IEntityState<IDeck> {}

@@ -1,6 +1,6 @@
 import { ListRenderItem } from 'react-native';
 import { RouteProp, useScrollToTop } from '@react-navigation/native';
-import { orangeDark } from '@react-navigation/orange';
+import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components/native';
 

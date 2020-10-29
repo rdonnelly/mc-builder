@@ -27,6 +27,7 @@ export const setUpNewDeck = (
   deckName: string,
   deckSet: SetCode,
   deckAspect: FactionCode[],
+  initialDeckCards?: { code: string; quantity: number }[],
 ): AppThunk => (dispatch) => {
   if (deckName && deckSet && deckAspect.length) {
     dispatch(
@@ -40,23 +41,36 @@ export const setUpNewDeck = (
 
     const deckCardCodes = [];
     const deckCardData = [];
-    const setsArray = [deckSet, `${deckSet}_nemesis` as SetCode];
 
-    if (deckSet === SetCodes.DOCTOR_STRANGE) {
-      setsArray.push(SetCodes.INVOCATION);
-    }
+    if (initialDeckCards == null) {
+      const setsArray = [deckSet, `${deckSet}_nemesis` as SetCode];
 
-    const setCards = getFilteredCards(null, FilterCodes.SET, setsArray);
+      if (deckSet === SetCodes.DOCTOR_STRANGE) {
+        setsArray.push(SetCodes.INVOCATION);
+      }
 
-    setCards.forEach((card) => {
-      const code = uuidv4();
-      deckCardCodes.push(code);
-      deckCardData.push({
-        code,
-        cardCode: card.code,
-        quantity: card.setQuantity,
+      const setCards = getFilteredCards(null, FilterCodes.SET, setsArray);
+
+      setCards.forEach((card) => {
+        const code = uuidv4();
+        deckCardCodes.push(code);
+        deckCardData.push({
+          code,
+          cardCode: card.code,
+          quantity: card.setQuantity,
+        });
       });
-    });
+    } else {
+      initialDeckCards.forEach((card) => {
+        const code = uuidv4();
+        deckCardCodes.push(code);
+        deckCardData.push({
+          code,
+          cardCode: card.code,
+          quantity: card.quantity,
+        });
+      });
+    }
 
     dispatch(createDeckCards({ deckCards: deckCardData }));
 

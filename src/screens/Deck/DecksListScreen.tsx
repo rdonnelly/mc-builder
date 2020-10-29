@@ -1,13 +1,17 @@
-import { ListRenderItem } from 'react-native';
+import { Alert, ListRenderItem } from 'react-native';
 import { Pressable } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { useActionSheet } from '@expo/react-native-action-sheet';
 import { useSelector } from 'react-redux';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
 import React, { useEffect } from 'react';
+import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import styled from 'styled-components/native';
 
 import { DecksStackParamList } from '../../navigation/DecksStackNavigator';
 import { StoreState } from '../../store';
+import { getClipboard } from '../../utils/Clipboard';
+import { validateDeckJson } from '../../utils/DeckParser';
 import DecksListItem from '../../components/DecksListItem';
 
 import { base, colors } from '../../styles';
@@ -17,6 +21,8 @@ const DecksListScreen: React.FunctionComponent<{
 }> = ({ navigation }) => {
   const deckCodes = useSelector((state: StoreState) => state.decks.codes);
   const deckEntities = useSelector((state: StoreState) => state.decks.entities);
+
+  const { showActionSheetWithOptions } = useActionSheet();
 
   useEffect(() => {
     navigation.setOptions({
@@ -43,6 +49,38 @@ const DecksListScreen: React.FunctionComponent<{
         code,
       });
     }
+  };
+
+  const handleMenuOpen = () => {
+    ReactNativeHapticFeedback.trigger('impactLight');
+    showActionSheetWithOptions(
+      {
+        options: ['Close', 'Import From Clipboard'],
+        cancelButtonIndex: 0,
+      },
+      (buttonIndex) => {
+        switch (buttonIndex) {
+          case 1: {
+            handleImportDeck();
+            break;
+          }
+        }
+      },
+    );
+  };
+
+  const handleImportDeck = async () => {
+    const clipboardContent = await getClipboard();
+    const importDeck = validateDeckJson(clipboardContent);
+
+    if (importDeck === false) {
+      Alert.alert(
+        'Could Not Import Deck',
+        'Please ensure that you have a deck in MCBuilder shareable text format on your clipboard.',
+      );
+    }
+
+    navigation.navigate('DecksImport', { deck: importDeck });
   };
 
   const renderCard: ListRenderItem<string> = ({ item: deckCode }) => (
@@ -89,17 +127,29 @@ const DecksListScreen: React.FunctionComponent<{
         renderEmpty()
       )}
       <FloatingControls>
-        <FloatingControlsButtonWrapper
+        <FloatingControlsCreateButtonWrapper
           onPress={() => navigation.navigate('DecksCreate')}
         >
           {({ pressed }) => (
-            <FloatingControlsButton pressed={pressed}>
-              <FloatingControlsButtonText pressed={pressed}>
+            <FloatingControlsCreateButton pressed={pressed}>
+              <FloatingControlsCreateButtonText pressed={pressed}>
                 Create Deck
-              </FloatingControlsButtonText>
-            </FloatingControlsButton>
+              </FloatingControlsCreateButtonText>
+            </FloatingControlsCreateButton>
           )}
-        </FloatingControlsButtonWrapper>
+        </FloatingControlsCreateButtonWrapper>
+        <FloatingControlsMenuButtonWrapper onPress={() => handleMenuOpen()}>
+          {({ pressed }) => (
+            <FloatingControlsMenuButton pressed={pressed}>
+              <FontAwesomeIcon
+                name="ellipsis-h"
+                color={pressed ? colors.lightGray : colors.white}
+                size={16}
+                solid
+              />
+            </FloatingControlsMenuButton>
+          )}
+        </FloatingControlsMenuButtonWrapper>
       </FloatingControls>
     </Container>
   );
@@ -129,13 +179,29 @@ const FloatingControlsButtonWrapper = styled(base.ButtonWrapper)`
   margin-horizontal: 4px;
 `;
 
-const FloatingControlsButton = styled(base.Button)<{ pressed?: boolean }>`
+const FloatingControlsCreateButtonWrapper = styled(
+  FloatingControlsButtonWrapper,
+)`
+  flex: 1 1 auto;
+  margin-horizontal: 4px;
+`;
+
+const FloatingControlsCreateButton = styled(base.Button)<{ pressed?: boolean }>`
   background-color: ${(props) =>
     props.pressed ? colors.purpleDark : colors.purple};
 `;
 
-const FloatingControlsButtonText = styled(base.ButtonText)<{
+const FloatingControlsCreateButtonText = styled(base.ButtonText)<{
   pressed?: boolean;
 }>``;
+
+const FloatingControlsMenuButtonWrapper = styled(FloatingControlsButtonWrapper)`
+  flex: none;
+`;
+
+const FloatingControlsMenuButton = styled(base.Button)<{ pressed?: boolean }>`
+  background-color: ${(props) =>
+    props.pressed ? colors.darkGrayDark : colors.darkGray};
+`;
 
 export default DecksListScreen;

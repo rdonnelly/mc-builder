@@ -78,6 +78,8 @@ const DecksListScreen: React.FunctionComponent<{
         'Could Not Import Deck',
         'Please ensure that you have a deck in MCBuilder shareable text format on your clipboard.',
       );
+
+      return;
     }
 
     navigation.navigate('DecksImport', { deck: importDeck });

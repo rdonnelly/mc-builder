@@ -15,6 +15,31 @@ import { getPacks } from '../models/Pack';
 import { getSets } from '../models/Set';
 import { getTypes, typeRank } from '../models/Type';
 
+const cards = [].concat(
+  require('marvelsdb-json-data/pack/ant.json'),
+  require('marvelsdb-json-data/pack/bkw_encounter.json'),
+  require('marvelsdb-json-data/pack/bkw.json'),
+  require('marvelsdb-json-data/pack/cap_encounter.json'),
+  require('marvelsdb-json-data/pack/cap.json'),
+  require('marvelsdb-json-data/pack/core_encounter.json'),
+  require('marvelsdb-json-data/pack/core.json'),
+  require('marvelsdb-json-data/pack/drs_encounter.json'),
+  require('marvelsdb-json-data/pack/drs.json'),
+  require('marvelsdb-json-data/pack/gob_encounter.json'),
+  require('marvelsdb-json-data/pack/hlk_encounter.json'),
+  require('marvelsdb-json-data/pack/hlk.json'),
+  require('marvelsdb-json-data/pack/msm_encounter.json'),
+  require('marvelsdb-json-data/pack/msm.json'),
+  require('marvelsdb-json-data/pack/ron_encounter.json'),
+  require('marvelsdb-json-data/pack/thor_encounter.json'),
+  require('marvelsdb-json-data/pack/thor.json'),
+  require('marvelsdb-json-data/pack/trors_encounter.json'),
+  require('marvelsdb-json-data/pack/trors.json'),
+  require('marvelsdb-json-data/pack/twc_encounter.json'),
+  require('marvelsdb-json-data/pack/wsp.json'),
+  require('marvelsdb-json-data/pack/wsp_encounter.json'),
+);
+
 export class Card {
   raw: ICardRaw;
 
@@ -166,29 +191,6 @@ export class Card {
     return `https://lcgcdn.s3.amazonaws.com/mc/MC${packCode}en_${this.cardCode}.jpg`;
   }
 }
-
-const cards = [].concat(
-  require('marvelsdb-json-data/pack/ant.json'),
-  require('marvelsdb-json-data/pack/bkw_encounter.json'),
-  require('marvelsdb-json-data/pack/bkw.json'),
-  require('marvelsdb-json-data/pack/cap_encounter.json'),
-  require('marvelsdb-json-data/pack/cap.json'),
-  require('marvelsdb-json-data/pack/core_encounter.json'),
-  require('marvelsdb-json-data/pack/core.json'),
-  require('marvelsdb-json-data/pack/drs_encounter.json'),
-  require('marvelsdb-json-data/pack/drs.json'),
-  require('marvelsdb-json-data/pack/gob_encounter.json'),
-  require('marvelsdb-json-data/pack/hlk_encounter.json'),
-  require('marvelsdb-json-data/pack/hlk.json'),
-  require('marvelsdb-json-data/pack/msm_encounter.json'),
-  require('marvelsdb-json-data/pack/msm.json'),
-  require('marvelsdb-json-data/pack/ron_encounter.json'),
-  require('marvelsdb-json-data/pack/thor_encounter.json'),
-  require('marvelsdb-json-data/pack/thor.json'),
-  require('marvelsdb-json-data/pack/trors_encounter.json'),
-  require('marvelsdb-json-data/pack/trors.json'),
-  require('marvelsdb-json-data/pack/twc_encounter.json'),
-);
 
 export const getCards = memoizeOne(() =>
   cards

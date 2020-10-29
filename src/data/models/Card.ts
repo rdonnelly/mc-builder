@@ -297,7 +297,6 @@ export const getEligibleCards = memoizeOne(
         if (
           ![
             TypeCodes.ALLY as string,
-            TypeCodes.ATTACHMENT as string,
             TypeCodes.EVENT as string,
             TypeCodes.RESOURCE as string,
             TypeCodes.SUPPORT as string,
@@ -308,7 +307,8 @@ export const getEligibleCards = memoizeOne(
         }
 
         if (
-          ![...factionCode, FactionCodes.BASIC].includes(card.factionCode) &&
+          (![...factionCode, FactionCodes.BASIC].includes(card.factionCode) ||
+            card.setCode != null) &&
           !codes.includes(card.code)
         ) {
           return false;

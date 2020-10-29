@@ -12,6 +12,7 @@ import {
 import { ThunkAction } from 'redux-thunk';
 import AsyncStorage from '@react-native-community/async-storage';
 
+import Reactotron from '../ReactotronConfig';
 import rootReducer from './reducers';
 
 export type StoreState = ReturnType<typeof rootReducer>;
@@ -35,6 +36,7 @@ export default function configureAppStore(preloadedState: undefined) {
       }),
     ],
     preloadedState,
+    enhancers: [Reactotron.createEnhancer()],
   });
   const persistor = persistStore(store);
   return { store, persistor };

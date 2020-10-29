@@ -17,8 +17,6 @@ interface ImportDeck {
 export function validateDeckJson(json: string): ImportDeck | false {
   let deck: ImportDeck = null;
 
-  console.log(json.trim());
-
   try {
     deck = JSON.parse(json.trim()) as ImportDeck;
   } catch (e) {

@@ -20,10 +20,12 @@ const decksSlice = createSlice({
         name: string;
         setCode: SetCode;
         aspectCodes: FactionCode[];
+        version?: number;
+        source?: string;
       }>,
     ) {
       const { payload } = action;
-      const { code, name, setCode, aspectCodes } = payload;
+      const { code, name, setCode, aspectCodes, version, source } = payload;
       const attributes: IDeckAttributes = {
         isFavorite: false,
         isHidden: false,
@@ -37,7 +39,8 @@ const decksSlice = createSlice({
         aspectCodes,
         deckCardCodes: [],
         attributes,
-        version: 0,
+        version: version != null ? version : 0,
+        source,
       };
 
       return {

@@ -47,6 +47,8 @@ const DecksImportFormScreen: React.FunctionComponent<{
           deck.name,
           deck.setCode,
           deck.aspectCodes,
+          deck.version,
+          deck.code,
           deck.cards,
         ),
       );

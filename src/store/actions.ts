@@ -27,6 +27,8 @@ export const setUpNewDeck = (
   deckName: string,
   deckSet: SetCode,
   deckAspect: FactionCode[],
+  version?: number,
+  source?: string,
   initialDeckCards?: { code: string; quantity: number }[],
 ): AppThunk => (dispatch) => {
   if (deckName && deckSet && deckAspect.length) {
@@ -36,6 +38,8 @@ export const setUpNewDeck = (
         name: deckName,
         setCode: deckSet,
         aspectCodes: deckAspect,
+        version,
+        source,
       }),
     );
 

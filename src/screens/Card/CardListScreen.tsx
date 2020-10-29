@@ -34,7 +34,7 @@ const CardListScreen = ({
 
   const cards =
     searchTerm || (filter && filterCode)
-      ? getFilteredCards(searchTerm, filter, filterCode)
+      ? getFilteredCards({ searchTerm, filter, filterCode })
       : getCards();
 
   const flatListRef = useRef(null);

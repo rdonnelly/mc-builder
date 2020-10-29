@@ -49,7 +49,10 @@ export const setUpNewDeck = (
         setsArray.push(SetCodes.INVOCATION);
       }
 
-      const setCards = getFilteredCards(null, FilterCodes.SET, setsArray);
+      const setCards = getFilteredCards({
+        filter: FilterCodes.SET,
+        filterCode: setsArray,
+      });
 
       setCards.forEach((card) => {
         const code = uuidv4();

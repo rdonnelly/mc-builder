@@ -34,12 +34,9 @@ const DecksImportFormScreen: React.FunctionComponent<{
     return map;
   }, {});
 
-  const filteredDeckCards = getFilteredCards(
-    null,
-    null,
-    null,
-    Object.keys(deckCardCodesMap),
-  );
+  const filteredDeckCards = getFilteredCards({
+    cardCodes: Object.keys(deckCardCodesMap),
+  });
 
   const importDeck = () => {
     const deckCode = uuidv4();

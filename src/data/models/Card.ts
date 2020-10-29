@@ -205,9 +205,14 @@ export const getCards = memoizeOne(() =>
 );
 
 export const getFilteredCards = memoizeOne(
-  (
-    searchTerm: string,
-    filter?: FilterCode,
+  ({
+    searchTerm,
+    filter,
+    filterCode,
+    cardCodes,
+  }: {
+    searchTerm?: string;
+    filter?: FilterCode;
     filterCode?:
       | FactionCode
       | FactionCode[]
@@ -216,9 +221,9 @@ export const getFilteredCards = memoizeOne(
       | SetCode
       | SetCode[]
       | TypeCode
-      | TypeCode[],
-    cardCodes?: string[],
-  ) => {
+      | TypeCode[];
+    cardCodes?: string[];
+  }) => {
     let filteredCards = getCards();
 
     const formattedSearchTerm =

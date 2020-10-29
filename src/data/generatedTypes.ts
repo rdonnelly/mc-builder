@@ -208,6 +208,7 @@ export enum SetTypeCodes {
   MODULAR = 'modular',
   STANDARD = 'standard',
   EXPERT = 'expert',
+  INVOCATION = 'invocation',
 }
 
 export type SetTypeCode =
@@ -216,7 +217,8 @@ export type SetTypeCode =
   | 'nemesis'
   | 'modular'
   | 'standard'
-  | 'expert';
+  | 'expert'
+  | 'invocation';
 
 export enum TypeCodes {
   MAIN_SCHEME = 'main_scheme',

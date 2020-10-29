@@ -37,7 +37,10 @@ export const getSets = () =>
     });
 
 export const getHeroSets = () =>
-  getSets().filter((set) => set.type === SetTypeCodes.HERO);
+  getSets().filter(
+    (set) =>
+      set.type === SetTypeCodes.HERO && set.code !== SetTypeCodes.INVOCATION,
+  );
 
 export const getSet = (code: SetCode, defaultReturn = undefined) => {
   if (defaultReturn === undefined) {

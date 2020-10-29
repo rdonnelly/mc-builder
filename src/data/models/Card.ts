@@ -17,6 +17,7 @@ import { getTypes, typeRank } from '../models/Type';
 
 const cards = [].concat(
   require('marvelsdb-json-data/pack/ant.json'),
+  require('marvelsdb-json-data/pack/ant_encounter.json'),
   require('marvelsdb-json-data/pack/bkw_encounter.json'),
   require('marvelsdb-json-data/pack/bkw.json'),
   require('marvelsdb-json-data/pack/cap_encounter.json'),

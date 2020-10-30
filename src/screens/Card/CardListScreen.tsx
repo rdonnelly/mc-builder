@@ -179,7 +179,7 @@ const CardListScreen = ({
               </FiltersButton>
             )}
           </FiltersButtonWrapper>
-          <FiltersButtonWrapper>
+          <FiltersButtonWrapper onPress={handlePressPacks}>
             {({ pressed }) => (
               <FiltersButton pressed={pressed}>
                 <FiltersButtonText pressed={pressed}>Packs</FiltersButtonText>

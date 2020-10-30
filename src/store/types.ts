@@ -27,6 +27,8 @@ export interface IDeck {
   attributes?: IDeckAttributes;
   source?: string;
   version?: number;
+  created: number;
+  updated: number;
 }
 
 export interface IDeckState extends IEntityState<IDeck> {}

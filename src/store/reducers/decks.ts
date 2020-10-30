@@ -32,6 +32,9 @@ const decksSlice = createSlice({
         isDeleted: false,
       };
 
+      const now = new Date();
+      const created = now.getTime() + now.getTimezoneOffset() * 60000;
+
       const deck: IDeck = {
         code,
         name,
@@ -39,8 +42,10 @@ const decksSlice = createSlice({
         aspectCodes,
         deckCardCodes: [],
         attributes,
-        version: version != null ? version : 0,
         source,
+        version: version != null ? version : 0,
+        created: created,
+        updated: created,
       };
 
       return {
@@ -62,6 +67,9 @@ const decksSlice = createSlice({
       const { payload } = action;
       const { code, name } = payload;
 
+      const now = new Date();
+      const updated = now.getTime() + now.getTimezoneOffset() * 60000;
+
       const deck = state.entities[code];
 
       if (deck) {
@@ -72,6 +80,7 @@ const decksSlice = createSlice({
             [deck.code]: {
               ...deck,
               name: name,
+              updated: updated,
             },
           },
         };
@@ -89,6 +98,9 @@ const decksSlice = createSlice({
       const { payload } = action;
       const { code, deckCardCodes } = payload;
 
+      const now = new Date();
+      const updated = now.getTime() + now.getTimezoneOffset() * 60000;
+
       const deck = state.entities[code];
 
       return {
@@ -98,6 +110,7 @@ const decksSlice = createSlice({
           [deck.code]: {
             ...deck,
             deckCardCodes: _.uniq([...deck.deckCardCodes, ...deckCardCodes]),
+            updated: updated,
           },
         },
       };
@@ -112,6 +125,9 @@ const decksSlice = createSlice({
       const { payload } = action;
       const { code, deckCardCodes } = payload;
 
+      const now = new Date();
+      const updated = now.getTime() + now.getTimezoneOffset() * 60000;
+
       const deck = state.entities[code];
 
       return {
@@ -121,6 +137,7 @@ const decksSlice = createSlice({
           [deck.code]: {
             ...deck,
             deckCardCodes: _.difference(deck.deckCardCodes, deckCardCodes),
+            updated: updated,
           },
         },
       };

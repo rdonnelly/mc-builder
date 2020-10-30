@@ -282,21 +282,21 @@ export class Deck {
   get prettyText(): string {
     const sectionedCards = this.sectionedCards;
 
-    const heroCardsText = this.sectionedCards
+    const heroCardsText = sectionedCards
       .find((section) => section.code === 'hero')
       ?.data.map(
         (deckCard) =>
           `${deckCard.count}x ${deckCard.name} (${deckCard.card.packCode})`,
       )
       .join('\n');
-    const aspectCardsText = this.sectionedCards
+    const aspectCardsText = sectionedCards
       .find((section) => section.code === 'aspect')
       ?.data.map(
         (deckCard) =>
           `${deckCard.count}x ${deckCard.name} (${deckCard.card.packCode})`,
       )
       .join('\n');
-    const basicCardsText = this.sectionedCards
+    const basicCardsText = sectionedCards
       .find((section) => section.code === 'basic')
       ?.data.map(
         (deckCard) =>

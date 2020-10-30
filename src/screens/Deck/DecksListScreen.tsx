@@ -1,10 +1,15 @@
-import { Alert, ListRenderItem } from 'react-native';
-import { Pressable } from 'react-native';
+import {
+  Alert,
+  ListRenderItem,
+  Platform,
+  Pressable,
+  findNodeHandle,
+} from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useActionSheet } from '@expo/react-native-action-sheet';
 import { useSelector } from 'react-redux';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import styled from 'styled-components/native';
 
@@ -23,6 +28,7 @@ const DecksListScreen: React.FunctionComponent<{
   const deckEntities = useSelector((state: StoreState) => state.decks.entities);
 
   const { showActionSheetWithOptions } = useActionSheet();
+  const actionSheetAnchorRef = useRef(null);
 
   useEffect(() => {
     navigation.setOptions({
@@ -57,6 +63,10 @@ const DecksListScreen: React.FunctionComponent<{
       {
         options: ['Close', 'Import From Clipboard'],
         cancelButtonIndex: 0,
+        anchor:
+          Platform.OS === 'ios'
+            ? findNodeHandle(actionSheetAnchorRef.current)
+            : null,
       },
       (buttonIndex) => {
         switch (buttonIndex) {
@@ -142,7 +152,10 @@ const DecksListScreen: React.FunctionComponent<{
         </FloatingControlsCreateButtonWrapper>
         <FloatingControlsMenuButtonWrapper onPress={() => handleMenuOpen()}>
           {({ pressed }) => (
-            <FloatingControlsMenuButton pressed={pressed}>
+            <FloatingControlsMenuButton
+              pressed={pressed}
+              ref={actionSheetAnchorRef}
+            >
               <FontAwesomeIcon
                 name="ellipsis-h"
                 color={pressed ? colors.lightGray : colors.white}

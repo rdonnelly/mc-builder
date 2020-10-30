@@ -8,8 +8,6 @@ import { name as appName } from './app.json';
 import App from './src/App';
 
 if (__DEV__) {
-  // require('react-native').unstable_enableLogBox();
-
   import('./src/ReactotronConfig').then(() =>
     console.log('Reactotron Configured'),
   );

@@ -112,7 +112,7 @@ const DeckDetail: React.FunctionComponent<{
     ReactNativeHapticFeedback.trigger('impactLight');
     Alert.alert(
       'Delete Deck?',
-      'Once deleted, we cannot recover the deck. Are you sure you want to continue?',
+      'Once deleted, the deck cannot be recovered. Are you sure you want to continue?',
       [
         { text: 'Cancel' },
         {

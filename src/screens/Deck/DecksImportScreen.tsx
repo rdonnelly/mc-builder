@@ -105,7 +105,7 @@ const DecksImportFormScreen: React.FunctionComponent<{
     } else {
       Alert.alert(
         'Could Not Import Deck',
-        'Deck content on clipboard is not readable.',
+        'Clipboard content is on in a compatible format.',
       );
     }
   };

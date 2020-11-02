@@ -88,7 +88,7 @@ const DecksListScreen: React.FunctionComponent<{
     if (importDeck === false) {
       Alert.alert(
         'Could Not Import Deck',
-        'Please ensure that you have a deck in MCBuilder shareable text format on your clipboard.',
+        'Please ensure that you have either a MarvelCDB public deck URL or a deck in shareable text format on your clipboard.',
       );
 
       return;

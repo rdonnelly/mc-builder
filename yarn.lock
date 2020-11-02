@@ -5827,7 +5827,7 @@ map-visit@^1.0.0:
 
 "marvelsdb-json-data@https://github.com/rdonnelly/marvelsdb-json-data.git#main":
   version "1.0.0"
-  resolved "https://github.com/rdonnelly/marvelsdb-json-data.git#ffd90deb6fce1052d97054e27ab19a9dc83f7f61"
+  resolved "https://github.com/rdonnelly/marvelsdb-json-data.git#2d21c0a82d7590523067c8cae80f02fe8ebd0bde"
   dependencies:
     lodash "^4.13.1"
     mkdirp "^0.5.1"

@@ -2,7 +2,7 @@ import _ from 'lodash';
 import isDeepEqual from 'lodash/isEqual';
 import memoizeOne from 'memoize-one';
 
-import { Card, getCard, getEligibleCards } from './Card';
+import { Card, getCard, getEligibleCards, getFilteredCards } from './Card';
 import {
   FactionCode,
   FactionCodes,
@@ -11,6 +11,7 @@ import {
   TypeCode,
   TypeCodes,
 } from '../generatedTypes';
+import { FilterCodes } from '../types';
 import {
   IDeck as IStoreDeck,
   IDeckCard as IStoreDeckCard,
@@ -99,22 +100,55 @@ export class Deck {
   }
 
   get cards(): IDeckCard[] {
-    return Object.values(this.rawCards).map((deckCard) => {
+    return Object.values(this.rawCards).reduce((acc, deckCard) => {
       const card = getCard(deckCard.cardCode);
-      return {
-        card,
-        code: card.code,
-        name: card.name,
-        factionCode: card.factionCode,
-        setCode: card.setCode,
-        typeCode: card.typeCode,
-        count: deckCard.quantity,
-      };
-    });
+
+      if (
+        card.factionCode !== FactionCodes.ENCOUNTER &&
+        card.setCode !== SetCodes.INVOCATION
+      ) {
+        acc.push({
+          card,
+          code: card.code,
+          name: card.name,
+          factionCode: card.factionCode,
+          setCode: card.setCode,
+          typeCode: card.typeCode,
+          count: deckCard.quantity,
+        });
+      }
+
+      return acc;
+    }, []);
+  }
+
+  get extraCards(): IDeckCard[] {
+    let extraCards = getFilteredCards({
+      filter: FilterCodes.SET,
+      filterCode: [this.setCode, `${this.setCode}_nemesis` as SetCode],
+    }).filter((card) => card.factionCode === FactionCodes.ENCOUNTER);
+
+    if (this.setCode === SetCodes.DOCTOR_STRANGE) {
+      const invocationCards = getFilteredCards({
+        filter: FilterCodes.SET,
+        filterCode: SetCodes.INVOCATION,
+      });
+      extraCards = extraCards.concat(invocationCards);
+    }
+
+    return extraCards.map((card) => ({
+      card,
+      code: card.code,
+      name: card.name,
+      factionCode: card.factionCode,
+      setCode: card.setCode,
+      typeCode: card.typeCode,
+      count: card.setQuantity || 1,
+    }));
   }
 
   get sectionedCards(): IDeckCardSection[] {
-    const cards = this.cards;
+    const cards = [].concat(this.cards, this.extraCards);
     const sections: IDeckCardSections = {
       identity: {
         code: 'identity',
@@ -325,14 +359,19 @@ ${basicCardsText || 'None'}
       code: this.code,
       version: this.version,
       name: this.name,
-      setCode: this.setCode,
-      aspectCodes: this.aspectCodes,
-      cards: [
-        ...this.rawCards.map((rawCard) => ({
-          code: rawCard.cardCode,
-          quantity: rawCard.quantity,
-        })),
-      ],
+      cards: {
+        ...this.cards
+          .filter(
+            (card) =>
+              card.typeCode === TypeCodes.HERO ||
+              (card.factionCode !== FactionCodes.ENCOUNTER &&
+                card.factionCode !== FactionCodes.HERO),
+          )
+          .reduce((map, c) => {
+            map[c.code] = c.count;
+            return map;
+          }, {}),
+      },
     });
 
     return text;
@@ -340,7 +379,7 @@ ${basicCardsText || 'None'}
 }
 
 export const getCardListForDeck = memoizeOne((deck: Deck): Card[] => {
-  return deck.cards.map((card) => card.card);
+  return [].concat(deck.cards, deck.extraCards).map((card) => card.card);
 }, isDeepEqual); // TODO compare deck code, but cards array can change
 
 export const getEligibleCardListForDeck = memoizeOne((deck: Deck): Card[] => {

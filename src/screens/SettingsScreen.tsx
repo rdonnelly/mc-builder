@@ -10,8 +10,11 @@ import InAppBrowser from 'react-native-inappbrowser-reborn';
 import React from 'react';
 import styled from 'styled-components/native';
 
+import { authorizeUser } from '../api/auth';
 import { base, colors } from '../styles';
+import { getDecks } from '../api/deck';
 import { reset } from '../store/reducers/decks';
+import { setAuthToken } from '../store/reducers/auth';
 
 const SettingsScreen: React.FunctionComponent<{}> = () => {
   const dispatch = useDispatch();
@@ -32,6 +35,19 @@ const SettingsScreen: React.FunctionComponent<{}> = () => {
       ],
     );
   };
+
+  // const doThing = async () => {
+  //   console.log('doThing');
+  //
+  //   // console.log(await getDecks());
+  //
+  //   // try {
+  //   //   const result = await authorizeUser();
+  //   //   dispatch(setAuthToken({ authResult: result }));
+  //   // } catch (error) {
+  //   //   return error;
+  //   // }
+  // };
 
   return (
     <Container>

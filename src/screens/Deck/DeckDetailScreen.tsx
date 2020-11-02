@@ -14,11 +14,13 @@ const DeckDetailScreen: React.FunctionComponent<{
 }> = ({ navigation, route }) => {
   const code = route.params.code;
 
-  const deckEntities = useSelector((state: StoreState) => state.decks.entities);
+  const deckEntities = useSelector(
+    (state: StoreState) => state.root.decks.entities,
+  );
   const deck = deckEntities[code];
 
   const deckCardEntities = useSelector((state: StoreState) =>
-    Object.values(state.deckCards.entities).filter((deckCard) =>
+    Object.values(state.root.deckCards.entities).filter((deckCard) =>
       deck.deckCardCodes.includes(deckCard.code),
     ),
   );

@@ -8,12 +8,10 @@ import React from 'react';
 import { AppProvider } from './context/AppContext';
 import { CardListProvider } from './context/CardListContext';
 import { colors } from './styles';
+import { persistor, store } from './store';
 import TabNavigator from './navigation/TabNavigator';
-import configureStore from './store';
 
 declare var global: { HermesInternal: null | {} };
-
-const { store, persistor } = configureStore(undefined);
 
 export default () => {
   return (

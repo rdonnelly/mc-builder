@@ -149,6 +149,9 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 7
         versionName "0.1"
+        manifestPlaceholders = [
+            appAuthRedirectScheme: 'com.rdonnelly.mcbuilder'
+        ]
     }
     splits {
         abi {

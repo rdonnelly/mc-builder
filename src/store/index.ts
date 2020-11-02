@@ -6,28 +6,19 @@ import {
   PURGE,
   REGISTER,
   REHYDRATE,
-  persistReducer,
   persistStore,
 } from 'redux-persist';
 import { ThunkAction } from 'redux-thunk';
-import AsyncStorage from '@react-native-community/async-storage';
 
 import Reactotron from '../ReactotronConfig';
-import rootReducer from './reducers';
+import reducer from './reducers';
 
-export type StoreState = ReturnType<typeof rootReducer>;
+export type StoreState = ReturnType<typeof reducer>;
 export type AppThunk = ThunkAction<void, StoreState, null, Action<string>>;
 
-const persistConfig = {
-  key: 'root',
-  storage: AsyncStorage,
-};
-
-const persistedReducer = persistReducer(persistConfig, rootReducer);
-
-export default function configureAppStore(preloadedState: undefined) {
+const configureApplicationStore = (preloadedState: undefined) => {
   const store = configureStore({
-    reducer: persistedReducer,
+    reducer: reducer,
     middleware: [
       ...getDefaultMiddleware({
         serializableCheck: {
@@ -40,4 +31,8 @@ export default function configureAppStore(preloadedState: undefined) {
   });
   const persistor = persistStore(store);
   return { store, persistor };
-}
+};
+
+const { store, persistor } = configureApplicationStore(undefined);
+
+export { persistor, store };

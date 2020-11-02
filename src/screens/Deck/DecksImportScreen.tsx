@@ -10,6 +10,9 @@ import styled from 'styled-components/native';
 
 import {
   CardModel,
+  FactionCode,
+  FactionCodes,
+  TypeCodes,
   getFilteredCards,
   getIdentityCards,
   getSet,
@@ -24,32 +27,72 @@ const DecksImportFormScreen: React.FunctionComponent<{
   route: RouteProp<DecksStackParamList, 'DecksImport'>;
 }> = ({ navigation, route }) => {
   const deck = route.params.deck;
-  const deckSet = getSet(deck.setCode);
+  let deckSetCode = null;
+  let deckAspectCodes = [];
 
   const dispatch = useDispatch();
   const insets = useSafeAreaInsets();
 
-  const deckCardCodesMap = deck.cards.reduce((map, c) => {
-    map[c.code] = c.quantity;
-    return map;
-  }, {});
-
-  const filteredDeckCards = getFilteredCards({
-    cardCodes: Object.keys(deckCardCodesMap),
+  let filteredDeckCards = getFilteredCards({
+    cardCodes: Object.keys(deck.cards),
   });
+
+  filteredDeckCards = filteredDeckCards.filter((card) => {
+    if (
+      card.typeCode === TypeCodes.ALTER_EGO ||
+      card.typeCode === TypeCodes.HERO
+    ) {
+      deckSetCode = card.setCode;
+    }
+
+    if (card.setCode == null) {
+      if (
+        [
+          FactionCodes.AGGRESSION,
+          FactionCodes.JUSTICE,
+          FactionCodes.LEADERSHIP,
+          FactionCodes.PROTECTION,
+        ].includes(card.factionCode as FactionCodes)
+      ) {
+        deckAspectCodes.push(card.factionCode);
+      }
+
+      return true;
+    }
+
+    return false;
+  });
+
+  deckAspectCodes = deckAspectCodes.filter((value, index, self) => {
+    return self.indexOf(value) === index;
+  });
+
+  const identityCards = getIdentityCards(deckSetCode);
+
+  const heroCard = identityCards.hero;
+  const heroCardImageSrc = heroCard ? heroCard.imageSrc : null;
+
+  const alterEgoCard = identityCards.alterEgo;
+  const alterEgoCardImageSrc = alterEgoCard ? alterEgoCard.imageSrc : null;
 
   const importDeck = () => {
     const deckCode = uuidv4();
-    if (deck.name && deck.setCode && deck.aspectCodes.length) {
+    if (deck.name && deckSetCode && deckAspectCodes.length) {
+      const deckCards = filteredDeckCards.map((card) => ({
+        code: card.code,
+        quantity: deck.cards[card.code],
+      }));
+
       dispatch(
         setUpNewDeck(
           deckCode,
           deck.name,
-          deck.setCode,
-          deck.aspectCodes,
+          deckSetCode,
+          deckAspectCodes,
           deck.version,
+          deckCards,
           deck.code,
-          deck.cards,
+          deck.mcdbId,
         ),
       );
 
@@ -67,18 +110,10 @@ const DecksImportFormScreen: React.FunctionComponent<{
     }
   };
 
-  const identityCards = getIdentityCards(deck.setCode);
-
-  const heroCard = identityCards.hero;
-  const heroCardImageSrc = heroCard ? heroCard.imageSrc : null;
-
-  const alterEgoCard = identityCards.alterEgo;
-  const alterEgoCardImageSrc = alterEgoCard ? alterEgoCard.imageSrc : null;
-
   const renderCard: ListRenderItem<CardModel> = ({ item: card }) => (
     <CardListItem
       card={card}
-      count={deckCardCodesMap[card.code]}
+      count={deck.cards[card.code]}
       isSelected={false}
       showPackInfo={false}
     />
@@ -104,8 +139,8 @@ const DecksImportFormScreen: React.FunctionComponent<{
         </TitleWrapper>
         <TraitsWrapper>
           <Traits>
-            {deckSet.name} –{' '}
-            {deck.aspectCodes
+            {heroCard.set.name} –{' '}
+            {deckAspectCodes
               .map(
                 (aspect) =>
                   `${aspect.charAt(0).toUpperCase()}${aspect
@@ -198,27 +233,6 @@ const Traits = styled.Text`
   color: ${colors.grayDark};
   font-size: 18px;
   text-align: center;
-`;
-
-const CardList = styled.SectionList`
-  flex: 1 1 auto;
-  width: 100%;
-`;
-
-const SectionHeader = styled.View`
-  background-color: ${colors.darkGray};
-  border-bottom-color: ${colors.lightGrayDark};
-  border-bottom-width: ${StyleSheet.hairlineWidth}px;
-  flex-direction: row;
-  justify-content: space-between;
-  padding-horizontal: 16px;
-  padding-vertical: 4px;
-`;
-
-const SectionHeaderText = styled.Text`
-  color: ${colors.lightGray};
-  font-weight: 800;
-  text-transform: uppercase;
 `;
 
 const FloatingControls = styled.View`

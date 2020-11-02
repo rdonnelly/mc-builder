@@ -2,6 +2,7 @@ import { Platform } from 'react-native';
 import { createNativeStackNavigator } from 'react-native-screens/native-stack';
 import React from 'react';
 
+import { IImportDeck } from '../utils/DeckParser';
 import CardDetailScreen from '../screens/Card/CardDetailScreen';
 import DeckDetailScreen from '../screens/Deck/DeckDetailScreen';
 import DeckEditScreen from '../screens/Deck/DeckEditScreen';
@@ -14,7 +15,7 @@ import { colors } from '../styles';
 export type DecksStackParamList = {
   DecksList: undefined;
   DecksCreate: undefined;
-  DecksImport: { deck: any };
+  DecksImport: { deck: IImportDeck };
   DeckDetail: { code: string };
   DeckDetailCardDetail: { code: string };
   DeckEdit: { code: string };

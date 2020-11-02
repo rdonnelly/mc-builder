@@ -1,24 +1,51 @@
-import { FactionCode, SetCode } from 'src/data/generatedTypes';
+// @ts-ignore
+import { MCDB_BASE_URI } from '@env';
 
-interface ImportDeckCard {
-  code: string;
-  quantity: number;
-}
+import { getPublicDeck } from '../api/deck';
 
-interface ImportDeck {
-  code: string;
-  version: number;
+export interface IImportDeck {
+  code?: string;
+  mcdbId?: number;
   name: string;
-  setCode: SetCode;
-  aspectCodes: FactionCode[];
-  cards: ImportDeckCard[];
+  version: number;
+  cards: {
+    [key: string]: number;
+  };
 }
 
-export function validateDeckJson(json: string): ImportDeck | false {
-  let deck: ImportDeck = null;
+const validateClipboard = async (
+  clipboardContent: string,
+): Promise<IImportDeck | false> => {
+  let deck: IImportDeck = null;
+  clipboardContent = clipboardContent.trim();
+
+  console.log('clipboardContent', clipboardContent);
+
+  const mcdbUrlRegex = new RegExp(
+    `^${MCDB_BASE_URI}/decklist/view/(\\d+)/`,
+    'gi',
+  );
+  if (mcdbUrlRegex.test(clipboardContent)) {
+    try {
+      const publicDeck = await getPublicDeck(clipboardContent);
+      deck = {
+        mcdbId: publicDeck.id,
+        name: publicDeck.name,
+        cards: { ...publicDeck.slots, [publicDeck.investigator_code]: 1 },
+        version: 0,
+      };
+    } catch (e) {
+      console.log('oh no', e);
+      return false;
+    }
+
+    console.log('mcdb deck', deck);
+
+    return deck;
+  }
 
   try {
-    deck = JSON.parse(json.trim()) as ImportDeck;
+    deck = JSON.parse(clipboardContent) as IImportDeck;
   } catch (e) {
     return false;
   }
@@ -27,14 +54,20 @@ export function validateDeckJson(json: string): ImportDeck | false {
     typeof deck.code !== 'string' ||
     typeof deck.version !== 'number' ||
     typeof deck.name !== 'string' ||
-    typeof deck.setCode !== 'string' ||
-    !Array.isArray(deck.aspectCodes) ||
-    deck.aspectCodes.length < 1 ||
-    !Array.isArray(deck.cards) ||
-    deck.cards.length < 1
+    deck.cards == null ||
+    typeof deck.cards !== 'object'
   ) {
     return false;
   }
 
+  if (Array.isArray(deck.cards)) {
+    deck.cards = deck.cards.reduce((map, c) => {
+      map[c.code] = c.quantity;
+      return map;
+    }, {});
+  }
+
   return deck;
-}
+};
+
+export { validateClipboard };

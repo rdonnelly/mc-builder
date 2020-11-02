@@ -5,6 +5,7 @@ import { AppThunk } from '.';
 import {
   CardModel,
   FactionCode,
+  FactionCodes,
   FilterCodes,
   SetCode,
   SetCodes,
@@ -28,8 +29,9 @@ export const setUpNewDeck = (
   deckSet: SetCode,
   deckAspect: FactionCode[],
   version?: number,
-  source?: string,
   initialDeckCards?: { code: string; quantity: number }[],
+  importCode?: string,
+  mcdbId?: number,
 ): AppThunk => (dispatch) => {
   if (deckName && deckSet && deckAspect.length) {
     dispatch(
@@ -39,35 +41,30 @@ export const setUpNewDeck = (
         setCode: deckSet,
         aspectCodes: deckAspect,
         version,
-        source,
+        source: importCode,
+        mcdbId,
       }),
     );
 
     const deckCardCodes = [];
     const deckCardData = [];
 
-    if (initialDeckCards == null) {
-      const setsArray = [deckSet, `${deckSet}_nemesis` as SetCode];
+    const setCards = getFilteredCards({
+      filter: FilterCodes.SET,
+      filterCode: deckSet,
+    }).filter((card) => card.factionCode !== FactionCodes.ENCOUNTER);
 
-      if (deckSet === SetCodes.DOCTOR_STRANGE) {
-        setsArray.push(SetCodes.INVOCATION);
-      }
-
-      const setCards = getFilteredCards({
-        filter: FilterCodes.SET,
-        filterCode: setsArray,
+    setCards.forEach((card) => {
+      const code = uuidv4();
+      deckCardCodes.push(code);
+      deckCardData.push({
+        code,
+        cardCode: card.code,
+        quantity: card.setQuantity,
       });
+    });
 
-      setCards.forEach((card) => {
-        const code = uuidv4();
-        deckCardCodes.push(code);
-        deckCardData.push({
-          code,
-          cardCode: card.code,
-          quantity: card.setQuantity,
-        });
-      });
-    } else {
+    if (initialDeckCards && initialDeckCards.length) {
       initialDeckCards.forEach((card) => {
         const code = uuidv4();
         deckCardCodes.push(code);
@@ -91,8 +88,8 @@ export const addCardToDeck = (deckCode: string, card: CardModel): AppThunk => (
   dispatch,
   getState,
 ) => {
-  const deck = getState().decks.entities[deckCode];
-  const deckCard = Object.values(getState().deckCards.entities).find(
+  const deck = getState().root.decks.entities[deckCode];
+  const deckCard = Object.values(getState().root.deckCards.entities).find(
     (candidateDeckCard) => {
       if (
         deck.deckCardCodes.includes(candidateDeckCard.code) &&
@@ -142,8 +139,8 @@ export const removeCardFromDeck = (
   deckCode: string,
   card: CardModel,
 ): AppThunk => (dispatch, getState) => {
-  const deck = getState().decks.entities[deckCode];
-  const deckCard = Object.values(getState().deckCards.entities).find(
+  const deck = getState().root.decks.entities[deckCode];
+  const deckCard = Object.values(getState().root.deckCards.entities).find(
     (candidateDeckCard) => {
       if (
         deck.deckCardCodes.includes(candidateDeckCard.code) &&
@@ -189,8 +186,8 @@ export const deleteDeck = (deckCode: string): AppThunk => (
   dispatch,
   getState,
 ) => {
-  const deck = getState().decks.entities[deckCode];
-  const deckCards = Object.values(getState().deckCards.entities).filter(
+  const deck = getState().root.decks.entities[deckCode];
+  const deckCards = Object.values(getState().root.deckCards.entities).filter(
     (candidateDeckCard) => {
       if (deck.deckCardCodes.includes(candidateDeckCard.code)) {
         return true;

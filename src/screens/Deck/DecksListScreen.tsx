@@ -16,7 +16,7 @@ import styled from 'styled-components/native';
 import { DecksStackParamList } from '../../navigation/DecksStackNavigator';
 import { StoreState } from '../../store';
 import { getClipboard } from '../../utils/Clipboard';
-import { validateDeckJson } from '../../utils/DeckParser';
+import { validateClipboard } from '../../utils/DeckParser';
 import DecksListItem from '../../components/DecksListItem';
 
 import { base, colors } from '../../styles';
@@ -24,8 +24,10 @@ import { base, colors } from '../../styles';
 const DecksListScreen: React.FunctionComponent<{
   navigation: StackNavigationProp<DecksStackParamList, 'DecksList'>;
 }> = ({ navigation }) => {
-  const deckCodes = useSelector((state: StoreState) => state.decks.codes);
-  const deckEntities = useSelector((state: StoreState) => state.decks.entities);
+  const deckCodes = useSelector((state: StoreState) => state.root.decks.codes);
+  const deckEntities = useSelector(
+    (state: StoreState) => state.root.decks.entities,
+  );
 
   const { showActionSheetWithOptions } = useActionSheet();
   const actionSheetAnchorRef = useRef(null);
@@ -81,7 +83,7 @@ const DecksListScreen: React.FunctionComponent<{
 
   const handleImportDeck = async () => {
     const clipboardContent = await getClipboard();
-    const importDeck = validateDeckJson(clipboardContent);
+    const importDeck = await validateClipboard(clipboardContent);
 
     if (importDeck === false) {
       Alert.alert(

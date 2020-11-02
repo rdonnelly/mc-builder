@@ -81,8 +81,9 @@ const CardListItem: React.FunctionComponent<{
   const incrementIsDisabled =
     (card.isUnique && count >= 1) ||
     count >= card.deckLimit ||
-    card.setCode != null;
-  const decrementIsDisabled = count <= 0 || card.setCode != null;
+    (card.setCode != null && count >= card.setQuantity);
+  const decrementIsDisabled =
+    count <= 0 || (card.setCode != null && count <= card.setQuantity);
 
   const increment = () => {
     if (!incrementIsDisabled) {

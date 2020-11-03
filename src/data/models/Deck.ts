@@ -296,12 +296,14 @@ export class Deck {
     return Object.values(sections);
   }
 
-  get heroCard(): IDeckCard {
-    return this.cards.find((card) => card.typeCode === TypeCodes.HERO);
-  }
-
-  get alterEgoCard(): IDeckCard {
-    return this.cards.find((card) => card.typeCode === TypeCodes.ALTER_EGO);
+  get identityCards(): Card[] {
+    return this.cards
+      .filter(
+        (card) =>
+          card.typeCode === TypeCodes.ALTER_EGO ||
+          card.typeCode === TypeCodes.HERO,
+      )
+      .map((card) => card.card);
   }
 
   get isLegal(): boolean {
@@ -337,7 +339,7 @@ export class Deck {
 
     const text = `${this.name}
 ---
-${this.heroCard.name} – ${this.aspectNames.join(', ')} – ${this.cardCount} Cards
+${this.set.name} – ${this.aspectNames.join(', ')} – ${this.cardCount} Cards
 
 Hero Cards:
 ${heroCardsText || 'None'}

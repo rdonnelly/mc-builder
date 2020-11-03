@@ -7,19 +7,14 @@ import styled from 'styled-components/native';
 import { DeckModel } from '../data';
 import { base, colors } from '../styles';
 import DeckEditList from './DeckEditList';
+import DeckHeader from './DeckHeader';
 
 const DeckEdit: React.FunctionComponent<{
   deck: DeckModel;
 }> = ({ deck }) => {
   const navigation = useNavigation();
 
-  const heroCard = deck.heroCard;
-  const heroCardImageSrc = heroCard ? heroCard.card.imageSrc : null;
-
-  const alterEgoCard = deck.alterEgoCard;
-  const alterEgoCardImageSrc = alterEgoCard ? alterEgoCard.card.imageSrc : null;
-
-  const handlePressItem = () => {
+  const handlePressDone = () => {
     if (navigation) {
       ReactNativeHapticFeedback.trigger('impactLight');
       navigation.goBack();
@@ -28,31 +23,10 @@ const DeckEdit: React.FunctionComponent<{
 
   return (
     <Container>
-      <Summary>
-        <IdentityWrapper>
-          {heroCardImageSrc ? (
-            <IdentityImage source={{ uri: heroCardImageSrc }} />
-          ) : null}
-        </IdentityWrapper>
-        <IdentityWrapper>
-          {alterEgoCardImageSrc ? (
-            <IdentityImage source={{ uri: alterEgoCardImageSrc }} />
-          ) : null}
-        </IdentityWrapper>
-        <Info>
-          <InfoItem>
-            <InfoLabel>Aspect</InfoLabel>
-            <InfoText>{deck.aspectNames.join(' + ')}</InfoText>
-          </InfoItem>
-          <InfoItem>
-            <InfoLabel>Deck Size</InfoLabel>
-            <InfoText>{deck.cardCount}</InfoText>
-          </InfoItem>
-        </Info>
-      </Summary>
+      <DeckHeader deck={deck} />
       <DeckEditList deck={deck} />
       <FloatingControls>
-        <FloatingControlsButtonWrapper onPress={() => handlePressItem()}>
+        <FloatingControlsButtonWrapper onPress={() => handlePressDone()}>
           {({ pressed }) => (
             <FloatingControlsSaveButton pressed={pressed}>
               <FloatingControlsButtonText pressed={pressed}>

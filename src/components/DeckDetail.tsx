@@ -1,5 +1,4 @@
 import { Alert, SectionList, StyleSheet } from 'react-native';
-import { Pressable } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
@@ -14,6 +13,7 @@ import { deleteDeck } from '../store/actions';
 import { setClipboard } from '../utils/Clipboard';
 import { useActionSheet } from '@expo/react-native-action-sheet';
 import CardListItem from './CardListItem';
+import DeckHeader from './DeckHeader';
 
 const DeckDetail: React.FunctionComponent<{
   deck: DeckModel;
@@ -26,12 +26,6 @@ const DeckDetail: React.FunctionComponent<{
   const { showActionSheetWithOptions } = useActionSheet();
 
   const filteredDeckCards = getCardListForDeck(deck);
-
-  const heroCard = deck.heroCard;
-  const heroCardImageSrc = heroCard ? heroCard.card.imageSrc : null;
-
-  const alterEgoCard = deck.alterEgoCard;
-  const alterEgoCardImageSrc = alterEgoCard ? alterEgoCard.card.imageSrc : null;
 
   const handlePressItem = (code: string) => {
     if (navigation) {
@@ -129,28 +123,7 @@ const DeckDetail: React.FunctionComponent<{
 
   return (
     <Container>
-      <Summary>
-        <IdentityWrapper onPress={() => handlePressItem(heroCard.code)}>
-          {heroCardImageSrc ? (
-            <IdentityImage source={{ uri: heroCardImageSrc }} />
-          ) : null}
-        </IdentityWrapper>
-        <IdentityWrapper onPress={() => handlePressItem(alterEgoCard.code)}>
-          {alterEgoCardImageSrc ? (
-            <IdentityImage source={{ uri: alterEgoCardImageSrc }} />
-          ) : null}
-        </IdentityWrapper>
-        <Info>
-          <InfoItem>
-            <InfoLabel>Aspect</InfoLabel>
-            <InfoText>{deck.aspectNames.join(' + ')}</InfoText>
-          </InfoItem>
-          <InfoItem>
-            <InfoLabel>Deck Size</InfoLabel>
-            <InfoText>{deck.cardCount}</InfoText>
-          </InfoItem>
-        </Info>
-      </Summary>
+      <DeckHeader deck={deck} onPressIdentity={handlePressItem} />
       <CardList
         sections={deck.sectionedCards}
         renderItem={renderCard}
@@ -188,55 +161,6 @@ const DeckDetail: React.FunctionComponent<{
 const Container = styled(base.Container)`
   background-color: ${colors.lightGray};
   flex-direction: column;
-`;
-
-const Summary = styled.View`
-  flex-direction: row;
-  margin: 16px;
-`;
-
-const IdentityWrapper = styled(Pressable)`
-  background-color: ${colors.lightGray};
-  border: 2px solid ${colors.white};
-  border-radius: 8px;
-  height: 96px;
-  margin-right: 8px;
-  overflow: hidden;
-  width: 96px;
-`;
-
-const IdentityImage = styled.Image`
-  height: 176px;
-  width: 176px;
-  left: -50%;
-`;
-
-const Info = styled.View`
-  flex: 1 1 auto;
-  flex-direction: column;
-  justify-content: space-between;
-`;
-
-const InfoItem = styled.View`
-  background-color: ${colors.white};
-  border-radius: 4px;
-  padding: 2px 8px;
-`;
-
-const InfoLabel = styled.Text.attrs(() => ({
-  numberOfLines: 1,
-}))`
-  color: ${colors.gray};
-  font-size: 14px;
-  font-weight: 700;
-`;
-
-const InfoText = styled.Text.attrs(() => ({
-  numberOfLines: 1,
-}))`
-  color: ${colors.darkGray};
-  font-size: 18px;
-  font-weight: 600;
 `;
 
 const CardList = styled(SectionList)`

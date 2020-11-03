@@ -1,4 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import difference from 'lodash/difference';
 import uniq from 'lodash/uniq';
 
 import { FactionCode, SetCode } from '../../data';
@@ -146,7 +147,7 @@ const decksSlice = createSlice({
           ...state.entities,
           [deck.code]: {
             ...deck,
-            deckCardCodes: _.difference(deck.deckCardCodes, deckCardCodes),
+            deckCardCodes: difference(deck.deckCardCodes, deckCardCodes),
             updated: updated,
           },
         },

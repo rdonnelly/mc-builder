@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { FactionCode, SetCode } from 'src/data';
+import { FactionCode, SetCode } from '../data';
 import { getFaction } from '../data/models/Faction';
 import { getSet } from '../data/models/Set';
 

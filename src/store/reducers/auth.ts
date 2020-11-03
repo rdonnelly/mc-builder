@@ -1,8 +1,8 @@
-// "accessToken": "YmZlYThiZDhhZmJhNDdmYWNhMDgzOTQ5NTlmNWYzYTczYTQ4YjNkNWI0YTNiYWZjZTBlYTZjZDdjNDk0MWNjZg",
+// "accessToken": "",
 // "accessTokenExpirationDate": "2020-11-01T03:27:26Z",
 // "authorizeAdditionalParameters": {},
 // "idToken": "",
-// "refreshToken": "MjAxN2M3ZWZjYmYxZWExOTYyYmE0ZDFkMGEwZDRiOWYzY2E3OGQxNjE0NWE2ZGJmNDUxNTI3MTFlMDgzZmRlZQ",
+// "refreshToken": "",
 // "scopes": [],
 // "tokenAdditionalParameters": {"scope": null},
 // "tokenType": "bearer"

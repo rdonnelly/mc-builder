@@ -3,32 +3,30 @@ import React from 'react';
 import styled from 'styled-components/native';
 
 import { DeckModel } from '../data';
-import { IDeck } from '../store/types';
 import { base, colors } from '../styles';
 
 export const ITEM_HEIGHT = 64;
 
 const DecksListItem: React.FunctionComponent<{
-  deck: IDeck;
+  deck: DeckModel;
   onPressItem: any;
 }> = ({ deck, onPressItem }) => {
-  const deckModel = new DeckModel(deck);
   return (
     <Container>
-      <ListItemPressable onPress={() => onPressItem(deckModel.code)}>
+      <ListItemPressable onPress={() => onPressItem(deck.code)}>
         {({ pressed }) => (
           <ListItemInner pressed={pressed}>
             <DeckDetails>
               <DeckDetailsName>
                 <DeckDetailsNameText numberOfLines={1}>
-                  {deckModel.name}
+                  {deck.name}
                 </DeckDetailsNameText>
               </DeckDetailsName>
               <DeckDetailsInfo>
                 <DeckDetailsInfoText>
-                  <Text>{deckModel.setName}</Text>
+                  <Text>{deck.setName}</Text>
                   <Text>&nbsp;&middot;&nbsp;</Text>
-                  <Text>{deckModel.aspectNames.join(' + ')}</Text>
+                  <Text>{deck.aspectNames.join(' + ')}</Text>
                 </DeckDetailsInfoText>
               </DeckDetailsInfo>
             </DeckDetails>

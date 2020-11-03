@@ -3,7 +3,6 @@ export {
   getCard,
   getCards,
   getFilteredCards,
-  getIdentityCards,
 } from './models/Card';
 
 export {

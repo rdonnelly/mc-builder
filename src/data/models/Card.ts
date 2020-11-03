@@ -235,12 +235,7 @@ export const getFilteredCards = memoizeOne(
         : null;
 
     filteredCards = filteredCards.filter((card) => {
-      if (
-        cardCodes != null &&
-        Array.isArray(cardCodes) &&
-        cardCodes.length &&
-        !cardCodes.includes(card.code)
-      ) {
+      if (cardCodes && cardCodes.length && !cardCodes.includes(card.code)) {
         return false;
       }
 
@@ -299,12 +294,12 @@ export const getEligibleCards = memoizeOne(
       .filter((card) => {
         if (
           ![
-            TypeCodes.ALLY as string,
-            TypeCodes.EVENT as string,
-            TypeCodes.RESOURCE as string,
-            TypeCodes.SUPPORT as string,
-            TypeCodes.UPGRADE as string,
-          ].includes(card.typeCode)
+            TypeCodes.ALLY,
+            TypeCodes.EVENT,
+            TypeCodes.RESOURCE,
+            TypeCodes.SUPPORT,
+            TypeCodes.UPGRADE,
+          ].includes(card.typeCode as TypeCodes)
         ) {
           return false;
         }
@@ -365,19 +360,4 @@ const cardSorter = (a, b) => {
 
 export const getCard = memoizeOne((code: string) =>
   getCards().find((card) => card.code === code),
-);
-
-export const getIdentityCards = memoizeOne((setCode: SetCode) =>
-  getCards().reduce((identities, card) => {
-    if (card.setCode === setCode) {
-      if (card.typeCode === TypeCodes.ALTER_EGO) {
-        identities.alterEgo = card;
-      }
-      if (card.typeCode === TypeCodes.HERO) {
-        identities.hero = card;
-      }
-    }
-
-    return identities;
-  }, {} as { alterEgo: Card; hero: Card }),
 );

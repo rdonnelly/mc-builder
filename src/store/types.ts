@@ -11,20 +11,20 @@ interface IEntityState<T> {
   codes: EntityCode[];
 }
 
-export interface IDeckAttributes {
+export interface IStoreDeckAttributes {
   isFavorite?: boolean;
   isDeleted?: boolean;
   isHidden?: boolean;
   [Key: string]: any;
 }
 
-export interface IDeck {
+export interface IStoreDeck {
   code: string;
   name: string;
   setCode: SetCode;
   aspectCodes: FactionCode[];
-  deckCardCodes: string[];
-  attributes?: IDeckAttributes;
+  deckCardCodes: EntityCode[];
+  attributes?: IStoreDeckAttributes;
   version?: number;
   source?: string;
   mcdbId?: number;
@@ -32,12 +32,12 @@ export interface IDeck {
   updated: number;
 }
 
-export interface IDeckState extends IEntityState<IDeck> {}
+export interface IStoreDeckState extends IEntityState<IStoreDeck> {}
 
-export interface IDeckCard {
+export interface IStoreDeckCard {
   code: string;
   cardCode: string;
   quantity: number;
 }
 
-export interface IDeckCardState extends IEntityState<IDeckCard> {}
+export interface IStoreDeckCardState extends IEntityState<IStoreDeckCard> {}

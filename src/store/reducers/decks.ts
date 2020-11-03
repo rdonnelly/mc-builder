@@ -1,13 +1,13 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import _ from 'lodash';
+import uniq from 'lodash/uniq';
 
-import { FactionCode, SetCode } from 'src/data';
-import { IDeck, IDeckAttributes, IDeckState } from '../types';
+import { FactionCode, SetCode } from '../../data';
+import { IStoreDeck, IStoreDeckAttributes, IStoreDeckState } from '../types';
 
 const initialState = {
   codes: [],
   entities: {},
-} as IDeckState;
+} as IStoreDeckState;
 
 const decksSlice = createSlice({
   name: 'decks',
@@ -35,7 +35,7 @@ const decksSlice = createSlice({
         source,
         mcdbId,
       } = payload;
-      const attributes: IDeckAttributes = {
+      const attributes: IStoreDeckAttributes = {
         isFavorite: false,
         isHidden: false,
         isDeleted: false,
@@ -44,7 +44,7 @@ const decksSlice = createSlice({
       const now = new Date();
       const created = now.getTime() + now.getTimezoneOffset() * 60000;
 
-      const deck: IDeck = {
+      const deck: IStoreDeck = {
         code,
         name,
         setCode,
@@ -119,7 +119,7 @@ const decksSlice = createSlice({
           ...state.entities,
           [deck.code]: {
             ...deck,
-            deckCardCodes: _.uniq([...deck.deckCardCodes, ...deckCardCodes]),
+            deckCardCodes: uniq([...deck.deckCardCodes, ...deckCardCodes]),
             updated: updated,
           },
         },

@@ -8,7 +8,6 @@ import {
   FactionCodes,
   FilterCodes,
   SetCode,
-  SetCodes,
   getFilteredCards,
 } from '../data';
 import {

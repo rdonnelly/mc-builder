@@ -12,9 +12,10 @@ import {
   CardModel,
   FactionCode,
   FactionCodes,
+  FilterCodes,
+  SetCode,
   TypeCodes,
   getFilteredCards,
-  getIdentityCards,
   getSet,
 } from '../../data';
 import { DecksStackParamList } from '../../navigation/DecksStackNavigator';
@@ -27,8 +28,8 @@ const DecksImportFormScreen: React.FunctionComponent<{
   route: RouteProp<DecksStackParamList, 'DecksImport'>;
 }> = ({ navigation, route }) => {
   const deck = route.params.deck;
-  let deckSetCode = null;
-  let deckAspectCodes = [];
+  let deckSetCode: SetCode = null;
+  let deckAspectCodes: FactionCode[] = [];
 
   const dispatch = useDispatch();
   const insets = useSafeAreaInsets();
@@ -67,13 +68,20 @@ const DecksImportFormScreen: React.FunctionComponent<{
     return self.indexOf(value) === index;
   });
 
-  const identityCards = getIdentityCards(deckSetCode);
+  const set = getSet(deckSetCode);
 
-  const heroCard = identityCards.hero;
-  const heroCardImageSrc = heroCard ? heroCard.imageSrc : null;
+  const setCards = getFilteredCards({
+    filter: FilterCodes.SET,
+    filterCode: deckSetCode,
+  }).filter((card) => card.factionCode !== FactionCodes.ENCOUNTER);
 
-  const alterEgoCard = identityCards.alterEgo;
-  const alterEgoCardImageSrc = alterEgoCard ? alterEgoCard.imageSrc : null;
+  const identityImageSrcs = setCards
+    .filter(
+      (card) =>
+        card.typeCode === TypeCodes.ALTER_EGO ||
+        card.typeCode === TypeCodes.HERO,
+    )
+    .map((card) => card.imageSrc || null);
 
   const importDeck = () => {
     const deckCode = uuidv4();
@@ -113,7 +121,7 @@ const DecksImportFormScreen: React.FunctionComponent<{
   const renderCard: ListRenderItem<CardModel> = ({ item: card }) => (
     <CardListItem
       card={card}
-      count={deck.cards[card.code]}
+      count={card.setCode == null ? deck.cards[card.code] : card.setQuantity}
       isSelected={false}
       showPackInfo={false}
     />
@@ -122,16 +130,13 @@ const DecksImportFormScreen: React.FunctionComponent<{
   return (
     <Container bottom={insets.bottom}>
       <Identities>
-        <IdentityWrapper>
-          {heroCardImageSrc ? (
-            <IdentityImage source={{ uri: heroCardImageSrc }} />
-          ) : null}
-        </IdentityWrapper>
-        <IdentityWrapper>
-          {alterEgoCardImageSrc ? (
-            <IdentityImage source={{ uri: alterEgoCardImageSrc }} />
-          ) : null}
-        </IdentityWrapper>
+        {identityImageSrcs.map((src) =>
+          src ? (
+            <IdentityWrapper>
+              <IdentityImage source={{ uri: src }} />
+            </IdentityWrapper>
+          ) : null,
+        )}
       </Identities>
       <Info>
         <TitleWrapper>
@@ -139,7 +144,7 @@ const DecksImportFormScreen: React.FunctionComponent<{
         </TitleWrapper>
         <TraitsWrapper>
           <Traits>
-            {heroCard.set.name} –{' '}
+            {set.name} –{' '}
             {deckAspectCodes
               .map(
                 (aspect) =>
@@ -151,9 +156,9 @@ const DecksImportFormScreen: React.FunctionComponent<{
           </Traits>
         </TraitsWrapper>
       </Info>
-      <base.FlatList
+      <FlatList
         renderItem={renderCard}
-        data={filteredDeckCards}
+        data={[].concat(setCards, filteredDeckCards)}
         keyExtractor={(card: CardModel) => card.code}
         contentContainerStyle={{ paddingBottom: 48 }}
       />
@@ -234,6 +239,8 @@ const Traits = styled.Text`
   font-size: 18px;
   text-align: center;
 `;
+
+const FlatList = styled(base.FlatList)``;
 
 const FloatingControls = styled.View`
   background-color: rgba(52, 73, 94, 0.1);

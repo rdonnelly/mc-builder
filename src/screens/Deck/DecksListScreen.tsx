@@ -13,13 +13,13 @@ import React, { useEffect, useRef } from 'react';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import styled from 'styled-components/native';
 
+import { DeckModel } from '../../data';
 import { DecksStackParamList } from '../../navigation/DecksStackNavigator';
 import { StoreState } from '../../store';
+import { base, colors } from '../../styles';
 import { getClipboard } from '../../utils/Clipboard';
 import { validateClipboard } from '../../utils/DeckParser';
 import DecksListItem from '../../components/DecksListItem';
-
-import { base, colors } from '../../styles';
 
 const DecksListScreen: React.FunctionComponent<{
   navigation: StackNavigationProp<DecksStackParamList, 'DecksList'>;
@@ -99,7 +99,7 @@ const DecksListScreen: React.FunctionComponent<{
 
   const renderCard: ListRenderItem<string> = ({ item: deckCode }) => (
     <DecksListItem
-      deck={deckEntities[deckCode]}
+      deck={new DeckModel(deckEntities[deckCode])}
       onPressItem={handlePressItem}
     />
   );

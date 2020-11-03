@@ -19,8 +19,6 @@ const validateClipboard = async (
   let deck: IImportDeck = null;
   clipboardContent = clipboardContent.trim();
 
-  console.log('clipboardContent', clipboardContent);
-
   const mcdbUrlRegex = new RegExp(
     `^${MCDB_BASE_URI}/decklist/view/(\\d+)/`,
     'gi',
@@ -35,11 +33,8 @@ const validateClipboard = async (
         version: 0,
       };
     } catch (e) {
-      console.log('oh no', e);
       return false;
     }
-
-    console.log('mcdb deck', deck);
 
     return deck;
   }
@@ -61,10 +56,14 @@ const validateClipboard = async (
   }
 
   if (Array.isArray(deck.cards)) {
-    deck.cards = deck.cards.reduce((map, c) => {
-      map[c.code] = c.quantity;
-      return map;
-    }, {});
+    try {
+      deck.cards = deck.cards.reduce((map, c) => {
+        map[c.code] = c.quantity;
+        return map;
+      }, {});
+    } catch (e) {
+      return false;
+    }
   }
 
   return deck;

@@ -1,5 +1,5 @@
-import _ from 'lodash';
 import isDeepEqual from 'lodash/isEqual';
+import keyBy from 'lodash/keyBy';
 import memoizeOne from 'memoize-one';
 
 import { Card, getCard, getEligibleCards, getFilteredCards } from './Card';
@@ -12,10 +12,7 @@ import {
   TypeCodes,
 } from '../generatedTypes';
 import { FilterCodes } from '../types';
-import {
-  IDeck as IStoreDeck,
-  IDeckCard as IStoreDeckCard,
-} from '../../store/types';
+import { IStoreDeck, IStoreDeckCard } from '../../store/types';
 import { getFactions } from './Faction';
 import { getSets } from './Set';
 
@@ -225,7 +222,7 @@ export class Deck {
 
   get eligibleCards(): IDeckCard[] {
     const cards = this.cards;
-    const cardsObj = _.keyBy(cards, (card) => card.code);
+    const cardsObj = keyBy(cards, (card) => card.code);
 
     return getEligibleCards(
       this.aspectCodes,

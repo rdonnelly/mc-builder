@@ -1,18 +1,33 @@
+import { CardModel } from '../data';
 import React from 'react';
 
-import { getCards } from '../data';
+export interface ICardListContext {
+  cardList: CardModel[];
+  setCardList: (cardList: CardModel[]) => void;
+  deckCardList: CardModel[];
+  setDeckCardList: (cardList: CardModel[]) => void;
+}
 
-const CardListContext = React.createContext({
+export const cardListContextDefaultValue: ICardListContext = {
   cardList: undefined,
   setCardList: undefined,
-});
+  deckCardList: undefined,
+  setDeckCardList: undefined,
+};
+
+const CardListContext = React.createContext<ICardListContext>(
+  cardListContextDefaultValue,
+);
 
 const CardListProvider = (props) => {
-  const [cardList, setCardList] = React.useState(getCards());
+  const [cardList, setCardList] = React.useState([]);
+  const [deckCardList, setDeckCardList] = React.useState([]);
 
   const contextValue = {
-    cardList: cardList,
-    setCardList: setCardList,
+    cardList,
+    setCardList,
+    deckCardList,
+    setDeckCardList,
   };
 
   return (

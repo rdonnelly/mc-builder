@@ -14,8 +14,15 @@ const CardDetailScreen: React.FunctionComponent<{
   navigation: StackNavigationProp<CardStackParamList, 'CardDetail'>;
   route: RouteProp<CardStackParamList, 'CardDetail'>;
 }> = ({ navigation, route }) => {
-  const { cardList } = useContext(CardListContext);
   const { windowWidth } = useContext(AppContext);
+
+  let cardList: CardModel[];
+  if (route.params.type === 'card') {
+    cardList = useContext(CardListContext).cardList;
+  }
+  if (route.params.type === 'deck') {
+    cardList = useContext(CardListContext).deckCardList;
+  }
 
   const code = route.params.code;
 
@@ -23,7 +30,10 @@ const CardDetailScreen: React.FunctionComponent<{
 
   useEffect(() => {
     navigation.setOptions({
-      headerTitle: cardList[initialScrollIndex].name,
+      headerTitle:
+        cardList && cardList[initialScrollIndex]
+          ? cardList[initialScrollIndex].name
+          : '',
       headerBackTitleVisible: false,
     });
   }, [cardList, initialScrollIndex, navigation]);

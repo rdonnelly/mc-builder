@@ -15,13 +15,13 @@ const DeckEditList: React.FunctionComponent<{
 }> = ({ deck }) => {
   const navigation = useNavigation();
 
-  const { setCardList } = useContext(CardListContext);
+  const { setDeckCardList } = useContext(CardListContext);
 
   const eligibleDeckCards = getEligibleCardListForDeck(deck);
 
   const handlePressItem = (code: string) => {
     if (navigation) {
-      setCardList(eligibleDeckCards);
+      setDeckCardList(eligibleDeckCards);
       navigation.navigate('DeckEditCardDetail', {
         code,
       });

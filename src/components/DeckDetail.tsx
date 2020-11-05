@@ -21,7 +21,7 @@ const DeckDetail: React.FunctionComponent<{
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
-  const { setCardList } = useContext(CardListContext);
+  const { setDeckCardList } = useContext(CardListContext);
 
   const { showActionSheetWithOptions } = useActionSheet();
 
@@ -29,7 +29,7 @@ const DeckDetail: React.FunctionComponent<{
 
   const handlePressItem = (code: string) => {
     if (navigation) {
-      setCardList(filteredDeckCards);
+      setDeckCardList(filteredDeckCards);
       navigation.navigate('DeckDetailCardDetail', {
         code,
       });

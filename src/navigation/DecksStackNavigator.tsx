@@ -17,9 +17,9 @@ export type DecksStackParamList = {
   DecksCreate: undefined;
   DecksImport: { deck: IImportDeck };
   DeckDetail: { code: string };
-  DeckDetailCardDetail: { code: string };
+  DeckDetailCardDetail: { code: string; type: 'card' | 'deck' };
   DeckEdit: { code: string };
-  DeckEditCardDetail: { code: string };
+  DeckEditCardDetail: { code: string; type: 'card' | 'deck' };
 };
 
 const Stack = createNativeStackNavigator<DecksStackParamList>();
@@ -86,6 +86,7 @@ export default () => {
       <Stack.Screen
         name="DeckDetailCardDetail"
         component={CardDetailScreen}
+        initialParams={{ type: 'deck' }}
         options={{
           title: '',
         }}
@@ -93,6 +94,7 @@ export default () => {
       <Stack.Screen
         name="DeckEditCardDetail"
         component={CardDetailScreen}
+        initialParams={{ type: 'deck' }}
         options={{
           title: '',
         }}

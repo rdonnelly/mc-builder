@@ -304,25 +304,6 @@ const CardDetailStats: React.FunctionComponent<{
 
       if (card.typeCode === 'ally') {
         stats.push(
-          <StatSpacer key={'attack-spacer'} />,
-          <Stat key={'attack'}>
-            <StatData>
-              <StatDataText>
-                {card.raw.attack}
-                {[...Array(card.raw.attack_cost || 0).keys()].map((i) => (
-                  <Icon
-                    code={IconCode.cost}
-                    color={colors.darkGray}
-                    size={16}
-                    key={`icon-${i}`}
-                  />
-                ))}
-              </StatDataText>
-            </StatData>
-            <StatHeader>
-              <StatHeaderText>ATK</StatHeaderText>
-            </StatHeader>
-          </Stat>,
           <StatSpacer key={'thwart-spacer'} />,
           <Stat key={'thwart'}>
             <StatData>
@@ -340,6 +321,25 @@ const CardDetailStats: React.FunctionComponent<{
             </StatData>
             <StatHeader>
               <StatHeaderText>THW</StatHeaderText>
+            </StatHeader>
+          </Stat>,
+          <StatSpacer key={'attack-spacer'} />,
+          <Stat key={'attack'}>
+            <StatData>
+              <StatDataText>
+                {card.raw.attack}
+                {[...Array(card.raw.attack_cost || 0).keys()].map((i) => (
+                  <Icon
+                    code={IconCode.cost}
+                    color={colors.darkGray}
+                    size={16}
+                    key={`icon-${i}`}
+                  />
+                ))}
+              </StatDataText>
+            </StatData>
+            <StatHeader>
+              <StatHeaderText>ATK</StatHeaderText>
             </StatHeader>
           </Stat>,
         );
@@ -423,19 +423,34 @@ const renderCardSchemeTraits = (card: CardModel) => {
 
   if (card.raw.scheme_acceleration) {
     icons.push(
-      <Icon code={IconCode.acceleration} color={colors.darkGray} size={40} />,
+      <Icon
+        code={IconCode.acceleration}
+        color={colors.darkGray}
+        size={40}
+        key={'card-scheme-traits-acceleration'}
+      />,
     );
   }
 
   if (card.raw.scheme_crisis) {
     icons.push(
-      <Icon code={IconCode.crisis} color={colors.darkGray} size={40} />,
+      <Icon
+        code={IconCode.crisis}
+        color={colors.darkGray}
+        size={40}
+        key={'card-scheme-traits-crisis'}
+      />,
     );
   }
 
   if (card.raw.scheme_hazard) {
     icons.push(
-      <Icon code={IconCode.hazard} color={colors.darkGray} size={40} />,
+      <Icon
+        code={IconCode.hazard}
+        color={colors.darkGray}
+        size={40}
+        key={'card-scheme-traits-hazard'}
+      />,
     );
   }
 

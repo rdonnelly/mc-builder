@@ -30,6 +30,7 @@ const DeckEditScreen: React.FunctionComponent<{
   useEffect(() => {
     navigation.setOptions({
       headerTitle: `Edit ${deck.name}`,
+      headerLeft: () => null,
     });
   }, [deck, navigation]);
 

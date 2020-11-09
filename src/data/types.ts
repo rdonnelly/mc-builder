@@ -9,6 +9,14 @@ export enum FilterCodes {
 
 export type FilterCode = 'faction' | 'pack' | 'set' | 'type';
 
+export enum CardSortTypes {
+  CODE = 'code',
+  COST = 'cost',
+  FACTION = 'faction',
+  NAME = 'name',
+  TYPE = 'type',
+}
+
 export interface IFactionRaw {
   code: FactionCode;
   name: string;

@@ -1,6 +1,7 @@
 import isDeepEqual from 'lodash/isEqual';
 import memoizeOne from 'memoize-one';
 
+import { CardSortTypes, FilterCode, FilterCodes, ICardRaw } from '../types';
 import {
   FactionCode,
   FactionCodes,
@@ -9,7 +10,6 @@ import {
   TypeCode,
   TypeCodes,
 } from '../generatedTypes';
-import { FilterCode, FilterCodes, ICardRaw } from '../types';
 import { factionRank, getFactions } from '../models/Faction';
 import { getPacks } from '../models/Pack';
 import { getSets } from '../models/Set';
@@ -194,17 +194,7 @@ export class Card {
 }
 
 export const getCards = memoizeOne(() =>
-  cards
-    .map((raw) => new Card(raw))
-    .sort((a, b) => {
-      if (a.code > b.code) {
-        return 1;
-      }
-      if (b.code > a.code) {
-        return -1;
-      }
-      return 0;
-    }),
+  cards.map((raw) => new Card(raw)).sort(compareCardCode),
 );
 
 export const getFilteredCards = memoizeOne(
@@ -213,6 +203,7 @@ export const getFilteredCards = memoizeOne(
     filter,
     filterCode,
     cardCodes,
+    sortType,
   }: {
     searchTerm?: string;
     filter?: FilterCode;
@@ -226,6 +217,7 @@ export const getFilteredCards = memoizeOne(
       | TypeCode
       | TypeCode[];
     cardCodes?: string[];
+    sortType?: CardSortTypes;
   }) => {
     let filteredCards = getCards();
 
@@ -282,7 +274,30 @@ export const getFilteredCards = memoizeOne(
       }
     }
 
-    filteredCards = filteredCards.sort(cardSorter);
+    let comparator = compareCardCode;
+    if (sortType === CardSortTypes.CODE) {
+      comparator = compareCardCode;
+    } else if (sortType === CardSortTypes.COST) {
+      comparator = compareCardCost;
+    } else if (sortType === CardSortTypes.FACTION) {
+      comparator = compareCardFaction;
+    } else if (sortType === CardSortTypes.NAME) {
+      comparator = compareCardName;
+    } else if (sortType === CardSortTypes.TYPE) {
+      comparator = compareCardType;
+    } else if (filter) {
+      if (filter === FilterCodes.FACTION) {
+        comparator = compareCardType;
+      } else if (filter === FilterCodes.PACK) {
+        comparator = compareCardCode;
+      } else if (filter === FilterCodes.SET) {
+        comparator = compareCardCode;
+      } else if (filter === FilterCodes.TYPE) {
+        comparator = compareCardFaction;
+      }
+    }
+
+    filteredCards = filteredCards.sort(comparator);
 
     return filteredCards;
   },
@@ -314,15 +329,53 @@ export const getEligibleCards = memoizeOne(
 
         return true;
       })
-      .sort(cardSorter),
+      .sort(compareCardType),
   isDeepEqual, // TODO remove deep equal
 );
 
-const cardSorter = (a, b) => {
+const compareCardCode = (a: Card, b: Card) => {
+  if (a.code > b.code) {
+    return 1;
+  }
+  if (b.code > a.code) {
+    return -1;
+  }
+  return 0;
+};
+
+const compareCardCost = (a: Card, b: Card) => {
   if (b.setCode != null && a.setCode == null) {
     return 1;
   }
   if (a.setCode != null && b.setCode == null) {
+    return -1;
+  }
+  if (a.cost > b.cost) {
+    return 1;
+  }
+  if (b.cost > a.cost) {
+    return -1;
+  }
+  if (a.name > b.name) {
+    return 1;
+  }
+  if (b.name > a.name) {
+    return -1;
+  }
+  if (a.code > b.code) {
+    return 1;
+  }
+  if (b.code > a.code) {
+    return -1;
+  }
+  return 0;
+};
+
+const compareCardFaction = (a: Card, b: Card) => {
+  if (a.setCode != null && b.setCode == null) {
+    return 1;
+  }
+  if (b.setCode != null && a.setCode == null) {
     return -1;
   }
   if (factionRank[a.factionCode] > factionRank[b.factionCode]) {
@@ -331,6 +384,50 @@ const cardSorter = (a, b) => {
   if (factionRank[b.factionCode] > factionRank[a.factionCode]) {
     return -1;
   }
+  if (typeRank[a.typeCode] > typeRank[b.typeCode]) {
+    return 1;
+  }
+  if (typeRank[b.typeCode] > typeRank[a.typeCode]) {
+    return -1;
+  }
+  if (a.cost > b.cost) {
+    return 1;
+  }
+  if (b.cost > a.cost) {
+    return -1;
+  }
+  if (a.name > b.name) {
+    return 1;
+  }
+  if (b.name > a.name) {
+    return -1;
+  }
+  if (a.code > b.code) {
+    return 1;
+  }
+  if (b.code > a.code) {
+    return -1;
+  }
+  return 0;
+};
+
+const compareCardName = (a: Card, b: Card) => {
+  if (a.name > b.name) {
+    return 1;
+  }
+  if (b.name > a.name) {
+    return -1;
+  }
+  if (a.code > b.code) {
+    return 1;
+  }
+  if (b.code > a.code) {
+    return -1;
+  }
+  return 0;
+};
+
+const compareCardType = (a: Card, b: Card) => {
   if (typeRank[a.typeCode] > typeRank[b.typeCode]) {
     return 1;
   }

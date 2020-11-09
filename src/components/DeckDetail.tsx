@@ -1,8 +1,8 @@
-import { Alert, SectionList, StyleSheet } from 'react-native';
+import { Alert, SectionList, StyleSheet, findNodeHandle } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
-import React, { useContext } from 'react';
+import React, { useContext, useRef } from 'react';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import styled from 'styled-components/native';
 
@@ -24,6 +24,7 @@ const DeckDetail: React.FunctionComponent<{
   const { setDeckCardList } = useContext(CardListContext);
 
   const { showActionSheetWithOptions } = useActionSheet();
+  const actionSheetAnchorRef = useRef(null);
 
   const filteredDeckCards = getCardListForDeck(deck);
 
@@ -72,6 +73,10 @@ const DeckDetail: React.FunctionComponent<{
         ],
         destructiveButtonIndex: 3,
         cancelButtonIndex: 0,
+        anchor:
+          Platform.OS === 'ios'
+            ? findNodeHandle(actionSheetAnchorRef.current)
+            : null,
       },
       (buttonIndex) => {
         switch (buttonIndex) {
@@ -143,7 +148,10 @@ const DeckDetail: React.FunctionComponent<{
         </FloatingControlsEditButtonWrapper>
         <FloatingControlsMenuButtonWrapper onPress={() => handleMenuOpen()}>
           {({ pressed }) => (
-            <FloatingControlsMenuButton pressed={pressed}>
+            <FloatingControlsMenuButton
+              pressed={pressed}
+              ref={actionSheetAnchorRef}
+            >
               <FontAwesomeIcon
                 name="ellipsis-h"
                 color={pressed ? colors.lightGray : colors.white}

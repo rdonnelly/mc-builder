@@ -1,11 +1,11 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { IDeckCard, IDeckCardState } from '../types';
+import { IStoreDeckCard, IStoreDeckCardState } from '../types';
 
 const initialState = {
   codes: [],
   entities: {},
-} as IDeckCardState;
+} as IStoreDeckCardState;
 
 const decksSlice = createSlice({
   name: 'deckCards',
@@ -14,7 +14,7 @@ const decksSlice = createSlice({
     createDeckCards(
       state,
       action: PayloadAction<{
-        deckCards: IDeckCard[];
+        deckCards: IStoreDeckCard[];
       }>,
     ) {
       const { payload } = action;
@@ -42,7 +42,7 @@ const decksSlice = createSlice({
     updateDeckCards(
       state,
       action: PayloadAction<{
-        deckCards: IDeckCard[];
+        deckCards: IStoreDeckCard[];
       }>,
     ) {
       const { payload } = action;

@@ -31,6 +31,9 @@ const DeckHeader: React.FunctionComponent<{
         </IdentityWrapper>
       ) : null}
       <Info>
+        <TitleWrapper>
+          <Title>{deck.name}</Title>
+        </TitleWrapper>
         <TraitsWrapper>
           <Traits>
             {deck.set.name} –{' '}
@@ -73,6 +76,16 @@ const IdentityImage = styled.Image`
 
 const Info = styled.View`
   width: 100%;
+`;
+
+const TitleWrapper = styled.View`
+  margin-bottom: 8px;
+`;
+
+const Title = styled.Text`
+  font-size: 24px;
+  font-weight: 900;
+  text-align: center;
 `;
 
 const TraitsWrapper = styled.View``;

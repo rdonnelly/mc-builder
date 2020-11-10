@@ -1,4 +1,10 @@
-import { Alert, SectionList, StyleSheet, findNodeHandle } from 'react-native';
+import {
+  Alert,
+  Platform,
+  SectionList,
+  StyleSheet,
+  findNodeHandle,
+} from 'react-native';
 import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
@@ -61,6 +67,15 @@ const DeckDetail: React.FunctionComponent<{
     }
   };
 
+  const handleRenameDeck = () => {
+    if (navigation) {
+      navigation.navigate('DeckRenameStack', {
+        screen: 'DeckRename',
+        params: { code: deck.code },
+      });
+    }
+  };
+
   const handleMenuOpen = () => {
     ReactNativeHapticFeedback.trigger('impactLight');
     showActionSheetWithOptions(
@@ -69,9 +84,10 @@ const DeckDetail: React.FunctionComponent<{
           'Close',
           'Copy Pretty Text to Clipboard',
           'Copy Shareable Text to Clipboard',
+          'Rename Deck',
           'Delete Deck',
         ],
-        destructiveButtonIndex: 3,
+        destructiveButtonIndex: 4,
         cancelButtonIndex: 0,
         anchor:
           Platform.OS === 'ios'
@@ -89,6 +105,10 @@ const DeckDetail: React.FunctionComponent<{
             break;
           }
           case 3: {
+            handleRenameDeck();
+            break;
+          }
+          case 4: {
             handleDeleteDeck();
             break;
           }
@@ -141,7 +161,7 @@ const DeckDetail: React.FunctionComponent<{
           {({ pressed }) => (
             <FloatingControlsEditButton pressed={pressed}>
               <FloatingControlsButtonText pressed={pressed}>
-                Edit
+                Edit Deck
               </FloatingControlsButtonText>
             </FloatingControlsEditButton>
           )}

@@ -6,7 +6,8 @@ import { IImportDeck } from '../utils/DeckParser';
 import CardDetailScreen from '../screens/Card/CardDetailScreen';
 import DeckDetailScreen from '../screens/Deck/DeckDetailScreen';
 import DeckEditScreen from '../screens/Deck/DeckEditScreen';
-import DecksCreateScreen from '../screens/Deck/DecksCreateScreen';
+import DeckRenameStackNavigator from '../navigation/DeckRenameStackNavigator';
+import DecksCreateStackNavigator from '../navigation/DecksCreateStackNavigator';
 import DecksImportScreen from '../screens/Deck/DecksImportScreen';
 import DecksListScreen from '../screens/Deck/DecksListScreen';
 
@@ -20,6 +21,7 @@ export type DecksStackParamList = {
   DeckDetailCardDetail: { code: string; type: 'card' | 'deck' };
   DeckEdit: { code: string };
   DeckEditCardDetail: { code: string; type: 'card' | 'deck' };
+  DeckRenameStack: undefined;
 };
 
 const Stack = createNativeStackNavigator<DecksStackParamList>();
@@ -55,7 +57,7 @@ export default () => {
       />
       <Stack.Screen
         name="DecksCreate"
-        component={DecksCreateScreen}
+        component={DecksCreateStackNavigator}
         options={{
           headerShown: false,
           stackPresentation: shouldUseModal ? 'modal' : 'transparentModal',
@@ -77,13 +79,6 @@ export default () => {
         }}
       />
       <Stack.Screen
-        name="DeckEdit"
-        component={DeckEditScreen}
-        options={{
-          title: 'Edit Deck',
-        }}
-      />
-      <Stack.Screen
         name="DeckDetailCardDetail"
         component={CardDetailScreen}
         initialParams={{ type: 'deck' }}
@@ -92,11 +87,26 @@ export default () => {
         }}
       />
       <Stack.Screen
+        name="DeckEdit"
+        component={DeckEditScreen}
+        options={{
+          title: 'Edit Deck',
+        }}
+      />
+      <Stack.Screen
         name="DeckEditCardDetail"
         component={CardDetailScreen}
         initialParams={{ type: 'deck' }}
         options={{
           title: '',
+        }}
+      />
+      <Stack.Screen
+        name="DeckRenameStack"
+        component={DeckRenameStackNavigator}
+        options={{
+          headerShown: false,
+          stackPresentation: shouldUseModal ? 'modal' : 'transparentModal',
         }}
       />
     </Stack.Navigator>

@@ -14,10 +14,9 @@ const DeckEditScreen: React.FunctionComponent<{
 }> = ({ navigation, route }) => {
   const code = route.params.code;
 
-  const deckEntities = useSelector(
-    (state: StoreState) => state.root.decks.entities,
+  const deck = useSelector(
+    (state: StoreState) => state.root.decks.entities[code],
   );
-  const deck = deckEntities[code];
 
   const deckCardEntities = useSelector((state: StoreState) =>
     Object.values(state.root.deckCards.entities).filter((deckCard) =>
@@ -29,10 +28,10 @@ const DeckEditScreen: React.FunctionComponent<{
 
   useEffect(() => {
     navigation.setOptions({
-      headerTitle: `Edit ${deck.name}`,
+      headerTitle: 'Edit Deck',
       headerLeft: () => null,
     });
-  }, [deck, navigation]);
+  }, [navigation]);
 
   return <DeckEdit deck={deckModel} />;
 };

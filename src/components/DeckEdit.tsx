@@ -17,7 +17,7 @@ const DeckEdit: React.FunctionComponent<{
   const handlePressDone = () => {
     if (navigation) {
       ReactNativeHapticFeedback.trigger('impactLight');
-      navigation.goBack();
+      navigation.pop();
     }
   };
 

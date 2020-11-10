@@ -17,7 +17,7 @@ const ITEM_HEIGHT = 48;
 const sets = getHeroSets();
 const aspects = getPrimaryFactions();
 
-const DecksCreateScreen: React.FunctionComponent<{
+const DecksCreateSelectScreen: React.FunctionComponent<{
   navigation: StackNavigationProp<
     DecksCreateStackParamList,
     'DecksCreateSelect'
@@ -162,4 +162,4 @@ const ListIcon = styled(base.ListChevron).attrs(() => ({
   color: ${(props) => (props.active ? colors.green : colors.lightGray)};
 `;
 
-export default DecksCreateScreen;
+export default DecksCreateSelectScreen;

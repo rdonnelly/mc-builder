@@ -1,5 +1,5 @@
-import React from 'react';
 import { StackNavigationProp } from '@react-navigation/stack';
+import React from 'react';
 
 import { CardStackParamList } from '../navigation/CardsStackNavigator';
 import { FactionCode, FilterCodes, PackCode, SetCode, TypeCode } from '../data';

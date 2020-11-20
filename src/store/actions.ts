@@ -214,63 +214,46 @@ export const deleteDeck = (deckCode: string): AppThunk => (
 
 export const cloneDeck = (deckCode: string, deckName: string): AppThunk => (
   dispatch,
+  getState,
 ) => {
   // TODO
-  // clone deck object
+  // DONE clone deck object
   // clone deck card objects
   // add cloned deck card objects
 
+  const state = getState();
   const newDeckCode = uuidv4();
 
-  return newDeckCode;
+  dispatch(
+    duplicateDeck({
+      code: deckCode,
+      newCode: newDeckCode,
+      newName: deckName,
+    }),
+  );
 
-  // if (deckName && deckSet && deckAspect.length) {
-  //   dispatch(
-  //     createDeck({
-  //       code: deckCode,
-  //       name: deckName,
-  //       setCode: deckSet,
-  //       aspectCodes: deckAspect,
-  //       version,
-  //       source: importCode,
-  //       mcdbId,
-  //     }),
-  //   );
-  //
-  //   const deckCardCodes = [];
-  //   const deckCardData = [];
-  //
-  //   const setCards = getFilteredCards({
-  //     filter: FilterCodes.SET,
-  //     filterCode: deckSet,
-  //   }).filter((card) => card.factionCode !== FactionCodes.ENCOUNTER);
-  //
-  //   setCards.forEach((card) => {
-  //     const code = uuidv4();
-  //     deckCardCodes.push(code);
-  //     deckCardData.push({
-  //       code,
-  //       cardCode: card.code,
-  //       quantity: card.setQuantity,
-  //     });
-  //   });
-  //
-  //   if (initialDeckCards && initialDeckCards.length) {
-  //     initialDeckCards.forEach((card) => {
-  //       const code = uuidv4();
-  //       deckCardCodes.push(code);
-  //       deckCardData.push({
-  //         code,
-  //         cardCode: card.code,
-  //         quantity: card.quantity,
-  //       });
-  //     });
-  //   }
-  //
-  //   dispatch(createDeckCards({ deckCards: deckCardData }));
-  //
-  //   dispatch(
-  //     addDeckCardsToDeck({ code: deckCode, deckCardCodes: deckCardCodes }),
-  //   );
-  // }
+  const deck = state.root.decks.entities[deckCode];
+  const deckCardEntities = Object.values(
+    state.root.deckCards.entities,
+  ).filter((deckCard) => deck.deckCardCodes.includes(deckCard.code));
+
+  const newDeckCards = deckCardEntities.map((deckCardEntity) => ({
+    code: uuidv4(),
+    cardCode: deckCardEntity.cardCode,
+    quantity: deckCardEntity.quantity,
+  }));
+
+  dispatch(
+    createDeckCards({
+      deckCards: newDeckCards,
+    }),
+  );
+
+  const newDeckCardCodes = newDeckCards.map((newDeckCard) => newDeckCard.code);
+
+  dispatch(
+    addDeckCardsToDeck({ code: newDeckCode, deckCardCodes: newDeckCardCodes }),
+  );
+
+  return newDeckCode;
 };

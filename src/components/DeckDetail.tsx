@@ -76,6 +76,15 @@ const DeckDetail: React.FunctionComponent<{
     }
   };
 
+  const handleCloneDeck = () => {
+    if (navigation) {
+      navigation.navigate('DeckCloneStack', {
+        screen: 'DeckClone',
+        params: { code: deck.code },
+      });
+    }
+  };
+
   const handleMenuOpen = () => {
     ReactNativeHapticFeedback.trigger('impactLight');
     showActionSheetWithOptions(
@@ -85,9 +94,10 @@ const DeckDetail: React.FunctionComponent<{
           'Copy Pretty Text to Clipboard',
           'Copy Shareable Text to Clipboard',
           'Rename Deck',
+          'Clone Deck',
           'Delete Deck',
         ],
-        destructiveButtonIndex: 4,
+        destructiveButtonIndex: 5,
         cancelButtonIndex: 0,
         anchor:
           Platform.OS === 'ios'
@@ -109,6 +119,10 @@ const DeckDetail: React.FunctionComponent<{
             break;
           }
           case 4: {
+            handleCloneDeck();
+            break;
+          }
+          case 5: {
             handleDeleteDeck();
             break;
           }

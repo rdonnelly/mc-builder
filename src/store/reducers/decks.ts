@@ -179,6 +179,42 @@ const decksSlice = createSlice({
 
       return state;
     },
+    duplicateDeck(
+      state,
+      action: PayloadAction<{
+        code: string;
+        newCode: string;
+        newName: string;
+      }>,
+    ) {
+      const { payload } = action;
+      const { code, newCode, newName } = payload;
+
+      const now = new Date();
+      const created = now.getTime() + now.getTimezoneOffset() * 60000;
+
+      const deck = state.entities[code];
+
+      if (deck) {
+        return {
+          ...state,
+          entities: {
+            ...state.entities,
+            [deck.code]: {
+              ...deck,
+              code: newCode,
+              name: newName,
+              version: 0,
+              source: code,
+              created: created,
+              updated: created,
+            },
+          },
+        };
+      }
+
+      return state;
+    },
     reset() {
       return initialState;
     },
@@ -191,6 +227,7 @@ export const {
   addDeckCardsToDeck,
   removeDeckCardFromDeck,
   removeDeck,
+  duplicateDeck,
   reset,
 } = decksSlice.actions;
 

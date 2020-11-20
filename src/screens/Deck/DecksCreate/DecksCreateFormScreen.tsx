@@ -39,7 +39,8 @@ const DecksCreateFormScreen: React.FunctionComponent<{
       dispatch(setUpNewDeck(deckCode, deckName, deckSet, deckAspect));
 
       if (navigation) {
-        navigation.goBack();
+        navigation.pop();
+        // @ts-ignore
         navigation.navigate('DeckDetail', {
           code: deckCode,
         });

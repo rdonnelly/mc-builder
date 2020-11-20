@@ -13,6 +13,7 @@ import {
 import {
   addDeckCardsToDeck,
   createDeck,
+  duplicateDeck,
   removeDeck,
   removeDeckCardFromDeck,
 } from './reducers/decks';
@@ -209,4 +210,67 @@ export const deleteDeck = (deckCode: string): AppThunk => (
       code: deckCode,
     }),
   );
+};
+
+export const cloneDeck = (deckCode: string, deckName: string): AppThunk => (
+  dispatch,
+) => {
+  // TODO
+  // clone deck object
+  // clone deck card objects
+  // add cloned deck card objects
+
+  const newDeckCode = uuidv4();
+
+  return newDeckCode;
+
+  // if (deckName && deckSet && deckAspect.length) {
+  //   dispatch(
+  //     createDeck({
+  //       code: deckCode,
+  //       name: deckName,
+  //       setCode: deckSet,
+  //       aspectCodes: deckAspect,
+  //       version,
+  //       source: importCode,
+  //       mcdbId,
+  //     }),
+  //   );
+  //
+  //   const deckCardCodes = [];
+  //   const deckCardData = [];
+  //
+  //   const setCards = getFilteredCards({
+  //     filter: FilterCodes.SET,
+  //     filterCode: deckSet,
+  //   }).filter((card) => card.factionCode !== FactionCodes.ENCOUNTER);
+  //
+  //   setCards.forEach((card) => {
+  //     const code = uuidv4();
+  //     deckCardCodes.push(code);
+  //     deckCardData.push({
+  //       code,
+  //       cardCode: card.code,
+  //       quantity: card.setQuantity,
+  //     });
+  //   });
+  //
+  //   if (initialDeckCards && initialDeckCards.length) {
+  //     initialDeckCards.forEach((card) => {
+  //       const code = uuidv4();
+  //       deckCardCodes.push(code);
+  //       deckCardData.push({
+  //         code,
+  //         cardCode: card.code,
+  //         quantity: card.quantity,
+  //       });
+  //     });
+  //   }
+  //
+  //   dispatch(createDeckCards({ deckCards: deckCardData }));
+  //
+  //   dispatch(
+  //     addDeckCardsToDeck({ code: deckCode, deckCardCodes: deckCardCodes }),
+  //   );
+  // }
 };

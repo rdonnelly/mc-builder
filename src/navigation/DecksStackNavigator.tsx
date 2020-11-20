@@ -4,6 +4,7 @@ import React from 'react';
 
 import { IImportDeck } from '../utils/DeckParser';
 import CardDetailScreen from '../screens/Card/CardDetailScreen';
+import DeckCloneStackNavigator from '../navigation/DeckCloneStackNavigator';
 import DeckDetailScreen from '../screens/Deck/DeckDetailScreen';
 import DeckEditScreen from '../screens/Deck/DeckEditScreen';
 import DeckRenameStackNavigator from '../navigation/DeckRenameStackNavigator';
@@ -22,6 +23,7 @@ export type DecksStackParamList = {
   DeckEdit: { code: string };
   DeckEditCardDetail: { code: string; type: 'card' | 'deck' };
   DeckRenameStack: undefined;
+  DeckCloneStack: undefined;
 };
 
 const Stack = createNativeStackNavigator<DecksStackParamList>();
@@ -104,6 +106,14 @@ export default () => {
       <Stack.Screen
         name="DeckRenameStack"
         component={DeckRenameStackNavigator}
+        options={{
+          headerShown: false,
+          stackPresentation: shouldUseModal ? 'modal' : 'transparentModal',
+        }}
+      />
+      <Stack.Screen
+        name="DeckCloneStack"
+        component={DeckCloneStackNavigator}
         options={{
           headerShown: false,
           stackPresentation: shouldUseModal ? 'modal' : 'transparentModal',

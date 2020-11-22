@@ -43,7 +43,12 @@ const DeckRenameScreen: React.FunctionComponent<{
 
   return (
     <Container paddingBottom={insets.bottom}>
-      <DeckNameForm name={deck.name} submit={submit} cancel={cancel} />
+      <DeckNameForm
+        name={deck.name}
+        submitLabel={'Rename Deck'}
+        submit={submit}
+        cancel={cancel}
+      />
     </Container>
   );
 };

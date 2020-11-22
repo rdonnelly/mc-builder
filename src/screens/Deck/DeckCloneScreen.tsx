@@ -27,7 +27,7 @@ const DeckCloneScreen: React.FunctionComponent<{
 
   const submit = async (deckName: string) => {
     if (deckName) {
-      const deckCode = await dispatch(cloneDeck(code, deck.name));
+      const deckCode = dispatch(cloneDeck(code, deckName));
 
       if (navigation) {
         navigation.pop();
@@ -47,7 +47,12 @@ const DeckCloneScreen: React.FunctionComponent<{
 
   return (
     <Container paddingBottom={insets.bottom}>
-      <DeckNameForm name={deck.name} submit={submit} cancel={cancel} />
+      <DeckNameForm
+        name={deck.name}
+        submitLabel={'Clone Deck'}
+        submit={submit}
+        cancel={cancel}
+      />
     </Container>
   );
 };

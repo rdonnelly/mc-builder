@@ -7,8 +7,9 @@ import { base, colors } from '../styles';
 const DecksCreateFormScreen: React.FunctionComponent<{
   name: string;
   submit: (deckName: string) => void;
+  submitLabel: string;
   cancel: () => void;
-}> = ({ name, submit, cancel }) => {
+}> = ({ name, submit, submitLabel, cancel }) => {
   const [deckName, setDeckName] = useState(name);
 
   const inputRef = useRef(null);
@@ -16,6 +17,14 @@ const DecksCreateFormScreen: React.FunctionComponent<{
   useEffect(() => {
     inputRef.current.focus();
   }, []);
+
+  const submitForm = () => {
+    submit(deckName);
+  };
+
+  const cancelForm = () => {
+    cancel();
+  };
 
   return (
     <Container>
@@ -41,17 +50,19 @@ const DecksCreateFormScreen: React.FunctionComponent<{
       </Form>
 
       <Controls>
-        <CancelButtonWrapper onPress={() => cancel()}>
+        <CancelButtonWrapper onPress={cancelForm}>
           {({ pressed }) => (
             <CancelButton pressed={pressed}>
               <CancelButtonText pressed={pressed}>Cancel</CancelButtonText>
             </CancelButton>
           )}
         </CancelButtonWrapper>
-        <AddButtonWrapper onPress={() => submit(deckName)}>
+        <AddButtonWrapper onPress={submitForm}>
           {({ pressed }) => (
             <AddButton pressed={pressed}>
-              <AddButtonText pressed={pressed}>Rename Deck</AddButtonText>
+              <AddButtonText pressed={pressed}>
+                {submitLabel || 'Submit'}
+              </AddButtonText>
             </AddButton>
           )}
         </AddButtonWrapper>

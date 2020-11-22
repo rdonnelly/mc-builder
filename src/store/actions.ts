@@ -216,11 +216,6 @@ export const cloneDeck = (deckCode: string, deckName: string): AppThunk => (
   dispatch,
   getState,
 ) => {
-  // TODO
-  // DONE clone deck object
-  // clone deck card objects
-  // add cloned deck card objects
-
   const state = getState();
   const newDeckCode = uuidv4();
 

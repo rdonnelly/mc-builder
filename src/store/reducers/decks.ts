@@ -198,12 +198,17 @@ const decksSlice = createSlice({
       if (deck) {
         return {
           ...state,
+          codes: [...state.codes, newCode],
           entities: {
             ...state.entities,
-            [deck.code]: {
+            [newCode]: {
               ...deck,
               code: newCode,
               name: newName,
+              attributes: {
+                ...deck.attributes,
+              },
+              deckCardCodes: [],
               version: 0,
               source: code,
               created: created,

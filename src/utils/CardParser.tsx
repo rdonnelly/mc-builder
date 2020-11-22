@@ -14,6 +14,7 @@ const ICON_REPLACEMENTS = Object.freeze({
   per_hero: '<icon code="perHero"></icon>',
   physical: '<icon code="physical"></icon>',
   special: '<icon code="special"></icon>',
+  star: '<icon code="special"></icon>',
   unique: '<icon code="unique"></icon>',
   wild: '<icon code="wild"></icon>',
 });

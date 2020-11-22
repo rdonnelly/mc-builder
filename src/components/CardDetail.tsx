@@ -5,7 +5,7 @@ import React from 'react';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import styled from 'styled-components/native';
 
-import { CardModel } from '../data';
+import { CardModel, FactionCodes } from '../data';
 import { base, colors } from '../styles';
 import { shareImageUrl } from '../utils/Share';
 import CardParser from '../utils/CardParser';
@@ -466,16 +466,33 @@ const renderCardSchemeTraits = (card: CardModel) => {
 const CardDetailText: React.FunctionComponent<{
   card: CardModel;
 }> = ({ card }) => {
-  const sections = [
-    renderCardText(card, 'backFlavor', true),
-    renderCardText(card, 'backText'),
-    renderCardText(card, 'flavor', true),
-    renderCardSchemeTraits(card),
-    renderCardText(card, 'text'),
+  let sections = [];
+
+  if (card.factionCode === FactionCodes.ENCOUNTER) {
+    sections = sections.concat([
+      renderCardText(card, 'backFlavor', true),
+      renderCardText(card, 'backText'),
+      renderCardText(card, 'flavor', true),
+      renderCardText(card, 'text'),
+      renderCardSchemeTraits(card),
+    ]);
+  } else {
+    sections = sections.concat([
+      renderCardText(card, 'backText'),
+      renderCardText(card, 'backFlavor', true),
+      renderCardText(card, 'text'),
+      renderCardSchemeTraits(card),
+      renderCardText(card, 'flavor', true),
+    ]);
+  }
+
+  sections = sections.concat([
     renderCardText(card, 'attackText'),
     renderCardText(card, 'schemeText'),
     renderCardText(card, 'boostText'),
-  ]
+  ]);
+
+  sections
     .filter((section) => section != null)
     .reduce((newSections, section, i) => {
       if (i !== 0) {

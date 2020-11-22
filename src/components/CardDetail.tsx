@@ -114,7 +114,16 @@ const CardDetailStats: React.FunctionComponent<{
       stats.push(
         <Stat key={'thwart'}>
           <StatData>
-            <StatDataText>{card.raw.thwart}</StatDataText>
+            <StatDataText>
+              {card.raw.thwart}
+              {card.raw.scheme_text ? (
+                <Icon
+                  code={IconCode.special}
+                  color={colors.grayDark}
+                  size={16}
+                />
+              ) : null}
+            </StatDataText>
           </StatData>
           <StatHeader>
             <StatHeaderText>THW</StatHeaderText>
@@ -123,7 +132,16 @@ const CardDetailStats: React.FunctionComponent<{
         <StatSpacer key={'attack-spacer'} />,
         <Stat key={'attack'}>
           <StatData>
-            <StatDataText>{card.raw.attack}</StatDataText>
+            <StatDataText>
+              {card.raw.attack}
+              {card.raw.attack_text ? (
+                <Icon
+                  code={IconCode.special}
+                  color={colors.grayDark}
+                  size={16}
+                />
+              ) : null}
+            </StatDataText>
           </StatData>
           <StatHeader>
             <StatHeaderText>ATK</StatHeaderText>
@@ -200,7 +218,7 @@ const CardDetailStats: React.FunctionComponent<{
                 {card.raw.threat}
                 <Icon
                   code={IconCode.perHero}
-                  color={colors.darkGray}
+                  color={colors.grayDark}
                   size={16}
                 />
               </StatDataText>
@@ -218,7 +236,7 @@ const CardDetailStats: React.FunctionComponent<{
               {!card.raw.base_threat || card.raw.base_threat_fixed ? null : (
                 <Icon
                   code={IconCode.perHero}
-                  color={colors.darkGray}
+                  color={colors.grayDark}
                   size={16}
                 />
               )}
@@ -240,7 +258,14 @@ const CardDetailStats: React.FunctionComponent<{
                 card.raw.escalation_threat_fixed ? null : (
                   <Icon
                     code={IconCode.perHero}
-                    color={colors.darkGray}
+                    color={colors.grayDark}
+                    size={16}
+                  />
+                )}
+                {card.raw.escalation_threat_fixed ? null : (
+                  <Icon
+                    code={IconCode.special}
+                    color={colors.grayDark}
                     size={16}
                   />
                 )}
@@ -260,7 +285,16 @@ const CardDetailStats: React.FunctionComponent<{
         card.raw.attack == null ? null : (
           <Stat key={'attack'}>
             <StatData>
-              <StatDataText>+{card.raw.attack}</StatDataText>
+              <StatDataText>
+                +{card.raw.attack}
+                {card.raw.attack_text ? (
+                  <Icon
+                    code={IconCode.special}
+                    color={colors.grayDark}
+                    size={16}
+                  />
+                ) : null}
+              </StatDataText>
             </StatData>
             <StatHeader>
               <StatHeaderText>ATK</StatHeaderText>
@@ -273,7 +307,16 @@ const CardDetailStats: React.FunctionComponent<{
         card.raw.scheme == null ? null : (
           <Stat key={'scheme'}>
             <StatData>
-              <StatDataText>+{card.raw.scheme}</StatDataText>
+              <StatDataText>
+                +{card.raw.scheme}
+                {card.raw.scheme_text ? (
+                  <Icon
+                    code={IconCode.special}
+                    color={colors.grayDark}
+                    size={16}
+                  />
+                ) : null}
+              </StatDataText>
             </StatData>
             <StatHeader>
               <StatHeaderText>SCH</StatHeaderText>
@@ -309,10 +352,17 @@ const CardDetailStats: React.FunctionComponent<{
             <StatData>
               <StatDataText>
                 {card.raw.thwart != null ? card.raw.thwart : '–'}
+                {card.raw.scheme_text ? (
+                  <Icon
+                    code={IconCode.special}
+                    color={colors.grayDark}
+                    size={16}
+                  />
+                ) : null}
                 {[...Array(card.raw.thwart_cost || 0).keys()].map((i) => (
                   <Icon
                     code={IconCode.cost}
-                    color={colors.darkGray}
+                    color={colors.grayDark}
                     size={16}
                     key={`icon-${i}`}
                   />
@@ -328,10 +378,17 @@ const CardDetailStats: React.FunctionComponent<{
             <StatData>
               <StatDataText>
                 {card.raw.attack}
+                {card.raw.attack_text ? (
+                  <Icon
+                    code={IconCode.special}
+                    color={colors.grayDark}
+                    size={16}
+                  />
+                ) : null}
                 {[...Array(card.raw.attack_cost || 0).keys()].map((i) => (
                   <Icon
                     code={IconCode.cost}
-                    color={colors.darkGray}
+                    color={colors.grayDark}
                     size={16}
                     key={`icon-${i}`}
                   />
@@ -366,7 +423,16 @@ const CardDetailStats: React.FunctionComponent<{
       stats.push(
         <Stat key={'scheme'}>
           <StatData>
-            <StatDataText>{card.raw.scheme}</StatDataText>
+            <StatDataText>
+              {card.raw.scheme}
+              {card.raw.scheme_text ? (
+                <Icon
+                  code={IconCode.special}
+                  color={colors.grayDark}
+                  size={16}
+                />
+              ) : null}
+            </StatDataText>
           </StatData>
           <StatHeader>
             <StatHeaderText>SCH</StatHeaderText>
@@ -375,7 +441,16 @@ const CardDetailStats: React.FunctionComponent<{
         <StatSpacer key={'attack-spacer'} />,
         <Stat key={'attack'}>
           <StatData>
-            <StatDataText>{card.raw.attack}</StatDataText>
+            <StatDataText>
+              {card.raw.attack}
+              {card.raw.attack_text ? (
+                <Icon
+                  code={IconCode.special}
+                  color={colors.grayDark}
+                  size={16}
+                />
+              ) : null}
+            </StatDataText>
           </StatData>
           <StatHeader>
             <StatHeaderText>ATK</StatHeaderText>
@@ -386,10 +461,10 @@ const CardDetailStats: React.FunctionComponent<{
           <StatData>
             <StatDataText>
               {card.raw.health}
-              {card.typeCode === 'villain' ? (
+              {card.isHealthPerHero ? (
                 <Icon
                   code={IconCode.perHero}
-                  color={colors.darkGray}
+                  color={colors.grayDark}
                   size={16}
                 />
               ) : null}
@@ -469,30 +544,26 @@ const CardDetailText: React.FunctionComponent<{
   let sections = [];
 
   if (card.factionCode === FactionCodes.ENCOUNTER) {
-    sections = sections.concat([
-      renderCardText(card, 'backFlavor', true),
-      renderCardText(card, 'backText'),
-      renderCardText(card, 'flavor', true),
-      renderCardText(card, 'text'),
-      renderCardSchemeTraits(card),
-    ]);
+    sections.push(renderCardText(card, 'backFlavor', true));
+    sections.push(renderCardText(card, 'backText'));
+    sections.push(renderCardText(card, 'flavor', true));
+    sections.push(renderCardText(card, 'text'));
+    sections.push(renderCardSchemeTraits(card));
   } else {
-    sections = sections.concat([
-      renderCardText(card, 'backText'),
-      renderCardText(card, 'backFlavor', true),
-      renderCardText(card, 'text'),
-      renderCardSchemeTraits(card),
-      renderCardText(card, 'flavor', true),
-    ]);
+    sections.push(renderCardText(card, 'backText'));
+    sections.push(renderCardText(card, 'backFlavor', true));
+    sections.push(renderCardText(card, 'text'));
+    sections.push(renderCardSchemeTraits(card));
+    sections.push(renderCardText(card, 'flavor', true));
   }
 
-  sections = sections.concat([
-    renderCardText(card, 'attackText'),
-    renderCardText(card, 'schemeText'),
-    renderCardText(card, 'boostText'),
-  ]);
+  sections.push(renderCardText(card, 'attackText'));
+  if (card.attackText !== card.schemeText) {
+    sections.push(renderCardText(card, 'schemeText'));
+  }
+  sections.push(renderCardText(card, 'boostText'));
 
-  sections
+  sections = sections
     .filter((section) => section != null)
     .reduce((newSections, section, i) => {
       if (i !== 0) {

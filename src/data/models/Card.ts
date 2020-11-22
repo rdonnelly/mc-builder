@@ -136,6 +136,10 @@ export class Card {
     return this.raw.attack_text;
   }
 
+  get schemeText() {
+    return this.raw.scheme_text;
+  }
+
   get boostText() {
     if (this.raw.boost_text == null) {
       return null;
@@ -143,8 +147,8 @@ export class Card {
     return `[special] <b>Boost</b>: ${this.raw.boost_text}`;
   }
 
-  get schemeText() {
-    return this.raw.scheme_text;
+  get isHealthPerHero() {
+    return !!this.raw.health_per_hero;
   }
 
   get resources() {

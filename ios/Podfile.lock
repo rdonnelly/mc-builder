@@ -257,7 +257,7 @@ PODS:
     - React-Core
   - react-native-sensitive-info (5.5.8):
     - React
-  - react-native-webview (10.10.2):
+  - react-native-webview (11.0.1):
     - React-Core
   - React-RCTActionSheet (0.63.3):
     - React-Core/RCTActionSheetHeaders (= 0.63.3)
@@ -329,10 +329,10 @@ PODS:
     - React-Core
   - RNCMaskedView (0.1.10):
     - React
-  - RNDeviceInfo (7.1.0):
+  - RNDeviceInfo (7.2.1):
     - React-Core
-  - RNGestureHandler (1.8.0):
-    - React
+  - RNGestureHandler (1.9.0):
+    - React-Core
   - RNInAppBrowser (3.5.1):
     - React-Core
   - RNReactNativeHapticFeedback (1.11.0):
@@ -557,7 +557,7 @@ SPEC CHECKSUMS:
   react-native-get-random-values: 1404bd5cc0ab0e287f75ee1c489555688fc65f89
   react-native-safe-area-context: b6e0e284002381d2ff29fa4fff42b4d8282e3c94
   react-native-sensitive-info: 400c6e3d27945e15c8cddb5b4b92233c85ee06f8
-  react-native-webview: 0aa2cde4ee7e3e1c5fffdf64dbce9c709aa18155
+  react-native-webview: 86a23feaf8918f38f62fa695c137fa8463565372
   React-RCTActionSheet: 53ea72699698b0b47a6421cb1c8b4ab215a774aa
   React-RCTAnimation: 1befece0b5183c22ae01b966f5583f42e69a83c2
   React-RCTBlob: 0b284339cbe4b15705a05e2313a51c6d8b51fa40
@@ -573,8 +573,8 @@ SPEC CHECKSUMS:
   RNCAsyncStorage: b03032fdbdb725bea0bd9e5ec5a7272865ae7398
   RNCClipboard: 41d8d918092ae8e676f18adada19104fa3e68495
   RNCMaskedView: 5a8ec07677aa885546a0d98da336457e2bea557f
-  RNDeviceInfo: 6cf87235aa11e675b93b31aa9b88a825753eea2f
-  RNGestureHandler: 7a5833d0f788dbd107fbb913e09aa0c1ff333c39
+  RNDeviceInfo: ae953cf4af2775e45597304fc9513a7931ef81ff
+  RNGestureHandler: 9b7e605a741412e20e13c512738a31bd1611759b
   RNInAppBrowser: 48b95ba7a4eaff5cc223bca338d3e319561dbd1b
   RNReactNativeHapticFeedback: 653a8c126a0f5e88ce15ffe280b3ff37e1fbb285
   RNReanimated: e03f7425cb7a38dcf1b644d680d1bfc91c3337ad

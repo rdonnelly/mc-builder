@@ -31,6 +31,8 @@ const cards = [].concat(
   require('marvelsdb-json-data/pack/hlk.json'),
   require('marvelsdb-json-data/pack/msm_encounter.json'),
   require('marvelsdb-json-data/pack/msm.json'),
+  require('marvelsdb-json-data/pack/qsv.json'),
+  require('marvelsdb-json-data/pack/qsv_encounter.json'),
   require('marvelsdb-json-data/pack/ron_encounter.json'),
   require('marvelsdb-json-data/pack/thor_encounter.json'),
   require('marvelsdb-json-data/pack/thor.json'),

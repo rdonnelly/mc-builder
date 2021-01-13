@@ -1,26 +1,15 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
-import RNBootSplash from 'react-native-bootsplash';
-import React, { useEffect } from 'react';
-import styled from 'styled-components/native';
+import React from 'react';
 
 import { colors } from '../styles';
 import CardsStackNavigator from './CardsStackNavigator';
 import DecksStackNavigator from './DecksStackNavigator';
 import SettingsStackNavigator from './SettingsStackNavigator';
 
-const TabBarLabel = styled.Text<{ color: string }>`
-  color: ${(props) => (props.color ? props.color : 'darkGrayDark')};
-  font-size: 12px;
-`;
-
 const Tab = createBottomTabNavigator();
 
 export default () => {
-  useEffect(() => {
-    RNBootSplash.hide({ duration: 250 });
-  }, []);
-
   return (
     <Tab.Navigator
       initialRouteName="Cards"

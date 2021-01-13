@@ -62,7 +62,7 @@ const renderCardText = (card: CardModel, key: string, isFlavor = false) => {
   return (
     <CardDetailTextContainerSection key={`card-text-${card.code}-${key}`}>
       <Html
-        html={text}
+        source={{ html: text }}
         baseFontStyle={
           isFlavor ? styles.cardDetailFlavor : styles.cardDetailText
         }

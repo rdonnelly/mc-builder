@@ -128,6 +128,8 @@ export enum SetCodes {
   ANT_NEMESIS = 'ant_nemesis',
   WSP = 'wsp',
   WSP_NEMESIS = 'wsp_nemesis',
+  QSV = 'qsv',
+  QSV_NEMESIS = 'qsv_nemesis',
 }
 
 export type SetCode =
@@ -199,7 +201,9 @@ export type SetCode =
   | 'ant'
   | 'ant_nemesis'
   | 'wsp'
-  | 'wsp_nemesis';
+  | 'wsp_nemesis'
+  | 'qsv'
+  | 'qsv_nemesis';
 
 export enum SetTypeCodes {
   VILLAIN = 'villain',

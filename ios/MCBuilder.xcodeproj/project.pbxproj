@@ -26,6 +26,7 @@
 		955D4B062486FF74006872B6 /* FontAwesome5_Pro_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 955D4B012486FF74006872B6 /* FontAwesome5_Pro_Brands.ttf */; };
 		955D4B072486FF74006872B6 /* FontAwesome5_Pro_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 955D4B022486FF74006872B6 /* FontAwesome5_Pro_Solid.ttf */; };
 		A9431D2F779B4482A3593A8D /* libPods-MCBuilder-MCBuilderTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 33491ED30367FAC16796F6DF /* libPods-MCBuilder-MCBuilderTests.a */; };
+		8B7260C3ABE144EE8BAE6B5C /* Komika.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F265EA79D2164E12A5474AB4 /* Komika.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +79,7 @@
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		F90063EEA92F5551928CDA39 /* Pods-MCBuilder-MCBuilderTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MCBuilder-MCBuilderTests.debug.xcconfig"; path = "Target Support Files/Pods-MCBuilder-MCBuilderTests/Pods-MCBuilder-MCBuilderTests.debug.xcconfig"; sourceTree = "<group>"; };
+		F265EA79D2164E12A5474AB4 /* Komika.ttf */ = {isa = PBXFileReference; name = "Komika.ttf"; path = "../assets/fonts/Komika.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,6 +180,7 @@
 		64A7C8FF14484BC39466F4DF /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F265EA79D2164E12A5474AB4 /* Komika.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -371,6 +374,7 @@
 				955D4B072486FF74006872B6 /* FontAwesome5_Pro_Solid.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				953FF6D4253008B000A14A6E /* BootSplash.storyboard in Resources */,
+				8B7260C3ABE144EE8BAE6B5C /* Komika.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

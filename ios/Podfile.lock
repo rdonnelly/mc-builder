@@ -249,6 +249,8 @@ PODS:
   - react-native-app-auth (6.0.2):
     - AppAuth (= 1.4.0)
     - React-Core
+  - react-native-appearance (0.3.4):
+    - React
   - react-native-flipper (0.70.0):
     - React
   - react-native-get-random-values (1.5.1):
@@ -386,6 +388,7 @@ DEPENDENCIES:
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - react-native-app-auth (from `../node_modules/react-native-app-auth`)
+  - react-native-appearance (from `../node_modules/react-native-appearance`)
   - react-native-flipper (from `../node_modules/react-native-flipper`)
   - react-native-get-random-values (from `../node_modules/react-native-get-random-values`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
@@ -466,6 +469,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
   react-native-app-auth:
     :path: "../node_modules/react-native-app-auth"
+  react-native-appearance:
+    :path: "../node_modules/react-native-appearance"
   react-native-flipper:
     :path: "../node_modules/react-native-flipper"
   react-native-get-random-values:
@@ -553,6 +558,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: b56c03e61c0dd5f5801255f2160a815f4a53d451
   React-jsinspector: 8e68ffbfe23880d3ee9bafa8be2777f60b25cbe2
   react-native-app-auth: 771f5c7801912e2f6ce5e05d7164185137a1ed12
+  react-native-appearance: 0f0e5fc2fcef70e03d48c8fe6b00b9158c2ba8aa
   react-native-flipper: da8e630768f0a35153837df953d9781fa7f860ba
   react-native-get-random-values: 41f0c91ac0da870e47b307e07752e9e54bc2dc7e
   react-native-safe-area-context: b6e0e284002381d2ff29fa4fff42b4d8282e3c94

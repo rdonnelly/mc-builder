@@ -20,6 +20,7 @@ import {
 import { CardStackParamList } from '../../navigation/CardsStackNavigator';
 import { base, colors } from '../../styles';
 import CardListItem from '../../components/CardListItem';
+import FloatingControlBar from '../../components/FloatingControlBar';
 
 const CardListScreen = ({
   navigation,
@@ -168,7 +169,7 @@ const CardListScreen = ({
         ListHeaderComponent={renderHeader}
         ListFooterComponent={renderFooter}
       />
-      {!filter && !filterCode ? (
+      {false && !filter && !filterCode ? (
         <Filters>
           <FiltersButtonWrapper onPress={handlePressFactions}>
             {({ pressed }) => (
@@ -195,6 +196,12 @@ const CardListScreen = ({
           </FiltersButtonWrapper>
         </Filters>
       ) : null}
+
+      <FloatingControlBar>
+        <FloatingControlBar.FlexButton>Factions</FloatingControlBar.FlexButton>
+        <FloatingControlBar.FlexButton>Packs</FloatingControlBar.FlexButton>
+        <FloatingControlBar.FlexButton>Types</FloatingControlBar.FlexButton>
+      </FloatingControlBar>
     </Container>
   );
 };

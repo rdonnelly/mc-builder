@@ -5,6 +5,7 @@ import {
   StyleSheet,
   findNodeHandle,
 } from 'react-native';
+import { useActionSheet } from '@expo/react-native-action-sheet';
 import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
@@ -17,9 +18,11 @@ import { CardModel, DeckModel, getCardListForDeck } from '../data';
 import { base, colors } from '../styles';
 import { deleteDeck } from '../store/actions';
 import { setClipboard } from '../utils/Clipboard';
-import { useActionSheet } from '@expo/react-native-action-sheet';
 import CardListItem from './CardListItem';
 import DeckHeader from './DeckHeader';
+import FloatingControlBar, {
+  FloatingControlButtonVariant,
+} from './FloatingControlBar';
 
 const DeckDetail: React.FunctionComponent<{
   deck: DeckModel;
@@ -170,32 +173,26 @@ const DeckDetail: React.FunctionComponent<{
         keyExtractor={(item: CardModel) => item.code}
         contentContainerStyle={{ paddingBottom: 80 }}
       />
-      <FloatingControls>
-        <FloatingControlsEditButtonWrapper onPress={() => handleEditDeck()}>
-          {({ pressed }) => (
-            <FloatingControlsEditButton pressed={pressed}>
-              <FloatingControlsButtonText pressed={pressed}>
-                Edit Deck
-              </FloatingControlsButtonText>
-            </FloatingControlsEditButton>
-          )}
-        </FloatingControlsEditButtonWrapper>
-        <FloatingControlsMenuButtonWrapper onPress={() => handleMenuOpen()}>
-          {({ pressed }) => (
-            <FloatingControlsMenuButton
-              pressed={pressed}
-              ref={actionSheetAnchorRef}
-            >
-              <FontAwesomeIcon
-                name="ellipsis-h"
-                color={pressed ? colors.lightGray : colors.white}
-                size={16}
-                solid
-              />
-            </FloatingControlsMenuButton>
-          )}
-        </FloatingControlsMenuButtonWrapper>
-      </FloatingControls>
+      <FloatingControlBar>
+        <FloatingControlBar.FlexButton
+          onPress={() => handleEditDeck()}
+          variant={FloatingControlButtonVariant.PURPLE}
+        >
+          Edit Deck
+        </FloatingControlBar.FlexButton>
+        <FloatingControlBar.InlineButton
+          onPress={() => handleMenuOpen()}
+          ref={actionSheetAnchorRef}
+          variant={FloatingControlButtonVariant.PRIMARY}
+        >
+          <FontAwesomeIcon
+            name="ellipsis-h"
+            color={colors.white}
+            size={16}
+            solid
+          />
+        </FloatingControlBar.InlineButton>
+      </FloatingControlBar>
     </Container>
   );
 };
@@ -225,43 +222,5 @@ const SectionHeaderText = styled.Text`
   font-weight: 800;
   text-transform: uppercase;
 `;
-
-const FloatingControls = styled.View`
-  background-color: rgba(52, 73, 94, 0.1);
-  flex-direction: row;
-  position: absolute;
-  bottom: 8px;
-  left: 8px;
-  right: 8px;
-  border-radius: 4px;
-  padding: 8px 4px;
-`;
-
-const FloatingControlsButtonWrapper = styled(base.ButtonWrapper)`
-  flex: 1 1 auto;
-  margin-horizontal: 4px;
-`;
-
-const FloatingControlsEditButtonWrapper = styled(FloatingControlsButtonWrapper)`
-  flex: 1;
-`;
-
-const FloatingControlsEditButton = styled(base.Button)<{ pressed?: boolean }>`
-  background-color: ${(props) =>
-    props.pressed ? colors.purpleDark : colors.purple};
-`;
-
-const FloatingControlsMenuButtonWrapper = styled(FloatingControlsButtonWrapper)`
-  flex: none;
-`;
-
-const FloatingControlsMenuButton = styled(base.Button)<{ pressed?: boolean }>`
-  background-color: ${(props) =>
-    props.pressed ? colors.darkGrayDark : colors.darkGray};
-`;
-
-const FloatingControlsButtonText = styled(base.ButtonText)<{
-  pressed?: boolean;
-}>``;
 
 export default DeckDetail;

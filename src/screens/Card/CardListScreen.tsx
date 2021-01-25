@@ -20,7 +20,9 @@ import {
 import { CardStackParamList } from '../../navigation/CardsStackNavigator';
 import { base, colors } from '../../styles';
 import CardListItem from '../../components/CardListItem';
-import FloatingControlBar from '../../components/FloatingControlBar';
+import FloatingControlBar, {
+  FloatingControlButtonVariant,
+} from '../../components/FloatingControlBar';
 
 const CardListScreen = ({
   navigation,
@@ -169,39 +171,29 @@ const CardListScreen = ({
         ListHeaderComponent={renderHeader}
         ListFooterComponent={renderFooter}
       />
-      {false && !filter && !filterCode ? (
-        <Filters>
-          <FiltersButtonWrapper onPress={handlePressFactions}>
-            {({ pressed }) => (
-              <FiltersButton pressed={pressed}>
-                <FiltersButtonText pressed={pressed}>
-                  Factions
-                </FiltersButtonText>
-              </FiltersButton>
-            )}
-          </FiltersButtonWrapper>
-          <FiltersButtonWrapper onPress={handlePressPacks}>
-            {({ pressed }) => (
-              <FiltersButton pressed={pressed}>
-                <FiltersButtonText pressed={pressed}>Packs</FiltersButtonText>
-              </FiltersButton>
-            )}
-          </FiltersButtonWrapper>
-          <FiltersButtonWrapper onPress={handlePressTypes}>
-            {({ pressed }) => (
-              <FiltersButton pressed={pressed}>
-                <FiltersButtonText pressed={pressed}>Types</FiltersButtonText>
-              </FiltersButton>
-            )}
-          </FiltersButtonWrapper>
-        </Filters>
-      ) : null}
 
-      <FloatingControlBar>
-        <FloatingControlBar.FlexButton>Factions</FloatingControlBar.FlexButton>
-        <FloatingControlBar.FlexButton>Packs</FloatingControlBar.FlexButton>
-        <FloatingControlBar.FlexButton>Types</FloatingControlBar.FlexButton>
-      </FloatingControlBar>
+      {!filter && !filterCode ? (
+        <FloatingControlBar>
+          <FloatingControlBar.EvenButton
+            onPress={handlePressFactions}
+            variant={FloatingControlButtonVariant.ORANGE}
+          >
+            Factions
+          </FloatingControlBar.EvenButton>
+          <FloatingControlBar.EvenButton
+            onPress={handlePressPacks}
+            variant={FloatingControlButtonVariant.ORANGE}
+          >
+            Packs
+          </FloatingControlBar.EvenButton>
+          <FloatingControlBar.EvenButton
+            onPress={handlePressTypes}
+            variant={FloatingControlButtonVariant.ORANGE}
+          >
+            Types
+          </FloatingControlBar.EvenButton>
+        </FloatingControlBar>
+      ) : null}
     </Container>
   );
 };
@@ -209,29 +201,6 @@ const CardListScreen = ({
 const Container = styled(base.Container)`
   background-color: ${colors.white};
 `;
-
-const Filters = styled.View`
-  background-color: rgba(52, 73, 94, 0.1);
-  flex-direction: row;
-  position: absolute;
-  bottom: 8px;
-  left: 8px;
-  right: 8px;
-  border-radius: 4px;
-  padding: 8px 4px;
-`;
-
-const FiltersButtonWrapper = styled(base.ButtonWrapper)`
-  flex: 1 1 0;
-  margin-horizontal: 4px;
-`;
-
-const FiltersButton = styled(base.Button)<{ pressed?: boolean }>`
-  background-color: ${(props) =>
-    props.pressed ? colors.orangeDark : colors.orange};
-`;
-
-const FiltersButtonText = styled(base.ButtonText)<{ pressed?: boolean }>``;
 
 const FlatList = styled(base.FlatList)``;
 

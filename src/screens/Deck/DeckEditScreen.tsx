@@ -8,8 +8,13 @@ import { DecksStackParamList } from '../../navigation/DecksStackNavigator';
 import { StoreState } from '../../store';
 import DeckEdit from '../../components/DeckEdit';
 
+export type DeckEditScreenNavigationProp = StackNavigationProp<
+  DecksStackParamList,
+  'DeckEdit'
+>;
+
 const DeckEditScreen: React.FunctionComponent<{
-  navigation: StackNavigationProp<DecksStackParamList, 'DeckEdit'>;
+  navigation: DeckEditScreenNavigationProp;
   route: RouteProp<DecksStackParamList, 'DeckEdit'>;
 }> = ({ navigation, route }) => {
   const code = route.params.code;

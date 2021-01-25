@@ -1,11 +1,11 @@
 import 'react-native-get-random-values';
-import { Alert, ListRenderItem, StyleSheet } from 'react-native';
+import { Alert, ListRenderItem } from 'react-native';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useDispatch } from 'react-redux';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { v4 as uuidv4 } from 'uuid';
-import React, { useContext } from 'react';
+import React from 'react';
 import styled from 'styled-components/native';
 
 import {
@@ -22,6 +22,9 @@ import { DecksStackParamList } from '../../navigation/DecksStackNavigator';
 import { base, colors } from '../../styles';
 import { setUpNewDeck } from '../../store/actions';
 import CardListItem from '../../components/CardListItem';
+import FloatingControlBar, {
+  FloatingControlButtonVariant,
+} from '../../components/FloatingControlBar';
 
 const DecksImportFormScreen: React.FunctionComponent<{
   navigation: StackNavigationProp<DecksStackParamList, 'DecksImport'>;
@@ -162,28 +165,20 @@ const DecksImportFormScreen: React.FunctionComponent<{
         keyExtractor={(card: CardModel) => card.code}
         contentContainerStyle={{ paddingBottom: 48 }}
       />
-      <FloatingControls>
-        <FloatingControlsCancelButtonWrapper
+      <FloatingControlBar>
+        <FloatingControlBar.FlexButton
           onPress={() => navigation.goBack()}
+          variant={FloatingControlButtonVariant.SUBDUED}
         >
-          {({ pressed }) => (
-            <FloatingControlsCancelButton pressed={pressed}>
-              <FloatingControlsButtonText pressed={pressed}>
-                Cancel
-              </FloatingControlsButtonText>
-            </FloatingControlsCancelButton>
-          )}
-        </FloatingControlsCancelButtonWrapper>
-        <FloatingControlsImportButtonWrapper onPress={() => importDeck()}>
-          {({ pressed }) => (
-            <FloatingControlsImportButton pressed={pressed}>
-              <FloatingControlsButtonText pressed={pressed}>
-                Import Deck
-              </FloatingControlsButtonText>
-            </FloatingControlsImportButton>
-          )}
-        </FloatingControlsImportButtonWrapper>
-      </FloatingControls>
+          Cancel
+        </FloatingControlBar.FlexButton>
+        <FloatingControlBar.FlexButton
+          onPress={() => importDeck()}
+          variant={FloatingControlButtonVariant.SUCCESS}
+        >
+          Import Deck
+        </FloatingControlBar.FlexButton>
+      </FloatingControlBar>
     </Container>
   );
 };
@@ -241,47 +236,5 @@ const Traits = styled.Text`
 `;
 
 const FlatList = styled(base.FlatList)``;
-
-const FloatingControls = styled.View`
-  background-color: rgba(52, 73, 94, 0.1);
-  border-radius: 4px;
-  bottom: 8px;
-  flex-direction: row;
-  left: 8px;
-  padding: 8px 4px;
-  position: absolute;
-  right: 8px;
-`;
-
-const FloatingControlsButtonWrapper = styled(base.ButtonWrapper)`
-  flex: 1 1 auto;
-  margin-horizontal: 4px;
-`;
-
-const FloatingControlsCancelButtonWrapper = styled(
-  FloatingControlsButtonWrapper,
-)`
-  flex: 1 1 0;
-`;
-
-const FloatingControlsCancelButton = styled(base.Button)<{ pressed?: boolean }>`
-  background-color: ${(props) =>
-    props.pressed ? colors.grayDark : colors.gray};
-`;
-
-const FloatingControlsImportButtonWrapper = styled(
-  FloatingControlsButtonWrapper,
-)`
-  flex: 1 1 auto;
-`;
-
-const FloatingControlsImportButton = styled(base.Button)<{ pressed?: boolean }>`
-  background-color: ${(props) =>
-    props.pressed ? colors.greenDark : colors.green};
-`;
-
-const FloatingControlsButtonText = styled(base.ButtonText)<{
-  pressed?: boolean;
-}>``;
 
 export default DecksImportFormScreen;

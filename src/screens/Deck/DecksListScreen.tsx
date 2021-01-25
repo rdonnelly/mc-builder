@@ -20,6 +20,9 @@ import { base, colors } from '../../styles';
 import { getClipboard } from '../../utils/Clipboard';
 import { validateClipboard } from '../../utils/DeckParser';
 import DecksListItem from '../../components/DecksListItem';
+import FloatingControlBar, {
+  FloatingControlButtonVariant,
+} from '../../components/FloatingControlBar';
 
 const DecksListScreen: React.FunctionComponent<{
   navigation: StackNavigationProp<DecksStackParamList, 'DecksList'>;
@@ -140,34 +143,26 @@ const DecksListScreen: React.FunctionComponent<{
       ) : (
         renderEmpty()
       )}
-      <FloatingControls>
-        <FloatingControlsCreateButtonWrapper
+      <FloatingControlBar>
+        <FloatingControlBar.FlexButton
           onPress={() => navigation.navigate('DecksCreate')}
+          variant={FloatingControlButtonVariant.PURPLE}
         >
-          {({ pressed }) => (
-            <FloatingControlsCreateButton pressed={pressed}>
-              <FloatingControlsCreateButtonText pressed={pressed}>
-                Create Deck
-              </FloatingControlsCreateButtonText>
-            </FloatingControlsCreateButton>
-          )}
-        </FloatingControlsCreateButtonWrapper>
-        <FloatingControlsMenuButtonWrapper onPress={() => handleMenuOpen()}>
-          {({ pressed }) => (
-            <FloatingControlsMenuButton
-              pressed={pressed}
-              ref={actionSheetAnchorRef}
-            >
-              <FontAwesomeIcon
-                name="ellipsis-h"
-                color={pressed ? colors.lightGray : colors.white}
-                size={16}
-                solid
-              />
-            </FloatingControlsMenuButton>
-          )}
-        </FloatingControlsMenuButtonWrapper>
-      </FloatingControls>
+          Create Deck
+        </FloatingControlBar.FlexButton>
+        <FloatingControlBar.InlineButton
+          onPress={() => handleMenuOpen()}
+          ref={actionSheetAnchorRef}
+          variant={FloatingControlButtonVariant.PRIMARY}
+        >
+          <FontAwesomeIcon
+            name="ellipsis-h"
+            color={colors.white}
+            size={16}
+            solid
+          />
+        </FloatingControlBar.InlineButton>
+      </FloatingControlBar>
     </Container>
   );
 };
@@ -179,46 +174,5 @@ const FlatList = styled(base.FlatList)``;
 const ListFooter = styled(base.ListFooter)``;
 
 const ListFooterText = styled(base.ListFooterText)``;
-
-const FloatingControls = styled.View`
-  background-color: rgba(52, 73, 94, 0.1);
-  flex-direction: row;
-  position: absolute;
-  bottom: 8px;
-  left: 8px;
-  right: 8px;
-  border-radius: 4px;
-  padding: 8px 4px;
-`;
-
-const FloatingControlsButtonWrapper = styled(base.ButtonWrapper)`
-  flex: 1 1 auto;
-  margin-horizontal: 4px;
-`;
-
-const FloatingControlsCreateButtonWrapper = styled(
-  FloatingControlsButtonWrapper,
-)`
-  flex: 1 1 auto;
-  margin-horizontal: 4px;
-`;
-
-const FloatingControlsCreateButton = styled(base.Button)<{ pressed?: boolean }>`
-  background-color: ${(props) =>
-    props.pressed ? colors.purpleDark : colors.purple};
-`;
-
-const FloatingControlsCreateButtonText = styled(base.ButtonText)<{
-  pressed?: boolean;
-}>``;
-
-const FloatingControlsMenuButtonWrapper = styled(FloatingControlsButtonWrapper)`
-  flex: none;
-`;
-
-const FloatingControlsMenuButton = styled(base.Button)<{ pressed?: boolean }>`
-  background-color: ${(props) =>
-    props.pressed ? colors.darkGrayDark : colors.darkGray};
-`;
 
 export default DecksListScreen;

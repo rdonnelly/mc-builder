@@ -33,7 +33,7 @@ const List: React.FunctionComponent<{
   };
 
   return (
-    <Container style={base.container}>
+    <Container>
       <FlatList
         ref={listRef}
         renderItem={renderItem != null ? renderItem : defaultRenderItem}

@@ -1,5 +1,6 @@
 import { Pressable, StyleSheet } from 'react-native';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
+import React from 'react';
 import styled from 'styled-components/native';
 
 import colors from './colors';
@@ -65,8 +66,12 @@ const ListFooterText = styled.Text`
 
 const ListChevronWrapper = styled.View``;
 
-const ListChevron = styled(FontAwesomeIcon)<{ active: boolean }>`
-  color: ${(props) => (props.active ? colors.brand : colors.lightGrayDark)};
+const ListChevron = styled(({ isActive, ...rest }) => (
+  <FontAwesomeIcon {...rest} />
+))<{
+  isActive: boolean;
+}>`
+  color: ${(props) => (props.isActive ? colors.brand : colors.lightGrayDark)};
   margin-top: 2px;
 `;
 

@@ -44,6 +44,9 @@ export default () => {
         options={{
           title: 'Cards',
         }}
+        getId={({ params }) =>
+          params != null ? `${params.filter}-${params.code}` : undefined
+        }
       />
       <Stack.Screen
         name="FactionsList"

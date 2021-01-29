@@ -10,7 +10,7 @@ export type DeckRenameStackParamList = {
   DeckRename: { code: string };
 };
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<DeckRenameStackParamList>();
 
 const isIOS = Platform.OS === 'ios';
 const HEADER_HEIGHT = isIOS ? 44 : 56;
@@ -44,6 +44,7 @@ export default () => (
         options={{
           title: 'Rename Deck',
         }}
+        getId={({ params }) => (params != null ? `${params.code}` : undefined)}
       />
     </Stack.Navigator>
   </KeyboardAvoidingView>

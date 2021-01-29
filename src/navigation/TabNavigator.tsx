@@ -7,12 +7,18 @@ import CardsStackNavigator from './CardsStackNavigator';
 import DecksStackNavigator from './DecksStackNavigator';
 import SettingsStackNavigator from './SettingsStackNavigator';
 
-const Tab = createBottomTabNavigator();
+export type BottomTabNavigatorParamList = {
+  TabCards: undefined;
+  TabDecks: undefined;
+  TabSettings: undefined;
+};
+
+const Tab = createBottomTabNavigator<BottomTabNavigatorParamList>();
 
 export default () => {
   return (
     <Tab.Navigator
-      initialRouteName="Cards"
+      initialRouteName="TabCards"
       tabBarOptions={{
         activeTintColor: colors.darkGray,
         inactiveTintColor: colors.gray,
@@ -23,7 +29,7 @@ export default () => {
       }}
     >
       <Tab.Screen
-        name="Cards"
+        name="TabCards"
         component={CardsStackNavigator}
         options={{
           tabBarIcon: ({ focused, size }) => (
@@ -37,7 +43,7 @@ export default () => {
         }}
       />
       <Tab.Screen
-        name="Decks"
+        name="TabDecks"
         component={DecksStackNavigator}
         options={{
           tabBarIcon: ({ focused, size }) => (
@@ -51,7 +57,7 @@ export default () => {
         }}
       />
       <Tab.Screen
-        name="Settings"
+        name="TabSettings"
         component={SettingsStackNavigator}
         options={{
           tabBarIcon: ({ focused, size }) => (

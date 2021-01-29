@@ -5,7 +5,11 @@ import SettingsScreen from '../screens/SettingsScreen';
 
 import { colors } from '../styles';
 
-const Stack = createNativeStackNavigator();
+export type SettingsStackParamList = {
+  Settings: undefined;
+};
+
+const Stack = createNativeStackNavigator<SettingsStackParamList>();
 
 export default () => (
   <Stack.Navigator

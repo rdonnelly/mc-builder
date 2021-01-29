@@ -10,7 +10,7 @@ export type DeckCloneStackParamList = {
   DeckClone: { code: string };
 };
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<DeckCloneStackParamList>();
 
 const isIOS = Platform.OS === 'ios';
 const HEADER_HEIGHT = isIOS ? 44 : 56;
@@ -44,6 +44,7 @@ export default () => (
         options={{
           title: 'Clone Deck',
         }}
+        getId={({ params }) => (params != null ? `${params.code}` : undefined)}
       />
     </Stack.Navigator>
   </KeyboardAvoidingView>

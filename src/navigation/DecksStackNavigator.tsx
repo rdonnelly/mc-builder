@@ -79,6 +79,7 @@ export default () => {
         options={{
           title: '',
         }}
+        getId={({ params }) => (params != null ? `${params.code}` : undefined)}
       />
       <Stack.Screen
         name="DeckDetailCardDetail"
@@ -87,6 +88,9 @@ export default () => {
         options={{
           title: '',
         }}
+        getId={({ params }) =>
+          params != null ? `${params.code}-${params.type}` : undefined
+        }
       />
       <Stack.Screen
         name="DeckEdit"
@@ -94,6 +98,7 @@ export default () => {
         options={{
           title: 'Edit Deck',
         }}
+        getId={({ params }) => (params != null ? `${params.code}` : undefined)}
       />
       <Stack.Screen
         name="DeckEditCardDetail"
@@ -102,6 +107,9 @@ export default () => {
         options={{
           title: '',
         }}
+        getId={({ params }) =>
+          params != null ? `${params.code}-${params.type}` : undefined
+        }
       />
       <Stack.Screen
         name="DeckRenameStack"

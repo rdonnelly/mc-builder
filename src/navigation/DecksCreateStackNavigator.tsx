@@ -13,7 +13,7 @@ export type DecksCreateStackParamList = {
   DecksCreateSelect: { type: 'hero' | 'aspect' };
 };
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<DecksCreateStackParamList>();
 
 const isIOS = Platform.OS === 'ios';
 const HEADER_HEIGHT = isIOS ? 44 : 56;
@@ -52,6 +52,9 @@ export default () => (
         <Stack.Screen
           name="DecksCreateSelect"
           component={DecksCreateSelectScreen}
+          getId={({ params }) =>
+            params != null ? `${params.type}` : undefined
+          }
         />
       </Stack.Navigator>
     </KeyboardAvoidingView>

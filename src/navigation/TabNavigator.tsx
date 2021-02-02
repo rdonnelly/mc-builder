@@ -32,6 +32,7 @@ export default () => {
         name="TabCards"
         component={CardsStackNavigator}
         options={{
+          title: 'Cards',
           tabBarIcon: ({ focused, size }) => (
             <FontAwesomeIcon
               name="stream"
@@ -46,6 +47,7 @@ export default () => {
         name="TabDecks"
         component={DecksStackNavigator}
         options={{
+          title: 'Decks',
           tabBarIcon: ({ focused, size }) => (
             <FontAwesomeIcon
               name="layer-group"
@@ -60,6 +62,7 @@ export default () => {
         name="TabSettings"
         component={SettingsStackNavigator}
         options={{
+          title: 'Settings',
           tabBarIcon: ({ focused, size }) => (
             <FontAwesomeIcon
               name="cog"

@@ -39,7 +39,13 @@ const styles = StyleSheet.create({
 });
 
 const customTagStyles = {
-  em: { fontStyle: 'italic', fontWeight: 'bold' },
+  b: { fontWeight: 'bold' },
+  em: {
+    // fontFamily: 'Komika Title - Wide',
+    // fontSize: 14,
+    fontStyle: 'italic',
+    fontWeight: 'bold',
+  },
   i: { fontStyle: 'italic', fontWeight: '500' },
   p: { marginTop: 0, marginBottom: 0 },
 };

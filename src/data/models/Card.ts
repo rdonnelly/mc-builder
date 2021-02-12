@@ -16,8 +16,8 @@ import { getSets } from '../models/Set';
 import { getTypes, typeRank } from '../models/Type';
 
 const cards = [].concat(
-  require('marvelsdb-json-data/pack/ant.json'),
   require('marvelsdb-json-data/pack/ant_encounter.json'),
+  require('marvelsdb-json-data/pack/ant.json'),
   require('marvelsdb-json-data/pack/bkw_encounter.json'),
   require('marvelsdb-json-data/pack/bkw.json'),
   require('marvelsdb-json-data/pack/cap_encounter.json'),
@@ -31,16 +31,18 @@ const cards = [].concat(
   require('marvelsdb-json-data/pack/hlk.json'),
   require('marvelsdb-json-data/pack/msm_encounter.json'),
   require('marvelsdb-json-data/pack/msm.json'),
-  require('marvelsdb-json-data/pack/qsv.json'),
   require('marvelsdb-json-data/pack/qsv_encounter.json'),
+  require('marvelsdb-json-data/pack/qsv.json'),
   require('marvelsdb-json-data/pack/ron_encounter.json'),
+  require('marvelsdb-json-data/pack/scw_encounter.json'),
+  require('marvelsdb-json-data/pack/scw.json'),
   require('marvelsdb-json-data/pack/thor_encounter.json'),
   require('marvelsdb-json-data/pack/thor.json'),
   require('marvelsdb-json-data/pack/trors_encounter.json'),
   require('marvelsdb-json-data/pack/trors.json'),
   require('marvelsdb-json-data/pack/twc_encounter.json'),
-  require('marvelsdb-json-data/pack/wsp.json'),
   require('marvelsdb-json-data/pack/wsp_encounter.json'),
+  require('marvelsdb-json-data/pack/wsp.json'),
 );
 
 export class Card {

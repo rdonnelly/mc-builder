@@ -36,6 +36,7 @@ const Container = styled(base.Container)`
 `;
 
 const ListItemPressable = styled(Pressable)`
+  height: 100%;
   width: 100%;
 `;
 

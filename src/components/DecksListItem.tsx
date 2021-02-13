@@ -49,7 +49,10 @@ const Container = styled(base.Container)`
   justify-content: center;
 `;
 
-const ListItemPressable = styled(Pressable)``;
+const ListItemPressable = styled(Pressable)`
+  height: 100%;
+  width: 100%;
+`;
 
 const ListItemInner = styled.View<{ pressed: boolean }>`
   align-items: center;

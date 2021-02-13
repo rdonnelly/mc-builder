@@ -1,7 +1,7 @@
-import { Pressable, ScrollView, StyleSheet } from 'react-native';
+import { Image, Pressable, ScrollView, StyleSheet } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import Html from 'react-native-render-html';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import styled from 'styled-components/native';
 
@@ -11,15 +11,11 @@ import { shareImageUrl } from '../utils/Share';
 import CardParser from '../utils/CardParser';
 import Icon, { IconCode } from '../components/Icon';
 
-enum CardImageHeight {
-  LANDSCAPE = 300,
-  PORTRAIT = 419,
-}
-
 const isTablet = DeviceInfo.isTablet();
 
 const styles = StyleSheet.create({
   scrollViewContentContainer: {
+    alignItems: 'center',
     paddingVertical: 16,
   },
   cardDetailText: {
@@ -669,31 +665,72 @@ const CardDetailFooter: React.FunctionComponent<{
   );
 };
 
-const CardDetailImage: React.FunctionComponent<{
+const CardDetailImages: React.FunctionComponent<{
   card: CardModel;
-}> = ({ card }) => {
-  const cardHeight = ['main_scheme', 'side_scheme'].includes(card.typeCode)
-    ? CardImageHeight.LANDSCAPE
-    : CardImageHeight.PORTRAIT;
-
+  maxWidth: number;
+}> = ({ card, maxWidth }) => {
   const imageUriSet = card.imageUriSet;
 
   return imageUriSet && imageUriSet.length ? (
     <>
       {imageUriSet.map((imageUri, i) => (
-        <Pressable
+        <CardDetailImage
           key={`card_image_${card.code}_${i}`}
-          onLongPress={() => handleImageLongPress(card)}
-        >
-          {({ pressed }) => (
-            <CardDetailImageContainer height={cardHeight} pressed={pressed}>
-              <Image resizeMode="contain" source={{ uri: `${imageUri}` }} />
-            </CardDetailImageContainer>
-          )}
-        </Pressable>
+          card={card}
+          imageUri={imageUri}
+          maxWidth={maxWidth}
+        />
       ))}
     </>
   ) : null;
+};
+
+const CardDetailImage = ({
+  card,
+  imageUri,
+  maxWidth,
+}: {
+  card: CardModel;
+  imageUri: string;
+  maxWidth: number;
+}) => {
+  const [imageHeight, setImageHeight] = useState(0);
+  const [imageWidth, setImageWidth] = useState(0);
+
+  useEffect(() => {
+    Image.getSize(
+      imageUri,
+      (width, height) => {
+        const newWidth = Math.min(width, maxWidth);
+        const newHeight = (height / width) * newWidth;
+
+        console.log(card.code, width, newWidth);
+        console.log(card.code, height, newHeight);
+
+        setImageHeight(newHeight);
+        setImageWidth(newWidth);
+      },
+      () => {},
+    );
+  }, [imageUri]);
+
+  if (!imageHeight || !imageWidth) {
+    return null;
+  }
+
+  return (
+    <Pressable onLongPress={() => handleImageLongPress(card)}>
+      {({ pressed }) => (
+        <CardDetailImageContainer
+          height={imageHeight}
+          width={imageWidth}
+          pressed={pressed}
+        >
+          <CardImage resizeMode="contain" source={{ uri: `${imageUri}` }} />
+        </CardDetailImageContainer>
+      )}
+    </Pressable>
+  );
 };
 
 const CardDetailPack: React.FunctionComponent<{
@@ -721,7 +758,7 @@ const CardDetail: React.FunctionComponent<{
         <CardDetailStats card={card} />
         <CardDetailText card={card} />
         <CardDetailFooter card={card} />
-        <CardDetailImage card={card} />
+        <CardDetailImages card={card} maxWidth={width} />
         <CardDetailPack card={card} />
       </ContainerScrollView>
     </CardDetailContainer>
@@ -842,6 +879,7 @@ const CardDetailFooterContainer = styled.View`
   margin-bottom: 16px;
   padding-horizontal: 16px;
   padding-vertical: 8px;
+  width: 100%;
 `;
 
 const CardDetailFooterContainerResource = styled.View`
@@ -873,17 +911,18 @@ const CardDetailFooterContainerBoost = styled.View`
 `;
 
 const CardDetailImageContainer = styled.View<{
-  height: CardImageHeight;
+  height: number;
+  width: number;
   pressed: boolean;
 }>`
   height: ${(props) => props.height}px;
   margin-bottom: 16px;
   opacity: ${(props) => (props.pressed ? 0.9 : 1.0)};
   padding-horizontal: 0px;
-  width: 100%;
+  width: ${(props) => props.width}px;
 `;
 
-const Image = styled.Image`
+const CardImage = styled.Image`
   height: 100%;
   width: 100%;
 `;

@@ -676,16 +676,23 @@ const CardDetailImage: React.FunctionComponent<{
     ? CardImageHeight.LANDSCAPE
     : CardImageHeight.PORTRAIT;
 
-  const imageSrc = card.imageSrc;
+  const imageUriSet = card.imageUriSet;
 
-  return imageSrc ? (
-    <Pressable onLongPress={() => handleImageLongPress(card)}>
-      {({ pressed }) => (
-        <CardDetailImageContainer height={cardHeight} pressed={pressed}>
-          <Image resizeMode="contain" source={{ uri: card.imageSrc }} />
-        </CardDetailImageContainer>
-      )}
-    </Pressable>
+  return imageUriSet && imageUriSet.length ? (
+    <>
+      {imageUriSet.map((imageUri, i) => (
+        <Pressable
+          key={`card_image_${card.code}_${i}`}
+          onLongPress={() => handleImageLongPress(card)}
+        >
+          {({ pressed }) => (
+            <CardDetailImageContainer height={cardHeight} pressed={pressed}>
+              <Image resizeMode="contain" source={{ uri: `${imageUri}` }} />
+            </CardDetailImageContainer>
+          )}
+        </Pressable>
+      ))}
+    </>
   ) : null;
 };
 

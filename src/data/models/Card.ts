@@ -199,6 +199,28 @@ export class Card {
     const packCode = String(this.pack.cgdbId).padStart(2, '0');
     return `https://lcgcdn.s3.amazonaws.com/mc/MC${packCode}en_${this.cardCode}.jpg`;
   }
+
+  get imageUriSet() {
+    const cgdbId = this.pack.cgdbId;
+
+    if (cgdbId == null) {
+      return [];
+    }
+
+    const packCode = String(this.pack.cgdbId).padStart(2, '0');
+    const isDoubleSided = ['main_scheme'].includes(this.typeCode);
+
+    if (isDoubleSided) {
+      return [
+        `https://lcgcdn.s3.amazonaws.com/mc/MC${packCode}en_${this.cardCode}A.jpg`,
+        `https://lcgcdn.s3.amazonaws.com/mc/MC${packCode}en_${this.cardCode}B.jpg`,
+      ];
+    }
+
+    return [
+      `https://lcgcdn.s3.amazonaws.com/mc/MC${packCode}en_${this.cardCode}.jpg`,
+    ];
+  }
 }
 
 export const getCards = memoizeOne(() =>

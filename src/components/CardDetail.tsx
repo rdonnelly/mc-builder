@@ -74,6 +74,7 @@ const renderCardText = (card: CardModel, key: string, isFlavor = false) => {
         }
         tagsStyles={customTagStyles}
         renderers={customRenderers}
+        allowWhitespaceNodes={true}
       />
     </CardDetailTextContainerSection>
   );

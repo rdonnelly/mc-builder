@@ -16,7 +16,8 @@ const isTablet = DeviceInfo.isTablet();
 const styles = StyleSheet.create({
   scrollViewContentContainer: {
     alignItems: 'center',
-    paddingVertical: 16,
+    paddingTop: 16,
+    paddingBottom: 72,
   },
   cardDetailText: {
     color: colors.primary,
@@ -85,25 +86,29 @@ const CardDetailInfo: React.FunctionComponent<{
   card: CardModel;
 }> = ({ card }) => {
   return (
-    <CardDetailInfoContainer>
+    <>
       {card.raw.subname != null ? (
-        <CardDetailInfoContainerSubtitle>
-          <CardDetailInfoContainerSubtitleText>
-            {card.raw.subname}
-          </CardDetailInfoContainerSubtitleText>
-        </CardDetailInfoContainerSubtitle>
+        <CardDetailInfoContainer>
+          <CardDetailInfoContainerSubtitle>
+            <CardDetailInfoContainerSubtitleText>
+              {card.raw.subname}
+            </CardDetailInfoContainerSubtitleText>
+          </CardDetailInfoContainerSubtitle>
+        </CardDetailInfoContainer>
       ) : null}
-      <CardDetailInfoContainerTypes>
-        <CardDetailInfoContainerTypesTextBold>
-          {`${card.typeName}.`}
-        </CardDetailInfoContainerTypesTextBold>
-        {card.raw.traits ? (
-          <CardDetailInfoContainerTypesText>
-            {` ${card.raw.traits}`}
-          </CardDetailInfoContainerTypesText>
-        ) : null}
-      </CardDetailInfoContainerTypes>
-    </CardDetailInfoContainer>
+      <CardDetailInfoContainer>
+        <CardDetailInfoContainerTypes>
+          <CardDetailInfoContainerTypesTextBold>
+            {`${card.typeName}.`}
+          </CardDetailInfoContainerTypesTextBold>
+          {card.raw.traits ? (
+            <CardDetailInfoContainerTypesText>
+              {` ${card.raw.traits}`}
+            </CardDetailInfoContainerTypesText>
+          ) : null}
+        </CardDetailInfoContainerTypes>
+      </CardDetailInfoContainer>
+    </>
   );
 };
 
@@ -780,14 +785,12 @@ const CardDetailInfoContainer = styled(base.Container)`
   padding-vertical: 8px;
 `;
 
-const CardDetailInfoContainerSubtitle = styled.View`
-  margin-bottom: 4px;
-`;
+const CardDetailInfoContainerSubtitle = styled.View``;
 
 const CardDetailInfoContainerSubtitleText = styled.Text`
   color: ${colors.darkGray};
-  font-size: 17px;
-  font-weight: 500;
+  font-size: 15px;
+  font-weight: 700;
 `;
 
 const CardDetailInfoContainerTypes = styled.View`

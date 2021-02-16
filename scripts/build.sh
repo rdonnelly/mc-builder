@@ -53,12 +53,12 @@ upload() {
 }
 
 push() {
-  bumpBuild && podInstall && build && archive && exportArchive && upload $@
+  bumpBuild && podInstall && maps && build && archive && exportArchive && upload $@ 
 }
 
 maps() {
   export $(grep '^BUGSNAG_API_KEY' .env | xargs)
-  VERSION="0.2"
+  VERSION="0.3"
 
   yarn react-native bundle --platform ios \
                            --dev false \

@@ -19,9 +19,9 @@ export type DecksStackParamList = {
   DecksCreate: undefined;
   DecksImport: { deck: IImportDeck };
   DeckDetail: { code: string };
-  DeckDetailCardDetail: { code: string; type: 'card' | 'deck' };
+  DeckDetailCardDetail: { code: string; type?: 'card' | 'deck' };
   DeckEdit: { code: string };
-  DeckEditCardDetail: { code: string; type: 'card' | 'deck' };
+  DeckEditCardDetail: { code: string; type?: 'card' | 'deck' };
   DeckRenameStack: undefined;
   DeckCloneStack: undefined;
 };
@@ -79,7 +79,7 @@ export default () => {
         options={{
           title: '',
         }}
-        getId={({ params }) => (params != null ? `${params.code}` : undefined)}
+        // getId={({ params }) => (params != null ? `${params.code}` : undefined)}
       />
       <Stack.Screen
         name="DeckDetailCardDetail"
@@ -88,9 +88,9 @@ export default () => {
         options={{
           title: '',
         }}
-        getId={({ params }) =>
-          params != null ? `${params.code}-${params.type}` : undefined
-        }
+        // getId={({ params }) =>
+        //   params != null ? `${params.code}-${params.type}` : undefined
+        // }
       />
       <Stack.Screen
         name="DeckEdit"
@@ -98,7 +98,7 @@ export default () => {
         options={{
           title: 'Edit Deck',
         }}
-        getId={({ params }) => (params != null ? `${params.code}` : undefined)}
+        // getId={({ params }) => (params != null ? `${params.code}` : undefined)}
       />
       <Stack.Screen
         name="DeckEditCardDetail"
@@ -107,9 +107,9 @@ export default () => {
         options={{
           title: '',
         }}
-        getId={({ params }) =>
-          params != null ? `${params.code}-${params.type}` : undefined
-        }
+        // getId={({ params }) =>
+        //   params != null ? `${params.code}-${params.type}` : undefined
+        // }
       />
       <Stack.Screen
         name="DeckRenameStack"

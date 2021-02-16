@@ -1,6 +1,17 @@
+import {
+  Alert,
+  Linking,
+  Platform,
+  Pressable,
+  findNodeHandle,
+} from 'react-native';
+import { InAppBrowser } from 'react-native-inappbrowser-reborn';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { useActionSheet } from '@expo/react-native-action-sheet';
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
 import React, { useContext, useEffect, useRef } from 'react';
+import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import styled from 'styled-components/native';
 
 import { AppContext } from '../../context/AppContext';
@@ -25,8 +36,76 @@ const CardDetailScreen: React.FunctionComponent<{
   }
 
   const code = route.params.code;
-
   const initialScrollIndex = cardList.findIndex((c) => c.code === code);
+
+  const { showActionSheetWithOptions } = useActionSheet();
+  const actionSheetAnchorRef = useRef(null);
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => {
+        return (
+          <Pressable onPress={() => handleMenuOpen()}>
+            {({ pressed }) => (
+              <FontAwesomeIcon
+                ref={actionSheetAnchorRef}
+                name="exclamation-circle"
+                color={pressed ? colors.primary : colors.white}
+                size={24}
+              />
+            )}
+          </Pressable>
+        );
+      },
+    });
+  }, [navigation]);
+
+  const handleMenuOpen = () => {
+    ReactNativeHapticFeedback.trigger('impactLight');
+    showActionSheetWithOptions(
+      {
+        options: ['Close', 'Report a Card Issue'],
+        cancelButtonIndex: 0,
+        anchor:
+          Platform.OS === 'ios'
+            ? findNodeHandle(actionSheetAnchorRef.current)
+            : null,
+      },
+      (buttonIndex) => {
+        switch (buttonIndex) {
+          case 1: {
+            handleReport();
+            break;
+          }
+        }
+      },
+    );
+  };
+
+  const handleReport = async () => {
+    const url = encodeURI(
+      `https://github.com/zzorba/marvelsdb-json-data/issues/new?title=Card Data Issue: ${cardList[initialScrollIndex].name} (${code})&body=<!-- What issue do you see with the card data? -->`,
+    );
+    console.log(url);
+    try {
+      if (await InAppBrowser.isAvailable()) {
+        await InAppBrowser.open(url, {
+          // iOS Properties
+          dismissButtonStyle: 'done',
+          preferredBarTintColor: colors.white,
+          preferredControlTintColor: colors.blue,
+          readerMode: false,
+          modalEnabled: true,
+          // Android Properties
+          showTitle: true,
+        });
+      } else {
+        Linking.openURL(url);
+      }
+    } catch (error) {
+      Linking.openURL(url);
+    }
+  };
 
   useEffect(() => {
     navigation.setOptions({

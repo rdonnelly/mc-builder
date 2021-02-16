@@ -704,9 +704,6 @@ const CardDetailImage = ({
         const newWidth = Math.min(width, maxWidth);
         const newHeight = (height / width) * newWidth;
 
-        console.log(card.code, width, newWidth);
-        console.log(card.code, height, newHeight);
-
         setImageHeight(newHeight);
         setImageWidth(newWidth);
       },

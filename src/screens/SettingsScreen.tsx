@@ -85,8 +85,8 @@ const SettingsScreen: React.FunctionComponent<{}> = () => {
 };
 
 const visitWebpage = async () => {
+  const url = 'https://rdonnelly.com/mc-deck-builder/';
   try {
-    const url = 'https://rdonnelly.com/mc-deck-builder/';
     if (await InAppBrowser.isAvailable()) {
       await InAppBrowser.open(url, {
         // iOS Properties
@@ -101,7 +101,7 @@ const visitWebpage = async () => {
       Linking.openURL(url);
     }
   } catch (error) {
-    Alert.alert('Could Not Open Browser');
+    Linking.openURL(url);
   }
 };
 

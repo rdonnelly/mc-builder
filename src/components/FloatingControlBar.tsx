@@ -13,6 +13,7 @@ enum FloatingControlButtonVariant {
   SUCCESS = 'success',
   DESTRUCTIVE = 'destructive',
   PRIMARY = 'primary',
+  INVERTED = 'inverted',
 }
 
 const FloatingControlBar = (props) => {
@@ -28,15 +29,14 @@ FloatingControlBar.EvenButton = React.forwardRef<
   return (
     <FloatingControlPressableEven onPress={props.onPress}>
       {({ pressed }) => (
-        <FloatingControlButton
-          ref={ref}
+        <FloatingControlBarText
           pressed={pressed}
           variant={props.variant}
+          wrapped={true}
+          ref={ref}
         >
-          <FloatingControlButtonText>
-            {props.children}
-          </FloatingControlButtonText>
-        </FloatingControlButton>
+          {props.children}
+        </FloatingControlBarText>
       )}
     </FloatingControlPressableEven>
   );
@@ -49,15 +49,14 @@ FloatingControlBar.FlexButton = React.forwardRef<
   return (
     <FloatingControlPressableFlex onPress={props.onPress}>
       {({ pressed }) => (
-        <FloatingControlButton
+        <FloatingControlBarText
           pressed={pressed}
           variant={props.variant}
+          wrapped={true}
           ref={ref}
         >
-          <FloatingControlButtonText>
-            {props.children}
-          </FloatingControlButtonText>
-        </FloatingControlButton>
+          {props.children}
+        </FloatingControlBarText>
       )}
     </FloatingControlPressableFlex>
   );
@@ -70,19 +69,35 @@ FloatingControlBar.InlineButton = React.forwardRef<
   return (
     <FloatingControlPressableInline onPress={props.onPress}>
       {({ pressed }) => (
-        <FloatingControlButton
+        <FloatingControlBarText
           pressed={pressed}
           variant={props.variant}
+          wrapped={true}
           ref={ref}
         >
-          <FloatingControlButtonText>
-            {props.children}
-          </FloatingControlButtonText>
-        </FloatingControlButton>
+          {props.children}
+        </FloatingControlBarText>
       )}
     </FloatingControlPressableInline>
   );
 }) as any;
+
+const FloatingControlBarText = React.forwardRef<
+  any,
+  { pressed: boolean; variant: FloatingControlButtonVariant; wrapped?: boolean }
+>((props, ref) => (
+  <FloatingControlView
+    variant={props.variant}
+    wrapped={props.wrapped}
+    ref={ref}
+  >
+    <FloatingControlText variant={props.variant}>
+      {props.children}
+    </FloatingControlText>
+  </FloatingControlView>
+)) as any;
+
+FloatingControlBar.Text = FloatingControlBarText;
 
 const FloatingControlBarContainer = styled.View`
   background-color: rgba(52, 73, 94, 0.1);
@@ -110,12 +125,15 @@ const FloatingControlPressableInline = styled(Pressable)`
   margin-horizontal: 4px;
 `;
 
-const FloatingControlButton = styled(base.Button)<{
+const FloatingControlView = styled(base.Button)<{
   pressed?: boolean;
   variant?: FloatingControlButtonVariant;
+  wrapped?: boolean;
 }>`
   background-color: ${(props) => {
     switch (props.variant) {
+      case FloatingControlButtonVariant.INVERTED:
+        return props.pressed ? colors.white : colors.white;
       case FloatingControlButtonVariant.ORANGE:
         return props.pressed ? colors.orangeDark : colors.orange;
       case FloatingControlButtonVariant.PURPLE:
@@ -131,11 +149,28 @@ const FloatingControlButton = styled(base.Button)<{
         return props.pressed ? colors.darkGrayDark : colors.darkGray;
     }
   }};
+  margin-horizontal: ${(props) => (props.wrapped ? '0' : '4px')};
 `;
 
-const FloatingControlButtonText = styled(base.ButtonText)<{
+const FloatingControlText = styled(base.ButtonText)<{
   pressed?: boolean;
-}>``;
+  variant?: FloatingControlButtonVariant;
+}>`
+  color: ${(props) => {
+    switch (props.variant) {
+      case FloatingControlButtonVariant.INVERTED:
+        return props.pressed ? colors.darkGray : colors.darkGray;
+      case FloatingControlButtonVariant.ORANGE:
+      case FloatingControlButtonVariant.PURPLE:
+      case FloatingControlButtonVariant.SUBDUED:
+      case FloatingControlButtonVariant.SUCCESS:
+      case FloatingControlButtonVariant.DESTRUCTIVE:
+      case FloatingControlButtonVariant.PRIMARY:
+      default:
+        return props.pressed ? colors.white : colors.white;
+    }
+  }};
+`;
 
 export default FloatingControlBar;
 export { FloatingControlButtonVariant };

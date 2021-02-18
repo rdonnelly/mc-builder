@@ -88,11 +88,12 @@ const FloatingControlBarText = React.forwardRef<
   { pressed: boolean; variant: FloatingControlButtonVariant; wrapped?: boolean }
 >((props, ref) => (
   <FloatingControlView
+    pressed={props.pressed}
     variant={props.variant}
     wrapped={props.wrapped}
     ref={ref}
   >
-    <FloatingControlText variant={props.variant}>
+    <FloatingControlText pressed={props.pressed} variant={props.variant}>
       {props.children}
     </FloatingControlText>
   </FloatingControlView>

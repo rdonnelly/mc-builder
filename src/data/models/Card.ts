@@ -359,7 +359,7 @@ export const getEligibleCards = memoizeOne(
 
         return true;
       })
-      .sort(compareCardType),
+      .sort(compareCardFaction),
   isDeepEqual, // TODO remove deep equal
 );
 
@@ -402,10 +402,10 @@ const compareCardCost = (a: Card, b: Card) => {
 };
 
 const compareCardFaction = (a: Card, b: Card) => {
-  if (a.setCode != null && b.setCode == null) {
+  if (b.setCode != null && a.setCode == null) {
     return 1;
   }
-  if (b.setCode != null && a.setCode == null) {
+  if (a.setCode != null && b.setCode == null) {
     return -1;
   }
   if (factionRank[a.factionCode] > factionRank[b.factionCode]) {

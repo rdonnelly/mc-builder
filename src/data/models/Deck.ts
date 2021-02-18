@@ -13,6 +13,7 @@ import {
 } from '../generatedTypes';
 import { FilterCodes } from '../types';
 import { IStoreDeck, IStoreDeckCard } from '../../store/types';
+import { compareCardFaction } from '../cardUtils';
 import { getFactions } from './Faction';
 import { getSets } from './Set';
 
@@ -97,26 +98,28 @@ export class Deck {
   }
 
   get cards(): IDeckCard[] {
-    return Object.values(this.rawCards).reduce((acc, deckCard) => {
-      const card = getCard(deckCard.cardCode);
+    return Object.values(this.rawCards)
+      .reduce((acc, deckCard) => {
+        const card = getCard(deckCard.cardCode);
 
-      if (
-        card.factionCode !== FactionCodes.ENCOUNTER &&
-        card.setCode !== SetCodes.INVOCATION
-      ) {
-        acc.push({
-          card,
-          code: card.code,
-          name: card.name,
-          factionCode: card.factionCode,
-          setCode: card.setCode,
-          typeCode: card.typeCode,
-          count: deckCard.quantity,
-        });
-      }
+        if (
+          card.factionCode !== FactionCodes.ENCOUNTER &&
+          card.setCode !== SetCodes.INVOCATION
+        ) {
+          acc.push({
+            card,
+            code: card.code,
+            name: card.name,
+            factionCode: card.factionCode,
+            setCode: card.setCode,
+            typeCode: card.typeCode,
+            count: deckCard.quantity,
+          });
+        }
 
-      return acc;
-    }, []);
+        return acc;
+      }, [])
+      .sort(compareCardFaction);
   }
 
   get extraCards(): IDeckCard[] {

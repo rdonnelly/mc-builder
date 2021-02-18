@@ -10,10 +10,17 @@ import {
   TypeCode,
   TypeCodes,
 } from '../generatedTypes';
-import { factionRank, getFactions } from '../models/Faction';
+import {
+  compareCardCode,
+  compareCardCost,
+  compareCardFaction,
+  compareCardName,
+  compareCardType,
+} from '../cardUtils';
+import { getFactions } from '../models/Faction';
 import { getPacks } from '../models/Pack';
 import { getSets } from '../models/Set';
-import { getTypes, typeRank } from '../models/Type';
+import { getTypes } from '../models/Type';
 
 const cards = [].concat(
   require('marvelsdb-json-data/pack/ant_encounter.json'),
@@ -362,128 +369,6 @@ export const getEligibleCards = memoizeOne(
       .sort(compareCardFaction),
   isDeepEqual, // TODO remove deep equal
 );
-
-const compareCardCode = (a: Card, b: Card) => {
-  if (a.code > b.code) {
-    return 1;
-  }
-  if (b.code > a.code) {
-    return -1;
-  }
-  return 0;
-};
-
-const compareCardCost = (a: Card, b: Card) => {
-  if (b.setCode != null && a.setCode == null) {
-    return 1;
-  }
-  if (a.setCode != null && b.setCode == null) {
-    return -1;
-  }
-  if (a.cost > b.cost) {
-    return 1;
-  }
-  if (b.cost > a.cost) {
-    return -1;
-  }
-  if (a.name > b.name) {
-    return 1;
-  }
-  if (b.name > a.name) {
-    return -1;
-  }
-  if (a.code > b.code) {
-    return 1;
-  }
-  if (b.code > a.code) {
-    return -1;
-  }
-  return 0;
-};
-
-const compareCardFaction = (a: Card, b: Card) => {
-  if (b.setCode != null && a.setCode == null) {
-    return 1;
-  }
-  if (a.setCode != null && b.setCode == null) {
-    return -1;
-  }
-  if (factionRank[a.factionCode] > factionRank[b.factionCode]) {
-    return 1;
-  }
-  if (factionRank[b.factionCode] > factionRank[a.factionCode]) {
-    return -1;
-  }
-  if (typeRank[a.typeCode] > typeRank[b.typeCode]) {
-    return 1;
-  }
-  if (typeRank[b.typeCode] > typeRank[a.typeCode]) {
-    return -1;
-  }
-  if (a.cost > b.cost) {
-    return 1;
-  }
-  if (b.cost > a.cost) {
-    return -1;
-  }
-  if (a.name > b.name) {
-    return 1;
-  }
-  if (b.name > a.name) {
-    return -1;
-  }
-  if (a.code > b.code) {
-    return 1;
-  }
-  if (b.code > a.code) {
-    return -1;
-  }
-  return 0;
-};
-
-const compareCardName = (a: Card, b: Card) => {
-  if (a.name > b.name) {
-    return 1;
-  }
-  if (b.name > a.name) {
-    return -1;
-  }
-  if (a.code > b.code) {
-    return 1;
-  }
-  if (b.code > a.code) {
-    return -1;
-  }
-  return 0;
-};
-
-const compareCardType = (a: Card, b: Card) => {
-  if (typeRank[a.typeCode] > typeRank[b.typeCode]) {
-    return 1;
-  }
-  if (typeRank[b.typeCode] > typeRank[a.typeCode]) {
-    return -1;
-  }
-  if (a.cost > b.cost) {
-    return 1;
-  }
-  if (b.cost > a.cost) {
-    return -1;
-  }
-  if (a.name > b.name) {
-    return 1;
-  }
-  if (b.name > a.name) {
-    return -1;
-  }
-  if (a.code > b.code) {
-    return 1;
-  }
-  if (b.code > a.code) {
-    return -1;
-  }
-  return 0;
-};
 
 export const getCard = memoizeOne((code: string) =>
   getCards().find((card) => card.code === code),

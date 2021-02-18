@@ -213,30 +213,32 @@ const CardDetailScreen: React.FunctionComponent<{
           </FloatingControlBar.Text>
           <FloatingControlBar.FlexButton
             onPress={() => increment()}
+            disabled={incrementIsDisabled}
             variant={
               incrementIsDisabled
                 ? FloatingControlButtonVariant.DISABLED
-                : FloatingControlButtonVariant.SUCCESS
+                : FloatingControlButtonVariant.INVERTED_SUCCESS
             }
           >
             <FontAwesomeIcon
               name="plus"
-              color={incrementIsDisabled ? colors.grayDark : colors.white}
+              color={incrementIsDisabled ? colors.grayDark : colors.green}
               size={16}
               solid
             />
           </FloatingControlBar.FlexButton>
           <FloatingControlBar.FlexButton
             onPress={() => decrement()}
+            disabled={decrementIsDisabled}
             variant={
               decrementIsDisabled
                 ? FloatingControlButtonVariant.DISABLED
-                : FloatingControlButtonVariant.DESTRUCTIVE
+                : FloatingControlButtonVariant.INVERTED_DESTRUCTIVE
             }
           >
             <FontAwesomeIcon
               name="minus"
-              color={decrementIsDisabled ? colors.grayDark : colors.white}
+              color={decrementIsDisabled ? colors.grayDark : colors.red}
               size={16}
               solid
             />

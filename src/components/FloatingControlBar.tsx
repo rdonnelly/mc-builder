@@ -14,6 +14,7 @@ enum FloatingControlButtonVariant {
   DESTRUCTIVE = 'destructive',
   PRIMARY = 'primary',
   INVERTED = 'inverted',
+  INVERTED_SUCCESS = 'inverted_success',
   DISABLED = 'disabled',
 }
 
@@ -25,10 +26,13 @@ const FloatingControlBar = (props) => {
 
 FloatingControlBar.EvenButton = React.forwardRef<
   any,
-  { onPress: any; variant: FloatingControlButtonVariant }
+  { onPress: any; disabled: boolean; variant: FloatingControlButtonVariant }
 >((props, ref) => {
   return (
-    <FloatingControlPressableEven onPress={props.onPress}>
+    <FloatingControlPressableEven
+      onPress={props.onPress}
+      disabled={props.disabled}
+    >
       {({ pressed }) => (
         <FloatingControlBarText
           pressed={pressed}
@@ -45,10 +49,13 @@ FloatingControlBar.EvenButton = React.forwardRef<
 
 FloatingControlBar.FlexButton = React.forwardRef<
   any,
-  { onPress: any; variant: FloatingControlButtonVariant }
+  { onPress: any; disabled: boolean; variant: FloatingControlButtonVariant }
 >((props, ref) => {
   return (
-    <FloatingControlPressableFlex onPress={props.onPress}>
+    <FloatingControlPressableFlex
+      onPress={props.onPress}
+      disabled={props.disabled}
+    >
       {({ pressed }) => (
         <FloatingControlBarText
           pressed={pressed}
@@ -65,10 +72,13 @@ FloatingControlBar.FlexButton = React.forwardRef<
 
 FloatingControlBar.InlineButton = React.forwardRef<
   any,
-  { onPress: any; variant: FloatingControlButtonVariant }
+  { onPress: any; disabled: boolean; variant: FloatingControlButtonVariant }
 >((props, ref) => {
   return (
-    <FloatingControlPressableInline onPress={props.onPress}>
+    <FloatingControlPressableInline
+      onPress={props.onPress}
+      disabled={props.disabled}
+    >
       {({ pressed }) => (
         <FloatingControlBarText
           pressed={pressed}
@@ -137,6 +147,8 @@ const FloatingControlView = styled(base.Button)<{
       case FloatingControlButtonVariant.DISABLED:
         return colors.lightGrayDark;
       case FloatingControlButtonVariant.INVERTED:
+      case FloatingControlButtonVariant.INVERTED_SUCCESS:
+      case FloatingControlButtonVariant.INVERTED_DESTRUCTIVE:
         return colors.white;
       case FloatingControlButtonVariant.ORANGE:
         return props.pressed ? colors.orangeDark : colors.orange;
@@ -166,6 +178,10 @@ const FloatingControlText = styled(base.ButtonText)<{
         return colors.gray;
       case FloatingControlButtonVariant.INVERTED:
         return colors.darkGray;
+      case FloatingControlButtonVariant.INVERTED_SUCCESS:
+        return props.pressed ? colors.greenDark : colors.green;
+      case FloatingControlButtonVariant.INVERTED_DESTRUCTIVE:
+        return props.pressed ? colors.redDark : colors.red;
       case FloatingControlButtonVariant.ORANGE:
       case FloatingControlButtonVariant.PURPLE:
       case FloatingControlButtonVariant.SUBDUED:

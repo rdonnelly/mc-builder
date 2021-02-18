@@ -293,17 +293,17 @@ const CardCountButton = styled(Pressable)<{
 const CardCountIncrementButton = styled(CardCountButton)<{
   inactive?: boolean;
 }>`
-  border-top-right-radius: 8px;
-  border-bottom-right-radius: 8px;
-  border-left-width: 1px;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  border-right-width: 1px;
 `;
 
 const CardCountDecrementButton = styled(CardCountButton)<{
   inactive?: boolean;
 }>`
-  border-top-left-radius: 8px;
-  border-bottom-left-radius: 8px;
-  border-right-width: 1px;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border-left-width: 1px;
 `;
 
 const ListChevronWrapper = styled(base.ListChevronWrapper)``;

@@ -10,11 +10,11 @@ import InAppBrowser from 'react-native-inappbrowser-reborn';
 import React from 'react';
 import styled from 'styled-components/native';
 
-import { authorizeUser } from '../api/auth';
+// import { authorizeUser } from '../api/auth';
 import { base, colors } from '../styles';
-import { getDecks } from '../api/deck';
+// import { getDecks } from '../api/deck';
 import { reset } from '../store/reducers/decks';
-import { setAuthToken } from '../store/reducers/auth';
+// import { setAuthToken } from '../store/reducers/auth';
 
 const SettingsScreen: React.FunctionComponent<{}> = () => {
   const dispatch = useDispatch();
@@ -94,6 +94,9 @@ const visitWebpage = async () => {
         preferredBarTintColor: colors.white,
         preferredControlTintColor: colors.blue,
         readerMode: false,
+        animated: true,
+        modalEnabled: true,
+        enableBarCollapsing: false,
         // Android Properties
         showTitle: true,
       });

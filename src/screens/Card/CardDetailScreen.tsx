@@ -99,7 +99,9 @@ const CardDetailScreen: React.FunctionComponent<{
           preferredBarTintColor: colors.white,
           preferredControlTintColor: colors.blue,
           readerMode: false,
+          animated: true,
           modalEnabled: true,
+          enableBarCollapsing: false,
           // Android Properties
           showTitle: true,
         });

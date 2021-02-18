@@ -14,6 +14,7 @@ enum FloatingControlButtonVariant {
   DESTRUCTIVE = 'destructive',
   PRIMARY = 'primary',
   INVERTED = 'inverted',
+  DISABLED = 'disabled',
 }
 
 const FloatingControlBar = (props) => {
@@ -132,8 +133,10 @@ const FloatingControlView = styled(base.Button)<{
 }>`
   background-color: ${(props) => {
     switch (props.variant) {
+      case FloatingControlButtonVariant.DISABLED:
+        return colors.lightGrayDark;
       case FloatingControlButtonVariant.INVERTED:
-        return props.pressed ? colors.white : colors.white;
+        return colors.white;
       case FloatingControlButtonVariant.ORANGE:
         return props.pressed ? colors.orangeDark : colors.orange;
       case FloatingControlButtonVariant.PURPLE:
@@ -158,8 +161,10 @@ const FloatingControlText = styled(base.ButtonText)<{
 }>`
   color: ${(props) => {
     switch (props.variant) {
+      case FloatingControlButtonVariant.DISABLED:
+        return colors.gray;
       case FloatingControlButtonVariant.INVERTED:
-        return props.pressed ? colors.darkGray : colors.darkGray;
+        return colors.darkGray;
       case FloatingControlButtonVariant.ORANGE:
       case FloatingControlButtonVariant.PURPLE:
       case FloatingControlButtonVariant.SUBDUED:
@@ -167,7 +172,7 @@ const FloatingControlText = styled(base.ButtonText)<{
       case FloatingControlButtonVariant.DESTRUCTIVE:
       case FloatingControlButtonVariant.PRIMARY:
       default:
-        return props.pressed ? colors.white : colors.white;
+        return colors.white;
     }
   }};
 `;

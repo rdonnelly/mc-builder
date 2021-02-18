@@ -18,7 +18,7 @@ export type CardStackParamList = {
   FactionsList: undefined;
   PacksList: undefined;
   TypesList: undefined;
-  CardDetail: { code: string; type?: 'card' | 'deck' };
+  CardDetail: { code: string; deckCode?: string; type?: 'card' | 'deck' };
 };
 
 const Stack = createNativeStackNavigator<CardStackParamList>();

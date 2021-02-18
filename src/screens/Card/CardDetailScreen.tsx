@@ -1,16 +1,11 @@
-import {
-  Alert,
-  Linking,
-  Platform,
-  Pressable,
-  findNodeHandle,
-} from 'react-native';
 import { InAppBrowser } from 'react-native-inappbrowser-reborn';
+import { Linking, Platform, Pressable, findNodeHandle } from 'react-native';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useActionSheet } from '@expo/react-native-action-sheet';
+import { useDispatch, useSelector } from 'react-redux';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import styled from 'styled-components/native';
 
@@ -18,15 +13,18 @@ import { AppContext } from '../../context/AppContext';
 import { CardListContext } from '../../context/CardListContext';
 import { CardModel } from '../../data';
 import { CardStackParamList } from '../../navigation/CardsStackNavigator';
+import { StoreState } from 'src/store';
+import { addCardToDeck, removeCardFromDeck } from '../../store/actions';
 import { base, colors } from '../../styles';
 import CardDetail from '../../components/CardDetail';
+import FloatingControlBar, {
+  FloatingControlButtonVariant,
+} from '../../components/FloatingControlBar';
 
 const CardDetailScreen: React.FunctionComponent<{
   navigation: StackNavigationProp<CardStackParamList, 'CardDetail'>;
   route: RouteProp<CardStackParamList, 'CardDetail'>;
 }> = ({ navigation, route }) => {
-  const { windowWidth } = useContext(AppContext);
-
   let cardList: CardModel[];
   if (route.params.type === 'card') {
     cardList = useContext(CardListContext).cardList;
@@ -35,14 +33,20 @@ const CardDetailScreen: React.FunctionComponent<{
     cardList = useContext(CardListContext).deckCardList;
   }
 
-  const code = route.params.code;
-  const initialScrollIndex = cardList.findIndex((c) => c.code === code);
+  const { windowWidth } = useContext(AppContext);
 
   const { showActionSheetWithOptions } = useActionSheet();
   const actionSheetAnchorRef = useRef(null);
 
+  const [activeCardCode, setActiveCardCode] = useState(route.params.code);
+  const activeCardCodeIndex = cardList.findIndex(
+    (c) => c.code === activeCardCode,
+  );
+  const activeCard = cardList[activeCardCodeIndex];
+
   useEffect(() => {
     navigation.setOptions({
+      headerBackTitleVisible: false,
       headerRight: () => {
         return (
           <Pressable onPress={() => handleMenuOpen()}>
@@ -57,6 +61,7 @@ const CardDetailScreen: React.FunctionComponent<{
           </Pressable>
         );
       },
+      headerTitle: activeCard?.name,
     });
   }, [navigation]);
 
@@ -84,9 +89,8 @@ const CardDetailScreen: React.FunctionComponent<{
 
   const handleReport = async () => {
     const url = encodeURI(
-      `https://github.com/zzorba/marvelsdb-json-data/issues/new?title=Card Data Issue: ${cardList[initialScrollIndex].name} (${code})&body=<!-- What issue do you see with the card data? -->`,
+      `https://github.com/zzorba/marvelsdb-json-data/issues/new?title=Card Data Issue: ${cardList[activeCardCodeIndex].name} (${activeCardCode})&body=<!-- What issue do you see with the card data? -->`,
     );
-    console.log(url);
     try {
       if (await InAppBrowser.isAvailable()) {
         await InAppBrowser.open(url, {
@@ -107,39 +111,77 @@ const CardDetailScreen: React.FunctionComponent<{
     }
   };
 
-  useEffect(() => {
-    navigation.setOptions({
-      headerTitle:
-        cardList && cardList[initialScrollIndex]
-          ? cardList[initialScrollIndex].name
-          : '',
-      headerBackTitleVisible: false,
-    });
-  }, [cardList, initialScrollIndex, navigation]);
-
   const getItemLayout = (_data: CardModel[], index: number) => ({
     length: windowWidth - 32,
     offset: (windowWidth - 32) * index,
     index,
   });
 
-  const renderItem = ({ item }) => (
-    <CardDetail card={item} width={windowWidth - 32} />
+  const renderItem = ({ item: card }) => (
+    <CardDetail card={card} width={windowWidth - 32} />
   );
 
-  const viewabilityConfig = useRef({ itemVisiblePercentThreshold: 90 });
+  const viewabilityConfig = useRef({
+    viewAreaCoveragePercentThreshold: 50,
+  });
 
   const handleViewableItemsChanged = useRef(({ viewableItems }) => {
     if (viewableItems.length) {
+      setActiveCardCode(viewableItems[0].item.code);
       navigation.setOptions({
         headerTitle: viewableItems[0].item.name,
       });
     } else {
+      setActiveCardCode(null);
       navigation.setOptions({
         headerTitle: '',
       });
     }
   });
+
+  const dispatch = useDispatch();
+  const deckCode = route.params.deckCode;
+  const deckCardCount = useSelector((state: StoreState) => {
+    const deck = state.root.decks.entities[deckCode];
+    const deckCardEntity = Object.values(state.root.deckCards.entities).find(
+      (deckCard) => {
+        return (
+          deck?.deckCardCodes.includes(deckCard.code) &&
+          deckCard.cardCode === activeCardCode
+        );
+      },
+    );
+
+    if (deckCardEntity != null) {
+      return deckCardEntity.quantity;
+    }
+
+    return activeCardCode ? 0 : null;
+  });
+
+  const incrementIsDisabled =
+    activeCard == null ||
+    (activeCard.isUnique && deckCardCount >= 1) ||
+    deckCardCount >= activeCard.deckLimit ||
+    (activeCard.setCode != null && deckCardCount >= activeCard.setQuantity);
+  const decrementIsDisabled =
+    activeCard == null ||
+    deckCardCount <= 0 ||
+    (activeCard.setCode != null && deckCardCount <= activeCard.setQuantity);
+
+  const increment = () => {
+    if (!incrementIsDisabled) {
+      ReactNativeHapticFeedback.trigger('selection');
+      dispatch(addCardToDeck(deckCode, activeCard));
+    }
+  };
+
+  const decrement = () => {
+    if (!decrementIsDisabled) {
+      ReactNativeHapticFeedback.trigger('selection');
+      dispatch(removeCardFromDeck(deckCode, activeCard));
+    }
+  };
 
   return (
     <Container>
@@ -155,10 +197,50 @@ const CardDetailScreen: React.FunctionComponent<{
         initialNumToRender={1}
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
-        initialScrollIndex={initialScrollIndex}
+        initialScrollIndex={activeCardCodeIndex}
         viewabilityConfig={viewabilityConfig.current}
         onViewableItemsChanged={handleViewableItemsChanged.current}
       />
+
+      {route.params.type === 'deck' && deckCode != null ? (
+        <FloatingControlBar>
+          <FloatingControlBar.Text
+            variant={FloatingControlButtonVariant.INVERTED}
+          >
+            {deckCardCount}
+          </FloatingControlBar.Text>
+          <FloatingControlBar.FlexButton
+            onPress={() => increment()}
+            variant={
+              incrementIsDisabled
+                ? FloatingControlButtonVariant.DISABLED
+                : FloatingControlButtonVariant.SUCCESS
+            }
+          >
+            <FontAwesomeIcon
+              name="plus"
+              color={incrementIsDisabled ? colors.grayDark : colors.white}
+              size={16}
+              solid
+            />
+          </FloatingControlBar.FlexButton>
+          <FloatingControlBar.FlexButton
+            onPress={() => decrement()}
+            variant={
+              decrementIsDisabled
+                ? FloatingControlButtonVariant.DISABLED
+                : FloatingControlButtonVariant.DESTRUCTIVE
+            }
+          >
+            <FontAwesomeIcon
+              name="minus"
+              color={decrementIsDisabled ? colors.grayDark : colors.white}
+              size={16}
+              solid
+            />
+          </FloatingControlBar.FlexButton>
+        </FloatingControlBar>
+      ) : null}
     </Container>
   );
 };

@@ -145,25 +145,6 @@ const CardListItem: React.FunctionComponent<{
             </CardDetails>
             {showEditControls === true ? (
               <CardControls>
-                <CardCountDecrementButton
-                  onPress={() => decrement()}
-                  inactive={decrementIsDisabled}
-                >
-                  {({ pressed }) => (
-                    <FontAwesomeIcon
-                      name="minus"
-                      color={
-                        decrementIsDisabled
-                          ? colors.lightGrayDark
-                          : pressed
-                          ? colors.redDark
-                          : colors.red
-                      }
-                      size={16}
-                      solid
-                    />
-                  )}
-                </CardCountDecrementButton>
                 <CardCountIncrementButton
                   onPress={() => increment()}
                   inactive={incrementIsDisabled}
@@ -183,6 +164,25 @@ const CardListItem: React.FunctionComponent<{
                     />
                   )}
                 </CardCountIncrementButton>
+                <CardCountDecrementButton
+                  onPress={() => decrement()}
+                  inactive={decrementIsDisabled}
+                >
+                  {({ pressed }) => (
+                    <FontAwesomeIcon
+                      name="minus"
+                      color={
+                        decrementIsDisabled
+                          ? colors.lightGrayDark
+                          : pressed
+                          ? colors.redDark
+                          : colors.red
+                      }
+                      size={16}
+                      solid
+                    />
+                  )}
+                </CardCountDecrementButton>
               </CardControls>
             ) : null}
             {onPressItem != null ? (

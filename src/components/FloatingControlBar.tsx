@@ -15,6 +15,7 @@ enum FloatingControlButtonVariant {
   PRIMARY = 'primary',
   INVERTED = 'inverted',
   INVERTED_SUCCESS = 'inverted_success',
+  INVERTED_DESTRUCTIVE = 'inverted_destructive',
   DISABLED = 'disabled',
 }
 

@@ -76,9 +76,9 @@ export default () => {
         options={{
           title: '',
         }}
-        // getId={({ params }) =>
-        //   params != null ? `${params.code}-${params.type}` : undefined
-        // }
+        getId={({ params }) =>
+          params != null ? `${params.code}-${params.type}` : undefined
+        }
       />
     </Stack.Navigator>
   );

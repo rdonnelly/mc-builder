@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useActionSheet } from '@expo/react-native-action-sheet';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
 import React, { useEffect, useRef } from 'react';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
@@ -18,6 +18,7 @@ import { DecksStackParamList } from '../../navigation/DecksStackNavigator';
 import { StoreState } from '../../store';
 import { base, colors } from '../../styles';
 import { getClipboard } from '../../utils/Clipboard';
+import { setDeckSort } from '../../store/reducers/app';
 import { validateClipboard } from '../../utils/DeckParser';
 import DecksListItem from '../../components/DecksListItem';
 import FloatingControlBar, {
@@ -27,19 +28,44 @@ import FloatingControlBar, {
 const DecksListScreen: React.FunctionComponent<{
   navigation: StackNavigationProp<DecksStackParamList, 'DecksList'>;
 }> = ({ navigation }) => {
-  const deckCodes = useSelector((state: StoreState) => state.root.decks.codes);
-  const deckEntities = useSelector(
-    (state: StoreState) => state.root.decks.entities,
-  );
+  const dispatch = useDispatch();
+
+  const decks = useSelector((state: StoreState) => {
+    const deckEntities = state.root.decks.entities;
+    const sortKey = state.root.app.sorting.deck;
+
+    return Object.values(deckEntities)
+      .sort((a, b) => {
+        if (['created', 'updated'].includes(sortKey)) {
+          if (a[sortKey] < b[sortKey]) {
+            return 1;
+          }
+
+          if (a[sortKey] > b[sortKey]) {
+            return -1;
+          }
+
+          return 0;
+        }
+        return a[sortKey].localeCompare(b[sortKey], 'en', {
+          sensitivity: 'base',
+        });
+      })
+      .map((deckEntity) => new DeckModel(deckEntity));
+  });
 
   const { showActionSheetWithOptions } = useActionSheet();
-  const actionSheetAnchorRef = useRef(null);
+  const decksActionSheetAnchorRef = useRef(null);
+  const sortActionSheetAnchorRef = useRef(null);
 
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => {
         return (
-          <Pressable onPress={() => navigation.navigate('DecksCreate')}>
+          <Pressable
+            ref={sortActionSheetAnchorRef}
+            onPress={() => handlePressSort()}
+          >
             {({ pressed }) => (
               <FontAwesomeIcon
                 name="layer-plus"
@@ -53,6 +79,43 @@ const DecksListScreen: React.FunctionComponent<{
       },
     });
   }, [navigation]);
+
+  const handlePressSort = () => {
+    ReactNativeHapticFeedback.trigger('impactLight');
+    showActionSheetWithOptions(
+      {
+        title: 'Sort By',
+        options: ['Close', 'Created', 'Updated', 'Hero', 'Name'],
+        cancelButtonIndex: 0,
+        anchor:
+          Platform.OS === 'ios'
+            ? findNodeHandle(decksActionSheetAnchorRef.current)
+            : null,
+      },
+      (buttonIndex) => {
+        switch (buttonIndex) {
+          case 1: {
+            dispatch(setDeckSort({ key: 'created' }));
+            break;
+          }
+          case 2: {
+            dispatch(setDeckSort({ key: 'updated' }));
+            break;
+          }
+          case 3: {
+            dispatch(setDeckSort({ key: 'setCode' }));
+            break;
+          }
+          case 4: {
+            dispatch(setDeckSort({ key: 'name' }));
+            break;
+          }
+        }
+      },
+    );
+  };
+
+  const handleSort = () => {};
 
   const handlePressItem = (code: string) => {
     if (navigation) {
@@ -70,7 +133,7 @@ const DecksListScreen: React.FunctionComponent<{
         cancelButtonIndex: 0,
         anchor:
           Platform.OS === 'ios'
-            ? findNodeHandle(actionSheetAnchorRef.current)
+            ? findNodeHandle(decksActionSheetAnchorRef.current)
             : null,
       },
       (buttonIndex) => {
@@ -100,23 +163,20 @@ const DecksListScreen: React.FunctionComponent<{
     navigation.navigate('DecksImport', { deck: importDeck });
   };
 
-  const renderCard: ListRenderItem<string> = ({ item: deckCode }) => (
-    <DecksListItem
-      deck={new DeckModel(deckEntities[deckCode])}
-      onPressItem={handlePressItem}
-    />
+  const renderCard: ListRenderItem<DeckModel> = ({ item: deck }) => (
+    <DecksListItem deck={deck} onPressItem={handlePressItem} />
   );
 
   const renderFooter = () => {
-    if (deckCodes.length === 0) {
+    if (decks.length === 0) {
       return null;
     }
 
     return (
       <ListFooter>
         <ListFooterText>
-          Showing {deckCodes.length} Deck
-          {deckCodes.length === 1 ? '' : 's'}
+          Showing {decks.length} Deck
+          {decks.length === 1 ? '' : 's'}
         </ListFooterText>
       </ListFooter>
     );
@@ -132,11 +192,11 @@ const DecksListScreen: React.FunctionComponent<{
 
   return (
     <Container>
-      {deckCodes.length > 0 ? (
+      {decks.length > 0 ? (
         <FlatList
           renderItem={renderCard}
-          data={deckCodes}
-          keyExtractor={(code: string) => code}
+          data={decks}
+          keyExtractor={(deck: DeckModel) => deck.code}
           contentContainerStyle={{ paddingBottom: 72 }}
           ListFooterComponent={renderFooter}
         />
@@ -152,7 +212,7 @@ const DecksListScreen: React.FunctionComponent<{
         </FloatingControlBar.FlexButton>
         <FloatingControlBar.InlineButton
           onPress={() => handleMenuOpen()}
-          ref={actionSheetAnchorRef}
+          ref={decksActionSheetAnchorRef}
           variant={FloatingControlButtonVariant.PRIMARY}
         >
           <FontAwesomeIcon

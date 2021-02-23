@@ -41,3 +41,9 @@ export interface IStoreDeckCard {
 }
 
 export interface IStoreDeckCardState extends IEntityState<IStoreDeckCard> {}
+
+export interface IStoreAppState {
+  sorting: {
+    deck: 'created' | 'name' | 'setCode' | 'updated';
+  };
+}

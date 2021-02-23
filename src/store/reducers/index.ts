@@ -3,6 +3,7 @@ import { persistReducer } from 'redux-persist';
 import AsyncStorage from '@react-native-community/async-storage';
 import createSensitiveStorage from 'redux-persist-sensitive-storage';
 
+import appReducer from './app';
 import authReducer from './auth';
 import deckCardsReducer from './deckCards';
 import decksReducer from './decks';
@@ -13,6 +14,7 @@ const rootPersistConfig = {
 };
 
 const rootReducer = combineReducers({
+  app: appReducer,
   decks: decksReducer,
   deckCards: deckCardsReducer,
 });

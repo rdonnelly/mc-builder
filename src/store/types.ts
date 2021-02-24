@@ -42,8 +42,16 @@ export interface IStoreDeckCard {
 
 export interface IStoreDeckCardState extends IEntityState<IStoreDeckCard> {}
 
+export enum AppDeckSortKey {
+  ASPECT = 'aspect',
+  CREATED = 'created',
+  NAME = 'name',
+  SET = 'setCode',
+  UPDATED = 'updated',
+}
+
 export interface IStoreAppState {
   sorting: {
-    deck: 'created' | 'name' | 'setCode' | 'updated';
+    deck: AppDeckSortKey;
   };
 }

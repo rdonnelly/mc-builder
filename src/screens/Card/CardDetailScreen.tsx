@@ -54,7 +54,7 @@ const CardDetailScreen: React.FunctionComponent<{
               <FontAwesomeIcon
                 ref={actionSheetAnchorRef}
                 name="exclamation-circle"
-                color={pressed ? colors.primary : colors.white}
+                color={pressed ? colors.whiteTranslucent : colors.white}
                 size={24}
               />
             )}

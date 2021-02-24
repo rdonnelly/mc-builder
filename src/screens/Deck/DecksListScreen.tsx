@@ -13,6 +13,7 @@ import React, { useEffect, useRef } from 'react';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import styled from 'styled-components/native';
 
+import { AppDeckSortKey } from '../../store/types';
 import { DeckModel } from '../../data';
 import { DecksStackParamList } from '../../navigation/DecksStackNavigator';
 import { StoreState } from '../../store';
@@ -29,6 +30,10 @@ const DecksListScreen: React.FunctionComponent<{
   navigation: StackNavigationProp<DecksStackParamList, 'DecksList'>;
 }> = ({ navigation }) => {
   const dispatch = useDispatch();
+
+  const deckSortKey = useSelector((state: StoreState) => {
+    return state.root.app.sorting.deck;
+  });
 
   const decks = useSelector((state: StoreState) => {
     const deckEntities = state.root.decks.entities;
@@ -68,8 +73,8 @@ const DecksListScreen: React.FunctionComponent<{
           >
             {({ pressed }) => (
               <FontAwesomeIcon
-                name="layer-plus"
-                color={pressed ? colors.purpleDark : colors.white}
+                name="sort-amount-up-alt"
+                color={pressed ? colors.whiteTranslucent : colors.white}
                 size={24}
                 solid
               />
@@ -95,19 +100,19 @@ const DecksListScreen: React.FunctionComponent<{
       (buttonIndex) => {
         switch (buttonIndex) {
           case 1: {
-            dispatch(setDeckSort({ key: 'created' }));
+            dispatch(setDeckSort({ key: AppDeckSortKey.CREATED }));
             break;
           }
           case 2: {
-            dispatch(setDeckSort({ key: 'updated' }));
+            dispatch(setDeckSort({ key: AppDeckSortKey.UPDATED }));
             break;
           }
           case 3: {
-            dispatch(setDeckSort({ key: 'setCode' }));
+            dispatch(setDeckSort({ key: AppDeckSortKey.SET }));
             break;
           }
           case 4: {
-            dispatch(setDeckSort({ key: 'name' }));
+            dispatch(setDeckSort({ key: AppDeckSortKey.NAME }));
             break;
           }
         }

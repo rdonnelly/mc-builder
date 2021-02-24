@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { IStoreAppState } from '../types';
+import { AppDeckSortKey, IStoreAppState } from '../types';
 
 const initialState = {
   sorting: {
@@ -15,7 +15,7 @@ const appSlice = createSlice({
     setDeckSort(
       state,
       action: PayloadAction<{
-        key: 'created' | 'name' | 'setCode' | 'updated';
+        key: AppDeckSortKey;
       }>,
     ) {
       const { payload } = action;

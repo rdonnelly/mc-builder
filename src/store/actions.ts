@@ -139,8 +139,10 @@ export const removeCardFromDeck = (
   deckCode: string,
   card: CardModel,
 ): AppThunk => (dispatch, getState) => {
-  const deck = getState().root.decks.entities[deckCode];
-  const deckCard = Object.values(getState().root.deckCards.entities).find(
+  const state = getState();
+  const deck = state.root.decks.entities[deckCode];
+  // TODO start with deck.deckCardCodes and iterate over that
+  const deckCard = Object.values(state.root.deckCards.entities).find(
     (candidateDeckCard) => {
       if (
         deck.deckCardCodes.includes(candidateDeckCard.code) &&
@@ -186,8 +188,9 @@ export const deleteDeck = (deckCode: string): AppThunk => (
   dispatch,
   getState,
 ) => {
-  const deck = getState().root.decks.entities[deckCode];
-  const deckCards = Object.values(getState().root.deckCards.entities).filter(
+  const state = getState();
+  const deck = state.root.decks.entities[deckCode];
+  const deckCards = Object.values(state.root.deckCards.entities).filter(
     (candidateDeckCard) => {
       if (deck.deckCardCodes.includes(candidateDeckCard.code)) {
         return true;
@@ -217,7 +220,22 @@ export const cloneDeck = (deckCode: string, deckName: string): AppThunk => (
   getState,
 ) => {
   const state = getState();
+  const deck = state.root.decks.entities[deckCode];
+  const deckCardEntities = Object.values(
+    state.root.deckCards.entities,
+  ).filter((deckCard) => deck.deckCardCodes.includes(deckCard.code));
+
   const newDeckCode = uuidv4();
+
+  const newDeckCardEntities = deckCardEntities.map((deckCardEntity) => ({
+    code: uuidv4(),
+    cardCode: deckCardEntity.cardCode,
+    quantity: deckCardEntity.quantity,
+  }));
+
+  const newDeckCardCodes = newDeckCardEntities.map(
+    (newDeckCardEntity) => newDeckCardEntity.code,
+  );
 
   dispatch(
     duplicateDeck({
@@ -227,24 +245,11 @@ export const cloneDeck = (deckCode: string, deckName: string): AppThunk => (
     }),
   );
 
-  const deck = state.root.decks.entities[deckCode];
-  const deckCardEntities = Object.values(
-    state.root.deckCards.entities,
-  ).filter((deckCard) => deck.deckCardCodes.includes(deckCard.code));
-
-  const newDeckCards = deckCardEntities.map((deckCardEntity) => ({
-    code: uuidv4(),
-    cardCode: deckCardEntity.cardCode,
-    quantity: deckCardEntity.quantity,
-  }));
-
   dispatch(
     createDeckCards({
-      deckCards: newDeckCards,
+      deckCards: newDeckCardEntities,
     }),
   );
-
-  const newDeckCardCodes = newDeckCards.map((newDeckCard) => newDeckCard.code);
 
   dispatch(
     addDeckCardsToDeck({ code: newDeckCode, deckCardCodes: newDeckCardCodes }),

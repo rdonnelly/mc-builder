@@ -27,20 +27,22 @@ export default {
     return formattedText;
   },
 
-  iconRenderer(htmlAttributes: { code: IconCode }) {
+  iconRenderer(
+    htmlAttributes: { code: IconCode },
+    _children,
+    _convertedCSSStyles,
+    passProps,
+  ) {
     const { code } = htmlAttributes;
 
     if (IconCode[code] == null) {
       return code;
     }
 
-    // TODO hacky way to generate a key
-    const rand = Math.floor(Math.random() * 1000);
-
     return (
       <Icon
         code={IconCode[code]}
-        key={`parser-icon-${rand}`}
+        key={`parser-icon-${passProps.key}`}
         color={colors.primary}
       />
     );

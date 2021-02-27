@@ -539,7 +539,7 @@ const renderCardSchemeTraits = (card: CardModel) => {
   }
 
   return icons.length === 0 ? null : (
-    <CardDetailTextContainerTraits>
+    <CardDetailTextContainerTraits key={`card-text-${card.code}-traits`}>
       <CardDetailTextContainerTraitsText>
         {icons}
       </CardDetailTextContainerTraitsText>

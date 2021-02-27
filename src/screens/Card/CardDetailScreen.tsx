@@ -190,7 +190,7 @@ const CardDetailScreen: React.FunctionComponent<{
       <FlatList
         renderItem={renderItem}
         data={cardList}
-        keyExtractor={(item: CardModel) => item.code}
+        keyExtractor={(item: CardModel) => `card-detail-screen-${item.code}`}
         getItemLayout={getItemLayout}
         horizontal={true}
         scrollEnabled={true}

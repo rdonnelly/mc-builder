@@ -35,6 +35,7 @@
     "lodash": "^4.17.15",
     "marvelsdb-json-data": "https://github.com/rdonnelly/marvelsdb-json-data.git#main",
     "memoize-one": "^5.1.1",
+    "nanoid": "^3.1.20",
     "react": "16.13.1",
     "react-native": "0.63.3",
     "react-native-app-auth": "^6.0.0",

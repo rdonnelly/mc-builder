@@ -4,7 +4,7 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useDispatch } from 'react-redux';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { v4 as uuidv4 } from 'uuid';
+import { nanoid } from 'nanoid';
 import React from 'react';
 import styled from 'styled-components/native';
 
@@ -87,7 +87,7 @@ const DecksImportFormScreen: React.FunctionComponent<{
     .map((card) => card.imageSrc || null);
 
   const importDeck = () => {
-    const deckCode = uuidv4();
+    const deckCode = nanoid();
     if (deck.name && deckSetCode && deckAspectCodes.length) {
       const deckCards = filteredDeckCards.map((card) => ({
         code: card.code,

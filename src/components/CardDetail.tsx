@@ -11,6 +11,12 @@ import { shareImageUrl } from '../utils/Share';
 import CardParser from '../utils/CardParser';
 import Icon, { IconCode } from '../components/Icon';
 
+// TODO cut up into smaller components
+// TODO add card title to top of page (optional?)
+// TODO make width optional, default flex: 1
+// TODO make haptics and share optional
+// TODO device info?
+
 const isTablet = DeviceInfo.isTablet();
 
 const styles = StyleSheet.create({

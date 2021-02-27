@@ -1,5 +1,5 @@
 import 'react-native-get-random-values';
-import { v4 as uuidv4 } from 'uuid';
+import { nanoid } from 'nanoid';
 
 import { AppThunk } from '.';
 import {
@@ -55,7 +55,7 @@ export const setUpNewDeck = (
     }).filter((card) => card.factionCode !== FactionCodes.ENCOUNTER);
 
     setCards.forEach((card) => {
-      const code = uuidv4();
+      const code = nanoid();
       deckCardCodes.push(code);
       deckCardData.push({
         code,
@@ -66,7 +66,7 @@ export const setUpNewDeck = (
 
     if (initialDeckCards && initialDeckCards.length) {
       initialDeckCards.forEach((card) => {
-        const code = uuidv4();
+        const code = nanoid();
         deckCardCodes.push(code);
         deckCardData.push({
           code,
@@ -116,7 +116,7 @@ export const addCardToDeck = (deckCode: string, card: CardModel): AppThunk => (
       );
     }
   } else {
-    const newDeckCardCode = uuidv4();
+    const newDeckCardCode = nanoid();
     dispatch(
       createDeckCards({
         deckCards: [
@@ -225,10 +225,10 @@ export const cloneDeck = (deckCode: string, deckName: string): AppThunk => (
     state.root.deckCards.entities,
   ).filter((deckCard) => deck.deckCardCodes.includes(deckCard.code));
 
-  const newDeckCode = uuidv4();
+  const newDeckCode = nanoid();
 
   const newDeckCardEntities = deckCardEntities.map((deckCardEntity) => ({
-    code: uuidv4(),
+    code: nanoid(),
     cardCode: deckCardEntity.cardCode,
     quantity: deckCardEntity.quantity,
   }));

@@ -1,9 +1,9 @@
 import 'react-native-get-random-values';
 import { Pressable, StyleSheet } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { nanoid } from 'nanoid';
 import { useDispatch } from 'react-redux';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { v4 as uuidv4 } from 'uuid';
 import React, { useContext } from 'react';
 import styled from 'styled-components/native';
 
@@ -34,7 +34,7 @@ const DecksCreateFormScreen: React.FunctionComponent<{
     : 'No Aspect Selected';
 
   const submit = () => {
-    const deckCode = uuidv4();
+    const deckCode = nanoid();
     if (deckName && deckSet && deckAspect.length) {
       dispatch(setUpNewDeck(deckCode, deckName, deckSet, deckAspect));
 

@@ -9,7 +9,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { useActionSheet } from '@expo/react-native-action-sheet';
 import { useDispatch, useSelector } from 'react-redux';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
-import React, { useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import styled from 'styled-components/native';
 
@@ -63,29 +63,7 @@ const DecksListScreen: React.FunctionComponent<{
   const decksActionSheetAnchorRef = useRef(null);
   const sortActionSheetAnchorRef = useRef(null);
 
-  useEffect(() => {
-    navigation.setOptions({
-      headerRight: () => {
-        return (
-          <Pressable
-            ref={sortActionSheetAnchorRef}
-            onPress={() => handlePressSort()}
-          >
-            {({ pressed }) => (
-              <FontAwesomeIcon
-                name="sort-amount-up-alt"
-                color={pressed ? colors.whiteTranslucent : colors.white}
-                size={24}
-                solid
-              />
-            )}
-          </Pressable>
-        );
-      },
-    });
-  }, [navigation]);
-
-  const handlePressSort = () => {
+  const handlePressSort = useCallback(() => {
     ReactNativeHapticFeedback.trigger('impactLight');
     showActionSheetWithOptions(
       {
@@ -118,9 +96,29 @@ const DecksListScreen: React.FunctionComponent<{
         }
       },
     );
-  };
+  }, [dispatch, showActionSheetWithOptions]);
 
-  const handleSort = () => {};
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => {
+        return (
+          <Pressable
+            ref={sortActionSheetAnchorRef}
+            onPress={() => handlePressSort()}
+          >
+            {({ pressed }) => (
+              <FontAwesomeIcon
+                name="sort-amount-up-alt"
+                color={pressed ? colors.whiteTranslucent : colors.white}
+                size={24}
+                solid
+              />
+            )}
+          </Pressable>
+        );
+      },
+    });
+  }, [navigation, handlePressSort]);
 
   const handlePressItem = (code: string) => {
     if (navigation) {

@@ -94,7 +94,7 @@ const DecksListScreen: React.FunctionComponent<{
         cancelButtonIndex: 0,
         anchor:
           Platform.OS === 'ios'
-            ? findNodeHandle(decksActionSheetAnchorRef.current)
+            ? findNodeHandle(sortActionSheetAnchorRef.current)
             : null,
       },
       (buttonIndex) => {

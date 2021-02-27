@@ -251,7 +251,7 @@ PODS:
     - React-Core
   - react-native-appearance (0.3.4):
     - React
-  - react-native-flipper (0.75.1):
+  - react-native-flipper (0.78.0):
     - React-Core
   - react-native-get-random-values (1.6.0):
     - React-Core
@@ -331,9 +331,9 @@ PODS:
     - React-Core
   - RNCMaskedView (0.1.10):
     - React
-  - RNDeviceInfo (8.0.1):
+  - RNDeviceInfo (8.0.2):
     - React-Core
-  - RNGestureHandler (1.10.2):
+  - RNGestureHandler (1.10.3):
     - React-Core
   - RNInAppBrowser (3.5.1):
     - React-Core
@@ -341,9 +341,9 @@ PODS:
     - React-Core
   - RNReanimated (1.13.2):
     - React-Core
-  - RNScreens (2.17.1):
+  - RNScreens (2.18.0):
     - React-Core
-  - RNVectorIcons (8.0.0):
+  - RNVectorIcons (8.1.0):
     - React-Core
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
@@ -559,7 +559,7 @@ SPEC CHECKSUMS:
   React-jsinspector: 8e68ffbfe23880d3ee9bafa8be2777f60b25cbe2
   react-native-app-auth: 35682974e299697129d46f798b978787d1fa8d00
   react-native-appearance: 0f0e5fc2fcef70e03d48c8fe6b00b9158c2ba8aa
-  react-native-flipper: 5a93d160659055e1ed0df4baa4ec93de1c30f0cf
+  react-native-flipper: d66c4b450aba1b981786c0b3b98c995de5ea8591
   react-native-get-random-values: f0fc24a5887a3341589515a86282a574407b59e4
   react-native-safe-area-context: b6e0e284002381d2ff29fa4fff42b4d8282e3c94
   react-native-sensitive-info: 400c6e3d27945e15c8cddb5b4b92233c85ee06f8
@@ -579,13 +579,13 @@ SPEC CHECKSUMS:
   RNCAsyncStorage: b03032fdbdb725bea0bd9e5ec5a7272865ae7398
   RNCClipboard: 41d8d918092ae8e676f18adada19104fa3e68495
   RNCMaskedView: 5a8ec07677aa885546a0d98da336457e2bea557f
-  RNDeviceInfo: 921a809eaf9de79645a24de1c6ca90db6cb91786
-  RNGestureHandler: e66feb0fda7da74ea6a3094656b3c1efe05f5c07
+  RNDeviceInfo: a9601119924a67d2479d3facf04cec7b658f44ed
+  RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
   RNInAppBrowser: 48b95ba7a4eaff5cc223bca338d3e319561dbd1b
   RNReactNativeHapticFeedback: 653a8c126a0f5e88ce15ffe280b3ff37e1fbb285
   RNReanimated: e03f7425cb7a38dcf1b644d680d1bfc91c3337ad
-  RNScreens: b6c9607e6fe47c1b6e2f1910d2acd46dd7ecea3a
-  RNVectorIcons: f67a1abce2ec73e62fe4606e8110e95a832bc859
+  RNScreens: f0d7a2a440a8ba9f4574ca1ddb3368f473891be4
+  RNVectorIcons: 31cebfcf94e8cf8686eb5303ae0357da64d7a5a4
   Yoga: 7d13633d129fd179e01b8953d38d47be90db185a
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 

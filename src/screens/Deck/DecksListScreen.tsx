@@ -177,11 +177,31 @@ const DecksListScreen: React.FunctionComponent<{
       return null;
     }
 
+    let sortString = '';
+    switch (deckSortKey) {
+      case AppDeckSortKey.CREATED: {
+        sortString = 'Sorted by Created';
+        break;
+      }
+      case AppDeckSortKey.NAME: {
+        sortString = 'Sorted by Name';
+        break;
+      }
+      case AppDeckSortKey.SET: {
+        sortString = 'Sorted by Hero';
+        break;
+      }
+      case AppDeckSortKey.UPDATED: {
+        sortString = 'Sorted by Updated';
+        break;
+      }
+    }
+
     return (
       <ListFooter>
         <ListFooterText>
           Showing {decks.length} Deck
-          {decks.length === 1 ? '' : 's'}
+          {decks.length === 1 ? '' : 's'} {sortString}
         </ListFooterText>
       </ListFooter>
     );

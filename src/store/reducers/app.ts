@@ -21,13 +21,7 @@ const appSlice = createSlice({
       const { payload } = action;
       const { key } = payload;
 
-      return {
-        ...state,
-        sorting: {
-          ...state.sorting,
-          deck: key,
-        },
-      };
+      state.sorting.deck = key;
     },
     reset() {
       return initialState;

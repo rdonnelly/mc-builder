@@ -3,7 +3,7 @@ import difference from 'lodash/difference';
 import uniq from 'lodash/uniq';
 
 import { FactionCode, SetCode } from '../../data';
-import { IStoreDeck, IStoreDeckAttributes, IStoreDeckState } from '../types';
+import { IStoreDeck, IStoreDeckState } from '../types';
 
 const initialState = {
   codes: [],
@@ -36,11 +36,6 @@ const decksSlice = createSlice({
         source,
         mcdbId,
       } = payload;
-      const attributes: IStoreDeckAttributes = {
-        isFavorite: false,
-        isHidden: false,
-        isDeleted: false,
-      };
 
       const now = new Date();
       const created = now.getTime() + now.getTimezoneOffset() * 60000;
@@ -51,22 +46,20 @@ const decksSlice = createSlice({
         setCode,
         aspectCodes,
         deckCardCodes: [],
-        attributes,
+        attributes: {
+          isFavorite: false,
+          isHidden: false,
+          isDeleted: false,
+        },
         version: version != null ? version : 0,
         source,
         mcdbId,
-        created: created,
+        created,
         updated: created,
       };
 
-      return {
-        ...state,
-        codes: [...state.codes, code],
-        entities: {
-          ...state.entities,
-          [code]: deck,
-        },
-      };
+      state.entities[code] = deck;
+      state.codes = Object.keys(state.entities);
     },
     updateDeck(
       state,
@@ -81,23 +74,10 @@ const decksSlice = createSlice({
       const now = new Date();
       const updated = now.getTime() + now.getTimezoneOffset() * 60000;
 
-      const deck = state.entities[code];
-
-      if (deck) {
-        return {
-          ...state,
-          entities: {
-            ...state.entities,
-            [deck.code]: {
-              ...deck,
-              name: name,
-              updated: updated,
-            },
-          },
-        };
+      if (state.entities[code]) {
+        state.entities[code].name = name;
+        state.entities[code].updated = updated;
       }
-
-      return state;
     },
     addDeckCardsToDeck(
       state,
@@ -113,18 +93,11 @@ const decksSlice = createSlice({
       const updated = now.getTime() + now.getTimezoneOffset() * 60000;
 
       const deck = state.entities[code];
-
-      return {
-        ...state,
-        entities: {
-          ...state.entities,
-          [deck.code]: {
-            ...deck,
-            deckCardCodes: uniq([...deck.deckCardCodes, ...deckCardCodes]),
-            updated: updated,
-          },
-        },
-      };
+      state.entities[code].deckCardCodes = uniq([
+        ...deck.deckCardCodes,
+        ...deckCardCodes,
+      ]);
+      state.entities[code].updated = updated;
     },
     removeDeckCardFromDeck(
       state,
@@ -140,18 +113,11 @@ const decksSlice = createSlice({
       const updated = now.getTime() + now.getTimezoneOffset() * 60000;
 
       const deck = state.entities[code];
-
-      return {
-        ...state,
-        entities: {
-          ...state.entities,
-          [deck.code]: {
-            ...deck,
-            deckCardCodes: difference(deck.deckCardCodes, deckCardCodes),
-            updated: updated,
-          },
-        },
-      };
+      state.entities[code].deckCardCodes = difference(
+        deck.deckCardCodes,
+        deckCardCodes,
+      );
+      state.entities[code].updated = updated;
     },
     removeDeck(
       state,
@@ -162,22 +128,10 @@ const decksSlice = createSlice({
       const { payload } = action;
       const { code } = payload;
 
-      const codeIndex = state.codes.findIndex((c) => c === code);
-      if (codeIndex !== -1) {
-        const newCodes = [...state.codes];
-        newCodes.splice(codeIndex, 1);
-
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { [code]: target, ...newEntities } = state.entities;
-
-        return {
-          ...state,
-          codes: newCodes,
-          entities: newEntities,
-        };
+      if (state.entities[code]) {
+        delete state.entities[code];
+        state.codes = Object.keys(state.entities);
       }
-
-      return state;
     },
     duplicateDeck(
       state,
@@ -196,29 +150,23 @@ const decksSlice = createSlice({
       const deck = state.entities[code];
 
       if (deck) {
-        return {
-          ...state,
-          codes: [...state.codes, newCode],
-          entities: {
-            ...state.entities,
-            [newCode]: {
-              ...deck,
-              code: newCode,
-              name: newName,
-              attributes: {
-                ...deck.attributes,
-              },
-              deckCardCodes: [],
-              version: 0,
-              source: code,
-              created: created,
-              updated: created,
-            },
+        const newDeck = {
+          ...deck,
+          code: newCode,
+          name: newName,
+          attributes: {
+            ...deck.attributes,
           },
+          deckCardCodes: [],
+          version: 0,
+          source: code,
+          created,
+          updated: created,
         };
-      }
 
-      return state;
+        state.entities[newCode] = newDeck;
+        state.codes = Object.keys(state.entities);
+      }
     },
     reset() {
       return initialState;

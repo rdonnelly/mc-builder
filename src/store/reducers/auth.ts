@@ -36,18 +36,15 @@ const authSlice = createSlice({
       const { payload } = action;
       const { authResult } = payload;
 
-      return {
-        ...state,
-        mcdb: {
-          accessToken: authResult.accessToken,
-          accessTokenExpirationDate: authResult.accessTokenExpirationDate,
-          refreshToken: authResult.refreshToken,
-          tokenType: authResult.tokenType,
-        },
+      state.mcdb = {
+        accessToken: authResult.accessToken,
+        accessTokenExpirationDate: authResult.accessTokenExpirationDate,
+        refreshToken: authResult.refreshToken,
+        tokenType: authResult.tokenType,
       };
     },
-    clearAuthToken() {
-      return { mcdb: { ...initialState.mcdb } };
+    clearAuthToken(state, action: PayloadAction<{}>) {
+      state.mcdb = { ...initialState.mcdb };
     },
   },
 });

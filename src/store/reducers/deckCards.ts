@@ -20,24 +20,18 @@ const decksSlice = createSlice({
       const { payload } = action;
       const { deckCards } = payload;
 
-      const newCodes: string[] = [];
       const newEntities = {};
-
       deckCards.forEach((deckCard) => {
-        newCodes.push(deckCard.code);
         newEntities[deckCard.code] = {
           ...deckCard,
         };
       });
 
-      return {
-        ...state,
-        codes: [...state.codes, ...newCodes],
-        entities: {
-          ...state.entities,
-          ...newEntities,
-        },
+      state.entities = {
+        ...state.entities,
+        ...newEntities,
       };
+      state.codes = Object.keys(state.entities);
     },
     updateDeckCards(
       state,
@@ -48,22 +42,18 @@ const decksSlice = createSlice({
       const { payload } = action;
       const { deckCards } = payload;
 
-      const newEntities = {
-        ...state.entities,
-      };
-
+      const newEntities = {};
       deckCards.forEach((deckCard) => {
         newEntities[deckCard.code] = {
           ...deckCard,
         };
       });
 
-      return {
-        ...state,
-        entities: {
-          ...newEntities,
-        },
+      state.entities = {
+        ...state.entities,
+        ...newEntities,
       };
+      state.codes = Object.keys(state.entities);
     },
     removeDeckCards(
       state,
@@ -74,23 +64,13 @@ const decksSlice = createSlice({
       const { payload } = action;
       const { codes } = payload;
 
-      const newCodes = [];
-      const newEntities = {};
-
-      Object.keys(state.entities).forEach((code) => {
-        if (!codes.includes(code)) {
-          newCodes.push(code);
-          newEntities[code] = { ...state.entities[code] };
+      codes.forEach((code) => {
+        if (state.entities[code]) {
+          delete state.entities[code];
         }
       });
 
-      return {
-        ...state,
-        codes: [...newCodes],
-        entities: {
-          ...newEntities,
-        },
-      };
+      state.codes = Object.keys(state.entities);
     },
     reset() {
       return initialState;

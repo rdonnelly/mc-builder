@@ -53,10 +53,28 @@ upload() {
 }
 
 push() {
-  bumpBuild && podInstall && maps && build && archive && exportArchive && upload $@ 
+  bumpBuild && podInstall && build && archive && exportArchive && upload $@ && mapsIos
 }
 
-maps() {
+android() {
+  # update versionCode and versionName in android/app/build.gradle
+  cd android && ./gradlew bundleRelease && cd .. && mapsAndroid
+}
+
+mapsAndroid() {
+  export $(grep '^BUGSNAG_API_KEY' .env | xargs)
+  VERSION="0.3"
+
+  npx bugsnag-sourcemaps upload --api-key=$BUGSNAG_API_KEY \
+                                --app-version=$VERSION \
+                                --minifiedFile=android/app/build/generated/assets/react/release/index.android.bundle \
+                                --source-map=android/app/build/generated/sourcemaps/react/release/index.android.bundle.map \
+                                --minified-url=index.android.bundle \
+                                --upload-sources \
+                                --overwrite
+}
+
+mapsIos() {
   export $(grep '^BUGSNAG_API_KEY' .env | xargs)
   VERSION="0.3"
 
@@ -74,21 +92,7 @@ maps() {
        -F sourceMap=@ios-release.bundle.map \
        -F bundle=@ios-release.bundle \
        -F projectRoot=`pwd`
-
-  # npx bugsnag-sourcemaps upload --api-key=$BUGSNAG_API_KEY \
-  #                               --app-version=$VERSION \
-  #                               --minifiedFile=android/app/build/generated/assets/react/release/index.android.bundle \
-  #                               --source-map=android/app/build/generated/sourcemaps/react/release/index.android.bundle.map \
-  #                               --minified-url=index.android.bundle \
-  #                               --upload-sources \
-  #                               --overwrite
 }
-
-# TODO
-
-# update versionCode and versionName in android/app/build.gradle
-# 537  cd android
-# 538  ./gradlew bundleRelease
 
 
 # we must have exactly one task, and maybe some arguments for that task

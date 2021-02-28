@@ -9,7 +9,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { useActionSheet } from '@expo/react-native-action-sheet';
 import { useDispatch, useSelector } from 'react-redux';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useLayoutEffect, useRef } from 'react';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import styled from 'styled-components/native';
 
@@ -98,9 +98,16 @@ const DecksListScreen: React.FunctionComponent<{
     );
   }, [dispatch, showActionSheetWithOptions]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => {
+        let iconName = 'sort-amount-up-alt';
+        if (
+          [AppDeckSortKey.CREATED, AppDeckSortKey.UPDATED].includes(deckSortKey)
+        ) {
+          iconName = 'sort-amount-down';
+        }
+
         return (
           <Pressable
             ref={sortActionSheetAnchorRef}
@@ -108,7 +115,7 @@ const DecksListScreen: React.FunctionComponent<{
           >
             {({ pressed }) => (
               <FontAwesomeIcon
-                name="sort-amount-up-alt"
+                name={iconName}
                 color={pressed ? colors.whiteTranslucent : colors.white}
                 size={24}
                 solid
@@ -118,7 +125,7 @@ const DecksListScreen: React.FunctionComponent<{
         );
       },
     });
-  }, [navigation, handlePressSort]);
+  }, [navigation, deckSortKey, handlePressSort]);
 
   const handlePressItem = (code: string) => {
     if (navigation) {

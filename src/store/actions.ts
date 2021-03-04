@@ -89,18 +89,11 @@ export const addCardToDeck = (deckCode: string, card: CardModel): AppThunk => (
   getState,
 ) => {
   const deck = getState().root.decks.entities[deckCode];
-  const deckCard = Object.values(getState().root.deckCards.entities).find(
-    (candidateDeckCard) => {
-      if (
-        deck.deckCardCodes.includes(candidateDeckCard.code) &&
-        candidateDeckCard.cardCode === card.code
-      ) {
-        return true;
-      }
-
-      return false;
-    },
+  const deckCardEntities = getState().root.deckCards.entities;
+  const deckCardCode = deck.deckCardCodes.find(
+    (code) => deckCardEntities[code].cardCode === card.code,
   );
+  const deckCard = deckCardEntities[deckCardCode];
 
   if (deckCard !== undefined) {
     if (deckCard.quantity < card.deckLimit) {
@@ -139,21 +132,12 @@ export const removeCardFromDeck = (
   deckCode: string,
   card: CardModel,
 ): AppThunk => (dispatch, getState) => {
-  const state = getState();
-  const deck = state.root.decks.entities[deckCode];
-  // TODO start with deck.deckCardCodes and iterate over that
-  const deckCard = Object.values(state.root.deckCards.entities).find(
-    (candidateDeckCard) => {
-      if (
-        deck.deckCardCodes.includes(candidateDeckCard.code) &&
-        candidateDeckCard.cardCode === card.code
-      ) {
-        return true;
-      }
-
-      return false;
-    },
+  const deck = getState().root.decks.entities[deckCode];
+  const deckCardEntities = getState().root.deckCards.entities;
+  const deckCardCode = deck.deckCardCodes.find(
+    (code) => deckCardEntities[code].cardCode === card.code,
   );
+  const deckCard = deckCardEntities[deckCardCode];
 
   if (deckCard !== undefined) {
     if (deckCard.quantity <= 1) {
@@ -188,22 +172,12 @@ export const deleteDeck = (deckCode: string): AppThunk => (
   dispatch,
   getState,
 ) => {
-  const state = getState();
-  const deck = state.root.decks.entities[deckCode];
-  const deckCards = Object.values(state.root.deckCards.entities).filter(
-    (candidateDeckCard) => {
-      if (deck.deckCardCodes.includes(candidateDeckCard.code)) {
-        return true;
-      }
-
-      return false;
-    },
-  );
+  const deck = getState().root.decks.entities[deckCode];
 
   // dispatch list of deckCards to delete
   dispatch(
     removeDeckCards({
-      codes: deckCards.map((deckCard) => deckCard.code),
+      codes: deck.deckCardCodes,
     }),
   );
 
@@ -219,18 +193,15 @@ export const cloneDeck = (deckCode: string, deckName: string): AppThunk => (
   dispatch,
   getState,
 ) => {
-  const state = getState();
-  const deck = state.root.decks.entities[deckCode];
-  const deckCardEntities = Object.values(
-    state.root.deckCards.entities,
-  ).filter((deckCard) => deck.deckCardCodes.includes(deckCard.code));
+  const deck = getState().root.decks.entities[deckCode];
+  const deckCardEntities = getState().root.deckCards.entities;
 
   const newDeckCode = nanoid();
 
-  const newDeckCardEntities = deckCardEntities.map((deckCardEntity) => ({
+  const newDeckCardEntities = deck.deckCardCodes.map((deckCardCode) => ({
     code: nanoid(),
-    cardCode: deckCardEntity.cardCode,
-    quantity: deckCardEntity.quantity,
+    cardCode: deckCardEntities[deckCardCode].cardCode,
+    quantity: deckCardEntities[deckCardCode].quantity,
   }));
 
   const newDeckCardCodes = newDeckCardEntities.map(

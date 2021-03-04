@@ -150,18 +150,20 @@ const CardListItem: React.FunctionComponent<{
                   inactive={incrementIsDisabled}
                 >
                   {({ pressed }) => (
-                    <FontAwesomeIcon
-                      name="plus"
-                      color={
-                        incrementIsDisabled
-                          ? colors.lightGrayDark
-                          : pressed
-                          ? colors.greenDark
-                          : colors.green
-                      }
-                      size={16}
-                      solid
-                    />
+                    <CardCountButtonBackground pressed={pressed}>
+                      <FontAwesomeIcon
+                        name="plus"
+                        color={
+                          incrementIsDisabled
+                            ? colors.lightGrayDark
+                            : pressed
+                            ? colors.greenDark
+                            : colors.green
+                        }
+                        size={16}
+                        solid
+                      />
+                    </CardCountButtonBackground>
                   )}
                 </CardCountIncrementButton>
                 <CardCountDecrementButton
@@ -169,18 +171,20 @@ const CardListItem: React.FunctionComponent<{
                   inactive={decrementIsDisabled}
                 >
                   {({ pressed }) => (
-                    <FontAwesomeIcon
-                      name="minus"
-                      color={
-                        decrementIsDisabled
-                          ? colors.lightGrayDark
-                          : pressed
-                          ? colors.redDark
-                          : colors.red
-                      }
-                      size={16}
-                      solid
-                    />
+                    <CardCountButtonBackground pressed={pressed}>
+                      <FontAwesomeIcon
+                        name="minus"
+                        color={
+                          decrementIsDisabled
+                            ? colors.lightGrayDark
+                            : pressed
+                            ? colors.redDark
+                            : colors.red
+                        }
+                        size={16}
+                        solid
+                      />
+                    </CardCountButtonBackground>
                   )}
                 </CardCountDecrementButton>
               </CardControls>
@@ -304,6 +308,19 @@ const CardCountDecrementButton = styled(CardCountButton)<{
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
   border-left-width: 1px;
+`;
+
+const CardCountButtonBackground = styled.View<{
+  pressed: boolean;
+}>`
+  align-items: center;
+  background-color: ${(props) =>
+    props.pressed ? colors.lightGray : 'transparent'};
+  border-radius: 8px;
+  flex: 1 1 auto;
+  height: 100%;
+  justify-content: center;
+  width: 100%;
 `;
 
 const ListChevronWrapper = styled(base.ListChevronWrapper)``;

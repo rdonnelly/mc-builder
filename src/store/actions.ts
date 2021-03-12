@@ -17,11 +17,7 @@ import {
   removeDeck,
   removeDeckCardFromDeck,
 } from './reducers/decks';
-import {
-  createDeckCards,
-  removeDeckCards,
-  updateDeckCards,
-} from './reducers/deckCards';
+import { removeDeckCards, updateDeckCards } from './reducers/deckCards';
 
 export const setUpNewDeck = (
   deckCode: string,
@@ -76,7 +72,7 @@ export const setUpNewDeck = (
       });
     }
 
-    dispatch(createDeckCards({ deckCards: deckCardData }));
+    dispatch(updateDeckCards({ deckCards: deckCardData }));
 
     dispatch(
       addDeckCardsToDeck({ code: deckCode, deckCardCodes: deckCardCodes }),
@@ -88,30 +84,30 @@ export const addCardToDeck = (deckCode: string, card: CardModel): AppThunk => (
   dispatch,
   getState,
 ) => {
+  console.log('start');
   const deck = getState().root.decks.entities[deckCode];
   const deckCardEntities = getState().root.deckCards.entities;
   const deckCardCode = deck.deckCardCodes.find(
     (code) => deckCardEntities[code].cardCode === card.code,
   );
-  const deckCard = deckCardEntities[deckCardCode];
 
-  if (deckCard !== undefined) {
-    if (deckCard.quantity < card.deckLimit) {
-      dispatch(
-        updateDeckCards({
-          deckCards: [
-            {
-              ...deckCard,
-              quantity: deckCard.quantity + 1,
-            },
-          ],
-        }),
-      );
-    }
+  if (deckCardCode !== undefined) {
+    const deckCard = deckCardEntities[deckCardCode];
+
+    dispatch(
+      updateDeckCards({
+        deckCards: [
+          {
+            ...deckCard,
+            quantity: Math.min(deckCard.quantity + 1, card.deckLimit),
+          },
+        ],
+      }),
+    );
   } else {
     const newDeckCardCode = nanoid();
     dispatch(
-      createDeckCards({
+      updateDeckCards({
         deckCards: [
           {
             code: newDeckCardCode,
@@ -217,7 +213,7 @@ export const cloneDeck = (deckCode: string, deckName: string): AppThunk => (
   );
 
   dispatch(
-    createDeckCards({
+    updateDeckCards({
       deckCards: newDeckCardEntities,
     }),
   );

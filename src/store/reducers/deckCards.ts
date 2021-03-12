@@ -11,28 +11,6 @@ const decksSlice = createSlice({
   name: 'deckCards',
   initialState: initialState,
   reducers: {
-    createDeckCards(
-      state,
-      action: PayloadAction<{
-        deckCards: IStoreDeckCard[];
-      }>,
-    ) {
-      const { payload } = action;
-      const { deckCards } = payload;
-
-      const newEntities = {};
-      deckCards.forEach((deckCard) => {
-        newEntities[deckCard.code] = {
-          ...deckCard,
-        };
-      });
-
-      state.entities = {
-        ...state.entities,
-        ...newEntities,
-      };
-      state.codes = Object.keys(state.entities);
-    },
     updateDeckCards(
       state,
       action: PayloadAction<{
@@ -42,18 +20,12 @@ const decksSlice = createSlice({
       const { payload } = action;
       const { deckCards } = payload;
 
-      const newEntities = {};
       deckCards.forEach((deckCard) => {
-        newEntities[deckCard.code] = {
+        state.entities[deckCard.code] = {
           ...deckCard,
         };
+        state.codes.push(deckCard.code);
       });
-
-      state.entities = {
-        ...state.entities,
-        ...newEntities,
-      };
-      state.codes = Object.keys(state.entities);
     },
     removeDeckCards(
       state,
@@ -78,11 +50,6 @@ const decksSlice = createSlice({
   },
 });
 
-export const {
-  createDeckCards,
-  updateDeckCards,
-  removeDeckCards,
-  reset,
-} = decksSlice.actions;
+export const { updateDeckCards, removeDeckCards, reset } = decksSlice.actions;
 
 export default decksSlice.reducer;

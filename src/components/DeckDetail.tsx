@@ -1,3 +1,7 @@
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
+import React, { useContext, useRef } from 'react';
+import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
+import styled from 'styled-components/native';
 import {
   Alert,
   Platform,
@@ -8,21 +12,17 @@ import {
 import { useActionSheet } from '@expo/react-native-action-sheet';
 import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
-import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
-import React, { useContext, useRef } from 'react';
-import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
-import styled from 'styled-components/native';
 
-import { CardListContext } from '../context/CardListContext';
-import { CardModel, DeckModel, getCardListForDeck } from '../data';
-import { base, colors } from '../styles';
-import { deleteDeck } from '../store/actions';
-import { setClipboard } from '../utils/Clipboard';
 import CardListItem from './CardListItem';
 import DeckHeader from './DeckHeader';
 import FloatingControlBar, {
   FloatingControlButtonVariant,
 } from './FloatingControlBar';
+import { CardListContext } from '../context/CardListContext';
+import { CardModel, DeckModel, getCardListForDeck } from '../data';
+import { base, colors } from '../styles';
+import { deleteDeck } from '../store/actions';
+import { setClipboard } from '../utils/Clipboard';
 
 const DeckDetail: React.FunctionComponent<{
   deck: DeckModel;

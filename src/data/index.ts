@@ -22,12 +22,19 @@ export { Set as SetModel, getSet, getSets } from './models/Set';
 export { Type as TypeModel, getType, getTypes } from './models/Type';
 
 export type {
+  FilterCode,
   FactionCode,
   PackCode,
   SetCode,
+  SetTypeCode,
   TypeCode,
-} from './generatedTypes';
-export { FactionCodes, PackCodes, SetCodes, TypeCodes } from './generatedTypes';
+} from './types';
 
-export type { FilterCode } from './types';
-export { FilterCodes } from './types';
+export {
+  FactionCodes,
+  PackCodes,
+  SetCodes,
+  SetTypeCodes,
+  TypeCodes,
+  FilterCodes,
+} from './types';

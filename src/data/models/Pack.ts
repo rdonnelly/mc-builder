@@ -1,7 +1,6 @@
 import packsRaw from 'marvelsdb-json-data/packs.json';
 
-import { IPackRaw } from '../types';
-import { PackCode } from '../generatedTypes';
+import { IPackRaw, PackCode } from '../types';
 
 export class Pack {
   raw: IPackRaw;

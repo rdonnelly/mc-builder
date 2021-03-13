@@ -1,7 +1,6 @@
 import setsRaw from 'marvelsdb-json-data/sets.json';
 
-import { ISetRaw } from '../types';
-import { SetCode, SetTypeCodes } from '../generatedTypes';
+import { ISetRaw, SetCode, SetTypeCodes } from '../types';
 
 export class Set {
   raw: ISetRaw;

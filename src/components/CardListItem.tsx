@@ -1,14 +1,14 @@
-import { Pressable, StyleSheet, Text } from 'react-native';
-import { useDispatch } from 'react-redux';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
 import React from 'react';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import styled from 'styled-components/native';
+import { Pressable, StyleSheet, Text } from 'react-native';
+import { useDispatch } from 'react-redux';
 
+import Icon, { IconCode } from '../components/Icon';
 import { CardModel, FactionCodes, TypeCodes } from '../data';
 import { addCardToDeck, removeCardFromDeck } from '../store/actions';
 import { base, colors } from '../styles';
-import Icon, { IconCode } from '../components/Icon';
 
 export const ITEM_HEIGHT = 64;
 
@@ -149,14 +149,14 @@ const CardListItem: React.FunctionComponent<{
                   onPress={() => increment()}
                   inactive={incrementIsDisabled}
                 >
-                  {({ pressed }) => (
-                    <CardCountButtonBackground pressed={pressed}>
+                  {({ pressed: cardControlPressed }) => (
+                    <CardCountButtonBackground pressed={cardControlPressed}>
                       <FontAwesomeIcon
                         name="plus"
                         color={
                           incrementIsDisabled
                             ? colors.lightGrayDark
-                            : pressed
+                            : cardControlPressed
                             ? colors.greenDark
                             : colors.green
                         }
@@ -170,14 +170,14 @@ const CardListItem: React.FunctionComponent<{
                   onPress={() => decrement()}
                   inactive={decrementIsDisabled}
                 >
-                  {({ pressed }) => (
-                    <CardCountButtonBackground pressed={pressed}>
+                  {({ pressed: cardControlPressed }) => (
+                    <CardCountButtonBackground pressed={cardControlPressed}>
                       <FontAwesomeIcon
                         name="minus"
                         color={
                           decrementIsDisabled
                             ? colors.lightGrayDark
-                            : pressed
+                            : cardControlPressed
                             ? colors.redDark
                             : colors.red
                         }
@@ -191,7 +191,7 @@ const CardListItem: React.FunctionComponent<{
             ) : null}
             {onPressItem != null ? (
               <ListChevronWrapper>
-                <ListChevron name={'chevron-right'} size={16} />
+                <ListChevron size={16} />
               </ListChevronWrapper>
             ) : null}
           </ListItemInner>

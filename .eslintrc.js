@@ -1,16 +1,23 @@
 module.exports = {
   root: true,
-  extends: '@react-native-community',
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint', 'sort-imports-es6-autofix'],
+  extends: [
+    '@react-native-community',
+    'prettier',
+    'prettier/@typescript-eslint',
+    'prettier/react',
+  ],
   rules: {
+    'no-shadow': 'off',
+    '@typescript-eslint/no-shadow': 'error',
     'sort-imports': [
       'error',
       {
         ignoreCase: false,
         ignoreDeclarationSort: true,
         ignoreMemberSort: false,
-        memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single'],
+        memberSyntaxSortOrder: ['none', 'all', 'single', 'multiple'],
       },
     ],
     'sort-imports-es6-autofix/sort-imports-es6': [
@@ -18,7 +25,7 @@ module.exports = {
       {
         ignoreCase: false,
         ignoreMemberSort: true,
-        memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single'],
+        memberSyntaxSortOrder: ['none', 'all', 'single', 'multiple'],
       },
     ],
   },

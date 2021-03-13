@@ -1,14 +1,18 @@
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
+import styled from 'styled-components/native';
 import { InAppBrowser } from 'react-native-inappbrowser-reborn';
 import { Linking, Platform, Pressable, findNodeHandle } from 'react-native';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useActionSheet } from '@expo/react-native-action-sheet';
 import { useDispatch, useSelector } from 'react-redux';
-import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
-import React, { useContext, useEffect, useRef, useState } from 'react';
-import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
-import styled from 'styled-components/native';
 
+import CardDetail from '../../components/CardDetail';
+import FloatingControlBar, {
+  FloatingControlButtonVariant,
+} from '../../components/FloatingControlBar';
 import { AppContext } from '../../context/AppContext';
 import { CardListContext } from '../../context/CardListContext';
 import { CardModel } from '../../data';
@@ -16,10 +20,6 @@ import { CardStackParamList } from '../../navigation/CardsStackNavigator';
 import { StoreState } from 'src/store';
 import { addCardToDeck, removeCardFromDeck } from '../../store/actions';
 import { base, colors } from '../../styles';
-import CardDetail from '../../components/CardDetail';
-import FloatingControlBar, {
-  FloatingControlButtonVariant,
-} from '../../components/FloatingControlBar';
 
 const CardDetailScreen: React.FunctionComponent<{
   navigation: StackNavigationProp<CardStackParamList, 'CardDetail'>;
@@ -63,7 +63,7 @@ const CardDetailScreen: React.FunctionComponent<{
       },
       headerTitle: activeCard?.name,
     });
-  }, [navigation]);
+  }, [navigation, activeCard?.name]);
 
   const handleMenuOpen = () => {
     ReactNativeHapticFeedback.trigger('impactLight');

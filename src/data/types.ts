@@ -1,5 +1,21 @@
 import { FactionCode, PackCode, SetCode, TypeCode } from './generatedTypes';
 
+export type {
+  FactionCode,
+  PackCode,
+  SetCode,
+  SetTypeCode,
+  TypeCode,
+} from './generatedTypes';
+
+export {
+  FactionCodes,
+  PackCodes,
+  SetCodes,
+  SetTypeCodes,
+  TypeCodes,
+} from './generatedTypes';
+
 export enum FilterCodes {
   FACTION = 'faction',
   PACK = 'pack',

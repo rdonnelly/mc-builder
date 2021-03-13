@@ -1,9 +1,13 @@
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import styled from 'styled-components/native';
 import { ListRenderItem } from 'react-native';
 import { RouteProp, useScrollToTop } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { useContext, useEffect, useRef, useState } from 'react';
-import styled from 'styled-components/native';
 
+import CardListItem from '../../components/CardListItem';
+import FloatingControlBar, {
+  FloatingControlButtonVariant,
+} from '../../components/FloatingControlBar';
 import { CardListContext } from '../../context/CardListContext';
 import {
   CardModel,
@@ -19,10 +23,6 @@ import {
 } from '../../data';
 import { CardStackParamList } from '../../navigation/CardsStackNavigator';
 import { base, colors } from '../../styles';
-import CardListItem from '../../components/CardListItem';
-import FloatingControlBar, {
-  FloatingControlButtonVariant,
-} from '../../components/FloatingControlBar';
 
 const CardListScreen = ({
   navigation,

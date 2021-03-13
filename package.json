@@ -86,6 +86,7 @@
     "metro-react-native-babel-preset": "^0.59.0",
     "patch-package": "^6.2.2",
     "postinstall-postinstall": "^2.1.0",
+    "prettier": "^2.2.1",
     "react-test-renderer": "^16.13.1",
     "reactotron-react-native": "^5.0.0",
     "reactotron-redux": "^3.1.3",

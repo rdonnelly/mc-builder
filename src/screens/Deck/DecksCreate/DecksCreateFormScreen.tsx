@@ -1,11 +1,11 @@
 import 'react-native-get-random-values';
+import React, { useContext } from 'react';
+import styled from 'styled-components/native';
 import { Pressable, StyleSheet } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { nanoid } from 'nanoid';
 import { useDispatch } from 'react-redux';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import React, { useContext } from 'react';
-import styled from 'styled-components/native';
 
 import { DecksCreateContext } from '../../../context/DecksCreateContext';
 import { DecksCreateStackParamList } from '../../../navigation/DecksCreateStackNavigator';

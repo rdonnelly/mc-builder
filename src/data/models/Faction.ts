@@ -1,7 +1,6 @@
 import factionsRaw from 'marvelsdb-json-data/factions.json';
 
-import { FactionCode, FactionCodes } from '../generatedTypes';
-import { IFactionRaw } from '../types';
+import { FactionCode, FactionCodes, IFactionRaw } from '../types';
 
 export const factionRank = {
   hero: 0,

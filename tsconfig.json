@@ -74,7 +74,10 @@
   "exclude": [
     "node_modules",
     "babel.config.js",
+    "index.js",
+    "jest.config.js",
     "metro.config.js",
-    "jest.config.js"
+    "react-native.config.js",
+    "src/ReactotronConfig.js"
   ]
 }

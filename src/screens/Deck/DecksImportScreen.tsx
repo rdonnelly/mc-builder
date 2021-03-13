@@ -1,13 +1,17 @@
 import 'react-native-get-random-values';
+import React from 'react';
+import styled from 'styled-components/native';
 import { Alert, ListRenderItem } from 'react-native';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { nanoid } from 'nanoid';
 import { useDispatch } from 'react-redux';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { nanoid } from 'nanoid';
-import React from 'react';
-import styled from 'styled-components/native';
 
+import CardListItem from '../../components/CardListItem';
+import FloatingControlBar, {
+  FloatingControlButtonVariant,
+} from '../../components/FloatingControlBar';
 import {
   CardModel,
   FactionCode,
@@ -21,10 +25,6 @@ import {
 import { DecksStackParamList } from '../../navigation/DecksStackNavigator';
 import { base, colors } from '../../styles';
 import { setUpNewDeck } from '../../store/actions';
-import CardListItem from '../../components/CardListItem';
-import FloatingControlBar, {
-  FloatingControlButtonVariant,
-} from '../../components/FloatingControlBar';
 
 const DecksImportFormScreen: React.FunctionComponent<{
   navigation: StackNavigationProp<DecksStackParamList, 'DecksImport'>;

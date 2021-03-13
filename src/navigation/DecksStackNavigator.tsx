@@ -1,8 +1,7 @@
+import React from 'react';
 import { Platform } from 'react-native';
 import { createNativeStackNavigator } from 'react-native-screens/native-stack';
-import React from 'react';
 
-import { IImportDeck } from '../utils/DeckParser';
 import CardDetailScreen from '../screens/Card/CardDetailScreen';
 import DeckCloneStackNavigator from '../navigation/DeckCloneStackNavigator';
 import DeckDetailScreen from '../screens/Deck/DeckDetailScreen';
@@ -11,6 +10,7 @@ import DeckRenameStackNavigator from '../navigation/DeckRenameStackNavigator';
 import DecksCreateStackNavigator from '../navigation/DecksCreateStackNavigator';
 import DecksImportScreen from '../screens/Deck/DecksImportScreen';
 import DecksListScreen from '../screens/Deck/DecksListScreen';
+import { IImportDeck } from '../utils/DeckParser';
 
 import { colors } from '../styles';
 

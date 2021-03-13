@@ -1,15 +1,18 @@
 import isDeepEqual from 'lodash/isEqual';
 import memoizeOne from 'memoize-one';
 
-import { CardSortTypes, FilterCode, FilterCodes, ICardRaw } from '../types';
 import {
+  CardSortTypes,
   FactionCode,
   FactionCodes,
+  FilterCode,
+  FilterCodes,
+  ICardRaw,
   PackCode,
   SetCode,
   TypeCode,
   TypeCodes,
-} from '../generatedTypes';
+} from '../types';
 import {
   compareCardCode,
   compareCardCost,

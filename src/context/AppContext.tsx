@@ -1,5 +1,5 @@
-import { useWindowDimensions } from 'react-native';
 import React from 'react';
+import { useWindowDimensions } from 'react-native';
 
 const AppContext = React.createContext({
   windowWidth: undefined,

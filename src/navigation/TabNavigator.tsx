@@ -1,11 +1,11 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
 import React from 'react';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import { colors } from '../styles';
 import CardsStackNavigator from './CardsStackNavigator';
 import DecksStackNavigator from './DecksStackNavigator';
 import SettingsStackNavigator from './SettingsStackNavigator';
+import { colors } from '../styles';
 
 export type BottomTabNavigatorParamList = {
   TabCards: undefined;

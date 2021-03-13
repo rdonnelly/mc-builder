@@ -1,5 +1,5 @@
-import { CardModel } from '../data';
 import React from 'react';
+import { CardModel } from '../data';
 
 export interface ICardListContext {
   cardList: CardModel[];

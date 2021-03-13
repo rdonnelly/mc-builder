@@ -1,3 +1,6 @@
+import InAppBrowser from 'react-native-inappbrowser-reborn';
+import React from 'react';
+import styled from 'styled-components/native';
 import {
   Alert,
   Linking,
@@ -6,9 +9,6 @@ import {
   StyleSheet,
 } from 'react-native';
 import { useDispatch } from 'react-redux';
-import InAppBrowser from 'react-native-inappbrowser-reborn';
-import React from 'react';
-import styled from 'styled-components/native';
 
 // import { authorizeUser } from '../api/auth';
 import { base, colors } from '../styles';

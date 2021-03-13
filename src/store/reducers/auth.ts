@@ -43,7 +43,7 @@ const authSlice = createSlice({
         tokenType: authResult.tokenType,
       };
     },
-    clearAuthToken(state, action: PayloadAction<{}>) {
+    clearAuthToken(state) {
       state.mcdb = { ...initialState.mcdb };
     },
   },

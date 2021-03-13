@@ -1,9 +1,9 @@
+import React, { useContext, useEffect, useState } from 'react';
+import styled from 'styled-components/native';
 import { Pressable, StyleSheet } from 'react-native';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import React, { useContext, useEffect, useState } from 'react';
-import styled from 'styled-components/native';
 
 import { DecksCreateContext } from '../../../context/DecksCreateContext';
 import { DecksCreateStackParamList } from '../../../navigation/DecksCreateStackNavigator';

@@ -6,12 +6,12 @@ import { Card, getCard, getEligibleCards, getFilteredCards } from './Card';
 import {
   FactionCode,
   FactionCodes,
+  FilterCodes,
   SetCode,
   SetCodes,
   TypeCode,
   TypeCodes,
-} from '../generatedTypes';
-import { FilterCodes } from '../types';
+} from '../types';
 import { IStoreDeck, IStoreDeckCard } from '../../store/types';
 import { compareCardFaction } from '../cardUtils';
 import { getFactions } from './Faction';

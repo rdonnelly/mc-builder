@@ -4,8 +4,8 @@ import { BUGSNAG_API_KEY } from '@env';
 import { Client } from 'bugsnag-react-native';
 import { enableScreens } from 'react-native-screens';
 
-import { name as appName } from './app.json';
 import App from './src/App';
+import { name as appName } from './app.json';
 
 if (__DEV__) {
   import('./src/ReactotronConfig').then(() =>

@@ -57,7 +57,6 @@ const DeckDetail: React.FunctionComponent<{
     <CardListItem
       card={card.card}
       count={card.count || 0}
-      isSelected={false}
       onPressItem={() => handlePressItem(card.code)}
       showPackInfo={false}
     />

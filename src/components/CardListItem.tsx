@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Pressable, StyleSheet, Text } from 'react-native';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
@@ -60,21 +60,20 @@ const getResourceIcons = (card: CardModel) => {
   );
 };
 
-const CardListItem: React.FunctionComponent<{
-  card: CardModel;
-  count?: number;
-  deckCode?: string;
-  showPackInfo?: boolean;
-  showEditControls?: boolean;
-  isSelected: boolean;
-  onPressItem?: any;
-}> = ({
+const CardListItem = ({
   card,
   count,
   deckCode,
-  showPackInfo = true,
-  showEditControls,
   onPressItem,
+  showEditControls,
+  showPackInfo = true,
+}: {
+  card: CardModel;
+  count?: number;
+  deckCode?: string;
+  onPressItem?: (code: string) => void;
+  showEditControls?: boolean;
+  showPackInfo?: boolean;
 }) => {
   const dispatch = useDispatch();
 
@@ -327,4 +326,4 @@ const ListChevronWrapper = styled(base.ListChevronWrapper)``;
 
 const ListChevron = styled(base.ListChevron)``;
 
-export default CardListItem;
+export default memo(CardListItem);

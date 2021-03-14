@@ -126,7 +126,6 @@ const DecksImportFormScreen: React.FunctionComponent<{
     <CardListItem
       card={card}
       count={card.setCode == null ? deck.cards[card.code] : card.setQuantity}
-      isSelected={false}
       showPackInfo={false}
     />
   );

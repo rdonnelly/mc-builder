@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Image } from 'react-native';
+import { Image, Platform } from 'react-native';
 import { Pressable } from 'react-native';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import styled from 'styled-components/native';
@@ -43,7 +43,10 @@ const CardDetailImage = ({
   }
 
   return (
-    <Pressable onLongPress={() => handleImageLongPress(card)}>
+    <Pressable
+      disabled={Platform.OS !== 'ios'}
+      onLongPress={() => handleImageLongPress(card)}
+    >
       {({ pressed }) => (
         <CardDetailImageContainer
           height={imageHeight}

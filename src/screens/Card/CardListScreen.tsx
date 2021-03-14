@@ -1,7 +1,13 @@
 import { RouteProp, useScrollToTop } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { useContext, useEffect, useRef, useState } from 'react';
-import { ListRenderItem } from 'react-native';
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
+import { ListRenderItem, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 
 import CardListItem from '@components/CardListItem';
@@ -23,6 +29,12 @@ import {
 } from '@data';
 import { CardStackParamList } from '@navigation/CardsStackNavigator';
 import { base, colors } from '@styles';
+
+const styles = StyleSheet.create({
+  contentContainerStyle: {
+    paddingBottom: 72,
+  },
+});
 
 const CardListScreen = ({
   navigation,
@@ -68,12 +80,6 @@ const CardListScreen = ({
     }
   }, [filterName, navigation]);
 
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO use useCallback for all these event handlers
-
   const handlePressFactions = () => {
     if (navigation) {
       navigation.navigate('FactionsList');
@@ -92,14 +98,17 @@ const CardListScreen = ({
     }
   };
 
-  const handlePressItem = (code: string) => {
-    if (navigation) {
-      setCardList(cards);
-      navigation.navigate('CardDetail', {
-        code,
-      });
-    }
-  };
+  const handlePressItem = useCallback(
+    (code: string) => {
+      if (navigation) {
+        setCardList(cards);
+        navigation.navigate('CardDetail', {
+          code,
+        });
+      }
+    },
+    [navigation, setCardList, cards],
+  );
 
   const handleSubmitFromSearch = (event) => {
     const query = event.nativeEvent.text;
@@ -118,11 +127,7 @@ const CardListScreen = ({
   };
 
   const renderCard: ListRenderItem<CardModel> = ({ item: card }) => (
-    <CardListItem
-      card={card}
-      isSelected={false}
-      onPressItem={handlePressItem}
-    />
+    <CardListItem card={card} onPressItem={handlePressItem} />
   );
 
   const renderHeader = () => {
@@ -166,7 +171,7 @@ const CardListScreen = ({
         renderItem={renderCard}
         data={cards}
         keyExtractor={(card: CardModel) => card.code}
-        contentContainerStyle={{ paddingBottom: 72 }}
+        contentContainerStyle={styles.contentContainerStyle}
         onScrollBeginDrag={handleScrollBeginDrag}
         ListHeaderComponent={renderHeader}
         ListFooterComponent={renderFooter}

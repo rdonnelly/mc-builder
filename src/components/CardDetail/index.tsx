@@ -11,11 +11,6 @@ import CardDetailText from '@components/CardDetail/CardDetailText';
 import { CardModel } from '@data';
 import { base, colors } from '@styles';
 
-// TODO add card title to top of page (optional?)
-// TODO make width optional, default flex: 1
-// TODO make haptics and share optional
-// TODO device info? do we really need to do this?
-
 const styles = StyleSheet.create({
   scrollViewContentContainer: {
     alignItems: 'center',

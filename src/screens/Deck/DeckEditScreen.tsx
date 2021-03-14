@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import DeckEdit from '@components/DeckEdit';

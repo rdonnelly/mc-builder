@@ -1,5 +1,5 @@
-import React from 'react';
 import { RouteProp } from '@react-navigation/native';
+import React from 'react';
 import { useSelector } from 'react-redux';
 
 import DeckDetail from '@components/DeckDetail';

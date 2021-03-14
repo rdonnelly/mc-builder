@@ -1,18 +1,18 @@
-import RNBootSplash from 'react-native-bootsplash';
-import React, { useEffect } from 'react';
 import { ActionSheetProvider } from '@expo/react-native-action-sheet';
-import { AppearanceProvider, useColorScheme } from 'react-native-appearance';
 import { NavigationContainer } from '@react-navigation/native';
-import { PersistGate } from 'redux-persist/integration/react';
-import { Provider as ReduxProvider } from 'react-redux';
+import React, { useEffect } from 'react';
 import { StatusBar } from 'react-native';
+import { AppearanceProvider, useColorScheme } from 'react-native-appearance';
+import RNBootSplash from 'react-native-bootsplash';
+import { Provider as ReduxProvider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 import { ThemeProvider } from 'styled-components';
 
-import TabNavigator from '@navigation/TabNavigator';
 import { AppProvider } from '@context/AppContext';
 import { CardListProvider } from '@context/CardListContext';
-import { colors, theme } from '@styles';
+import TabNavigator from '@navigation/TabNavigator';
 import { persistor, store } from '@store';
+import { colors, theme } from '@styles';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 declare var global: { HermesInternal: null | {} };

@@ -1,7 +1,7 @@
 import React from 'react';
-import styled from 'styled-components/native';
 import { Platform } from 'react-native';
 import { createNativeStackNavigator } from 'react-native-screens/native-stack';
+import styled from 'styled-components/native';
 
 import DeckRenameScreen from '@screens/Deck/DeckRenameScreen';
 import { colors } from '@styles';

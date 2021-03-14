@@ -1,7 +1,7 @@
-import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
 import React from 'react';
-import styled from 'styled-components/native';
 import { Pressable, StyleSheet } from 'react-native';
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
+import styled from 'styled-components/native';
 
 import colors from '@styles/colors';
 

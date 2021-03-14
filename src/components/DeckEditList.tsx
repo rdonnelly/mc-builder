@@ -1,7 +1,7 @@
-import React, { useContext } from 'react';
-import styled from 'styled-components/native';
-import { SectionList, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import React, { useContext } from 'react';
+import { SectionList, StyleSheet } from 'react-native';
+import styled from 'styled-components/native';
 
 import CardListItem from '@components/CardListItem';
 import { CardListContext } from '@context/CardListContext';

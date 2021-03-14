@@ -1,16 +1,17 @@
 import 'react-native-get-random-values';
-import React from 'react';
-import styled from 'styled-components/native';
+
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useDispatch, useSelector } from 'react-redux';
+import styled from 'styled-components/native';
 
 import DeckNameForm from '@components/DeckNameForm';
 import { DeckRenameStackParamList } from '@navigation/DeckRenameStackNavigator';
 import { StoreState } from '@store';
-import { base, colors } from '@styles';
 import { updateDeck } from '@store/reducers/decks';
+import { base, colors } from '@styles';
 
 const DeckRenameScreen: React.FunctionComponent<{
   navigation: StackNavigationProp<DeckRenameStackParamList, 'DeckRename'>;

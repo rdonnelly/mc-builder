@@ -1,11 +1,12 @@
 import 'react-native-gesture-handler';
-import { AppRegistry } from 'react-native';
+
 import { BUGSNAG_API_KEY } from '@env';
 import { Client } from 'bugsnag-react-native';
+import { AppRegistry } from 'react-native';
 import { enableScreens } from 'react-native-screens';
 
-import App from './src/App';
 import { name as appName } from './app.json';
+import App from './src/App';
 
 if (__DEV__) {
   import('./src/ReactotronConfig').then(() =>

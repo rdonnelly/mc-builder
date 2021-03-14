@@ -1,9 +1,9 @@
-import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
 import React from 'react';
-import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
-import styled from 'styled-components/native';
 import { Pressable, StyleSheet, Text } from 'react-native';
+import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
 import { useDispatch } from 'react-redux';
+import styled from 'styled-components/native';
 
 import Icon, { IconCode } from '@components/Icon';
 import { CardModel, FactionCodes, TypeCodes } from '@data';

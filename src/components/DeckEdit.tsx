@@ -1,15 +1,15 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import styled from 'styled-components/native';
-import { useNavigation } from '@react-navigation/native';
 
 import DeckEditList from '@components/DeckEditList';
 import DeckHeader from '@components/DeckHeader';
 import FloatingControlBar, {
   FloatingControlButtonVariant,
 } from '@components/FloatingControlBar';
-import { DeckEditScreenNavigationProp } from '@screens/Deck/DeckEditScreen';
 import { DeckModel } from '@data';
+import { DeckEditScreenNavigationProp } from '@screens/Deck/DeckEditScreen';
 import { base, colors } from '@styles';
 
 const DeckEdit: React.FunctionComponent<{

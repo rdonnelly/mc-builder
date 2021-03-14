@@ -3,14 +3,14 @@ import {
   FLUSH,
   PAUSE,
   PERSIST,
+  persistStore,
   PURGE,
   REGISTER,
   REHYDRATE,
-  persistStore,
 } from 'redux-persist';
 import { ThunkAction } from 'redux-thunk';
-
 import Reactotron from 'src/ReactotronConfig';
+
 import reducer from '@store/reducers';
 
 export type StoreState = ReturnType<typeof reducer>;

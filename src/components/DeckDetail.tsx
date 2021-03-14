@@ -1,17 +1,17 @@
-import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
+import { useActionSheet } from '@expo/react-native-action-sheet';
+import { useNavigation } from '@react-navigation/native';
 import React, { useContext, useRef } from 'react';
-import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
-import styled from 'styled-components/native';
 import {
   Alert,
+  findNodeHandle,
   Platform,
   SectionList,
   StyleSheet,
-  findNodeHandle,
 } from 'react-native';
-import { useActionSheet } from '@expo/react-native-action-sheet';
+import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
 import { useDispatch } from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
+import styled from 'styled-components/native';
 
 import CardListItem from '@components/CardListItem';
 import DeckHeader from '@components/DeckHeader';
@@ -20,8 +20,8 @@ import FloatingControlBar, {
 } from '@components/FloatingControlBar';
 import { CardListContext } from '@context/CardListContext';
 import { CardModel, DeckModel, getCardListForDeck } from '@data';
-import { base, colors } from '@styles';
 import { deleteDeck } from '@store/actions';
+import { base, colors } from '@styles';
 import { setClipboard } from '@utils/Clipboard';
 
 const DeckDetail: React.FunctionComponent<{

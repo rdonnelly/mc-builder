@@ -1,7 +1,7 @@
-import { authorize } from 'react-native-app-auth';
-
 // @ts-ignore
 import { MCDB_BASE_URI, MCDB_CLIENT_ID, MCDB_CLIENT_SECRET } from '@env';
+import { authorize } from 'react-native-app-auth';
+
 import { store } from '@store';
 
 const authorizeUser = async () => {

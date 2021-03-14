@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-community/async-storage';
-import createSensitiveStorage from 'redux-persist-sensitive-storage';
 import { combineReducers } from 'redux';
 import { persistReducer } from 'redux-persist';
+import createSensitiveStorage from 'redux-persist-sensitive-storage';
 
 import appReducer from '@store/reducers/app';
 import authReducer from '@store/reducers/auth';

@@ -1,13 +1,14 @@
-import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
-import React, { useContext, useEffect, useRef, useState } from 'react';
-import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
-import styled from 'styled-components/native';
-import { InAppBrowser } from 'react-native-inappbrowser-reborn';
-import { Linking, Platform, Pressable, findNodeHandle } from 'react-native';
+import { useActionSheet } from '@expo/react-native-action-sheet';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { useActionSheet } from '@expo/react-native-action-sheet';
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import { findNodeHandle, Linking, Platform, Pressable } from 'react-native';
+import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
+import { InAppBrowser } from 'react-native-inappbrowser-reborn';
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
 import { useDispatch, useSelector } from 'react-redux';
+import { StoreState } from 'src/store';
+import styled from 'styled-components/native';
 
 import CardDetail from '@components/CardDetail';
 import FloatingControlBar, {
@@ -17,7 +18,6 @@ import { AppContext } from '@context/AppContext';
 import { CardListContext } from '@context/CardListContext';
 import { CardModel } from '@data';
 import { CardStackParamList } from '@navigation/CardsStackNavigator';
-import { StoreState } from 'src/store';
 import { addCardToDeck, removeCardFromDeck } from '@store/actions';
 import { base, colors } from '@styles';
 

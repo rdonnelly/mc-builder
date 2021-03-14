@@ -1,15 +1,17 @@
 import 'react-native-get-random-values';
+
 import { nanoid } from 'nanoid';
 
-import { AppThunk } from '@store';
 import {
   CardModel,
   FactionCode,
   FactionCodes,
   FilterCodes,
-  SetCode,
   getFilteredCards,
+  SetCode,
 } from '@data';
+import { AppThunk } from '@store';
+import { removeDeckCards, updateDeckCards } from '@store/reducers/deckCards';
 import {
   addDeckCardsToDeck,
   createDeck,
@@ -17,7 +19,6 @@ import {
   removeDeck,
   removeDeckCardFromDeck,
 } from '@store/reducers/decks';
-import { removeDeckCards, updateDeckCards } from '@store/reducers/deckCards';
 
 export const setUpNewDeck = (
   deckCode: string,

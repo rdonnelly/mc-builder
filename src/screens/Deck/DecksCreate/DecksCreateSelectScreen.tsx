@@ -1,16 +1,16 @@
-import React, { useContext, useEffect, useState } from 'react';
-import styled from 'styled-components/native';
-import { Pressable, StyleSheet } from 'react-native';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import React, { useContext, useEffect, useState } from 'react';
+import { Pressable, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import styled from 'styled-components/native';
 
 import { DecksCreateContext } from '@context/DecksCreateContext';
-import { DecksCreateStackParamList } from '@navigation/DecksCreateStackNavigator';
 import { FactionCode, SetCode, SetCodes } from '@data';
-import { base, colors } from '@styles';
-import { getHeroSets } from '@data/models/Set';
 import { getPrimaryFactions } from '@data/models/Faction';
+import { getHeroSets } from '@data/models/Set';
+import { DecksCreateStackParamList } from '@navigation/DecksCreateStackNavigator';
+import { base, colors } from '@styles';
 
 const ITEM_HEIGHT = 48;
 

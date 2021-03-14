@@ -1,14 +1,14 @@
-import DeviceInfo from 'react-native-device-info';
-import Html from 'react-native-render-html';
 import React, { useEffect, useState } from 'react';
-import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
-import styled from 'styled-components/native';
 import { Image, Pressable, ScrollView, StyleSheet } from 'react-native';
+import DeviceInfo from 'react-native-device-info';
+import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
+import Html from 'react-native-render-html';
+import styled from 'styled-components/native';
 
-import CardParser from '@utils/CardParser';
 import Icon, { IconCode } from '@components/Icon';
 import { CardModel, FactionCodes } from '@data';
 import { base, colors } from '@styles';
+import CardParser from '@utils/CardParser';
 import { shareImageUrl } from '@utils/Share';
 
 // TODO cut up into smaller components

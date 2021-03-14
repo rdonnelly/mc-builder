@@ -1,29 +1,29 @@
-import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
+import { useActionSheet } from '@expo/react-native-action-sheet';
+import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useCallback, useLayoutEffect, useRef } from 'react';
-import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
-import styled from 'styled-components/native';
 import {
   Alert,
+  findNodeHandle,
   ListRenderItem,
   Platform,
   Pressable,
-  findNodeHandle,
 } from 'react-native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { useActionSheet } from '@expo/react-native-action-sheet';
+import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
 import { useDispatch, useSelector } from 'react-redux';
+import styled from 'styled-components/native';
 
 import DecksListItem from '@components/DecksListItem';
 import FloatingControlBar, {
   FloatingControlButtonVariant,
 } from '@components/FloatingControlBar';
-import { AppDeckSortKey } from '@store/types';
 import { DeckModel } from '@data';
 import { DecksStackParamList } from '@navigation/DecksStackNavigator';
 import { StoreState } from '@store';
+import { setDeckSort } from '@store/reducers/app';
+import { AppDeckSortKey } from '@store/types';
 import { base, colors } from '@styles';
 import { getClipboard } from '@utils/Clipboard';
-import { setDeckSort } from '@store/reducers/app';
 import { validateClipboard } from '@utils/DeckParser';
 
 const DecksListScreen: React.FunctionComponent<{

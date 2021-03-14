@@ -1,9 +1,8 @@
 import fs from 'fs';
-
 import factionsRaw from 'marvelsdb-json-data/factions.json';
 import packsRaw from 'marvelsdb-json-data/packs.json';
-import setTypesRaw from 'marvelsdb-json-data/settypes.json';
 import setsRaw from 'marvelsdb-json-data/sets.json';
+import setTypesRaw from 'marvelsdb-json-data/settypes.json';
 import typesRaw from 'marvelsdb-json-data/types.json';
 
 const FILE = './src/data/generatedTypes.ts';

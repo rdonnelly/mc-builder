@@ -1,6 +1,4 @@
-import InAppBrowser from 'react-native-inappbrowser-reborn';
 import React from 'react';
-import styled from 'styled-components/native';
 import {
   Alert,
   Linking,
@@ -8,12 +6,14 @@ import {
   ScrollView,
   StyleSheet,
 } from 'react-native';
+import InAppBrowser from 'react-native-inappbrowser-reborn';
 import { useDispatch } from 'react-redux';
+import styled from 'styled-components/native';
 
-// import { authorizeUser } from '@api/auth';
-import { base, colors } from '@styles';
 // import { getDecks } from '@api/deck';
 import { reset } from '@store/reducers/decks';
+// import { authorizeUser } from '@api/auth';
+import { base, colors } from '@styles';
 // import { setAuthToken } from '@store/reducers/auth';
 
 const SettingsScreen: React.FunctionComponent<{}> = () => {

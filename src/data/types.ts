@@ -7,7 +7,6 @@ export type {
   SetTypeCode,
   TypeCode,
 } from '@data/generatedTypes';
-
 export {
   FactionCodes,
   PackCodes,

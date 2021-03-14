@@ -1,5 +1,5 @@
-import RNFetchBlob from 'rn-fetch-blob';
 import { Platform, Share } from 'react-native';
+import RNFetchBlob from 'rn-fetch-blob';
 
 export function shareImageUrl(url: string) {
   if (Platform.OS === 'ios') {

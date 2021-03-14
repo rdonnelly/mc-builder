@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { FactionCode, SetCode, getFaction, getSet } from '@data';
+import { FactionCode, getFaction, getSet, SetCode } from '@data';
 
 interface IDecksCreateContext {
   deckName: string;

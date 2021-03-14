@@ -2,7 +2,6 @@ import React from 'react';
 import { createNativeStackNavigator } from 'react-native-screens/native-stack';
 
 import SettingsScreen from '@screens/SettingsScreen';
-
 import { colors } from '@styles';
 
 export type SettingsStackParamList = {

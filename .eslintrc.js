@@ -1,7 +1,7 @@
 module.exports = {
   root: true,
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint', 'sort-imports-es6-autofix'],
+  plugins: ['@typescript-eslint', 'simple-import-sort'],
   extends: [
     '@react-native-community',
     'prettier',
@@ -16,22 +16,29 @@ module.exports = {
   rules: {
     'no-shadow': 'off',
     '@typescript-eslint/no-shadow': 'error',
-    'sort-imports': [
-      'error',
-      {
-        ignoreCase: false,
-        ignoreDeclarationSort: true,
-        ignoreMemberSort: false,
-        memberSyntaxSortOrder: ['none', 'all', 'single', 'multiple'],
-      },
-    ],
-    'sort-imports-es6-autofix/sort-imports-es6': [
-      'error',
-      {
-        ignoreCase: false,
-        ignoreMemberSort: true,
-        memberSyntaxSortOrder: ['none', 'all', 'single', 'multiple'],
-      },
-    ],
+    'simple-import-sort/imports': 'error',
+    'simple-import-sort/exports': 'error',
   },
+  overrides: [
+    {
+      files: '*',
+      // env: { node: true },
+      rules: {
+        'simple-import-sort/imports': [
+          'error',
+          {
+            groups: [
+              ['^\\u0000'],
+              ['^@?\\w'],
+              ['^'],
+              [
+                '^(@api|@components|@context|@data|@navigation|@screens|@store|@styles|@utils)(/.*|$)',
+              ],
+              ['^\\.'],
+            ],
+          },
+        ],
+      },
+    },
+  ],
 };

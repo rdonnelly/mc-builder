@@ -1,18 +1,19 @@
 import 'react-native-get-random-values';
-import React, { useContext } from 'react';
-import styled from 'styled-components/native';
-import { Pressable, StyleSheet } from 'react-native';
+
 import { StackNavigationProp } from '@react-navigation/stack';
 import { nanoid } from 'nanoid';
-import { useDispatch } from 'react-redux';
+import React, { useContext } from 'react';
+import { Pressable, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useDispatch } from 'react-redux';
+import styled from 'styled-components/native';
 
 import { DecksCreateContext } from '@context/DecksCreateContext';
-import { DecksCreateStackParamList } from '@navigation/DecksCreateStackNavigator';
-import { base, colors } from '@styles';
 import { getFaction } from '@data/models/Faction';
 import { getSet } from '@data/models/Set';
+import { DecksCreateStackParamList } from '@navigation/DecksCreateStackNavigator';
 import { setUpNewDeck } from '@store/actions';
+import { base, colors } from '@styles';
 
 const DecksCreateFormScreen: React.FunctionComponent<{
   navigation: StackNavigationProp<DecksCreateStackParamList, 'DecksCreateForm'>;

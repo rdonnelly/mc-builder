@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
-import styled from 'styled-components/native';
-import { ListRenderItem } from 'react-native';
 import { RouteProp, useScrollToTop } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import { ListRenderItem } from 'react-native';
+import styled from 'styled-components/native';
 
 import CardListItem from '@components/CardListItem';
 import FloatingControlBar, {
@@ -13,13 +13,13 @@ import {
   CardModel,
   FactionCode,
   FilterCodes,
-  PackCode,
-  TypeCode,
   getCards,
   getFaction,
   getFilteredCards,
   getPack,
   getType,
+  PackCode,
+  TypeCode,
 } from '@data';
 import { CardStackParamList } from '@navigation/CardsStackNavigator';
 import { base, colors } from '@styles';

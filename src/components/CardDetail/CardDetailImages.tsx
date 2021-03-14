@@ -1,0 +1,100 @@
+import React, { useEffect, useState } from 'react';
+import { Image } from 'react-native';
+import { Pressable } from 'react-native';
+import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
+import styled from 'styled-components/native';
+
+import { CardModel } from '@data';
+import { shareImageUrl } from '@utils/Share';
+
+const handleImageLongPress = (card: CardModel) => {
+  ReactNativeHapticFeedback.trigger('impactHeavy');
+  shareImageUrl(card.imageSrc);
+};
+
+const CardDetailImage = ({
+  card,
+  imageUri,
+  maxWidth,
+}: {
+  card: CardModel;
+  imageUri: string;
+  maxWidth: number;
+}) => {
+  const [imageHeight, setImageHeight] = useState(0);
+  const [imageWidth, setImageWidth] = useState(0);
+
+  useEffect(() => {
+    Image.getSize(
+      imageUri,
+      (width, height) => {
+        const newWidth = Math.min(width, maxWidth);
+        const newHeight = (height / width) * newWidth;
+
+        setImageHeight(newHeight);
+        setImageWidth(newWidth);
+      },
+      () => {},
+    );
+  }, [imageUri, maxWidth]);
+
+  if (!imageHeight || !imageWidth) {
+    return null;
+  }
+
+  return (
+    <Pressable onLongPress={() => handleImageLongPress(card)}>
+      {({ pressed }) => (
+        <CardDetailImageContainer
+          height={imageHeight}
+          width={imageWidth}
+          pressed={pressed}
+        >
+          <CardImage resizeMode="contain" source={{ uri: `${imageUri}` }} />
+        </CardDetailImageContainer>
+      )}
+    </Pressable>
+  );
+};
+
+const CardDetailImages = ({
+  card,
+  maxWidth,
+}: {
+  card: CardModel;
+  maxWidth: number;
+}) => {
+  const imageUriSet = card.imageUriSet;
+
+  return imageUriSet && imageUriSet.length ? (
+    <>
+      {imageUriSet.map((imageUri, i) => (
+        <CardDetailImage
+          key={`card_image_${card.code}_${i}`}
+          card={card}
+          imageUri={imageUri}
+          maxWidth={maxWidth}
+        />
+      ))}
+    </>
+  ) : null;
+};
+
+const CardDetailImageContainer = styled.View<{
+  height: number;
+  width: number;
+  pressed: boolean;
+}>`
+  height: ${(props) => props.height}px;
+  margin-bottom: 16px;
+  opacity: ${(props) => (props.pressed ? 0.9 : 1.0)};
+  padding-horizontal: 0px;
+  width: ${(props) => props.width}px;
+`;
+
+const CardImage = styled.Image`
+  height: 100%;
+  width: 100%;
+`;
+
+export default CardDetailImages;

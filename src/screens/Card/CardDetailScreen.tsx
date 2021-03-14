@@ -26,11 +26,12 @@ const CardDetailScreen: React.FunctionComponent<{
   route: RouteProp<CardStackParamList, 'CardDetail'>;
 }> = ({ navigation, route }) => {
   let cardList: CardModel[];
+  const cardListContext = useContext(CardListContext);
   if (route.params.type === 'card') {
-    cardList = useContext(CardListContext).cardList;
+    cardList = cardListContext.cardList;
   }
   if (route.params.type === 'deck') {
-    cardList = useContext(CardListContext).deckCardList;
+    cardList = cardListContext.deckCardList;
   }
 
   const { windowWidth } = useContext(AppContext);

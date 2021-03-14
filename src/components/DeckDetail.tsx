@@ -13,16 +13,16 @@ import { useActionSheet } from '@expo/react-native-action-sheet';
 import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
-import CardListItem from './CardListItem';
-import DeckHeader from './DeckHeader';
+import CardListItem from '@components/CardListItem';
+import DeckHeader from '@components/DeckHeader';
 import FloatingControlBar, {
   FloatingControlButtonVariant,
-} from './FloatingControlBar';
-import { CardListContext } from '../context/CardListContext';
-import { CardModel, DeckModel, getCardListForDeck } from '../data';
-import { base, colors } from '../styles';
-import { deleteDeck } from '../store/actions';
-import { setClipboard } from '../utils/Clipboard';
+} from '@components/FloatingControlBar';
+import { CardListContext } from '@context/CardListContext';
+import { CardModel, DeckModel, getCardListForDeck } from '@data';
+import { base, colors } from '@styles';
+import { deleteDeck } from '@store/actions';
+import { setClipboard } from '@utils/Clipboard';
 
 const DeckDetail: React.FunctionComponent<{
   deck: DeckModel;

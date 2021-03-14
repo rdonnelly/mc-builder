@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components/native';
 
-import ListItem from './ListItem';
+import ListItem from '@components/ListItem';
 
-import { base } from '../styles';
+import { base } from '@styles';
 
 const List: React.FunctionComponent<{
   name: string;

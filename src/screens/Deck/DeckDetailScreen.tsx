@@ -2,10 +2,10 @@ import React from 'react';
 import { RouteProp } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 
-import DeckDetail from '../../components/DeckDetail';
-import { DeckModel } from '../../data';
-import { DecksStackParamList } from '../../navigation/DecksStackNavigator';
-import { StoreState } from '../../store';
+import DeckDetail from '@components/DeckDetail';
+import { DeckModel } from '@data';
+import { DecksStackParamList } from '@navigation/DecksStackNavigator';
+import { StoreState } from '@store';
 
 const DeckDetailScreen: React.FunctionComponent<{
   route: RouteProp<DecksStackParamList, 'DeckDetail'>;

@@ -5,10 +5,10 @@ import styled from 'styled-components/native';
 import { Pressable, StyleSheet, Text } from 'react-native';
 import { useDispatch } from 'react-redux';
 
-import Icon, { IconCode } from '../components/Icon';
-import { CardModel, FactionCodes, TypeCodes } from '../data';
-import { addCardToDeck, removeCardFromDeck } from '../store/actions';
-import { base, colors } from '../styles';
+import Icon, { IconCode } from '@components/Icon';
+import { CardModel, FactionCodes, TypeCodes } from '@data';
+import { addCardToDeck, removeCardFromDeck } from '@store/actions';
+import { base, colors } from '@styles';
 
 export const ITEM_HEIGHT = 64;
 

@@ -4,11 +4,11 @@ import { ListRenderItem } from 'react-native';
 import { RouteProp, useScrollToTop } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
-import CardListItem from '../../components/CardListItem';
+import CardListItem from '@components/CardListItem';
 import FloatingControlBar, {
   FloatingControlButtonVariant,
-} from '../../components/FloatingControlBar';
-import { CardListContext } from '../../context/CardListContext';
+} from '@components/FloatingControlBar';
+import { CardListContext } from '@context/CardListContext';
 import {
   CardModel,
   FactionCode,
@@ -20,9 +20,9 @@ import {
   getFilteredCards,
   getPack,
   getType,
-} from '../../data';
-import { CardStackParamList } from '../../navigation/CardsStackNavigator';
-import { base, colors } from '../../styles';
+} from '@data';
+import { CardStackParamList } from '@navigation/CardsStackNavigator';
+import { base, colors } from '@styles';
 
 const CardListScreen = ({
   navigation,

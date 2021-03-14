@@ -8,6 +8,11 @@ module.exports = {
     'prettier/@typescript-eslint',
     'prettier/react',
   ],
+  settings: {
+    'import/resolver': {
+      'babel-module': {},
+    },
+  },
   rules: {
     'no-shadow': 'off',
     '@typescript-eslint/no-shadow': 'error',

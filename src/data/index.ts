@@ -3,23 +3,23 @@ export {
   getCard,
   getCards,
   getFilteredCards,
-} from './models/Card';
+} from '@data/models/Card';
 
 export {
   Deck as DeckModel,
   getCardListForDeck,
   getEligibleCardListForDeck,
-} from './models/Deck';
+} from '@data/models/Deck';
 
 export {
   Faction as FactionModel,
   getFaction,
   getFactions,
-} from './models/Faction';
+} from '@data/models/Faction';
 
-export { Pack as PackModel, getPack, getPacks } from './models/Pack';
-export { Set as SetModel, getSet, getSets } from './models/Set';
-export { Type as TypeModel, getType, getTypes } from './models/Type';
+export { Pack as PackModel, getPack, getPacks } from '@data/models/Pack';
+export { Set as SetModel, getSet, getSets } from '@data/models/Set';
+export { Type as TypeModel, getType, getTypes } from '@data/models/Type';
 
 export type {
   FilterCode,
@@ -28,7 +28,7 @@ export type {
   SetCode,
   SetTypeCode,
   TypeCode,
-} from './types';
+} from '@data/types';
 
 export {
   FactionCodes,
@@ -37,4 +37,4 @@ export {
   SetTypeCodes,
   TypeCodes,
   FilterCodes,
-} from './types';
+} from '@data/types';

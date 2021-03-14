@@ -1,7 +1,7 @@
 // @ts-ignore
 import { MCDB_BASE_URI } from '@env';
 
-import { getAccessToken } from './auth';
+import { getAccessToken } from '@api/auth';
 
 // GET /api/public/deck/{deck_id}
 const getPublicDeck = async (dbUrl) => {

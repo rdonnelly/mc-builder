@@ -5,11 +5,11 @@ import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import styled from 'styled-components/native';
 import { Image, Pressable, ScrollView, StyleSheet } from 'react-native';
 
-import CardParser from '../utils/CardParser';
-import Icon, { IconCode } from '../components/Icon';
-import { CardModel, FactionCodes } from '../data';
-import { base, colors } from '../styles';
-import { shareImageUrl } from '../utils/Share';
+import CardParser from '@utils/CardParser';
+import Icon, { IconCode } from '@components/Icon';
+import { CardModel, FactionCodes } from '@data';
+import { base, colors } from '@styles';
+import { shareImageUrl } from '@utils/Share';
 
 // TODO cut up into smaller components
 // TODO add card title to top of page (optional?)

@@ -13,18 +13,18 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { useActionSheet } from '@expo/react-native-action-sheet';
 import { useDispatch, useSelector } from 'react-redux';
 
-import DecksListItem from '../../components/DecksListItem';
+import DecksListItem from '@components/DecksListItem';
 import FloatingControlBar, {
   FloatingControlButtonVariant,
-} from '../../components/FloatingControlBar';
-import { AppDeckSortKey } from '../../store/types';
-import { DeckModel } from '../../data';
-import { DecksStackParamList } from '../../navigation/DecksStackNavigator';
-import { StoreState } from '../../store';
-import { base, colors } from '../../styles';
-import { getClipboard } from '../../utils/Clipboard';
-import { setDeckSort } from '../../store/reducers/app';
-import { validateClipboard } from '../../utils/DeckParser';
+} from '@components/FloatingControlBar';
+import { AppDeckSortKey } from '@store/types';
+import { DeckModel } from '@data';
+import { DecksStackParamList } from '@navigation/DecksStackNavigator';
+import { StoreState } from '@store';
+import { base, colors } from '@styles';
+import { getClipboard } from '@utils/Clipboard';
+import { setDeckSort } from '@store/reducers/app';
+import { validateClipboard } from '@utils/DeckParser';
 
 const DecksListScreen: React.FunctionComponent<{
   navigation: StackNavigationProp<DecksStackParamList, 'DecksList'>;

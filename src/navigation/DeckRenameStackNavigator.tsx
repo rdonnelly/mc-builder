@@ -3,8 +3,8 @@ import styled from 'styled-components/native';
 import { Platform } from 'react-native';
 import { createNativeStackNavigator } from 'react-native-screens/native-stack';
 
-import DeckRenameScreen from '../screens/Deck/DeckRenameScreen';
-import { colors } from '../styles';
+import DeckRenameScreen from '@screens/Deck/DeckRenameScreen';
+import { colors } from '@styles';
 
 export type DeckRenameStackParamList = {
   DeckRename: { code: string };

@@ -9,17 +9,17 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { useActionSheet } from '@expo/react-native-action-sheet';
 import { useDispatch, useSelector } from 'react-redux';
 
-import CardDetail from '../../components/CardDetail';
+import CardDetail from '@components/CardDetail';
 import FloatingControlBar, {
   FloatingControlButtonVariant,
-} from '../../components/FloatingControlBar';
-import { AppContext } from '../../context/AppContext';
-import { CardListContext } from '../../context/CardListContext';
-import { CardModel } from '../../data';
-import { CardStackParamList } from '../../navigation/CardsStackNavigator';
+} from '@components/FloatingControlBar';
+import { AppContext } from '@context/AppContext';
+import { CardListContext } from '@context/CardListContext';
+import { CardModel } from '@data';
+import { CardStackParamList } from '@navigation/CardsStackNavigator';
 import { StoreState } from 'src/store';
-import { addCardToDeck, removeCardFromDeck } from '../../store/actions';
-import { base, colors } from '../../styles';
+import { addCardToDeck, removeCardFromDeck } from '@store/actions';
+import { base, colors } from '@styles';
 
 const CardDetailScreen: React.FunctionComponent<{
   navigation: StackNavigationProp<CardStackParamList, 'CardDetail'>;

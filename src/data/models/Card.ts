@@ -12,18 +12,18 @@ import {
   SetCode,
   TypeCode,
   TypeCodes,
-} from '../types';
+} from '@data/types';
 import {
   compareCardCode,
   compareCardCost,
   compareCardFaction,
   compareCardName,
   compareCardType,
-} from '../cardUtils';
-import { getFactions } from '../models/Faction';
-import { getPacks } from '../models/Pack';
-import { getSets } from '../models/Set';
-import { getTypes } from '../models/Type';
+} from '@data/cardUtils';
+import { getFactions } from '@data/models/Faction';
+import { getPacks } from '@data/models/Pack';
+import { getSets } from '@data/models/Set';
+import { getTypes } from '@data/models/Type';
 
 const cards = [].concat(
   require('marvelsdb-json-data/pack/ant_encounter.json'),

@@ -3,10 +3,10 @@ import styled from 'styled-components/native';
 import { SectionList, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-import CardListItem from './CardListItem';
-import { CardListContext } from '../context/CardListContext';
-import { CardModel, DeckModel, getEligibleCardListForDeck } from '../data';
-import { base, colors } from '../styles';
+import CardListItem from '@components/CardListItem';
+import { CardListContext } from '@context/CardListContext';
+import { CardModel, DeckModel, getEligibleCardListForDeck } from '@data';
+import { base, colors } from '@styles';
 
 export const ITEM_HEIGHT = 64;
 

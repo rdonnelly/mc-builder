@@ -2,8 +2,8 @@ import difference from 'lodash/difference';
 import uniq from 'lodash/uniq';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { FactionCode, SetCode } from '../../data';
-import { IStoreDeck, IStoreDeckState } from '../types';
+import { FactionCode, SetCode } from '@data';
+import { IStoreDeck, IStoreDeckState } from '@store/types';
 
 const initialState = {
   codes: [],

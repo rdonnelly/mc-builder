@@ -3,10 +3,10 @@ import createSensitiveStorage from 'redux-persist-sensitive-storage';
 import { combineReducers } from 'redux';
 import { persistReducer } from 'redux-persist';
 
-import appReducer from './app';
-import authReducer from './auth';
-import deckCardsReducer from './deckCards';
-import decksReducer from './decks';
+import appReducer from '@store/reducers/app';
+import authReducer from '@store/reducers/auth';
+import deckCardsReducer from '@store/reducers/deckCards';
+import decksReducer from '@store/reducers/decks';
 
 const rootPersistConfig = {
   key: 'root',

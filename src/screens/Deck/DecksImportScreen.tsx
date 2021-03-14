@@ -8,10 +8,10 @@ import { nanoid } from 'nanoid';
 import { useDispatch } from 'react-redux';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import CardListItem from '../../components/CardListItem';
+import CardListItem from '@components/CardListItem';
 import FloatingControlBar, {
   FloatingControlButtonVariant,
-} from '../../components/FloatingControlBar';
+} from '@components/FloatingControlBar';
 import {
   CardModel,
   FactionCode,
@@ -21,10 +21,10 @@ import {
   TypeCodes,
   getFilteredCards,
   getSet,
-} from '../../data';
-import { DecksStackParamList } from '../../navigation/DecksStackNavigator';
-import { base, colors } from '../../styles';
-import { setUpNewDeck } from '../../store/actions';
+} from '@data';
+import { DecksStackParamList } from '@navigation/DecksStackNavigator';
+import { base, colors } from '@styles';
+import { setUpNewDeck } from '@store/actions';
 
 const DecksImportFormScreen: React.FunctionComponent<{
   navigation: StackNavigationProp<DecksStackParamList, 'DecksImport'>;

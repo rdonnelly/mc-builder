@@ -1,8 +1,6 @@
 import React from 'react';
 
-import { FactionCode, SetCode } from '../data';
-import { getFaction } from '../data/models/Faction';
-import { getSet } from '../data/models/Set';
+import { FactionCode, SetCode, getFaction, getSet } from '@data';
 
 interface IDecksCreateContext {
   deckName: string;

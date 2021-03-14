@@ -6,11 +6,11 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import DeckNameForm from '../../components/DeckNameForm';
-import { DeckCloneStackParamList } from '../../navigation/DeckCloneStackNavigator';
-import { StoreState } from '../../store';
-import { base, colors } from '../../styles';
-import { cloneDeck } from '../../store/actions';
+import DeckNameForm from '@components/DeckNameForm';
+import { DeckCloneStackParamList } from '@navigation/DeckCloneStackNavigator';
+import { StoreState } from '@store';
+import { base, colors } from '@styles';
+import { cloneDeck } from '@store/actions';
 
 const DeckCloneScreen: React.FunctionComponent<{
   navigation: StackNavigationProp<DeckCloneStackParamList, 'DeckClone'>;

@@ -6,11 +6,11 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import DeckNameForm from '../../components/DeckNameForm';
-import { DeckRenameStackParamList } from '../../navigation/DeckRenameStackNavigator';
-import { StoreState } from '../../store';
-import { base, colors } from '../../styles';
-import { updateDeck } from '../../store/reducers/decks';
+import DeckNameForm from '@components/DeckNameForm';
+import { DeckRenameStackParamList } from '@navigation/DeckRenameStackNavigator';
+import { StoreState } from '@store';
+import { base, colors } from '@styles';
+import { updateDeck } from '@store/reducers/decks';
 
 const DeckRenameScreen: React.FunctionComponent<{
   navigation: StackNavigationProp<DeckRenameStackParamList, 'DeckRename'>;

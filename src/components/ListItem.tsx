@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components/native';
 import { Pressable, StyleSheet } from 'react-native';
 
-import { base, colors } from '../styles';
+import { base, colors } from '@styles';
 
 export const ITEM_HEIGHT = 48;
 

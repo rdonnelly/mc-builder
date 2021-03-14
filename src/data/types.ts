@@ -1,4 +1,4 @@
-import { FactionCode, PackCode, SetCode, TypeCode } from './generatedTypes';
+import { FactionCode, PackCode, SetCode, TypeCode } from '@data/generatedTypes';
 
 export type {
   FactionCode,
@@ -6,7 +6,7 @@ export type {
   SetCode,
   SetTypeCode,
   TypeCode,
-} from './generatedTypes';
+} from '@data/generatedTypes';
 
 export {
   FactionCodes,
@@ -14,7 +14,7 @@ export {
   SetCodes,
   SetTypeCodes,
   TypeCodes,
-} from './generatedTypes';
+} from '@data/generatedTypes';
 
 export enum FilterCodes {
   FACTION = 'faction',

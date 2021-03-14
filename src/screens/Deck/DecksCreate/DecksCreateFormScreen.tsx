@@ -7,12 +7,12 @@ import { nanoid } from 'nanoid';
 import { useDispatch } from 'react-redux';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { DecksCreateContext } from '../../../context/DecksCreateContext';
-import { DecksCreateStackParamList } from '../../../navigation/DecksCreateStackNavigator';
-import { base, colors } from '../../../styles';
-import { getFaction } from '../../../data/models/Faction';
-import { getSet } from '../../../data/models/Set';
-import { setUpNewDeck } from '../../../store/actions';
+import { DecksCreateContext } from '@context/DecksCreateContext';
+import { DecksCreateStackParamList } from '@navigation/DecksCreateStackNavigator';
+import { base, colors } from '@styles';
+import { getFaction } from '@data/models/Faction';
+import { getSet } from '@data/models/Set';
+import { setUpNewDeck } from '@store/actions';
 
 const DecksCreateFormScreen: React.FunctionComponent<{
   navigation: StackNavigationProp<DecksCreateStackParamList, 'DecksCreateForm'>;

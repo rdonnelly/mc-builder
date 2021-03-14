@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components/native';
 import { Pressable } from 'react-native';
 
-import { base, colors } from '../styles';
+import { base, colors } from '@styles';
 
 // TODO fix typescript
 

@@ -1,11 +1,16 @@
 import React from 'react';
 import { StackNavigationProp } from '@react-navigation/stack';
 
-import List from '../components/List';
-import { CardStackParamList } from '../navigation/CardsStackNavigator';
-import { FactionCode, FilterCodes, PackCode, SetCode, TypeCode } from '../data';
-
-import { getPacks } from '../data';
+import List from '@components/List';
+import { CardStackParamList } from '@navigation/CardsStackNavigator';
+import {
+  FactionCode,
+  FilterCodes,
+  PackCode,
+  SetCode,
+  TypeCode,
+  getPacks,
+} from '@data';
 
 const FactionsListScreen: React.FunctionComponent<{
   navigation: StackNavigationProp<CardStackParamList, 'FactionsList'>;

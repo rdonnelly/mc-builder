@@ -5,12 +5,12 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { DecksCreateContext } from '../../../context/DecksCreateContext';
-import { DecksCreateStackParamList } from '../../../navigation/DecksCreateStackNavigator';
-import { FactionCode, SetCode, SetCodes } from '../../../data';
-import { base, colors } from '../../../styles';
-import { getHeroSets } from '../../../data/models/Set';
-import { getPrimaryFactions } from '../../../data/models/Faction';
+import { DecksCreateContext } from '@context/DecksCreateContext';
+import { DecksCreateStackParamList } from '@navigation/DecksCreateStackNavigator';
+import { FactionCode, SetCode, SetCodes } from '@data';
+import { base, colors } from '@styles';
+import { getHeroSets } from '@data/models/Set';
+import { getPrimaryFactions } from '@data/models/Faction';
 
 const ITEM_HEIGHT = 48;
 

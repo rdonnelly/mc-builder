@@ -10,11 +10,11 @@ import {
 } from 'react-native';
 import { useDispatch } from 'react-redux';
 
-// import { authorizeUser } from '../api/auth';
-import { base, colors } from '../styles';
-// import { getDecks } from '../api/deck';
-import { reset } from '../store/reducers/decks';
-// import { setAuthToken } from '../store/reducers/auth';
+// import { authorizeUser } from '@api/auth';
+import { base, colors } from '@styles';
+// import { getDecks } from '@api/deck';
+import { reset } from '@store/reducers/decks';
+// import { setAuthToken } from '@store/reducers/auth';
 
 const SettingsScreen: React.FunctionComponent<{}> = () => {
   const dispatch = useDispatch();

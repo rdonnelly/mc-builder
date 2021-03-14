@@ -3,10 +3,10 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useSelector } from 'react-redux';
 
-import DeckEdit from '../../components/DeckEdit';
-import { DeckModel } from '../../data';
-import { DecksStackParamList } from '../../navigation/DecksStackNavigator';
-import { StoreState } from '../../store';
+import DeckEdit from '@components/DeckEdit';
+import { DeckModel } from '@data';
+import { DecksStackParamList } from '@navigation/DecksStackNavigator';
+import { StoreState } from '@store';
 
 export type DeckEditScreenNavigationProp = StackNavigationProp<
   DecksStackParamList,

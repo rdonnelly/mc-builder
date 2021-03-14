@@ -1,4 +1,4 @@
-import { FactionCode, SetCode } from '../data';
+import { FactionCode, SetCode } from '@data';
 
 type EntityCode = string;
 

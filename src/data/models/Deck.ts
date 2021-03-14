@@ -2,7 +2,12 @@ import isDeepEqual from 'lodash/isEqual';
 import keyBy from 'lodash/keyBy';
 import memoizeOne from 'memoize-one';
 
-import { Card, getCard, getEligibleCards, getFilteredCards } from './Card';
+import {
+  Card,
+  getCard,
+  getEligibleCards,
+  getFilteredCards,
+} from '@data/models/Card';
 import {
   FactionCode,
   FactionCodes,
@@ -11,11 +16,11 @@ import {
   SetCodes,
   TypeCode,
   TypeCodes,
-} from '../types';
-import { IStoreDeck, IStoreDeckCard } from '../../store/types';
-import { compareCardFaction } from '../cardUtils';
-import { getFactions } from './Faction';
-import { getSets } from './Set';
+} from '@data/types';
+import { IStoreDeck, IStoreDeckCard } from '@store/types';
+import { compareCardFaction } from '@data/cardUtils';
+import { getFactions } from '@data/models/Faction';
+import { getSets } from '@data/models/Set';
 
 interface IDeckCard {
   card: Card;

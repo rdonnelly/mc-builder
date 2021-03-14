@@ -8,11 +8,11 @@ import { Provider as ReduxProvider } from 'react-redux';
 import { StatusBar } from 'react-native';
 import { ThemeProvider } from 'styled-components';
 
-import TabNavigator from './navigation/TabNavigator';
-import { AppProvider } from './context/AppContext';
-import { CardListProvider } from './context/CardListContext';
-import { colors, theme } from './styles';
-import { persistor, store } from './store';
+import TabNavigator from '@navigation/TabNavigator';
+import { AppProvider } from '@context/AppContext';
+import { CardListProvider } from '@context/CardListContext';
+import { colors, theme } from '@styles';
+import { persistor, store } from '@store';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 declare var global: { HermesInternal: null | {} };

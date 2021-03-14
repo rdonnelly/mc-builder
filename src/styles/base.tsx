@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components/native';
 import { Pressable, StyleSheet } from 'react-native';
 
-import colors from './colors';
+import colors from '@styles/colors';
 
 const Container = styled.View`
   align-items: center;

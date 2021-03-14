@@ -4,35 +4,48 @@ import styled from 'styled-components/native';
 import { CardModel } from '@data';
 import { base, colors } from '@styles';
 
-const CardDetailHeader = ({ card }: { card: CardModel }) => {
+const CardDetailHeader = ({
+  card,
+  hideTitle,
+}: {
+  card: CardModel;
+  hideTitle?: boolean;
+}) => {
   return (
     <>
-      {card.raw.subname != null ? (
-        <CardDetailInfoContainer>
-          <CardDetailInfoContainerSubtitle>
-            <CardDetailInfoContainerSubtitleText>
-              {card.raw.subname}
-            </CardDetailInfoContainerSubtitleText>
-          </CardDetailInfoContainerSubtitle>
-        </CardDetailInfoContainer>
+      {!hideTitle ? (
+        <CardDetailHeaderContainerTitle>
+          <CardDetailHeaderContainerTitleText>
+            {card.raw.name}
+          </CardDetailHeaderContainerTitleText>
+        </CardDetailHeaderContainerTitle>
       ) : null}
-      <CardDetailInfoContainer>
-        <CardDetailInfoContainerTypes>
-          <CardDetailInfoContainerTypesTextBold>
+      {card.raw.subname != null ? (
+        <CardDetailHeaderContainer>
+          <CardDetailHeaderContainerSubtitle>
+            <CardDetailHeaderContainerSubtitleText>
+              {card.raw.subname}
+            </CardDetailHeaderContainerSubtitleText>
+          </CardDetailHeaderContainerSubtitle>
+        </CardDetailHeaderContainer>
+      ) : null}
+      <CardDetailHeaderContainer>
+        <CardDetailHeaderContainerTypes>
+          <CardDetailHeaderContainerTypesTextBold>
             {`${card.typeName}.`}
-          </CardDetailInfoContainerTypesTextBold>
+          </CardDetailHeaderContainerTypesTextBold>
           {card.raw.traits ? (
-            <CardDetailInfoContainerTypesText>
+            <CardDetailHeaderContainerTypesText>
               {` ${card.raw.traits}`}
-            </CardDetailInfoContainerTypesText>
+            </CardDetailHeaderContainerTypesText>
           ) : null}
-        </CardDetailInfoContainerTypes>
-      </CardDetailInfoContainer>
+        </CardDetailHeaderContainerTypes>
+      </CardDetailHeaderContainer>
     </>
   );
 };
 
-const CardDetailInfoContainer = styled(base.Container)`
+const CardDetailHeaderContainer = styled(base.Container)`
   background-color: ${colors.lightGray};
   border-radius: 4px;
   margin-bottom: 16px;
@@ -40,25 +53,34 @@ const CardDetailInfoContainer = styled(base.Container)`
   padding-vertical: 8px;
 `;
 
-const CardDetailInfoContainerSubtitle = styled.View``;
+const CardDetailHeaderContainerTitle = styled.View``;
 
-const CardDetailInfoContainerSubtitleText = styled.Text`
+const CardDetailHeaderContainerTitleText = styled.Text`
+  color: ${colors.darkGray};
+  font-size: 24px;
+  font-weight: 900;
+  margin-bottom: 8px;
+`;
+
+const CardDetailHeaderContainerSubtitle = styled.View``;
+
+const CardDetailHeaderContainerSubtitleText = styled.Text`
   color: ${colors.darkGray};
   font-size: 15px;
   font-weight: 700;
 `;
 
-const CardDetailInfoContainerTypes = styled.View`
+const CardDetailHeaderContainerTypes = styled.View`
   flex-direction: row;
 `;
 
-const CardDetailInfoContainerTypesText = styled.Text`
+const CardDetailHeaderContainerTypesText = styled.Text`
   color: ${colors.darkGray};
   font-size: 17px;
   font-weight: 500;
 `;
 
-const CardDetailInfoContainerTypesTextBold = styled.Text`
+const CardDetailHeaderContainerTypesTextBold = styled.Text`
   color: ${colors.darkGray};
   font-size: 17px;
   font-weight: bold;

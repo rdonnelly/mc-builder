@@ -83,6 +83,7 @@ const TitleWrapper = styled.View`
 `;
 
 const Title = styled.Text`
+  color: ${colors.darkGray};
   font-size: 24px;
   font-weight: 900;
   text-align: center;

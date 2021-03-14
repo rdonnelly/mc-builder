@@ -121,7 +121,7 @@ const CardDetailScreen: React.FunctionComponent<{
   });
 
   const renderItem = ({ item: card }) => (
-    <CardDetail card={card} width={windowWidth - 32} />
+    <CardDetail card={card} hideTitle={true} width={windowWidth - 32} />
   );
 
   const viewabilityConfig = useRef({

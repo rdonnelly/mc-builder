@@ -24,7 +24,15 @@ const styles = StyleSheet.create({
   },
 });
 
-const CardDetail = ({ card, width }: { card: CardModel; width: number }) => {
+const CardDetail = ({
+  card,
+  hideTitle,
+  width,
+}: {
+  card: CardModel;
+  hideTitle?: boolean;
+  width: number;
+}) => {
   return (
     <CardDetailContainer width={width}>
       <ContainerScrollView
@@ -32,7 +40,7 @@ const CardDetail = ({ card, width }: { card: CardModel; width: number }) => {
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}
       >
-        <CardDetailHeader card={card} />
+        <CardDetailHeader card={card} hideTitle={hideTitle} />
         <CardDetailStats card={card} />
         <CardDetailText card={card} />
         <CardDetailFooter card={card} />

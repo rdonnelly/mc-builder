@@ -8,7 +8,7 @@ import DeckHeader from '@components/DeckHeader';
 import FloatingControlBar, {
   FloatingControlButtonVariant,
 } from '@components/FloatingControlBar';
-import { CardListContext } from '@context/CardListContext';
+import { DecksCardListContext } from '@context/DecksCardListContext';
 import { DeckModel, getEligibleCardListForDeck } from '@data';
 import { DeckEditScreenNavigationProp } from '@screens/Deck/DeckEditScreen';
 import { base, colors } from '@styles';
@@ -18,12 +18,12 @@ const DeckEdit: React.FunctionComponent<{
 }> = ({ deck }) => {
   const navigation = useNavigation<DeckEditScreenNavigationProp>();
 
-  const { setDeckCardList } = useContext(CardListContext);
+  const { setDecksCardList } = useContext(DecksCardListContext);
 
   useEffect(() => {
     const eligibleDeckCards = getEligibleCardListForDeck(deck);
-    setDeckCardList(eligibleDeckCards);
-  }, [deck, setDeckCardList]);
+    setDecksCardList(eligibleDeckCards);
+  }, [deck, setDecksCardList]);
 
   const handlePressDone = () => {
     if (navigation) {

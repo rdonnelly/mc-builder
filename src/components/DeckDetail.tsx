@@ -12,7 +12,7 @@ import DeckHeader from '@components/DeckHeader';
 import FloatingControlBar, {
   FloatingControlButtonVariant,
 } from '@components/FloatingControlBar';
-import { CardListContext } from '@context/CardListContext';
+import { DecksCardListContext } from '@context/DecksCardListContext';
 import { DeckModel, getCardListForDeck } from '@data';
 import { deleteDeck } from '@store/actions';
 import { base, colors } from '@styles';
@@ -22,12 +22,12 @@ const DeckDetail = ({ deck }: { deck: DeckModel }) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
-  const { setDeckCardList } = useContext(CardListContext);
+  const { setDecksCardList } = useContext(DecksCardListContext);
 
   useEffect(() => {
     const deckCardList = getCardListForDeck(deck);
-    setDeckCardList(deckCardList);
-  }, [deck, setDeckCardList]);
+    setDecksCardList(deckCardList);
+  }, [deck, setDecksCardList]);
 
   const { showActionSheetWithOptions } = useActionSheet();
   const actionSheetAnchorRef = useRef(null);

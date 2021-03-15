@@ -15,7 +15,8 @@ import FloatingControlBar, {
   FloatingControlButtonVariant,
 } from '@components/FloatingControlBar';
 import { AppContext } from '@context/AppContext';
-import { CardListContext } from '@context/CardListContext';
+import { CardsCardListContext } from '@context/CardsCardListContext';
+import { DecksCardListContext } from '@context/DecksCardListContext';
 import { CardModel } from '@data';
 import { CardStackParamList } from '@navigation/CardsStackNavigator';
 import { addCardToDeck, removeCardFromDeck } from '@store/actions';
@@ -26,12 +27,13 @@ const CardDetailScreen: React.FunctionComponent<{
   route: RouteProp<CardStackParamList, 'CardDetail'>;
 }> = ({ navigation, route }) => {
   let cardList: CardModel[];
-  const cardListContext = useContext(CardListContext);
+  const cardsCardListContext = useContext(CardsCardListContext);
+  const decksCardListContext = useContext(DecksCardListContext);
   if (route.params.type === 'card') {
-    cardList = cardListContext.cardList;
+    cardList = cardsCardListContext.cardList;
   }
   if (route.params.type === 'deck') {
-    cardList = cardListContext.deckCardList;
+    cardList = decksCardListContext.cardList;
   }
 
   const { windowWidth } = useContext(AppContext);

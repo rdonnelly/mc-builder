@@ -14,7 +14,7 @@ import CardListItem from '@components/CardListItem';
 import FloatingControlBar, {
   FloatingControlButtonVariant,
 } from '@components/FloatingControlBar';
-import { CardListContext } from '@context/CardListContext';
+import { CardsCardListContext } from '@context/CardsCardListContext';
 import {
   CardModel,
   FactionCode,
@@ -57,7 +57,7 @@ const CardListScreen = ({
 
   const searchInputRef = useRef(null);
 
-  const { setCardList } = useContext(CardListContext);
+  const { setCardsCardList } = useContext(CardsCardListContext);
 
   let filterName = null;
   if (filter && filterCode) {
@@ -101,13 +101,13 @@ const CardListScreen = ({
   const handlePressItem = useCallback(
     (code: string) => {
       if (navigation) {
-        setCardList(cards);
+        setCardsCardList(cards);
         navigation.navigate('CardDetail', {
           code,
         });
       }
     },
-    [navigation, setCardList, cards],
+    [navigation, setCardsCardList, cards],
   );
 
   const handleSubmitFromSearch = (event) => {

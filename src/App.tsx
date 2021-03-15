@@ -9,7 +9,8 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { ThemeProvider } from 'styled-components';
 
 import { AppProvider } from '@context/AppContext';
-import { CardListProvider } from '@context/CardListContext';
+import { CardsCardListProvider } from '@context/CardsCardListContext';
+import { DecksCardListProvider } from '@context/DecksCardListContext';
 import TabNavigator from '@navigation/TabNavigator';
 import { persistor, store } from '@store';
 import { colors, theme } from '@styles';
@@ -24,17 +25,19 @@ export default function AppContainer() {
 
   return (
     <AppProvider>
-      <CardListProvider>
-        <AppearanceProvider>
-          <ReduxProvider store={store}>
-            <PersistGate persistor={persistor}>
-              <ActionSheetProvider>
-                <App />
-              </ActionSheetProvider>
-            </PersistGate>
-          </ReduxProvider>
-        </AppearanceProvider>
-      </CardListProvider>
+      <CardsCardListProvider>
+        <DecksCardListProvider>
+          <AppearanceProvider>
+            <ReduxProvider store={store}>
+              <PersistGate persistor={persistor}>
+                <ActionSheetProvider>
+                  <App />
+                </ActionSheetProvider>
+              </PersistGate>
+            </ReduxProvider>
+          </AppearanceProvider>
+        </DecksCardListProvider>
+      </CardsCardListProvider>
     </AppProvider>
   );
 }

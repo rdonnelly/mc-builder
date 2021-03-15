@@ -5,6 +5,7 @@ export {
   getFilteredCards,
 } from '@data/models/Card';
 export {
+  createDeckCardSections,
   Deck as DeckModel,
   getCardListForDeck,
   getEligibleCardListForDeck,

@@ -1,66 +1,36 @@
 import { useActionSheet } from '@expo/react-native-action-sheet';
 import { useNavigation } from '@react-navigation/native';
-import React, { useContext, useRef } from 'react';
-import {
-  Alert,
-  findNodeHandle,
-  Platform,
-  SectionList,
-  StyleSheet,
-} from 'react-native';
+import React, { useContext, useEffect, useRef } from 'react';
+import { Alert, findNodeHandle, Platform } from 'react-native';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components/native';
 
-import CardListItem from '@components/CardListItem';
+import DeckDetailList from '@components/DeckDetailList';
 import DeckHeader from '@components/DeckHeader';
 import FloatingControlBar, {
   FloatingControlButtonVariant,
 } from '@components/FloatingControlBar';
 import { CardListContext } from '@context/CardListContext';
-import { CardModel, DeckModel, getCardListForDeck } from '@data';
+import { DeckModel, getCardListForDeck } from '@data';
 import { deleteDeck } from '@store/actions';
 import { base, colors } from '@styles';
 import { setClipboard } from '@utils/Clipboard';
 
-const DeckDetail: React.FunctionComponent<{
-  deck: DeckModel;
-}> = ({ deck }) => {
+const DeckDetail = ({ deck }: { deck: DeckModel }) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
   const { setDeckCardList } = useContext(CardListContext);
 
+  useEffect(() => {
+    const deckCardList = getCardListForDeck(deck);
+    setDeckCardList(deckCardList);
+  }, [deck, setDeckCardList]);
+
   const { showActionSheetWithOptions } = useActionSheet();
   const actionSheetAnchorRef = useRef(null);
-
-  const filteredDeckCards = getCardListForDeck(deck);
-
-  const handlePressItem = (code: string) => {
-    if (navigation) {
-      setDeckCardList(filteredDeckCards);
-      navigation.navigate('DeckDetailCardDetail', {
-        code,
-      });
-    }
-  };
-
-  const renderSectionHeader = ({ section }) => (
-    <SectionHeader>
-      <SectionHeaderText>{section.title}</SectionHeaderText>
-      <SectionHeaderText>{section.count}</SectionHeaderText>
-    </SectionHeader>
-  );
-
-  const renderCard = ({ item: card }) => (
-    <CardListItem
-      card={card.card}
-      count={card.count || 0}
-      onPressItem={() => handlePressItem(card.code)}
-      showPackInfo={false}
-    />
-  );
 
   const handleEditDeck = () => {
     if (navigation) {
@@ -164,14 +134,9 @@ const DeckDetail: React.FunctionComponent<{
 
   return (
     <Container>
-      <DeckHeader deck={deck} onPressIdentity={handlePressItem} />
-      <CardList
-        sections={deck.sectionedCards}
-        renderItem={renderCard}
-        renderSectionHeader={renderSectionHeader}
-        keyExtractor={(item: CardModel) => item.code}
-        contentContainerStyle={{ paddingBottom: 80 }}
-      />
+      <DeckHeader deck={deck} />
+      <DeckDetailList deck={deck} />
+
       <FloatingControlBar>
         <FloatingControlBar.FlexButton
           onPress={() => handleEditDeck()}
@@ -199,27 +164,6 @@ const DeckDetail: React.FunctionComponent<{
 const Container = styled(base.Container)`
   background-color: ${colors.lightGray};
   flex-direction: column;
-`;
-
-const CardList = styled(SectionList)`
-  flex: 1 1 auto;
-  width: 100%;
-`;
-
-const SectionHeader = styled.View`
-  background-color: ${colors.darkGray};
-  border-bottom-color: ${colors.lightGrayDark};
-  border-bottom-width: ${StyleSheet.hairlineWidth}px;
-  flex-direction: row;
-  justify-content: space-between;
-  padding-horizontal: 16px;
-  padding-vertical: 4px;
-`;
-
-const SectionHeaderText = styled.Text`
-  color: ${colors.lightGray};
-  font-weight: 800;
-  text-transform: uppercase;
 `;
 
 export default DeckDetail;

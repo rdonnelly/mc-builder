@@ -85,7 +85,6 @@ export const addCardToDeck = (deckCode: string, card: CardModel): AppThunk => (
   dispatch,
   getState,
 ) => {
-  console.log('start');
   const deck = getState().root.decks.entities[deckCode];
   const deckCardEntities = getState().root.deckCards.entities;
   const deckCardCode = deck.deckCardCodes.find(

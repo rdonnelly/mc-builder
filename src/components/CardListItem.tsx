@@ -146,10 +146,12 @@ const CardListItem = ({
               <CardControls>
                 <CardCountIncrementButton
                   onPress={() => increment()}
-                  inactive={incrementIsDisabled}
+                  active={!incrementIsDisabled}
                 >
                   {({ pressed: cardControlPressed }) => (
-                    <CardCountButtonBackground pressed={cardControlPressed}>
+                    <CardCountIncrementButtonBackground
+                      active={cardControlPressed && !incrementIsDisabled}
+                    >
                       <FontAwesomeIcon
                         name="plus"
                         color={
@@ -162,15 +164,17 @@ const CardListItem = ({
                         size={16}
                         solid
                       />
-                    </CardCountButtonBackground>
+                    </CardCountIncrementButtonBackground>
                   )}
                 </CardCountIncrementButton>
                 <CardCountDecrementButton
                   onPress={() => decrement()}
-                  inactive={decrementIsDisabled}
+                  active={!decrementIsDisabled}
                 >
                   {({ pressed: cardControlPressed }) => (
-                    <CardCountButtonBackground pressed={cardControlPressed}>
+                    <CardCountDecrementButtonBackground
+                      active={cardControlPressed && !decrementIsDisabled}
+                    >
                       <FontAwesomeIcon
                         name="minus"
                         color={
@@ -183,7 +187,7 @@ const CardListItem = ({
                         size={16}
                         solid
                       />
-                    </CardCountButtonBackground>
+                    </CardCountDecrementButtonBackground>
                   )}
                 </CardCountDecrementButton>
               </CardControls>
@@ -282,44 +286,59 @@ const CardControls = styled.View`
 `;
 
 const CardCountButton = styled(Pressable)<{
-  inactive?: boolean;
+  active: boolean;
 }>`
   align-items: center;
   background-color: ${(props) =>
-    props.inactive ? colors.lightGray : colors.white};
+    props.active ? colors.white : colors.lightGray};
   border: 2px solid ${colors.lightGrayDark};
   justify-content: center;
   height: 36px;
   width: 36px;
 `;
 
+const CardCountButtonBackground = styled.View<{
+  active: boolean;
+}>`
+  align-items: center;
+  background-color: ${(props) =>
+    props.active ? colors.lightGray : 'transparent'};
+  flex: 1 1 auto;
+  height: 100%;
+  justify-content: center;
+  width: 100%;
+`;
+
 const CardCountIncrementButton = styled(CardCountButton)<{
-  inactive?: boolean;
+  active: boolean;
 }>`
   border-top-left-radius: 8px;
   border-bottom-left-radius: 8px;
   border-right-width: 1px;
 `;
 
+const CardCountIncrementButtonBackground = styled(CardCountButtonBackground)<{
+  active: boolean;
+}>`
+  background-color: ${(props) => (props.active ? colors.green : 'transparent')};
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+`;
+
 const CardCountDecrementButton = styled(CardCountButton)<{
-  inactive?: boolean;
+  active: boolean;
 }>`
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
   border-left-width: 1px;
 `;
 
-const CardCountButtonBackground = styled.View<{
-  pressed: boolean;
+const CardCountDecrementButtonBackground = styled(CardCountButtonBackground)<{
+  active: boolean;
 }>`
-  align-items: center;
-  background-color: ${(props) =>
-    props.pressed ? colors.lightGray : 'transparent'};
-  border-radius: 8px;
-  flex: 1 1 auto;
-  height: 100%;
-  justify-content: center;
-  width: 100%;
+  background-color: ${(props) => (props.active ? colors.red : 'transparent')};
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
 `;
 
 const ListChevronWrapper = styled(base.ListChevronWrapper)``;

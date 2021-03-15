@@ -25,7 +25,7 @@ import {
   TypeCodes,
 } from '@data/types';
 
-const cards = [].concat(
+const cards: ICardRaw[] = [].concat(
   require('marvelsdb-json-data/pack/ant_encounter.json'),
   require('marvelsdb-json-data/pack/ant.json'),
   require('marvelsdb-json-data/pack/bkw_encounter.json'),
@@ -238,6 +238,13 @@ export const getCards = memoizeOne(() =>
   cards.map((raw) => new Card(raw)).sort(compareCardCode),
 );
 
+export const getCardsMap = memoizeOne(() =>
+  getCards().reduce((map, card) => {
+    map[card.code] = card;
+    return map;
+  }, {}),
+);
+
 export const getFilteredCards = memoizeOne(
   ({
     searchTerm,
@@ -374,6 +381,7 @@ export const getEligibleCards = memoizeOne(
   isDeepEqual, // TODO remove deep equal
 );
 
+// export const getCard = (code: string) => cardsMap[code];
 export const getCard = memoizeOne((code: string) =>
   getCards().find((card) => card.code === code),
 );

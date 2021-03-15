@@ -1,11 +1,11 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useCallback } from 'react';
+import React, { memo, useCallback } from 'react';
 import { SectionList, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 
 import CardListItem from '@components/CardListItem';
 import { CardModel, DeckModel } from '@data';
-import { base, colors } from '@styles';
+import { colors } from '@styles';
 
 const styles = StyleSheet.create({
   contentContainerStyle: {
@@ -13,21 +13,18 @@ const styles = StyleSheet.create({
   },
 });
 
-const DeckEditList: React.FunctionComponent<{
-  deck: DeckModel;
-}> = ({ deck }) => {
+const DeckDetailList = ({ deck }: { deck: DeckModel }) => {
   const navigation = useNavigation();
 
   const handlePressItem = useCallback(
     (code: string) => {
       if (navigation) {
-        navigation.navigate('DeckEditCardDetail', {
+        navigation.navigate('DeckDetailCardDetail', {
           code,
-          deckCode: deck.code,
         });
       }
     },
-    [navigation, deck.code],
+    [navigation],
   );
 
   const renderSectionHeader = ({ section }) => (
@@ -43,27 +40,20 @@ const DeckEditList: React.FunctionComponent<{
       count={card.count || 0}
       deckCode={deck.code}
       showPackInfo={false}
-      showEditControls={true}
       onPressItem={handlePressItem}
     />
   );
 
   return (
-    <Container>
-      <CardList
-        sections={deck.sectionedEligibleCards}
-        renderItem={renderCard}
-        renderSectionHeader={renderSectionHeader}
-        keyExtractor={(item: CardModel) => item.code}
-        contentContainerStyle={styles.contentContainerStyle}
-      />
-    </Container>
+    <CardList
+      sections={deck.sectionedCards}
+      renderItem={renderCard}
+      renderSectionHeader={renderSectionHeader}
+      keyExtractor={(item: CardModel) => item.code}
+      contentContainerStyle={styles.contentContainerStyle}
+    />
   );
 };
-
-const Container = styled(base.Container)`
-  flex-direction: column;
-`;
 
 const CardList = styled(SectionList)`
   flex: 1 1 auto;
@@ -86,4 +76,4 @@ const SectionHeaderText = styled.Text`
   text-transform: uppercase;
 `;
 
-export default DeckEditList;
+export default memo(DeckDetailList);

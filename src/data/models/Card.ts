@@ -349,12 +349,14 @@ export const getFilteredCards = memoizeOne(
 
     return filteredCards;
   },
+  isDeepEqual,
 );
 
 export const getEligibleCards = memoizeOne(
-  (factionCode: string[], codes: string[]) =>
+  (factionCodes: FactionCode[], setCode: SetCode) =>
     getCards()
       .filter((card) => {
+        // exclude cards that are not an Ally, Event, Resource, Support, or Upgrade
         if (
           ![
             TypeCodes.ALLY,
@@ -367,10 +369,14 @@ export const getEligibleCards = memoizeOne(
           return false;
         }
 
+        const isInFaction = [...factionCodes, FactionCodes.BASIC].includes(
+          card.factionCode,
+        );
+
+        // exclude cards that are not in faction, do not belong to hero
         if (
-          (![...factionCode, FactionCodes.BASIC].includes(card.factionCode) ||
-            card.setCode != null) &&
-          !codes.includes(card.code)
+          (!isInFaction || card.setCode != null) &&
+          card.setCode !== setCode
         ) {
           return false;
         }
@@ -378,10 +384,7 @@ export const getEligibleCards = memoizeOne(
         return true;
       })
       .sort(compareCardFaction),
-  isDeepEqual, // TODO remove deep equal
+  isDeepEqual,
 );
 
-// export const getCard = (code: string) => cardsMap[code];
-export const getCard = memoizeOne((code: string) =>
-  getCards().find((card) => card.code === code),
-);
+export const getCard = (code: string) => getCardsMap()[code];

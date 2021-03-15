@@ -46,7 +46,7 @@ const DeckDetailList = ({ deck }: { deck: DeckModel }) => {
 
   return (
     <CardList
-      sections={deck.sectionedCards}
+      sections={deck.cardsSectioned}
       renderItem={renderCard}
       renderSectionHeader={renderSectionHeader}
       keyExtractor={(item: CardModel) => item.code}

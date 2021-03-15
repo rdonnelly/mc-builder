@@ -103,7 +103,7 @@ export class Deck {
   }
 
   get cards(): IDeckCard[] {
-    return Object.values(this.rawCards)
+    return this.rawCards
       .reduce((acc, deckCard) => {
         const card = getCard(deckCard.cardCode);
 
@@ -128,17 +128,20 @@ export class Deck {
   }
 
   get extraCards(): IDeckCard[] {
-    let extraCards = getFilteredCards({
+    const extraCards = [];
+
+    const encounterCards = getFilteredCards({
       filter: FilterCodes.SET,
       filterCode: [this.setCode, `${this.setCode}_nemesis` as SetCode],
     }).filter((card) => card.factionCode === FactionCodes.ENCOUNTER);
+    extraCards.push(...encounterCards);
 
     if (this.setCode === SetCodes.DOCTOR_STRANGE) {
       const invocationCards = getFilteredCards({
         filter: FilterCodes.SET,
         filterCode: SetCodes.INVOCATION,
       });
-      extraCards = extraCards.concat(invocationCards);
+      extraCards.push(...invocationCards);
     }
 
     return extraCards.map((card) => ({
@@ -152,19 +155,19 @@ export class Deck {
     }));
   }
 
-  get sectionedCards(): IDeckCardSection[] {
+  get cardsSectioned(): IDeckCardSection[] {
     const cards = [].concat(this.cards, this.extraCards);
-    return createDeckCardSections(cards);
+    return createDeckCardSections(cards, {
+      includeExtra: true,
+      includeIdentity: true,
+    });
   }
 
   get eligibleCards(): IDeckCard[] {
     const cards = this.cards;
     const cardsObj = keyBy(cards, (card) => card.code);
 
-    return getEligibleCards(
-      this.aspectCodes,
-      cards.map((card) => card.code),
-    ).map((card) => ({
+    return getEligibleCards(this.aspectCodes, this.setCode).map((card) => ({
       card,
       code: card.code,
       name: card.name,
@@ -175,63 +178,9 @@ export class Deck {
     }));
   }
 
-  get sectionedEligibleCards(): IDeckCardSection[] {
-    // TODO use createDeckCardSections
+  get eligibleCardsSectioned(): IDeckCardSection[] {
     const cards = this.eligibleCards;
-    const sections: IDeckCardSections = {
-      hero: { code: 'hero', title: 'Hero', count: 0, data: [] },
-      aspect: {
-        code: 'aspect',
-        title: 'Aspect',
-        count: 0,
-        data: [],
-      },
-      basic: {
-        code: 'basic',
-        title: 'Basic',
-        count: 0,
-        data: [],
-      },
-    };
-
-    cards.forEach((card) => {
-      switch (true) {
-        case card.typeCode === TypeCodes.HERO ||
-          card.typeCode === TypeCodes.ALTER_EGO: {
-          // IDENTITY
-          break;
-        }
-        case card.factionCode === FactionCodes.HERO &&
-          card.setCode === SetCodes.INVOCATION: {
-          // INVOCATION
-          break;
-        }
-        case card.factionCode === FactionCodes.ENCOUNTER: {
-          // ENCOUNTER (OBLIGATION or NEMESIS)
-          break;
-        }
-        case card.factionCode === FactionCodes.HERO: {
-          sections.hero.data.push(card);
-          sections.hero.count += card.count || 0;
-          break;
-        }
-        case card.factionCode === FactionCodes.BASIC: {
-          sections.basic.data.push(card);
-          sections.basic.count += card.count || 0;
-          break;
-        }
-        case card.factionCode === FactionCodes.ENCOUNTER: {
-          break;
-        }
-        default: {
-          sections.aspect.data.push(card);
-          sections.aspect.count += card.count || 0;
-          break;
-        }
-      }
-    });
-
-    return Object.values(sections);
+    return createDeckCardSections(cards, { includeEmpty: true });
   }
 
   get identityCards(): Card[] {
@@ -251,23 +200,23 @@ export class Deck {
   }
 
   get prettyText(): string {
-    const sectionedCards = this.sectionedCards;
+    const cardsSectioned = this.cardsSectioned;
 
-    const heroCardsText = sectionedCards
+    const heroCardsText = cardsSectioned
       .find((section) => section.code === 'hero')
       ?.data.map(
         (deckCard) =>
           `${deckCard.count}x ${deckCard.name} (${deckCard.card.packCode})`,
       )
       .join('\n');
-    const aspectCardsText = sectionedCards
+    const aspectCardsText = cardsSectioned
       .find((section) => section.code === 'aspect')
       ?.data.map(
         (deckCard) =>
           `${deckCard.count}x ${deckCard.name} (${deckCard.card.packCode})`,
       )
       .join('\n');
-    const basicCardsText = sectionedCards
+    const basicCardsText = cardsSectioned
       .find((section) => section.code === 'basic')
       ?.data.map(
         (deckCard) =>
@@ -320,7 +269,6 @@ export const getCardListForDeck = memoizeOne(
     return [].concat(deck.cards, deck.extraCards).map((card) => card.card);
   },
   (newArgs, lastArgs) => {
-    // TODO restricted cards?
     return (
       newArgs[0].code === lastArgs[0].code &&
       isDeepEqual(newArgs[0].rawCards, lastArgs[0].rawCards)
@@ -333,7 +281,6 @@ export const getEligibleCardListForDeck = memoizeOne(
     return deck.eligibleCards.map((card) => card.card);
   },
   (newArgs, lastArgs) => {
-    // TODO restricted cards?
     return (
       newArgs[0].code === lastArgs[0].code &&
       isDeepEqual(newArgs[0].rawCards, lastArgs[0].rawCards)
@@ -343,37 +290,42 @@ export const getEligibleCardListForDeck = memoizeOne(
 
 export const createDeckCardSections = (
   deckCards: IDeckCard[],
+  options: {
+    includeEmpty?: boolean;
+    includeExtra?: boolean;
+    includeIdentity?: boolean;
+  },
 ): IDeckCardSection[] => {
   const sections: IDeckCardSections = {
     identity: {
       code: 'identity',
       title: 'Identity',
-      count: 0,
+      count: null,
       data: [],
     },
-    hero: { code: 'hero', title: 'Hero', count: 0, data: [] },
+    hero: { code: 'hero', title: 'Hero', count: null, data: [] },
     aspect: {
       code: 'aspect',
       title: 'Aspect',
-      count: 0,
+      count: null,
       data: [],
     },
     basic: {
       code: 'basic',
       title: 'Basic',
-      count: 0,
+      count: null,
       data: [],
     },
     invocation: {
       code: 'invocation',
       title: 'Invocation',
-      count: 0,
+      count: null,
       data: [],
     },
     encounter: {
       code: 'encounter',
       title: 'Encounter',
-      count: 0,
+      count: null,
       data: [],
     },
   };
@@ -382,19 +334,25 @@ export const createDeckCardSections = (
     switch (true) {
       case card.typeCode === TypeCodes.HERO ||
         card.typeCode === TypeCodes.ALTER_EGO: {
-        sections.identity.data.push(card);
-        sections.identity.count += card.count || 0;
+        if (options.includeIdentity) {
+          sections.identity.data.push(card);
+          sections.identity.count += card.count || 0;
+        }
         break;
       }
       case card.factionCode === FactionCodes.HERO &&
         card.setCode === SetCodes.INVOCATION: {
-        sections.invocation.data.push(card);
-        sections.invocation.count += card.count || 0;
+        if (options.includeExtra) {
+          sections.invocation.data.push(card);
+          sections.invocation.count += card.count || 0;
+        }
         break;
       }
       case card.factionCode === FactionCodes.ENCOUNTER: {
-        sections.encounter.data.push(card);
-        sections.encounter.count += card.count || 0;
+        if (options.includeExtra) {
+          sections.encounter.data.push(card);
+          sections.encounter.count += card.count || 0;
+        }
         break;
       }
       case card.factionCode === FactionCodes.HERO: {
@@ -414,6 +372,10 @@ export const createDeckCardSections = (
       }
     }
   });
+
+  if (options.includeEmpty) {
+    return Object.values(sections).filter((section) => section.count != null);
+  }
 
   return Object.values(sections).filter((section) => section.count > 0);
 };

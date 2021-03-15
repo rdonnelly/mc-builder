@@ -51,7 +51,7 @@ const DeckEditList: React.FunctionComponent<{
   return (
     <Container>
       <CardList
-        sections={deck.sectionedEligibleCards}
+        sections={deck.eligibleCardsSectioned}
         renderItem={renderCard}
         renderSectionHeader={renderSectionHeader}
         keyExtractor={(item: CardModel) => item.code}

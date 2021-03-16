@@ -1,6 +1,6 @@
 import { useActionSheet } from '@expo/react-native-action-sheet';
 import { useNavigation } from '@react-navigation/native';
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { Alert, findNodeHandle, Platform } from 'react-native';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
@@ -12,8 +12,7 @@ import DeckHeader from '@components/DeckHeader';
 import FloatingControlBar, {
   FloatingControlButtonVariant,
 } from '@components/FloatingControlBar';
-import { DecksCardListContext } from '@context/DecksCardListContext';
-import { DeckModel, getCardListForDeck } from '@data';
+import { DeckModel } from '@data';
 import { deleteDeck } from '@store/actions';
 import { base, colors } from '@styles';
 import { setClipboard } from '@utils/Clipboard';
@@ -21,13 +20,6 @@ import { setClipboard } from '@utils/Clipboard';
 const DeckDetail = ({ deck }: { deck: DeckModel }) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-
-  const { setDecksCardList } = useContext(DecksCardListContext);
-
-  useEffect(() => {
-    const deckCardList = getCardListForDeck(deck);
-    setDecksCardList(deckCardList);
-  }, [deck, setDecksCardList]);
 
   const { showActionSheetWithOptions } = useActionSheet();
   const actionSheetAnchorRef = useRef(null);

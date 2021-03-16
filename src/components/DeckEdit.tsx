@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useContext, useEffect } from 'react';
+import React from 'react';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import styled from 'styled-components/native';
 
@@ -8,8 +8,7 @@ import DeckHeader from '@components/DeckHeader';
 import FloatingControlBar, {
   FloatingControlButtonVariant,
 } from '@components/FloatingControlBar';
-import { DecksCardListContext } from '@context/DecksCardListContext';
-import { DeckModel, getEligibleCardListForDeck } from '@data';
+import { DeckModel } from '@data';
 import { DeckEditScreenNavigationProp } from '@screens/Deck/DeckEditScreen';
 import { base, colors } from '@styles';
 
@@ -17,13 +16,6 @@ const DeckEdit: React.FunctionComponent<{
   deck: DeckModel;
 }> = ({ deck }) => {
   const navigation = useNavigation<DeckEditScreenNavigationProp>();
-
-  const { setDecksCardList } = useContext(DecksCardListContext);
-
-  useEffect(() => {
-    const eligibleDeckCards = getEligibleCardListForDeck(deck);
-    setDecksCardList(eligibleDeckCards);
-  }, [deck, setDecksCardList]);
 
   const handlePressDone = () => {
     if (navigation) {

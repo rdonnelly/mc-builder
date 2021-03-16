@@ -1,10 +1,15 @@
-import { RouteProp } from '@react-navigation/native';
+import { RouteProp, useFocusEffect } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { useEffect } from 'react';
+import React, { useCallback, useContext, useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
 import DeckEdit from '@components/DeckEdit';
-import { DeckModel } from '@data';
+import { DecksCardListContext } from '@context/DecksCardListContext';
+import {
+  DeckModel,
+  getCardListForDeck,
+  getEligibleCardListForDeck,
+} from '@data';
 import { DecksStackParamList } from '@navigation/DecksStackNavigator';
 import { StoreState } from '@store';
 
@@ -17,6 +22,13 @@ const DeckEditScreen: React.FunctionComponent<{
   navigation: DeckEditScreenNavigationProp;
   route: RouteProp<DecksStackParamList, 'DeckEdit'>;
 }> = ({ navigation, route }) => {
+  useEffect(() => {
+    navigation.setOptions({
+      headerTitle: 'Edit Deck',
+      headerLeft: () => null,
+    });
+  }, [navigation]);
+
   const code = route.params.code;
 
   const deck = useSelector(
@@ -29,14 +41,20 @@ const DeckEditScreen: React.FunctionComponent<{
     ),
   );
 
-  const deckModel = new DeckModel(deck, deckCardEntities);
+  const deckModel = useMemo(() => new DeckModel(deck, deckCardEntities), [
+    deck,
+    deckCardEntities,
+  ]);
 
-  useEffect(() => {
-    navigation.setOptions({
-      headerTitle: 'Edit Deck',
-      headerLeft: () => null,
-    });
-  }, [navigation]);
+  const { setDecksCardList } = useContext(DecksCardListContext);
+
+  useFocusEffect(
+    useCallback(() => {
+      console.log('set edit list');
+      const eligibleDeckCards = getEligibleCardListForDeck(deckModel);
+      setDecksCardList(eligibleDeckCards);
+    }, [deckModel, setDecksCardList]),
+  );
 
   return <DeckEdit deck={deckModel} />;
 };

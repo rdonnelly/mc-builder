@@ -1,9 +1,10 @@
-import { RouteProp } from '@react-navigation/native';
-import React from 'react';
+import { RouteProp, useFocusEffect } from '@react-navigation/native';
+import React, { useCallback, useContext, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
 import DeckDetail from '@components/DeckDetail';
-import { DeckModel } from '@data';
+import { DecksCardListContext } from '@context/DecksCardListContext';
+import { DeckModel, getCardListForDeck } from '@data';
 import { DecksStackParamList } from '@navigation/DecksStackNavigator';
 import { StoreState } from '@store';
 
@@ -22,7 +23,20 @@ const DeckDetailScreen: React.FunctionComponent<{
     ),
   );
 
-  const deckModel = new DeckModel(deck, deckCardEntities);
+  const deckModel = useMemo(() => new DeckModel(deck, deckCardEntities), [
+    deck,
+    deckCardEntities,
+  ]);
+
+  const { setDecksCardList } = useContext(DecksCardListContext);
+
+  useFocusEffect(
+    useCallback(() => {
+      console.log('set detail list');
+      const deckCardList = getCardListForDeck(deckModel);
+      setDecksCardList(deckCardList);
+    }, [deckModel, setDecksCardList]),
+  );
 
   return <DeckDetail deck={deckModel} />;
 };

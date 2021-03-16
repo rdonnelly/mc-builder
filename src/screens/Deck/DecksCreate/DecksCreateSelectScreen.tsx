@@ -7,8 +7,8 @@ import styled from 'styled-components/native';
 
 import { DecksCreateContext } from '@context/DecksCreateContext';
 import { FactionCode, SetCode, SetCodes } from '@data';
-import { getPrimaryFactions } from '@data/models/Faction';
-import { getHeroSets } from '@data/models/Set';
+import { Faction, getPrimaryFactions } from '@data/models/Faction';
+import { getHeroSets, Set } from '@data/models/Set';
 import { DecksCreateStackParamList } from '@navigation/DecksCreateStackNavigator';
 import { base, colors } from '@styles';
 
@@ -111,7 +111,7 @@ const DecksCreateSelectScreen: React.FunctionComponent<{
     <Container paddingBottom={insets.bottom}>
       <FlatList
         data={items}
-        keyExtractor={(item) => item.code}
+        keyExtractor={(item: Faction | Set) => item.code}
         renderItem={renderItem}
       />
     </Container>

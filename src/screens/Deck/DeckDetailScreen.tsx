@@ -32,7 +32,6 @@ const DeckDetailScreen: React.FunctionComponent<{
 
   useFocusEffect(
     useCallback(() => {
-      console.log('set detail list');
       const deckCardList = getCardListForDeck(deckModel);
       setDecksCardList(deckCardList);
     }, [deckModel, setDecksCardList]),

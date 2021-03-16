@@ -1,7 +1,13 @@
 import { useActionSheet } from '@expo/react-native-action-sheet';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { findNodeHandle, Linking, Platform, Pressable } from 'react-native';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import { InAppBrowser } from 'react-native-inappbrowser-reborn';
@@ -29,6 +35,7 @@ const CardDetailScreen: React.FunctionComponent<{
   let cardList: CardModel[];
   const cardsCardListContext = useContext(CardsCardListContext);
   const decksCardListContext = useContext(DecksCardListContext);
+
   if (route.params.type === 'card') {
     cardList = cardsCardListContext.cardList;
   }
@@ -47,50 +54,7 @@ const CardDetailScreen: React.FunctionComponent<{
   );
   const activeCard = cardList[activeCardCodeIndex];
 
-  useEffect(() => {
-    navigation.setOptions({
-      headerBackTitleVisible: false,
-      headerRight: () => {
-        return (
-          <Pressable onPress={() => handleMenuOpen()}>
-            {({ pressed }) => (
-              <FontAwesomeIcon
-                ref={actionSheetAnchorRef}
-                name="exclamation-circle"
-                color={pressed ? colors.whiteTranslucent : colors.white}
-                size={24}
-              />
-            )}
-          </Pressable>
-        );
-      },
-      headerTitle: activeCard?.name,
-    });
-  }, [navigation, activeCard?.name]);
-
-  const handleMenuOpen = () => {
-    ReactNativeHapticFeedback.trigger('impactLight');
-    showActionSheetWithOptions(
-      {
-        options: ['Close', 'Report a Card Issue'],
-        cancelButtonIndex: 0,
-        anchor:
-          Platform.OS === 'ios'
-            ? findNodeHandle(actionSheetAnchorRef.current)
-            : null,
-      },
-      (buttonIndex) => {
-        switch (buttonIndex) {
-          case 1: {
-            handleReport();
-            break;
-          }
-        }
-      },
-    );
-  };
-
-  const handleReport = async () => {
+  const handleReport = useCallback(async () => {
     const url = encodeURI(
       `https://github.com/zzorba/marvelsdb-json-data/issues/new?title=Card Data Issue: ${cardList[activeCardCodeIndex].name} (${activeCardCode})&body=<!-- What issue do you see with the card data? -->`,
     );
@@ -114,7 +78,50 @@ const CardDetailScreen: React.FunctionComponent<{
     } catch (error) {
       Linking.openURL(url);
     }
-  };
+  }, [activeCardCode, activeCardCodeIndex, cardList]);
+
+  const handleMenuOpen = useCallback(() => {
+    ReactNativeHapticFeedback.trigger('impactLight');
+    showActionSheetWithOptions(
+      {
+        options: ['Close', 'Report a Card Issue'],
+        cancelButtonIndex: 0,
+        anchor:
+          Platform.OS === 'ios'
+            ? findNodeHandle(actionSheetAnchorRef.current)
+            : null,
+      },
+      (buttonIndex) => {
+        switch (buttonIndex) {
+          case 1: {
+            handleReport();
+            break;
+          }
+        }
+      },
+    );
+  }, [showActionSheetWithOptions, handleReport]);
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerBackTitleVisible: false,
+      headerRight: () => {
+        return (
+          <Pressable onPress={() => handleMenuOpen()}>
+            {({ pressed }) => (
+              <FontAwesomeIcon
+                ref={actionSheetAnchorRef}
+                name="exclamation-circle"
+                color={pressed ? colors.whiteTranslucent : colors.white}
+                size={24}
+              />
+            )}
+          </Pressable>
+        );
+      },
+      headerTitle: activeCard?.name,
+    });
+  }, [navigation, activeCard?.name, handleMenuOpen]);
 
   const getItemLayout = (_data: CardModel[], index: number) => ({
     length: windowWidth - 32,

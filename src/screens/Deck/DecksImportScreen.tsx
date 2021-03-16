@@ -4,7 +4,7 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { nanoid } from 'nanoid';
 import React from 'react';
-import { Alert, ListRenderItem } from 'react-native';
+import { Alert, ListRenderItem, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components/native';
@@ -26,6 +26,12 @@ import {
 import { DecksStackParamList } from '@navigation/DecksStackNavigator';
 import { setUpNewDeck } from '@store/actions';
 import { base, colors } from '@styles';
+
+const styles = StyleSheet.create({
+  contentContainerStyle: {
+    paddingBottom: 48,
+  },
+});
 
 const DecksImportFormScreen: React.FunctionComponent<{
   navigation: StackNavigationProp<DecksStackParamList, 'DecksImport'>;
@@ -163,7 +169,7 @@ const DecksImportFormScreen: React.FunctionComponent<{
         renderItem={renderCard}
         data={[].concat(setCards, filteredDeckCards)}
         keyExtractor={(card: CardModel) => card.code}
-        contentContainerStyle={{ paddingBottom: 48 }}
+        contentContainerStyle={styles.contentContainerStyle}
       />
       <FloatingControlBar>
         <FloatingControlBar.FlexButton

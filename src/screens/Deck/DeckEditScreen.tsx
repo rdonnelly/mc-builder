@@ -5,11 +5,7 @@ import { useSelector } from 'react-redux';
 
 import DeckEdit from '@components/DeckEdit';
 import { DecksCardListContext } from '@context/DecksCardListContext';
-import {
-  DeckModel,
-  getCardListForDeck,
-  getEligibleCardListForDeck,
-} from '@data';
+import { DeckModel, getEligibleCardListForDeck } from '@data';
 import { DecksStackParamList } from '@navigation/DecksStackNavigator';
 import { StoreState } from '@store';
 
@@ -50,7 +46,6 @@ const DeckEditScreen: React.FunctionComponent<{
 
   useFocusEffect(
     useCallback(() => {
-      console.log('set edit list');
       const eligibleDeckCards = getEligibleCardListForDeck(deckModel);
       setDecksCardList(eligibleDeckCards);
     }, [deckModel, setDecksCardList]),

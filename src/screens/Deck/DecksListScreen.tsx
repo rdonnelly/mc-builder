@@ -7,6 +7,7 @@ import {
   ListRenderItem,
   Platform,
   Pressable,
+  StyleSheet,
 } from 'react-native';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
@@ -25,6 +26,12 @@ import { AppDeckSortKey } from '@store/types';
 import { base, colors } from '@styles';
 import { getClipboard } from '@utils/Clipboard';
 import { validateClipboard } from '@utils/DeckParser';
+
+const styles = StyleSheet.create({
+  contentContainerStyle: {
+    paddingBottom: 72,
+  },
+});
 
 const DecksListScreen: React.FunctionComponent<{
   navigation: StackNavigationProp<DecksStackParamList, 'DecksList'>;
@@ -227,7 +234,7 @@ const DecksListScreen: React.FunctionComponent<{
           renderItem={renderCard}
           data={decks}
           keyExtractor={(deck: DeckModel) => deck.code}
-          contentContainerStyle={{ paddingBottom: 72 }}
+          contentContainerStyle={styles.contentContainerStyle}
           ListFooterComponent={renderFooter}
         />
       ) : (

@@ -103,56 +103,11 @@ export class Deck {
   }
 
   get cards(): IDeckCard[] {
-    return this.rawCards
-      .reduce((acc, deckCard) => {
-        const card = getCard(deckCard.cardCode);
-
-        if (
-          card.factionCode !== FactionCodes.ENCOUNTER &&
-          card.setCode !== SetCodes.INVOCATION
-        ) {
-          acc.push({
-            card,
-            code: card.code,
-            name: card.name,
-            factionCode: card.factionCode,
-            setCode: card.setCode,
-            typeCode: card.typeCode,
-            count: deckCard.quantity,
-          });
-        }
-
-        return acc;
-      }, [])
-      .sort(compareCardFaction);
+    return getCardsForDeck(this.rawCards);
   }
 
   get extraCards(): IDeckCard[] {
-    const extraCards = [];
-
-    const encounterCards = getFilteredCards({
-      filter: FilterCodes.SET,
-      filterCode: [this.setCode, `${this.setCode}_nemesis` as SetCode],
-    }).filter((card) => card.factionCode === FactionCodes.ENCOUNTER);
-    extraCards.push(...encounterCards);
-
-    if (this.setCode === SetCodes.DOCTOR_STRANGE) {
-      const invocationCards = getFilteredCards({
-        filter: FilterCodes.SET,
-        filterCode: SetCodes.INVOCATION,
-      });
-      extraCards.push(...invocationCards);
-    }
-
-    return extraCards.map((card) => ({
-      card,
-      code: card.code,
-      name: card.name,
-      factionCode: card.factionCode,
-      setCode: card.setCode,
-      typeCode: card.typeCode,
-      count: card.setQuantity || 1,
-    }));
+    return getExtraCardsForDeck(this.setCode);
   }
 
   get cardsSectioned(): IDeckCardSection[] {
@@ -379,3 +334,58 @@ export const createDeckCardSections = (
 
   return Object.values(sections).filter((section) => section.count > 0);
 };
+
+const getCardsForDeck = memoizeOne(
+  (storeDeckCards: IStoreDeckCard[]): IDeckCard[] => {
+    return storeDeckCards
+      .reduce((acc, deckCard) => {
+        const card = getCard(deckCard.cardCode);
+
+        if (
+          card.factionCode !== FactionCodes.ENCOUNTER &&
+          card.setCode !== SetCodes.INVOCATION
+        ) {
+          acc.push({
+            card,
+            code: card.code,
+            name: card.name,
+            factionCode: card.factionCode,
+            setCode: card.setCode,
+            typeCode: card.typeCode,
+            count: deckCard.quantity,
+          });
+        }
+
+        return acc;
+      }, [])
+      .sort(compareCardFaction);
+  },
+);
+
+const getExtraCardsForDeck = memoizeOne((setCode: SetCode): IDeckCard[] => {
+  const extraCards = [];
+
+  const encounterCards = getFilteredCards({
+    filter: FilterCodes.SET,
+    filterCode: [setCode, `${setCode}_nemesis` as SetCode],
+  }).filter((card) => card.factionCode === FactionCodes.ENCOUNTER);
+  extraCards.push(...encounterCards);
+
+  if (setCode === SetCodes.DOCTOR_STRANGE) {
+    const invocationCards = getFilteredCards({
+      filter: FilterCodes.SET,
+      filterCode: SetCodes.INVOCATION,
+    });
+    extraCards.push(...invocationCards);
+  }
+
+  return extraCards.map((card) => ({
+    card,
+    code: card.code,
+    name: card.name,
+    factionCode: card.factionCode,
+    setCode: card.setCode,
+    typeCode: card.typeCode,
+    count: card.setQuantity || 1,
+  }));
+});

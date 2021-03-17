@@ -1,6 +1,6 @@
 import { useActionSheet } from '@expo/react-native-action-sheet';
 import { useNavigation } from '@react-navigation/native';
-import React, { useRef } from 'react';
+import React, { memo, useRef } from 'react';
 import { Alert, findNodeHandle, Platform } from 'react-native';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
@@ -158,4 +158,4 @@ const Container = styled(base.Container)`
   flex-direction: column;
 `;
 
-export default DeckDetail;
+export default memo(DeckDetail);

@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
+import React, { memo } from 'react';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import styled from 'styled-components/native';
 
@@ -46,4 +46,4 @@ const Container = styled(base.Container)`
   flex-direction: column;
 `;
 
-export default DeckEdit;
+export default memo(DeckEdit);

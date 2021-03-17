@@ -1,5 +1,6 @@
 import { RouteProp, useFocusEffect } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { createSelector } from '@reduxjs/toolkit';
 import React, { useCallback, useContext, useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
@@ -14,6 +15,19 @@ export type DeckEditScreenNavigationProp = StackNavigationProp<
   'DeckEdit'
 >;
 
+const selectStoreDeck = createSelector(
+  (state: StoreState) => state.root.decks,
+  (_, code: string) => code,
+  (decks, code) => decks.entities[code],
+);
+
+const selectStoreDeckCards = createSelector(
+  (state: StoreState) => state.root.deckCards.entities,
+  (_, deckDeckCardCodes: string[]) => deckDeckCardCodes,
+  (deckCards, deckDeckCardCodes) =>
+    deckDeckCardCodes.map((deckCardCode) => deckCards[deckCardCode]),
+);
+
 const DeckEditScreen: React.FunctionComponent<{
   navigation: DeckEditScreenNavigationProp;
   route: RouteProp<DecksStackParamList, 'DeckEdit'>;
@@ -27,14 +41,10 @@ const DeckEditScreen: React.FunctionComponent<{
 
   const code = route.params.code;
 
-  const deck = useSelector(
-    (state: StoreState) => state.root.decks.entities[code],
-  );
+  const deck = useSelector((state: StoreState) => selectStoreDeck(state, code));
 
   const deckCardEntities = useSelector((state: StoreState) =>
-    Object.values(state.root.deckCards.entities).filter((deckCard) =>
-      deck.deckCardCodes.includes(deckCard.code),
-    ),
+    selectStoreDeckCards(state, deck.deckCardCodes),
   );
 
   const deckModel = useMemo(() => new DeckModel(deck, deckCardEntities), [
@@ -48,7 +58,7 @@ const DeckEditScreen: React.FunctionComponent<{
     useCallback(() => {
       const eligibleDeckCards = getEligibleCardListForDeck(deckModel);
       setDecksCardList(eligibleDeckCards);
-    }, [deckModel, setDecksCardList]),
+    }, []), // eslint-disable-line react-hooks/exhaustive-deps
   );
 
   return <DeckEdit deck={deckModel} />;

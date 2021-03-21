@@ -17,7 +17,7 @@ const ButtonWrapper = styled(Pressable)``;
 const Button = styled.View<{ pressed?: boolean }>`
   align-items: center;
   background-color: ${colors.brand};
-  border-radius: 4px;
+  border-radius: ${({ theme }) => theme.borderRadius.md};
   flex-direction: row;
   justify-content: center;
   min-height: 48px;
@@ -78,7 +78,7 @@ const ListChevron = styled(({ _isActive, _name, ...rest }) => (
 
 const TextInput = styled.TextInput`
   background-color: ${colors.white};
-  border-radius: 8px;
+  border-radius: ${({ theme }) => theme.borderRadius.lg};
   border-width: 0;
   color: ${colors.darkGray};
   font-size: 20px;

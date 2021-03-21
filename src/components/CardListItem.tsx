@@ -208,12 +208,12 @@ const ListItemInner = styled.View<{ pressed: boolean }>`
 `;
 
 const CardCount = styled.View<{ active?: boolean }>`
+  align-items: center;
   background-color: ${(props) =>
     props.active ? colors.white : colors.lightGray};
-  align-items: center;
-  border: 2px solid
+  border: ${StyleSheet.hairlineWidth}px solid
     ${(props) => (props.active ? colors.lightGrayDark : colors.lightGrayDark)};
-  border-radius: 8px;
+  border-radius: ${({ theme }) => theme.borderRadius.md};
   height: 36px;
   justify-content: center;
   margin-right: 8px;
@@ -273,7 +273,7 @@ const CardCountButton = styled(Pressable)<{
   align-items: center;
   background-color: ${(props) =>
     props.active ? colors.white : colors.lightGray};
-  border: 2px solid ${colors.lightGrayDark};
+  border: ${StyleSheet.hairlineWidth}px solid ${colors.lightGrayDark};
   justify-content: center;
   height: 36px;
   width: 36px;
@@ -294,33 +294,32 @@ const CardCountButtonBackground = styled.View<{
 const CardCountIncrementButton = styled(CardCountButton)<{
   active: boolean;
 }>`
-  border-top-left-radius: 8px;
-  border-bottom-left-radius: 8px;
-  border-right-width: 1px;
+  border-top-left-radius: ${({ theme }) => theme.borderRadius.md};
+  border-bottom-left-radius: ${({ theme }) => theme.borderRadius.md};
+  border-right-width: ${StyleSheet.hairlineWidth}px;
 `;
 
 const CardCountIncrementButtonBackground = styled(CardCountButtonBackground)<{
   active: boolean;
 }>`
   background-color: ${(props) => (props.active ? colors.green : 'transparent')};
-  border-top-left-radius: 6px;
-  border-bottom-left-radius: 6px;
+  border-top-left-radius: ${({ theme }) => theme.borderRadius.sm};
+  border-bottom-left-radius: ${({ theme }) => theme.borderRadius.sm};
 `;
 
 const CardCountDecrementButton = styled(CardCountButton)<{
   active: boolean;
 }>`
-  border-top-right-radius: 8px;
-  border-bottom-right-radius: 8px;
-  border-left-width: 1px;
+  border-top-right-radius: ${({ theme }) => theme.borderRadius.md};
+  border-bottom-right-radius: ${({ theme }) => theme.borderRadius.md};
 `;
 
 const CardCountDecrementButtonBackground = styled(CardCountButtonBackground)<{
   active: boolean;
 }>`
   background-color: ${(props) => (props.active ? colors.red : 'transparent')};
-  border-top-right-radius: 6px;
-  border-bottom-right-radius: 6px;
+  border-top-right-radius: ${({ theme }) => theme.borderRadius.sm};
+  border-bottom-right-radius: ${({ theme }) => theme.borderRadius.sm};
 `;
 
 const ListChevronWrapper = styled(base.ListChevronWrapper)``;

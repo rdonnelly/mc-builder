@@ -401,7 +401,7 @@ const CardDetailStatsContainer = styled.View`
 
 const Stat = styled.View`
   background-color: ${colors.lightGray};
-  border-radius: 4px;
+  border-radius: ${({ theme }) => theme.borderRadius.md};
   flex: 1 1 80px;
   justify-content: flex-end;
   margin-bottom: 16px;

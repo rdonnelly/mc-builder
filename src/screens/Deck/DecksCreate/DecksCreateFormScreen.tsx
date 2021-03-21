@@ -178,7 +178,7 @@ const LinkRowInner = styled.View<{ pressed: boolean }>`
   background-color: ${colors.white};
   border-bottom-color: ${colors.lightGrayDark};
   border-bottom-width: ${StyleSheet.hairlineWidth}px;
-  border-radius: 8px;
+  border-radius: ${({ theme }) => theme.borderRadius.lg};
   flex-direction: row;
   justify-content: space-between;
   opacity: ${(props) => (props.pressed ? 0.5 : 1.0)};

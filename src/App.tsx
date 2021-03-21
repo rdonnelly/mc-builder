@@ -13,7 +13,7 @@ import { CardsCardListProvider } from '@context/CardsCardListContext';
 import { DecksCardListProvider } from '@context/DecksCardListContext';
 import TabNavigator from '@navigation/TabNavigator';
 import { persistor, store } from '@store';
-import { colors, theme } from '@styles';
+import { colors, darkTheme, lightTheme } from '@styles';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 declare var global: { HermesInternal: null | {} };
@@ -45,7 +45,7 @@ export default function AppContainer() {
 function App() {
   const colorScheme = useColorScheme();
 
-  const appTheme = colorScheme === 'dark' ? theme.dark : theme.light;
+  const appTheme = colorScheme === 'dark' ? darkTheme : lightTheme;
 
   return (
     <ThemeProvider theme={appTheme}>

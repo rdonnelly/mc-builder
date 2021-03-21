@@ -86,7 +86,7 @@ const CardDetailFooter = ({ card }: { card: CardModel }) => {
 const CardDetailFooterContainer = styled.View`
   align-items: center;
   background-color: ${colors.lightGray};
-  border-radius: 4px;
+  border-radius: ${({ theme }) => theme.borderRadius.md};
   flex-direction: row;
   justify-content: space-between;
   margin-bottom: 16px;
@@ -103,7 +103,7 @@ const CardDetailFooterContainerResourceWrapper = styled.View<{
   color: string;
 }>`
   background-color: ${(props) => (props.color ? props.color : colors.darkGray)};
-  border-radius: 4px;
+  border-radius: ${({ theme }) => theme.borderRadius.md};
   margin-right: 4px;
   padding: 4px;
 `;

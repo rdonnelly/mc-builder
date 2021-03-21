@@ -60,7 +60,7 @@ const IdentityWrapper = styled.View`
 const Identity = styled(Pressable)`
   background-color: ${colors.lightGray};
   border: 2px solid ${colors.white};
-  border-radius: 8px;
+  border-radius: ${({ theme }) => theme.borderRadius.lg};
   height: 72px;
   margin-right: 8px;
   margin-bottom: 8px;

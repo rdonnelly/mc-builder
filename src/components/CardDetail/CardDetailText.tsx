@@ -160,7 +160,7 @@ const CardDetailText = ({ card }: { card: CardModel }) => {
 
 const CardDetailTextContainer = styled.View`
   background-color: ${colors.lightGray};
-  border-radius: 4px;
+  border-radius: ${({ theme }) => theme.borderRadius.md};
   flex: 1 1 auto;
   margin-bottom: 16px;
   padding-horizontal: 16px;

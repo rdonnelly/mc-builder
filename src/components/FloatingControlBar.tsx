@@ -114,7 +114,7 @@ FloatingControlBar.Text = FloatingControlBarText;
 
 const FloatingControlBarContainer = styled.View`
   background-color: rgba(52, 73, 94, 0.1);
-  border-radius: 4px;
+  border-radius: ${({ theme }) => theme.borderRadius.md};
   bottom: 8px;
   flex-direction: row;
   left: 8px;

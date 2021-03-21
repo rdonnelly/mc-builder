@@ -203,7 +203,7 @@ const Identities = styled.View`
 const IdentityWrapper = styled.View`
   background-color: ${colors.lightGray};
   border: 2px solid ${colors.white};
-  border-radius: 8px;
+  border-radius: ${({ theme }) => theme.borderRadius.lg};
   height: 96px;
   margin-horizontal: 8px;
   overflow: hidden;

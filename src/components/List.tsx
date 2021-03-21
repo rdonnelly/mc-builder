@@ -37,7 +37,7 @@ const List: React.FunctionComponent<{
         ref={listRef}
         renderItem={renderItem != null ? renderItem : defaultRenderItem}
         data={items}
-        keyExtractor={(item) => item.code}
+        keyExtractor={(item: any) => item.code}
         ListFooterComponent={renderFooter}
       />
     </Container>

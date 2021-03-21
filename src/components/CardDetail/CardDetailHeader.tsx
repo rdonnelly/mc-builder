@@ -47,7 +47,7 @@ const CardDetailHeader = ({
 
 const CardDetailHeaderContainer = styled(base.Container)`
   background-color: ${colors.lightGray};
-  border-radius: 4px;
+  border-radius: ${({ theme }) => theme.borderRadius.md};
   margin-bottom: 16px;
   padding-horizontal: 16px;
   padding-vertical: 8px;

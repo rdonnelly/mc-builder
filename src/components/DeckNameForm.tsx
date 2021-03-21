@@ -94,8 +94,8 @@ const ControlLabel = styled.View`
 
 const ControlLabelText = styled.Text`
   color: ${colors.grayDark};
-  font-size: 16px;
-  font-weight: 600;
+  font-size: ${({ theme }) => theme.fontSize.label};
+  font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;
 
 const Control = styled.View`

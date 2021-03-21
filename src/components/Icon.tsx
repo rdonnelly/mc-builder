@@ -68,8 +68,7 @@ const IconText = styled.Text<{ color?: string; size?: number }>`
   ${(props) => (props.color != null ? `color: ${props.color};` : null)};
   ${(props) => (props.size != null ? `font-size: ${props.size}px;` : null)};
 
-  font-family: 'marvel-icons';
-  font-weight: normal;
+  font-family: ${({ theme }) => theme.fontFamily.marvelIcons};
 `;
 
 export default Icon;

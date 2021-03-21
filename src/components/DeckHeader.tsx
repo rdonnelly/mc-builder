@@ -84,8 +84,8 @@ const TitleWrapper = styled.View`
 
 const Title = styled.Text`
   color: ${colors.darkGray};
-  font-size: 24px;
-  font-weight: 900;
+  font-size: ${({ theme }) => theme.fontSize.heading};
+  font-weight: ${({ theme }) => theme.fontWeight.black};
   text-align: center;
 `;
 
@@ -93,8 +93,8 @@ const TraitsWrapper = styled.View``;
 
 const Traits = styled.Text`
   color: ${colors.grayDark};
-  font-size: 16px;
-  font-weight: 700;
+  font-size: ${({ theme }) => theme.fontSize.label};
+  font-weight: ${({ theme }) => theme.fontWeight.bold};
   text-align: center;
 `;
 

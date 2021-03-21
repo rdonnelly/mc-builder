@@ -72,7 +72,7 @@ const SectionHeader = styled.View`
 
 const SectionHeaderText = styled.Text`
   color: ${colors.lightGray};
-  font-weight: 800;
+  font-weight: ${({ theme }) => theme.fontWeight.black};
   text-transform: uppercase;
 `;
 

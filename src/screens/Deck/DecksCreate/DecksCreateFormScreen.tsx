@@ -158,8 +158,8 @@ const ControlLabel = styled.View`
 
 const ControlLabelText = styled.Text`
   color: ${colors.grayDark};
-  font-size: 16px;
-  font-weight: 600;
+  font-size: ${({ theme }) => theme.fontSize.label};
+  font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;
 
 const Control = styled.View`
@@ -188,8 +188,8 @@ const LinkRowInner = styled.View<{ pressed: boolean }>`
 
 const LinkRowText = styled.Text<{ active: boolean }>`
   color: ${(props) => (props.active ? colors.darkGray : colors.gray)};
-  font-size: 18px;
-  font-weight: 600;
+  font-size: ${({ theme }) => theme.fontSize.list};
+  font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;
 
 const LinkRowChevronWrapper = styled(base.ListChevronWrapper)``;

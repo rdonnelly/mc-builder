@@ -28,8 +28,8 @@ const Button = styled.View<{ pressed?: boolean }>`
 
 const ButtonText = styled.Text<{ pressed?: boolean }>`
   color: ${colors.white};
-  font-size: 16px;
-  font-weight: 700;
+  font-size: ${({ theme }) => theme.fontSize.label};
+  font-weight: ${({ theme }) => theme.fontWeight.bold};
   line-height: 24px;
   text-align: center;
 `;
@@ -58,8 +58,6 @@ const ListFooter = styled.View`
 
 const ListFooterText = styled.Text`
   color: ${colors.gray};
-  font-size: 14px;
-  font-weight: 800;
   margin-bottom: 16px;
   text-align: center;
 `;
@@ -81,7 +79,7 @@ const TextInput = styled.TextInput`
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   border-width: 0;
   color: ${colors.darkGray};
-  font-size: 20px;
+  font-size: ${({ theme }) => theme.fontSize.input};
   line-height: 24px;
   padding: 12px;
 `;

@@ -77,8 +77,8 @@ const DeckDetailsName = styled.View`
 
 const DeckDetailsNameText = styled.Text`
   color: ${colors.darkGray};
-  font-size: 18px;
-  font-weight: 600;
+  font-size: ${({ theme }) => theme.fontSize.list};
+  font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;
 
 const DeckDetailsInfo = styled.View`
@@ -87,8 +87,7 @@ const DeckDetailsInfo = styled.View`
 
 const DeckDetailsInfoText = styled.Text`
   color: ${colors.gray};
-  font-size: 13px;
-  font-weight: 500;
+  font-size: ${({ theme }) => theme.fontSize.subtext};
 `;
 
 const ListChevronWrapper = styled(base.ListChevronWrapper)``;

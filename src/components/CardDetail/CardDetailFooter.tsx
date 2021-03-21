@@ -116,7 +116,7 @@ const CardDetailFooterContainerSetText = styled.Text<{
   color: string;
 }>`
   color: ${(props) => (props.color ? props.color : colors.darkGray)};
-  font-weight: 600;
+  font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;
 
 const CardDetailFooterContainerBoost = styled.View`

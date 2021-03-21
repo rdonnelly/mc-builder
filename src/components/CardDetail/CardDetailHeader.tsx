@@ -57,8 +57,8 @@ const CardDetailHeaderContainerTitle = styled.View``;
 
 const CardDetailHeaderContainerTitleText = styled.Text`
   color: ${colors.darkGray};
-  font-size: 24px;
-  font-weight: 900;
+  font-size: ${({ theme }) => theme.fontSize.heading};
+  font-weight: ${({ theme }) => theme.fontWeight.black};
   margin-bottom: 8px;
 `;
 
@@ -66,8 +66,7 @@ const CardDetailHeaderContainerSubtitle = styled.View``;
 
 const CardDetailHeaderContainerSubtitleText = styled.Text`
   color: ${colors.darkGray};
-  font-size: 15px;
-  font-weight: 700;
+  font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;
 
 const CardDetailHeaderContainerTypes = styled.View`
@@ -76,14 +75,13 @@ const CardDetailHeaderContainerTypes = styled.View`
 
 const CardDetailHeaderContainerTypesText = styled.Text`
   color: ${colors.darkGray};
-  font-size: 17px;
-  font-weight: 500;
+  font-size: ${({ theme }) => theme.fontSize.list};
 `;
 
 const CardDetailHeaderContainerTypesTextBold = styled.Text`
   color: ${colors.darkGray};
-  font-size: 17px;
-  font-weight: bold;
+  font-size: ${({ theme }) => theme.fontSize.list};
+  font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;
 
 export default CardDetailHeader;

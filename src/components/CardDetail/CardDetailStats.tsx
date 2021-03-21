@@ -413,15 +413,15 @@ const StatData = styled.View``;
 
 const StatDataText = styled.Text`
   color: ${colors.darkGray};
-  font-size: 22px;
-  font-weight: bold;
+  font-size: ${({ theme }) => theme.fontSize.heading};
+  font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;
 
 const StatHeader = styled.View``;
 
 const StatHeaderText = styled.Text`
   color: ${colors.grayDark};
-  font-weight: 700;
+  font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;
 
 const StatSpacer = styled.View``;

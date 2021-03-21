@@ -21,7 +21,6 @@ const CardDetailPackContainer = styled.View`
 
 const CardDetailPackContainerText = styled.Text`
   color: ${colors.darkGray};
-  font-size: 17px;
   font-style: italic;
 `;
 

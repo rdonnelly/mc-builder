@@ -52,8 +52,8 @@ const ListItemInner = styled.View<{ pressed: boolean }>`
 
 const ListItemInnerText = styled.Text`
   color: ${colors.darkGray};
-  font-size: 18px;
-  font-weight: 600;
+  font-size: ${({ theme }) => theme.fontSize.list};
+  font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;
 
 const ListChevronWrapper = styled(base.ListChevronWrapper)``;

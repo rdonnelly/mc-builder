@@ -222,8 +222,8 @@ const CardCount = styled.View<{ active?: boolean }>`
 
 const CardCountText = styled.Text<{ active?: boolean }>`
   color: ${(props) => (props.active ? colors.blue : colors.lightGrayDark)};
-  font-size: 16px;
-  font-weight: 800;
+  font-size: ${({ theme }) => theme.fontSize.label};
+  font-weight: ${({ theme }) => theme.fontWeight.black};
 `;
 
 const CardDetails = styled.View`
@@ -240,8 +240,8 @@ const CardDetailsName = styled.View`
 
 const CardDetailsNameText = styled.Text`
   color: ${colors.darkGray};
-  font-size: 18px;
-  font-weight: 600;
+  font-size: ${({ theme }) => theme.fontSize.list};
+  font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;
 
 const CardDetailsInfo = styled.View`
@@ -250,16 +250,14 @@ const CardDetailsInfo = styled.View`
 
 const CardDetailsInfoText = styled.Text`
   color: ${colors.gray};
-  font-size: 13px;
-  font-weight: 500;
+  font-size: ${({ theme }) => theme.fontSize.subtext};
 `;
 
 const CardDetailsInfoFactionOrSet = styled.Text<{
   color?: string;
 }>`
   color: ${(props) => (props.color ? props.color : colors.gray)};
-  font-size: 13px;
-  font-weight: 500;
+  font-size: ${({ theme }) => theme.fontSize.subtext};
 `;
 
 const CardControls = styled.View`

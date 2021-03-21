@@ -16,6 +16,11 @@ declare module 'styled-components/native' {
     };
     fontSize: {
       heading: string;
+      subtext: string;
+      regular: string;
+      label: string;
+      list: string;
+      input: string;
     };
     fontWeight: {
       bold: number;
@@ -40,7 +45,6 @@ const base = {
     regular: '14px',
     label: '16px',
     list: '18px',
-    // font-size: ${({ theme }) => theme.fontSize.list};
     input: '20px',
     heading: '24px',
   },

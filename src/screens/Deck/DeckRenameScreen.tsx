@@ -2,7 +2,7 @@ import 'react-native-get-random-values';
 
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/native';
@@ -11,6 +11,7 @@ import DeckNameForm from '@components/DeckNameForm';
 import { DeckRenameStackParamList } from '@navigation/DeckRenameStackNavigator';
 import { StoreState } from '@store';
 import { updateDeck } from '@store/reducers/decks';
+import { selectStoreDeck } from '@store/selectors';
 import { base, colors } from '@styles';
 
 const DeckRenameScreen: React.FunctionComponent<{
@@ -19,28 +20,29 @@ const DeckRenameScreen: React.FunctionComponent<{
 }> = ({ navigation, route }) => {
   const code = route.params.code;
 
-  const deck = useSelector(
-    (state: StoreState) => state.root.decks.entities[code],
-  );
+  const deck = useSelector((state: StoreState) => selectStoreDeck(state, code));
 
   const dispatch = useDispatch();
   const insets = useSafeAreaInsets();
 
-  const submit = (deckName: string) => {
-    if (deckName) {
-      dispatch(updateDeck({ code, name: deckName }));
+  const submit = useCallback(
+    (deckName: string) => {
+      if (deckName) {
+        dispatch(updateDeck({ code, name: deckName }));
 
-      if (navigation) {
-        navigation.pop();
+        if (navigation) {
+          navigation.pop();
+        }
       }
-    }
-  };
+    },
+    [code, dispatch, navigation],
+  );
 
-  const cancel = () => {
+  const cancel = useCallback(() => {
     if (navigation) {
       navigation.pop();
     }
-  };
+  }, [navigation]);
 
   return (
     <Container paddingBottom={insets.bottom}>

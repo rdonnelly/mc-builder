@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Pressable, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 
@@ -60,4 +60,4 @@ const ListChevronWrapper = styled(base.ListChevronWrapper)``;
 
 const ListChevron = styled(base.ListChevron)``;
 
-export default ListItem;
+export default memo(ListItem);

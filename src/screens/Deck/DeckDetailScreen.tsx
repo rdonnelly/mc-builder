@@ -1,5 +1,4 @@
 import { RouteProp, useFocusEffect } from '@react-navigation/native';
-import { createSelector } from '@reduxjs/toolkit';
 import React, { useCallback, useContext, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
@@ -8,19 +7,7 @@ import { DecksCardListContext } from '@context/DecksCardListContext';
 import { DeckModel, getCardListForDeck } from '@data';
 import { DecksStackParamList } from '@navigation/DecksStackNavigator';
 import { StoreState } from '@store';
-
-const selectStoreDeck = createSelector(
-  (state: StoreState) => state.root.decks.entities,
-  (_, code: string) => code,
-  (decks, code) => decks[code],
-);
-
-const selectStoreDeckCards = createSelector(
-  (state: StoreState) => state.root.deckCards.entities,
-  (_, deckDeckCardCodes: string[]) => deckDeckCardCodes,
-  (deckCards, deckDeckCardCodes) =>
-    deckDeckCardCodes.map((deckCardCode) => deckCards[deckCardCode]),
-);
+import { selectStoreDeck, selectStoreDeckCards } from '@store/selectors';
 
 const DeckDetailScreen: React.FunctionComponent<{
   route: RouteProp<DecksStackParamList, 'DeckDetail'>;

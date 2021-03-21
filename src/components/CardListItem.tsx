@@ -1,13 +1,11 @@
 import React, { memo } from 'react';
 import { Pressable, StyleSheet, Text } from 'react-native';
-import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
-import { useDispatch } from 'react-redux';
 import styled from 'styled-components/native';
 
 import Icon, { IconCode } from '@components/Icon';
 import { CardModel, FactionCodes, TypeCodes } from '@data';
-import { addCardToDeck, removeCardFromDeck } from '@store/actions';
+import { useDeckModifications } from '@hooks';
 import { base, colors } from '@styles';
 
 export const ITEM_HEIGHT = 64;
@@ -75,28 +73,12 @@ const CardListItem = ({
   showEditControls?: boolean;
   showPackInfo?: boolean;
 }) => {
-  const dispatch = useDispatch();
-
-  const incrementIsDisabled =
-    (card.isUnique && count >= 1) ||
-    count >= card.deckLimit ||
-    (card.setCode != null && count >= card.setQuantity);
-  const decrementIsDisabled =
-    count <= 0 || (card.setCode != null && count <= card.setQuantity);
-
-  const increment = () => {
-    if (!incrementIsDisabled) {
-      ReactNativeHapticFeedback.trigger('selection');
-      dispatch(addCardToDeck(deckCode, card));
-    }
-  };
-
-  const decrement = () => {
-    if (!decrementIsDisabled) {
-      ReactNativeHapticFeedback.trigger('selection');
-      dispatch(removeCardFromDeck(deckCode, card));
-    }
-  };
+  const {
+    increment,
+    incrementIsDisabled,
+    decrement,
+    decrementIsDisabled,
+  } = useDeckModifications(deckCode, card, count);
 
   let infoText = '';
 

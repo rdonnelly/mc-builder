@@ -32,7 +32,7 @@ module.exports = {
               ['^@?\\w'],
               ['^'],
               [
-                '^(@api|@components|@context|@data|@navigation|@screens|@store|@styles|@utils)(/.*|$)',
+                '^(@api|@components|@context|@data|@hooks|@navigation|@screens|@store|@styles|@utils)(/.*|$)',
               ],
               ['^\\.'],
             ],

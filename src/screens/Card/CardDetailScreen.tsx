@@ -12,7 +12,7 @@ import { findNodeHandle, Linking, Platform, Pressable } from 'react-native';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import { InAppBrowser } from 'react-native-inappbrowser-reborn';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { StoreState } from 'src/store';
 import styled from 'styled-components/native';
 
@@ -24,8 +24,9 @@ import { AppContext } from '@context/AppContext';
 import { CardsCardListContext } from '@context/CardsCardListContext';
 import { DecksCardListContext } from '@context/DecksCardListContext';
 import { CardModel } from '@data';
+import { useDeckModifications } from '@hooks';
 import { CardStackParamList } from '@navigation/CardsStackNavigator';
-import { addCardToDeck, removeCardFromDeck } from '@store/actions';
+import { selectStoreDeckCard } from '@store/selectors';
 import { base, colors } from '@styles';
 
 const CardDetailScreen: React.FunctionComponent<{
@@ -56,7 +57,7 @@ const CardDetailScreen: React.FunctionComponent<{
 
   const handleReport = useCallback(async () => {
     const url = encodeURI(
-      `https://github.com/zzorba/marvelsdb-json-data/issues/new?title=Card Data Issue: ${cardList[activeCardCodeIndex].name} (${activeCardCode})&body=<!-- What issue do you see with the card data? -->`,
+      `https://github.com/zzorba/marvelsdb-json-data/issues/new?title=Card Data Issue: ${activeCard.name} (${activeCardCode})&body=<!-- What issue do you see with the card data? -->`,
     );
     try {
       if (await InAppBrowser.isAvailable()) {
@@ -78,7 +79,7 @@ const CardDetailScreen: React.FunctionComponent<{
     } catch (error) {
       Linking.openURL(url);
     }
-  }, [activeCardCode, activeCardCodeIndex, cardList]);
+  }, [activeCardCode, activeCard.name]);
 
   const handleMenuOpen = useCallback(() => {
     ReactNativeHapticFeedback.trigger('impactLight');
@@ -151,49 +152,22 @@ const CardDetailScreen: React.FunctionComponent<{
     }
   });
 
-  const dispatch = useDispatch();
   const deckCode = route.params.deckCode;
-  const deckCardCount = useSelector((state: StoreState) => {
-    const deck = state.root.decks.entities[deckCode];
-    const deckCardEntity = Object.values(state.root.deckCards.entities).find(
-      (deckCard) => {
-        return (
-          deck?.deckCardCodes.includes(deckCard.code) &&
-          deckCard.cardCode === activeCardCode
-        );
-      },
-    );
+  const deckCard = useSelector((state: StoreState) =>
+    selectStoreDeckCard(state, deckCode, activeCardCode),
+  );
 
-    if (deckCardEntity != null) {
-      return deckCardEntity.quantity;
-    }
+  let deckCardCount = activeCardCode ? 0 : null;
+  if (deckCard != null) {
+    deckCardCount = deckCard.quantity;
+  }
 
-    return activeCardCode ? 0 : null;
-  });
-
-  const incrementIsDisabled =
-    activeCard == null ||
-    (activeCard.isUnique && deckCardCount >= 1) ||
-    deckCardCount >= activeCard.deckLimit ||
-    (activeCard.setCode != null && deckCardCount >= activeCard.setQuantity);
-  const decrementIsDisabled =
-    activeCard == null ||
-    deckCardCount <= 0 ||
-    (activeCard.setCode != null && deckCardCount <= activeCard.setQuantity);
-
-  const increment = () => {
-    if (!incrementIsDisabled) {
-      ReactNativeHapticFeedback.trigger('selection');
-      dispatch(addCardToDeck(deckCode, activeCard));
-    }
-  };
-
-  const decrement = () => {
-    if (!decrementIsDisabled) {
-      ReactNativeHapticFeedback.trigger('selection');
-      dispatch(removeCardFromDeck(deckCode, activeCard));
-    }
-  };
+  const {
+    increment,
+    incrementIsDisabled,
+    decrement,
+    decrementIsDisabled,
+  } = useDeckModifications(deckCode, activeCard, deckCardCount);
 
   return (
     <Container>

@@ -1,6 +1,5 @@
 import { RouteProp, useFocusEffect } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { createSelector } from '@reduxjs/toolkit';
 import React, { useCallback, useContext, useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
@@ -9,24 +8,12 @@ import { DecksCardListContext } from '@context/DecksCardListContext';
 import { DeckModel, getEligibleCardListForDeck } from '@data';
 import { DecksStackParamList } from '@navigation/DecksStackNavigator';
 import { StoreState } from '@store';
+import { selectStoreDeck, selectStoreDeckCards } from '@store/selectors';
 
 export type DeckEditScreenNavigationProp = StackNavigationProp<
   DecksStackParamList,
   'DeckEdit'
 >;
-
-const selectStoreDeck = createSelector(
-  (state: StoreState) => state.root.decks,
-  (_, code: string) => code,
-  (decks, code) => decks.entities[code],
-);
-
-const selectStoreDeckCards = createSelector(
-  (state: StoreState) => state.root.deckCards.entities,
-  (_, deckDeckCardCodes: string[]) => deckDeckCardCodes,
-  (deckCards, deckDeckCardCodes) =>
-    deckDeckCardCodes.map((deckCardCode) => deckCards[deckCardCode]),
-);
 
 const DeckEditScreen: React.FunctionComponent<{
   navigation: DeckEditScreenNavigationProp;

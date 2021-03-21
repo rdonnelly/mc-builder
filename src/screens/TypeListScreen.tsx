@@ -1,5 +1,5 @@
 import { StackNavigationProp } from '@react-navigation/stack';
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import List from '@components/List';
 import {
@@ -15,16 +15,17 @@ import { CardStackParamList } from '@navigation/CardsStackNavigator';
 const FactionsListScreen: React.FunctionComponent<{
   navigation: StackNavigationProp<CardStackParamList, 'FactionsList'>;
 }> = ({ navigation }) => {
-  const handlePressItem = (
-    code: FactionCode | PackCode | SetCode | TypeCode,
-  ) => {
-    if (navigation) {
-      navigation.push('CardsList', {
-        filter: FilterCodes.TYPE,
-        code,
-      });
-    }
-  };
+  const handlePressItem = useCallback(
+    (code: FactionCode | PackCode | SetCode | TypeCode) => {
+      if (navigation) {
+        navigation.push('CardsList', {
+          filter: FilterCodes.TYPE,
+          code,
+        });
+      }
+    },
+    [navigation],
+  );
 
   return (
     <List name="Type" items={getTypes()} handlePressItem={handlePressItem} />

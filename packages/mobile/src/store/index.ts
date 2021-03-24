@@ -9,9 +9,10 @@ import {
   REHYDRATE,
 } from 'redux-persist';
 import { ThunkAction } from 'redux-thunk';
-import Reactotron from 'src/ReactotronConfig';
 
 import reducer from '@store/reducers';
+
+import Reactotron from '../ReactotronConfig';
 
 export type StoreState = ReturnType<typeof reducer>;
 export type AppThunk = ThunkAction<void, StoreState, null, Action<string>>;

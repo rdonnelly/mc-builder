@@ -13,7 +13,6 @@ import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import { InAppBrowser } from 'react-native-inappbrowser-reborn';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
 import { useSelector } from 'react-redux';
-import { StoreState } from 'src/store';
 import styled from 'styled-components/native';
 
 import CardDetail from '@components/CardDetail';
@@ -26,6 +25,7 @@ import { DecksCardListContext } from '@context/DecksCardListContext';
 import { CardModel } from '@data';
 import { useDeckModifications } from '@hooks';
 import { CardStackParamList } from '@navigation/CardsStackNavigator';
+import { StoreState } from '@store';
 import { selectStoreDeckCard } from '@store/selectors';
 import { base, colors } from '@styles';
 

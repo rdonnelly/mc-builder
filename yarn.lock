@@ -8031,11 +8031,6 @@ react-native-bootsplash@^3.1.2:
     fs-extra "^9.1.0"
     jimp "^0.16.1"
 
-react-native-clean-project@^3.4.0:
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/react-native-clean-project/-/react-native-clean-project-3.4.0.tgz#a5ce4e1d49195326ad9d8129369eed9da0a10e8a"
-  integrity sha512-5kgu6OMFJwNKvZG5nG1OoNXfI+9XBt2vY5Yy73NJKtE3/N+Bcvg7jVyC9jFmG+OHGnni84FF11P0fHl0BrgPAQ==
-
 react-native-device-info@^8.0.0:
   version "8.0.6"
   resolved "https://registry.yarnpkg.com/react-native-device-info/-/react-native-device-info-8.0.6.tgz#5c1229ec89a6dc7b026f82d38fd545a098063988"

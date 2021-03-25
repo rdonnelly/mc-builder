@@ -22,7 +22,6 @@ module.exports = {
   overrides: [
     {
       files: '*',
-      // env: { node: true },
       rules: {
         'simple-import-sort/imports': [
           'error',

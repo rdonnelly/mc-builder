@@ -9,13 +9,13 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components/native';
 
-import CardListItem from '@components/CardListItem';
 import FloatingControlBar, {
   FloatingControlButtonVariant,
 } from '@components/FloatingControlBar';
 import { DecksStackParamList } from '@navigation/DecksStackNavigator';
 import { setUpNewDeck } from '@store/actions';
 
+import CardListItem from '@shared/components/CardListItem';
 import {
   CardModel,
   FactionCode,

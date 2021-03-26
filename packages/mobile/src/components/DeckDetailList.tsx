@@ -3,8 +3,7 @@ import React, { memo, useCallback } from 'react';
 import { SectionList, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 
-import CardListItem from '@components/CardListItem';
-
+import CardListItem from '@shared/components/CardListItem';
 import { CardModel, DeckModel } from '@shared/data';
 import { colors } from '@shared/styles';
 

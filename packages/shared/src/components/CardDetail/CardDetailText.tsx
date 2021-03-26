@@ -4,10 +4,10 @@ import DeviceInfo from 'react-native-device-info';
 import Html from 'react-native-render-html';
 import styled from 'styled-components/native';
 
-import Icon, { IconCode } from '@shared/components/Icon';
-import { CardModel, FactionCodes } from '@shared/data';
-import { colors } from '@shared/styles';
-import CardParser from '@shared/utils/CardParser';
+import Icon, { IconCode } from '../../components/Icon';
+import { CardModel, FactionCodes } from '../../data';
+import { colors } from '../../styles';
+import CardParser from '../../utils/CardParser';
 
 const isTablet = DeviceInfo.isTablet();
 

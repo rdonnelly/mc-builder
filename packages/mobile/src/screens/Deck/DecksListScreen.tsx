@@ -14,7 +14,6 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/native';
 
-import DecksListItem from '@components/DecksListItem';
 import FloatingControlBar, {
   FloatingControlButtonVariant,
 } from '@components/FloatingControlBar';
@@ -24,6 +23,7 @@ import { setDeckSort } from '@store/reducers/app';
 import { AppDeckSortKey } from '@store/types';
 import { getClipboard } from '@utils/Clipboard';
 
+import DecksListItem from '@shared/components/DeckListItem';
 import { DeckModel } from '@shared/data';
 import { base, colors } from '@shared/styles';
 import { validateClipboard } from '@shared/utils/DeckParser';

@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components/native';
 
-import Icon, { IconCode } from '@shared/components/Icon';
-import { CardModel } from '@shared/data';
-import { colors } from '@shared/styles';
+import Icon, { IconCode } from '../../components/Icon';
+import { CardModel } from '../../data';
+import { colors } from '../../styles';
 
 const CardDetailFooter = ({ card }: { card: CardModel }) => {
   let factionOrSetText = '';

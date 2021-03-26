@@ -10,13 +10,13 @@ import React, {
 import { ListRenderItem, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 
-import CardListItem from '@components/CardListItem';
 import FloatingControlBar, {
   FloatingControlButtonVariant,
 } from '@components/FloatingControlBar';
 import { CardsCardListContext } from '@context/CardsCardListContext';
 import { CardStackParamList } from '@navigation/CardsStackNavigator';
 
+import CardListItem from '@shared/components/CardListItem';
 import {
   CardModel,
   FactionCode,

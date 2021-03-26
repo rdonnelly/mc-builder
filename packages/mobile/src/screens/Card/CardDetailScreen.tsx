@@ -15,7 +15,6 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components/native';
 
-import CardDetail from '@components/CardDetail';
 import FloatingControlBar, {
   FloatingControlButtonVariant,
 } from '@components/FloatingControlBar';
@@ -27,6 +26,7 @@ import { CardStackParamList } from '@navigation/CardsStackNavigator';
 import { StoreState } from '@store';
 import { selectStoreDeckCard } from '@store/selectors';
 
+import CardDetail from '@shared/components/CardDetail';
 import { CardModel } from '@shared/data';
 import { base, colors } from '@shared/styles';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Icon, { IconCode } from '@components/Icon';
-import { colors } from '@styles';
+import Icon, { IconCode } from '../components/Icon';
+import { colors } from '../styles';
 
 const ICON_REPLACEMENTS = Object.freeze({
   acceleration: '<icon code="acceleration"></icon>',

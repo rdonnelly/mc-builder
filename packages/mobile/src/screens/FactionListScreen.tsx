@@ -2,6 +2,8 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useCallback } from 'react';
 
 import List from '@components/List';
+import { CardStackParamList } from '@navigation/CardsStackNavigator';
+
 import {
   FactionCode,
   FilterCodes,
@@ -9,8 +11,7 @@ import {
   PackCode,
   SetCode,
   TypeCode,
-} from '@data';
-import { CardStackParamList } from '@navigation/CardsStackNavigator';
+} from '@shared/data';
 
 const FactionsListScreen: React.FunctionComponent<{
   navigation: StackNavigationProp<CardStackParamList, 'FactionsList'>;

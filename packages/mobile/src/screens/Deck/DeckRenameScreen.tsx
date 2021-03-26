@@ -12,7 +12,8 @@ import { DeckRenameStackParamList } from '@navigation/DeckRenameStackNavigator';
 import { StoreState } from '@store';
 import { updateDeck } from '@store/reducers/decks';
 import { selectStoreDeck } from '@store/selectors';
-import { base, colors } from '@styles';
+
+import { base, colors } from '@shared/styles';
 
 const DeckRenameScreen: React.FunctionComponent<{
   navigation: StackNavigationProp<DeckRenameStackParamList, 'DeckRename'>;

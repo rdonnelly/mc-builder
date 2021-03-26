@@ -4,8 +4,9 @@ import { Pressable } from 'react-native';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import styled from 'styled-components/native';
 
-import { CardModel } from '@data';
 import { shareImageUrl } from '@utils/Share';
+
+import { CardModel } from '@shared/data';
 
 const handleImageLongPress = (card: CardModel) => {
   ReactNativeHapticFeedback.trigger('impactHeavy');

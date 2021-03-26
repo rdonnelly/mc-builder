@@ -3,7 +3,7 @@ import 'react-native-get-random-values';
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components/native';
 
-import { base, colors } from '@styles';
+import { base, colors } from '@shared/styles';
 
 const DecksCreateFormScreen: React.FunctionComponent<{
   name: string;

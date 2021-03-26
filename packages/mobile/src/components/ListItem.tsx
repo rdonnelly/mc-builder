@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import { Pressable, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 
-import { base, colors } from '@styles';
+import { base, colors } from '@shared/styles';
 
 export const ITEM_HEIGHT = 48;
 

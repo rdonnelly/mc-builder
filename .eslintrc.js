@@ -31,8 +31,9 @@ module.exports = {
               ['^@?\\w'],
               ['^'],
               [
-                '^(@api|@components|@context|@data|@hooks|@navigation|@screens|@shared|@store|@styles|@utils)(/.*|$)',
+                '^(@api|@components|@context|@data|@hooks|@navigation|@screens|@store|@styles|@utils)(/.*|$)',
               ],
+              ['^(@shared)(/.*|$)'],
               ['^\\.'],
             ],
           },

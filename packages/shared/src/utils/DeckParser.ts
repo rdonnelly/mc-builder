@@ -1,7 +1,7 @@
 // @ts-ignore
 import { MCDB_BASE_URI } from '@env';
 
-import { getPublicDeck } from '@api/deck';
+import { getPublicDeck } from '../api/deck';
 
 export interface IImportDeck {
   code?: string;

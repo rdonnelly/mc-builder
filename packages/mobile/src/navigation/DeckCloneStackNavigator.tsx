@@ -4,7 +4,8 @@ import { createNativeStackNavigator } from 'react-native-screens/native-stack';
 import styled from 'styled-components/native';
 
 import DeckCloneScreen from '@screens/Deck/DeckCloneScreen';
-import { colors } from '@styles';
+
+import { colors } from '@shared/styles';
 
 export type DeckCloneStackParamList = {
   DeckClone: { code: string };

@@ -2,8 +2,8 @@ import React from 'react';
 import { Pressable } from 'react-native';
 import styled from 'styled-components/native';
 
-import { DeckModel } from '@data';
-import { colors } from '@styles';
+import { DeckModel } from '@shared/data';
+import { colors } from '@shared/styles';
 
 const DeckHeader: React.FunctionComponent<{
   deck: DeckModel;

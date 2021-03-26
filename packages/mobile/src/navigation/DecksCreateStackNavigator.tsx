@@ -6,7 +6,8 @@ import styled from 'styled-components/native';
 import { DecksCreateProvider } from '@context/DecksCreateContext';
 import DecksCreateFormScreen from '@screens/Deck/DecksCreate/DecksCreateFormScreen';
 import DecksCreateSelectScreen from '@screens/Deck/DecksCreate/DecksCreateSelectScreen';
-import { colors } from '@styles';
+
+import { colors } from '@shared/styles';
 
 export type DecksCreateStackParamList = {
   DecksCreateForm: undefined;

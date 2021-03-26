@@ -1,6 +1,6 @@
 import typesRaw from 'marvelsdb-json-data/types.json';
 
-import { ITypeRaw, TypeCode } from '@data/types';
+import { ITypeRaw, TypeCode } from '../../data/types';
 
 export const typeRank = {
   hero: 0,

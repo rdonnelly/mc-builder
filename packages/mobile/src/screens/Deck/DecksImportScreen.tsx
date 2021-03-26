@@ -13,6 +13,9 @@ import CardListItem from '@components/CardListItem';
 import FloatingControlBar, {
   FloatingControlButtonVariant,
 } from '@components/FloatingControlBar';
+import { DecksStackParamList } from '@navigation/DecksStackNavigator';
+import { setUpNewDeck } from '@store/actions';
+
 import {
   CardModel,
   FactionCode,
@@ -22,10 +25,8 @@ import {
   getSet,
   SetCode,
   TypeCodes,
-} from '@data';
-import { DecksStackParamList } from '@navigation/DecksStackNavigator';
-import { setUpNewDeck } from '@store/actions';
-import { base, colors } from '@styles';
+} from '@shared/data';
+import { base, colors } from '@shared/styles';
 
 const styles = StyleSheet.create({
   contentContainerStyle: {

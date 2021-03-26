@@ -13,7 +13,8 @@ import { CardsCardListProvider } from '@context/CardsCardListContext';
 import { DecksCardListProvider } from '@context/DecksCardListContext';
 import TabNavigator from '@navigation/TabNavigator';
 import { persistor, store } from '@store';
-import { colors, darkTheme, lightTheme } from '@styles';
+
+import { colors, darkTheme, lightTheme } from '@shared/styles';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 declare var global: { HermesInternal: null | {} };

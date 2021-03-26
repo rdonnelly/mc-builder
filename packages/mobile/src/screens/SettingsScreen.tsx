@@ -12,8 +12,9 @@ import styled from 'styled-components/native';
 
 // import { getDecks } from '@api/deck';
 import { reset } from '@store/reducers/decks';
+
 // import { authorizeUser } from '@api/auth';
-import { base, colors } from '@styles';
+import { base, colors } from '@shared/styles';
 // import { setAuthToken } from '@store/reducers/auth';
 
 const SettingsScreen: React.FunctionComponent<{}> = () => {

@@ -4,8 +4,9 @@ import { SectionList, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 
 import CardListItem from '@components/CardListItem';
-import { CardModel, DeckModel } from '@data';
-import { base, colors } from '@styles';
+
+import { CardModel, DeckModel } from '@shared/data';
+import { base, colors } from '@shared/styles';
 
 const styles = StyleSheet.create({
   contentContainerStyle: {

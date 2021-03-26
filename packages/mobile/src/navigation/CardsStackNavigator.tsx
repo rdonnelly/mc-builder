@@ -1,13 +1,20 @@
 import React from 'react';
 import { createNativeStackNavigator } from 'react-native-screens/native-stack';
 
-import { FactionCode, FilterCode, PackCode, SetCode, TypeCode } from '@data';
 import CardDetailScreen from '@screens/Card/CardDetailScreen';
 import CardListScreen from '@screens/Card/CardListScreen';
 import FactionListScreen from '@screens/FactionListScreen';
 import PackListScreen from '@screens/PackListScreen';
 import TypeListScreen from '@screens/TypeListScreen';
-import { colors } from '@styles';
+
+import {
+  FactionCode,
+  FilterCode,
+  PackCode,
+  SetCode,
+  TypeCode,
+} from '@shared/data';
+import { colors } from '@shared/styles';
 
 export type CardStackParamList = {
   CardsList: {

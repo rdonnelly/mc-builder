@@ -6,11 +6,18 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import styled from 'styled-components/native';
 
 import { DecksCreateContext } from '@context/DecksCreateContext';
-import { FactionCode, SetCode, SetCodes } from '@data';
-import { Faction, getPrimaryFactions } from '@data/models/Faction';
-import { getHeroSets, Set } from '@data/models/Set';
 import { DecksCreateStackParamList } from '@navigation/DecksCreateStackNavigator';
-import { base, colors } from '@styles';
+
+import {
+  FactionCode,
+  FactionModel,
+  getHeroSets,
+  getPrimaryFactions,
+  SetCode,
+  SetCodes,
+  SetModel,
+} from '@shared/data';
+import { base, colors } from '@shared/styles';
 
 const ITEM_HEIGHT = 48;
 
@@ -111,7 +118,7 @@ const DecksCreateSelectScreen: React.FunctionComponent<{
     <Container paddingBottom={insets.bottom}>
       <FlatList
         data={items}
-        keyExtractor={(item: Faction | Set) => item.code}
+        keyExtractor={(item: FactionModel | SetModel) => item.code}
         renderItem={renderItem}
       />
     </Container>

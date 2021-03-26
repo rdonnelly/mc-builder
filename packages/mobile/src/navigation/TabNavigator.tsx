@@ -5,7 +5,8 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
 import CardsStackNavigator from '@navigation/CardsStackNavigator';
 import DecksStackNavigator from '@navigation/DecksStackNavigator';
 import SettingsStackNavigator from '@navigation/SettingsStackNavigator';
-import { colors } from '@styles';
+
+import { colors } from '@shared/styles';
 
 export type BottomTabNavigatorParamList = {
   TabCards: undefined;

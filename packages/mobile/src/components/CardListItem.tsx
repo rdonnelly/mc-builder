@@ -3,10 +3,11 @@ import { Pressable, StyleSheet, Text } from 'react-native';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
 import styled from 'styled-components/native';
 
-import Icon, { IconCode } from '@components/Icon';
-import { CardModel, FactionCodes, TypeCodes } from '@data';
 import { useDeckModifications } from '@hooks';
-import { base, colors } from '@styles';
+
+import Icon, { IconCode } from '@shared/components/Icon';
+import { CardModel, FactionCodes, TypeCodes } from '@shared/data';
+import { base, colors } from '@shared/styles';
 
 export const ITEM_HEIGHT = 64;
 

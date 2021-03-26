@@ -1,4 +1,4 @@
-import { FactionCode, SetCode } from '@data';
+import { FactionCode, SetCode } from '@shared/data';
 
 type EntityCode = string;
 

@@ -7,11 +7,11 @@ import {
   compareCardFaction,
   compareCardName,
   compareCardType,
-} from '@data/cardUtils';
-import { getFactions } from '@data/models/Faction';
-import { getPacks } from '@data/models/Pack';
-import { getSets } from '@data/models/Set';
-import { getTypes } from '@data/models/Type';
+} from '../../data/cardUtils';
+import { getFactions } from '../../data/models/Faction';
+import { getPacks } from '../../data/models/Pack';
+import { getSets } from '../../data/models/Set';
+import { getTypes } from '../../data/models/Type';
 import {
   CardSortTypes,
   FactionCode,
@@ -23,7 +23,7 @@ import {
   SetCode,
   TypeCode,
   TypeCodes,
-} from '@data/types';
+} from '../../data/types';
 
 const cards: ICardRaw[] = [].concat(
   require('marvelsdb-json-data/pack/ant_encounter.json'),

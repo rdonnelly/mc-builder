@@ -4,10 +4,11 @@ import { useSelector } from 'react-redux';
 
 import DeckDetail from '@components/DeckDetail';
 import { DecksCardListContext } from '@context/DecksCardListContext';
-import { DeckModel, getCardListForDeck } from '@data';
 import { DecksStackParamList } from '@navigation/DecksStackNavigator';
 import { StoreState } from '@store';
 import { selectStoreDeck, selectStoreDeckCards } from '@store/selectors';
+
+import { DeckModel, getCardListForDeck } from '@shared/data';
 
 const DeckDetailScreen: React.FunctionComponent<{
   route: RouteProp<DecksStackParamList, 'DeckDetail'>;

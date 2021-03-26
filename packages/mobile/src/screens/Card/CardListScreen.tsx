@@ -15,6 +15,8 @@ import FloatingControlBar, {
   FloatingControlButtonVariant,
 } from '@components/FloatingControlBar';
 import { CardsCardListContext } from '@context/CardsCardListContext';
+import { CardStackParamList } from '@navigation/CardsStackNavigator';
+
 import {
   CardModel,
   FactionCode,
@@ -26,9 +28,8 @@ import {
   getType,
   PackCode,
   TypeCode,
-} from '@data';
-import { CardStackParamList } from '@navigation/CardsStackNavigator';
-import { base, colors } from '@styles';
+} from '@shared/data';
+import { base, colors } from '@shared/styles';
 
 const styles = StyleSheet.create({
   contentContainerStyle: {

@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components/native';
 
-import { CardModel } from '@data';
-import { colors } from '@styles';
+import { CardModel } from '@shared/data';
+import { colors } from '@shared/styles';
 
 const CardDetailPack = ({ card }: { card: CardModel }) => {
   return (

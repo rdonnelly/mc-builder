@@ -5,10 +5,11 @@ import { useSelector } from 'react-redux';
 
 import DeckEdit from '@components/DeckEdit';
 import { DecksCardListContext } from '@context/DecksCardListContext';
-import { DeckModel, getEligibleCardListForDeck } from '@data';
 import { DecksStackParamList } from '@navigation/DecksStackNavigator';
 import { StoreState } from '@store';
 import { selectStoreDeck, selectStoreDeckCards } from '@store/selectors';
+
+import { DeckModel, getEligibleCardListForDeck } from '@shared/data';
 
 export type DeckEditScreenNavigationProp = StackNavigationProp<
   DecksStackParamList,

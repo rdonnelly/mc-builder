@@ -9,11 +9,11 @@ import { useDispatch } from 'react-redux';
 import styled from 'styled-components/native';
 
 import { DecksCreateContext } from '@context/DecksCreateContext';
-import { getFaction } from '@data/models/Faction';
-import { getSet } from '@data/models/Set';
 import { DecksCreateStackParamList } from '@navigation/DecksCreateStackNavigator';
 import { setUpNewDeck } from '@store/actions';
-import { base, colors } from '@styles';
+
+import { getFaction, getSet } from '@shared/data';
+import { base, colors } from '@shared/styles';
 
 const DecksCreateFormScreen: React.FunctionComponent<{
   navigation: StackNavigationProp<DecksCreateStackParamList, 'DecksCreateForm'>;

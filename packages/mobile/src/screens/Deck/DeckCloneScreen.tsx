@@ -12,7 +12,8 @@ import { DeckCloneStackParamList } from '@navigation/DeckCloneStackNavigator';
 import { StoreState } from '@store';
 import { cloneDeck } from '@store/actions';
 import { selectStoreDeck } from '@store/selectors';
-import { base, colors } from '@styles';
+
+import { base, colors } from '@shared/styles';
 
 const DeckCloneScreen: React.FunctionComponent<{
   navigation: StackNavigationProp<DeckCloneStackParamList, 'DeckClone'>;

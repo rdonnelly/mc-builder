@@ -2,7 +2,7 @@
 import { MCDB_BASE_URI, MCDB_CLIENT_ID, MCDB_CLIENT_SECRET } from '@env';
 import { authorize } from 'react-native-app-auth';
 
-import { store } from '@store';
+// import { store } from '@store';
 
 const authorizeUser = async () => {
   const config = {
@@ -21,11 +21,11 @@ const authorizeUser = async () => {
   return result;
 };
 
-const getAccessToken = async () => {
-  const state = store.getState();
-  // TODO refresh
-  // https://github.com/zzorba/ArkhamCards/blob/master/src/lib/auth.ts
-  return state.auth.mcdb.accessToken;
-};
+// const getAccessToken = async () => {
+//   const state = store.getState();
+//   // TODO refresh
+//   // https://github.com/zzorba/ArkhamCards/blob/master/src/lib/auth.ts
+//   return state.auth.mcdb.accessToken;
+// };
 
-export { authorizeUser, getAccessToken };
+export { authorizeUser /*, getAccessToken */ };

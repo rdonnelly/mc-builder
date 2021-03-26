@@ -1,6 +1,6 @@
-import { Card } from '@data/models/Card';
-import { factionRank } from '@data/models/Faction';
-import { typeRank } from '@data/models/Type';
+import { Card } from '../data/models/Card';
+import { factionRank } from '../data/models/Faction';
+import { typeRank } from '../data/models/Type';
 
 export const compareCardCode = (a: Card, b: Card) => {
   if (a.code > b.code) {

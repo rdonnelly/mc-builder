@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { CardModel } from '@data';
+import { CardModel } from '@shared/data';
 
 export interface IDecksCardListContext {
   cardList: CardModel[];

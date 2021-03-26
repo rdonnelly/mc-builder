@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components/native';
 
-import { CardModel } from '@data';
-import { base, colors } from '@styles';
+import { CardModel } from '@shared/data';
+import { base, colors } from '@shared/styles';
 
 const CardDetailHeader = ({
   card,

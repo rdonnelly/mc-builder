@@ -8,9 +8,10 @@ import DeckHeader from '@components/DeckHeader';
 import FloatingControlBar, {
   FloatingControlButtonVariant,
 } from '@components/FloatingControlBar';
-import { DeckModel } from '@data';
 import { DeckEditScreenNavigationProp } from '@screens/Deck/DeckEditScreen';
-import { base, colors } from '@styles';
+
+import { DeckModel } from '@shared/data';
+import { base, colors } from '@shared/styles';
 
 const DeckEdit: React.FunctionComponent<{
   deck: DeckModel;

@@ -3,7 +3,7 @@ import { Pressable, StyleSheet } from 'react-native';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
 import styled from 'styled-components/native';
 
-import colors from '@styles/colors';
+import colors from '../styles/colors';
 
 const Container = styled.View`
   align-items: center;

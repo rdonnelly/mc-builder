@@ -12,10 +12,11 @@ import DeckHeader from '@components/DeckHeader';
 import FloatingControlBar, {
   FloatingControlButtonVariant,
 } from '@components/FloatingControlBar';
-import { DeckModel } from '@data';
 import { deleteDeck } from '@store/actions';
-import { base, colors } from '@styles';
 import { setClipboard } from '@utils/Clipboard';
+
+import { DeckModel } from '@shared/data';
+import { base, colors } from '@shared/styles';
 
 const DeckDetail = ({ deck }: { deck: DeckModel }) => {
   const dispatch = useDispatch();

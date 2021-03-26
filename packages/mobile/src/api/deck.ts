@@ -17,12 +17,10 @@ const getPublicDeck = async (dbUrl) => {
   headers.append('cache-control', 'no-cache');
   headers.append('pragma', 'no-cache');
 
-  const options: RequestInit = {
+  const response = await fetch(uri, {
     method: 'GET',
     headers,
-  };
-
-  const response = await fetch(uri, options);
+  });
   const data = await response.json();
 
   return data;
@@ -38,12 +36,10 @@ const getDecks = async () => {
   headers.append('cache-control', 'no-cache');
   headers.append('pragma', 'no-cache');
 
-  const options: RequestInit = {
+  const response = await fetch(uri, {
     method: 'GET',
     headers,
-  };
-
-  const response = await fetch(uri, options);
+  });
   const data = await response.json();
 
   return data;

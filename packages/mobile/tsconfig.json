@@ -3,6 +3,7 @@
   "compilerOptions": {
     "jsx": "react-native",
     "paths": {
+      "@shared/*": ["../shared/src/*"],
       "@*": ["./src/*"]
     }
   },

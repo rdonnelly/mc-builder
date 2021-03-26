@@ -28,6 +28,7 @@ module.exports = {
           '@store': './packages/mobile/src/store',
           '@styles': './packages/mobile/src/styles',
           '@utils': './packages/mobile/src/utils',
+          '@shared': 'shared/src',
         },
       },
     ],

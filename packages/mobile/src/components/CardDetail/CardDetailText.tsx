@@ -6,8 +6,8 @@ import styled from 'styled-components/native';
 
 import Icon, { IconCode } from '@components/Icon';
 import { CardModel, FactionCodes } from '@data';
+import CardParser from '@shared/utils/CardParser';
 import { colors } from '@styles';
-import CardParser from '@utils/CardParser';
 
 const isTablet = DeviceInfo.isTablet();
 

@@ -20,12 +20,12 @@ import FloatingControlBar, {
 } from '@components/FloatingControlBar';
 import { DeckModel } from '@data';
 import { DecksStackParamList } from '@navigation/DecksStackNavigator';
+import { validateClipboard } from '@shared/utils/DeckParser';
 import { StoreState } from '@store';
 import { setDeckSort } from '@store/reducers/app';
 import { AppDeckSortKey } from '@store/types';
 import { base, colors } from '@styles';
 import { getClipboard } from '@utils/Clipboard';
-import { validateClipboard } from '@utils/DeckParser';
 
 const styles = StyleSheet.create({
   contentContainerStyle: {

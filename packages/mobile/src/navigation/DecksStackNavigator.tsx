@@ -10,8 +10,8 @@ import DeckDetailScreen from '@screens/Deck/DeckDetailScreen';
 import DeckEditScreen from '@screens/Deck/DeckEditScreen';
 import DecksImportScreen from '@screens/Deck/DecksImportScreen';
 import DecksListScreen from '@screens/Deck/DecksListScreen';
+import { IImportDeck } from '@shared/utils/DeckParser';
 import { colors } from '@styles';
-import { IImportDeck } from '@utils/DeckParser';
 
 export type DecksStackParamList = {
   DecksList: undefined;

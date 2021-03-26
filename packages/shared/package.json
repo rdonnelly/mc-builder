@@ -1,5 +1,8 @@
 {
   "name": "shared",
   "version": "0.0.1",
-  "private": true
+  "private": true,
+  "scripts": {
+    "generateTypes": "ts-node scripts/generateTypes.ts"
+  }
 }

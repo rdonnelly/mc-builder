@@ -19,12 +19,7 @@
     "build:android": "scripts/build.sh android",
     "build:ios": "scripts/build.sh push",
     "build:getVersion": "scripts/build.sh getVersion",
-    "build:setVersion": "scripts/build.sh setVersion",
-    "generateTypes": "ts-node scripts/generateTypes.ts",
-    "postinstall": "patch-package",
-    "nopostinstall": "patch-package && yarn generateTypes",
-    "clean:auto": "react-native clean-project-auto",
-    "clean": "react-native clean-project"
+    "build:setVersion": "scripts/build.sh setVersion"
   },
   "dependencies": {
     "@expo/react-native-action-sheet": "^3.8.0",

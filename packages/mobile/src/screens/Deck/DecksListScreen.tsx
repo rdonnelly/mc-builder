@@ -18,13 +18,13 @@ import FloatingControlBar, {
   FloatingControlButtonVariant,
 } from '@components/FloatingControlBar';
 import { DecksStackParamList } from '@navigation/DecksStackNavigator';
-import { StoreState } from '@store';
-import { setDeckSort } from '@store/reducers/app';
-import { AppDeckSortKey } from '@store/types';
 import { getClipboard } from '@utils/Clipboard';
 
 import DecksListItem from '@shared/components/DeckListItem';
 import { DeckModel } from '@shared/data';
+import { StoreState } from '@shared/store';
+import { setDeckSort } from '@shared/store/reducers/app';
+import { AppDeckSortKey } from '@shared/store/types';
 import { base, colors } from '@shared/styles';
 import { validateClipboard } from '@shared/utils/DeckParser';
 

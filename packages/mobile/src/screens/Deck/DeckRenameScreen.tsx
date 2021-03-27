@@ -9,10 +9,10 @@ import styled from 'styled-components/native';
 
 import DeckNameForm from '@components/DeckNameForm';
 import { DeckRenameStackParamList } from '@navigation/DeckRenameStackNavigator';
-import { StoreState } from '@store';
-import { updateDeck } from '@store/reducers/decks';
-import { selectStoreDeck } from '@store/selectors';
 
+import { StoreState } from '@shared/store';
+import { updateDeck } from '@shared/store/reducers/decks';
+import { selectStoreDeck } from '@shared/store/selectors';
 import { base, colors } from '@shared/styles';
 
 const DeckRenameScreen: React.FunctionComponent<{

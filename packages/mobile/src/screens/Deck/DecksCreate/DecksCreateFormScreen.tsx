@@ -10,9 +10,9 @@ import styled from 'styled-components/native';
 
 import { DecksCreateContext } from '@context/DecksCreateContext';
 import { DecksCreateStackParamList } from '@navigation/DecksCreateStackNavigator';
-import { setUpNewDeck } from '@store/actions';
 
 import { getFaction, getSet } from '@shared/data';
+import { setUpNewDeck } from '@shared/store/actions';
 import { base, colors } from '@shared/styles';
 
 const DecksCreateFormScreen: React.FunctionComponent<{

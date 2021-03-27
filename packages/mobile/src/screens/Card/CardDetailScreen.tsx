@@ -21,13 +21,13 @@ import FloatingControlBar, {
 import { AppContext } from '@context/AppContext';
 import { CardsCardListContext } from '@context/CardsCardListContext';
 import { DecksCardListContext } from '@context/DecksCardListContext';
-import { useDeckModifications } from '@hooks';
 import { CardStackParamList } from '@navigation/CardsStackNavigator';
-import { StoreState } from '@store';
-import { selectStoreDeckCard } from '@store/selectors';
 
 import CardDetail from '@shared/components/CardDetail';
 import { CardModel } from '@shared/data';
+import { useDeckModifications } from '@shared/hooks';
+import { StoreState } from '@shared/store';
+import { selectStoreDeckCard } from '@shared/store/selectors';
 import { base, colors } from '@shared/styles';
 
 const CardDetailScreen: React.FunctionComponent<{

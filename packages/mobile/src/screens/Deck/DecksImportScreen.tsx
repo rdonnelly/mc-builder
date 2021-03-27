@@ -13,7 +13,6 @@ import FloatingControlBar, {
   FloatingControlButtonVariant,
 } from '@components/FloatingControlBar';
 import { DecksStackParamList } from '@navigation/DecksStackNavigator';
-import { setUpNewDeck } from '@store/actions';
 
 import CardListItem from '@shared/components/CardListItem';
 import {
@@ -26,6 +25,7 @@ import {
   SetCode,
   TypeCodes,
 } from '@shared/data';
+import { setUpNewDeck } from '@shared/store/actions';
 import { base, colors } from '@shared/styles';
 
 const styles = StyleSheet.create({

@@ -12,8 +12,8 @@ import { AppProvider } from '@context/AppContext';
 import { CardsCardListProvider } from '@context/CardsCardListContext';
 import { DecksCardListProvider } from '@context/DecksCardListContext';
 import TabNavigator from '@navigation/TabNavigator';
-import { persistor, store } from '@store';
 
+import { persistor, store } from '@shared/store';
 import { colors, darkTheme, lightTheme } from '@shared/styles';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

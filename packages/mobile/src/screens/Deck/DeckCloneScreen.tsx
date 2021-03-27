@@ -9,10 +9,10 @@ import styled from 'styled-components/native';
 
 import DeckNameForm from '@components/DeckNameForm';
 import { DeckCloneStackParamList } from '@navigation/DeckCloneStackNavigator';
-import { StoreState } from '@store';
-import { cloneDeck } from '@store/actions';
-import { selectStoreDeck } from '@store/selectors';
 
+import { StoreState } from '@shared/store';
+import { cloneDeck } from '@shared/store/actions';
+import { selectStoreDeck } from '@shared/store/selectors';
 import { base, colors } from '@shared/styles';
 
 const DeckCloneScreen: React.FunctionComponent<{

@@ -16,13 +16,13 @@ import FloatingControlBar, {
 } from '@components/FloatingControlBar';
 import { DecksCardListContext } from '@context/DecksCardListContext';
 import { DecksStackParamList } from '@navigation/DecksStackNavigator';
-import { StoreState } from '@store';
-import { deleteDeck } from '@store/actions';
-import { selectStoreDeck, selectStoreDeckCards } from '@store/selectors';
 import { setClipboard } from '@utils/Clipboard';
 
 import DeckDetail from '@shared/components/DeckDetail';
 import { DeckModel, getCardListForDeck } from '@shared/data';
+import { StoreState } from '@shared/store';
+import { deleteDeck } from '@shared/store/actions';
+import { selectStoreDeck, selectStoreDeckCards } from '@shared/store/selectors';
 import { base, colors } from '@shared/styles';
 
 const DeckDetailScreen: React.FunctionComponent<{

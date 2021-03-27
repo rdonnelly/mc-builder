@@ -10,9 +10,8 @@ import {
 } from 'redux-persist';
 import { ThunkAction } from 'redux-thunk';
 
-import reducer from '@store/reducers';
-
 import Reactotron from '../ReactotronConfig';
+import reducer from '../store/reducers';
 
 export type StoreState = ReturnType<typeof reducer>;
 export type AppThunk = ThunkAction<void, StoreState, null, Action<string>>;

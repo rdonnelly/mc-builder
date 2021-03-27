@@ -1,4 +1,9 @@
-import { FactionCode, PackCode, SetCode, TypeCode } from '../data/generatedTypes';
+import {
+  FactionCode,
+  PackCode,
+  SetCode,
+  TypeCode,
+} from '../data/generatedTypes';
 
 export type {
   FactionCode,

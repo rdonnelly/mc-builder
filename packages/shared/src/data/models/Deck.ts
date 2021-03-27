@@ -2,8 +2,6 @@ import isDeepEqual from 'lodash/isEqual';
 import keyBy from 'lodash/keyBy';
 import memoizeOne from 'memoize-one';
 
-import { IStoreDeck, IStoreDeckCard } from '@store/types';
-
 import { compareCardFaction } from '../../data/cardUtils';
 import {
   Card,
@@ -22,6 +20,7 @@ import {
   TypeCode,
   TypeCodes,
 } from '../../data/types';
+import { IStoreDeck, IStoreDeckCard } from '../../store/types';
 
 interface IDeckCard {
   card: Card;

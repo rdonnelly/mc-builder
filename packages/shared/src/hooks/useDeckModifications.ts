@@ -1,9 +1,8 @@
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import { useDispatch } from 'react-redux';
 
-import { addCardToDeck, removeCardFromDeck } from '@store/actions';
-
-import { CardModel } from '@shared/data';
+import { CardModel } from '../data';
+import { addCardToDeck, removeCardFromDeck } from '../store/actions';
 
 export function useDeckModifications(
   deckCode: string,

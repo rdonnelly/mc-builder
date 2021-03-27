@@ -1,6 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit';
 
-import { StoreState } from '@store';
+import { StoreState } from '../store';
 
 export const selectStoreDeck = createSelector(
   (state: StoreState, _deckCode: string) => state.root.decks.entities,

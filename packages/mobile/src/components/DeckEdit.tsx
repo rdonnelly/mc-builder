@@ -4,12 +4,12 @@ import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import styled from 'styled-components/native';
 
 import DeckEditList from '@components/DeckEditList';
-import DeckHeader from '@components/DeckHeader';
 import FloatingControlBar, {
   FloatingControlButtonVariant,
 } from '@components/FloatingControlBar';
 import { DeckEditScreenNavigationProp } from '@screens/Deck/DeckEditScreen';
 
+import { DeckDetailHeader } from '@shared/components/DeckDetail';
 import { DeckModel } from '@shared/data';
 import { base, colors } from '@shared/styles';
 
@@ -27,7 +27,7 @@ const DeckEdit: React.FunctionComponent<{
 
   return (
     <Container>
-      <DeckHeader deck={deck} />
+      <DeckDetailHeader deck={deck} />
       <DeckEditList deck={deck} />
 
       <FloatingControlBar>

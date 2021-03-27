@@ -8,15 +8,27 @@
     "nohoist": []
   },
   "scripts": {
-    "postinstall": "patch-package && yarn workspace shared generateTypes"
+    "android": "yarn workspace mobile android",
+    "ios": "yarn workspace mobile ios",
+    "lint": "yarn workspaces run lint",
+    "mobile": "yarn workspace mobile start",
+    "postinstall": "patch-package && yarn workspace shared generateTypes",
+    "ts": "yarn workspaces run ts"
   },
   "dependencies": {
-    "nanoid": "^3.1.20",
+    "@reduxjs/toolkit": "^1.2.1",
+    "lodash": "^4.17.15",
     "marvelsdb-json-data": "https://github.com/rdonnelly/marvelsdb-json-data.git#main",
+    "memoize-one": "^5.1.1",
+    "nanoid": "^3.1.20",
+    "react-redux": "^7.1.3",
+    "redux": "^4.0.5",
     "styled-components": "^5.2.0"
   },
   "devDependencies": {
     "@react-native-community/eslint-config": "^2.0.0",
+    "@types/lodash": "^4.14.168",
+    "@types/styled-components": "^5.1.7",
     "@typescript-eslint/eslint-plugin": "^4.13.0",
     "@typescript-eslint/parser": "^4.13.0",
     "eslint": "^7.17.0",
@@ -25,8 +37,8 @@
     "patch-package": "^6.2.2",
     "postinstall-postinstall": "^2.1.0",
     "prettier": "^2.2.1",
+    "ts-node": "^9.1.1",
     "typescript": "^4.1.3",
-    "typescript-plugin-styled-components": "^1.4.4",
-    "ts-node": "^9.1.1"
+    "typescript-plugin-styled-components": "^1.4.4"
   }
 }

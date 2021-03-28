@@ -76,3 +76,6 @@ ios-release.bundle.map
 .env
 .env.development
 .env.production
+
+# web
+.next

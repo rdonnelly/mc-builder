@@ -1,0 +1,16 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "jsx": "preserve",
+    "paths": {
+      "@shared/*": [
+        "../shared/src/*"
+      ]
+    },
+    "strict": false
+  },
+  "include": ["next-env.d.ts", "*.js", "**/*.js", "**/*.json", "**/*.ts", "**/*.tsx"],
+  "exclude": [
+    "node_modules"
+  ]
+}

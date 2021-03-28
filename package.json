@@ -13,7 +13,8 @@
     "lint": "yarn workspaces run lint",
     "mobile": "yarn workspace mobile start",
     "postinstall": "patch-package && yarn workspace shared generateTypes",
-    "ts": "yarn workspaces run ts"
+    "ts": "yarn workspaces run ts",
+    "web": "yarn workspace web dev"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.2.1",

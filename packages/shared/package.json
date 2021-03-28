@@ -2,9 +2,13 @@
   "name": "shared",
   "version": "0.0.1",
   "private": true,
+  "main": "src/index.js",
   "scripts": {
     "generateTypes": "ts-node scripts/generateTypes.ts",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "ts": "tsc --noEmit --project tsconfig.json"
+  },
+  "dependencies": {
+    "react-native-vector-icons": "^8.0.0"
   }
 }

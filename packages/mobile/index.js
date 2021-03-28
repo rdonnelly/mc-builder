@@ -9,7 +9,7 @@ import { name as appName } from './app.json';
 import App from './src/App';
 
 if (__DEV__) {
-  import('./src/ReactotronConfig').then(() =>
+  import('@shared/ReactotronConfig').then(() =>
     console.log('Reactotron Configured'),
   );
 } else {

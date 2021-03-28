@@ -9,7 +9,7 @@ import { Alert, findNodeHandle, Platform } from 'react-native';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
 import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 
 import FloatingControlBar, {
   FloatingControlButtonVariant,

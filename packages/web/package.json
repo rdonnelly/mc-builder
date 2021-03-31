@@ -14,7 +14,8 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-native-web": "^0.15.0",
-    "shared": "0.0.1"
+    "shared": "0.0.1",
+    "use-dark-mode": "^2.3.1"
   },
   "devDependencies": {
     "@types/node": "^14.14.31",

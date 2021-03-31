@@ -9,6 +9,5 @@
     "ts": "tsc --noEmit --project tsconfig.json"
   },
   "dependencies": {
-    "react-native-vector-icons": "^8.0.0"
   }
 }

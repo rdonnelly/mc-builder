@@ -1,8 +1,6 @@
 module.exports = {
   presets: ['next/babel'],
   plugins: [
-    // ['styled-components', { ssr: true }],
-    ['react-native-web', { commonjs: true }],
     [
       'module-resolver',
       {
@@ -13,5 +11,7 @@ module.exports = {
         },
       },
     ],
+    ['react-native-web', { commonjs: true }],
+    ['styled-components', { ssr: true }],
   ],
 };

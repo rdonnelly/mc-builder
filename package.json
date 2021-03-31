@@ -22,6 +22,12 @@
     "marvelsdb-json-data": "https://github.com/rdonnelly/marvelsdb-json-data.git#main",
     "memoize-one": "^5.1.1",
     "nanoid": "^3.1.20",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-native-device-info": "^8.0.7",
+    "react-native-render-html": "^5.1.0",
+    "react-native-vector-icons": "^8.1.0",
+    "react-native-web": "^0.15.0",
     "react-redux": "^7.1.3",
     "redux": "^4.0.5",
     "styled-components": "^5.2.0"

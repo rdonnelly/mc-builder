@@ -5,11 +5,11 @@ import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import styled from 'styled-components/native';
 
 import { CardModel } from '../../data';
-import { shareImageUrl } from '../../utils/Share';
+// import { shareImageUrl } from '../../utils/Share';
 
 const handleImageLongPress = (card: CardModel) => {
   ReactNativeHapticFeedback.trigger('impactHeavy');
-  shareImageUrl(card.imageSrc);
+  // shareImageUrl(card.imageSrc);
 };
 
 const CardDetailImage = ({

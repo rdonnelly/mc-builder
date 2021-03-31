@@ -1,13 +1,15 @@
 import React from 'react';
 
-import CardDetailHeader from '@shared/components/CardDetail/CardDetailHeader';
-// import CardDetail from '@shared/components/CardDetail/CardDetail';
+import CardDetail from '@shared/components/CardDetail';
 import { Card, getCard, getCards } from '@shared/data/models/Card';
 
 const CardPage = ({ rawCard }) => {
+  // return <Demo />;
+
   const card = new Card(rawCard);
-  return <CardDetailHeader card={card} />;
-  // return <CardDetail card={card} width={768} />;
+  // return <CardDetailHeader card={card} />;
+
+  return <CardDetail card={card} width={768} />;
 };
 
 // This function gets called at build time

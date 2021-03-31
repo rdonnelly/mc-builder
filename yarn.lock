@@ -8863,11 +8863,6 @@ react-native-device-info@^8.0.0:
   resolved "https://registry.yarnpkg.com/react-native-device-info/-/react-native-device-info-8.0.6.tgz#5c1229ec89a6dc7b026f82d38fd545a098063988"
   integrity sha512-gPLl8CmVhLRGDgZKiz+rXJyMGYRH8DYMTBZrhl4kXXZr+LUBqz/6s5epcNZ17L0bKn9d/r5lh1sfbeiYGXgXmg==
 
-react-native-device-info@^8.0.7:
-  version "8.0.7"
-  resolved "https://registry.yarnpkg.com/react-native-device-info/-/react-native-device-info-8.0.7.tgz#c04f5dd50a977da21305b99088c0b42b588d07f9"
-  integrity sha512-CSGosqvESXWKTfYa+6gYd3HRQOkJm6C+TSXfaipat4Q0BzUHWWNaS5M5z7x72hg6FRk25rJ4zxSmSCQvizHzzQ==
-
 react-native-dotenv@^2.5.0:
   version "2.5.3"
   resolved "https://registry.yarnpkg.com/react-native-dotenv/-/react-native-dotenv-2.5.3.tgz#ec70186d2b1491b0519647c53bf91f34395377a3"

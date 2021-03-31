@@ -1,5 +1,4 @@
 const withTM = require('next-transpile-modules')([
-  'react-native-device-info',
   'react-native-haptic-feedback',
   'react-native-render-html',
   'react-native-vector-icons',

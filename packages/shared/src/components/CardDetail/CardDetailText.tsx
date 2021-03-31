@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import DeviceInfo from 'react-native-device-info';
 import Html from 'react-native-render-html';
 import styled from 'styled-components/native';
 
@@ -8,25 +7,6 @@ import Icon, { IconCode } from '../../components/Icon';
 import { CardModel, FactionCodes } from '../../data';
 import { colors } from '../../styles';
 import CardParser from '../../utils/CardParser';
-
-const isTablet = DeviceInfo.isTablet();
-
-const styles = StyleSheet.create({
-  cardDetailText: {
-    color: colors.primary,
-    fontSize: isTablet ? 20 : 17,
-    fontWeight: '500',
-    letterSpacing: isTablet ? -0.54 : -0.408,
-  },
-  cardDetailFlavor: {
-    color: colors.subdued,
-    fontSize: isTablet ? 16 : 14,
-    fontStyle: 'italic',
-    fontWeight: '600',
-    letterSpacing: isTablet ? -0.54 : -0.408,
-    textAlign: 'center',
-  },
-});
 
 const customTagStyles = {
   b: { fontWeight: 'bold' },
@@ -60,7 +40,21 @@ const renderCardText = (card: CardModel, key: string, isFlavor = false) => {
       <Html
         source={{ html: text }}
         baseFontStyle={
-          isFlavor ? styles.cardDetailFlavor : styles.cardDetailText
+          isFlavor
+            ? {
+                color: colors.subdued,
+                fontSize: 14,
+                fontStyle: 'italic',
+                fontWeight: '600',
+                letterSpacing: -0.408,
+                textAlign: 'center',
+              }
+            : {
+                color: colors.primary,
+                fontSize: 17,
+                fontWeight: '500',
+                letterSpacing: -0.408,
+              }
         }
         tagsStyles={customTagStyles}
         renderers={customRenderers}

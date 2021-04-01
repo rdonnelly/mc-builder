@@ -5,7 +5,6 @@ import styled from 'styled-components/native';
 
 import Icon, { IconCode } from '../components/Icon';
 import { CardModel, FactionCodes, TypeCodes } from '../data';
-import { useDeckModifications } from '../hooks';
 import { base, colors } from '../styles';
 
 export const ITEM_HEIGHT = 64;
@@ -61,10 +60,13 @@ const getResourceIcons = (card: CardModel) => {
 const CardListItem = ({
   card,
   count,
-  deckCode,
   onPressItem,
   showEditControls,
   showPackInfo = true,
+  increment,
+  incrementIsDisabled,
+  decrement,
+  decrementIsDisabled,
 }: {
   card: CardModel;
   count?: number;
@@ -72,14 +74,11 @@ const CardListItem = ({
   onPressItem?: (code: string) => void;
   showEditControls?: boolean;
   showPackInfo?: boolean;
+  increment?: (card: CardModel) => void;
+  incrementIsDisabled?: (card: CardModel, quantity: number) => boolean;
+  decrement?: (card: CardModel) => void;
+  decrementIsDisabled?: (card: CardModel, quantity: number) => boolean;
 }) => {
-  const {
-    increment,
-    incrementIsDisabled,
-    decrement,
-    decrementIsDisabled,
-  } = useDeckModifications(deckCode, card, count);
-
   let infoText = '';
 
   if (card.typeCode === TypeCodes.VILLAIN && card.raw.stage != null) {
@@ -127,17 +126,19 @@ const CardListItem = ({
             {showEditControls === true ? (
               <CardControls>
                 <CardCountIncrementButton
-                  onPress={() => increment()}
-                  active={!incrementIsDisabled}
+                  onPress={() => increment(card)}
+                  active={!incrementIsDisabled(card, count)}
                 >
                   {({ pressed: cardControlPressed }) => (
                     <CardCountIncrementButtonBackground
-                      active={cardControlPressed && !incrementIsDisabled}
+                      active={
+                        cardControlPressed && !incrementIsDisabled(card, count)
+                      }
                     >
                       <FontAwesomeIcon
                         name="plus"
                         color={
-                          incrementIsDisabled
+                          incrementIsDisabled(card, count)
                             ? colors.lightGrayDark
                             : cardControlPressed
                             ? colors.greenDark
@@ -150,17 +151,19 @@ const CardListItem = ({
                   )}
                 </CardCountIncrementButton>
                 <CardCountDecrementButton
-                  onPress={() => decrement()}
-                  active={!decrementIsDisabled}
+                  onPress={() => decrement(card)}
+                  active={!decrementIsDisabled(card, count)}
                 >
                   {({ pressed: cardControlPressed }) => (
                     <CardCountDecrementButtonBackground
-                      active={cardControlPressed && !decrementIsDisabled}
+                      active={
+                        cardControlPressed && !decrementIsDisabled(card, count)
+                      }
                     >
                       <FontAwesomeIcon
                         name="minus"
                         color={
-                          decrementIsDisabled
+                          decrementIsDisabled(card, count)
                             ? colors.lightGrayDark
                             : cardControlPressed
                             ? colors.redDark

@@ -6,11 +6,17 @@ import { base, colors } from '../../styles';
 import DeckDetailHeader from './DeckDetailHeader';
 import DeckDetailList from './DeckDetailList';
 
-const DeckDetail = ({ deck }: { deck: DeckModel }) => {
+const DeckDetail = ({
+  deck,
+  handlePressItem,
+}: {
+  deck: DeckModel;
+  handlePressItem: (cardCode: string) => void;
+}) => {
   return (
     <Container>
       <DeckDetailHeader deck={deck} />
-      <DeckDetailList deck={deck} />
+      <DeckDetailList deck={deck} handlePressItem={handlePressItem} />
     </Container>
   );
 };

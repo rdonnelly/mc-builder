@@ -1,7 +1,5 @@
 // import colors from '@styles/colors';
 
-import 'styled-components/native';
-
 import { DefaultTheme } from 'styled-components/native';
 
 declare module 'styled-components/native' {

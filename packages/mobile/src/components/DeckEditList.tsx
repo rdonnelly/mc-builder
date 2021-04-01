@@ -3,6 +3,8 @@ import React, { useCallback } from 'react';
 import { SectionList, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 
+import { useDeckModifications } from '@hooks';
+
 import CardListItem from '@shared/components/CardListItem';
 import { CardModel, DeckModel } from '@shared/data';
 import { base, colors } from '@shared/styles';
@@ -17,6 +19,13 @@ const DeckEditList: React.FunctionComponent<{
   deck: DeckModel;
 }> = ({ deck }) => {
   const navigation = useNavigation();
+
+  const {
+    increment,
+    incrementIsDisabled,
+    decrement,
+    decrementIsDisabled,
+  } = useDeckModifications(deck.code);
 
   const handlePressItem = useCallback(
     (code: string) => {
@@ -45,6 +54,10 @@ const DeckEditList: React.FunctionComponent<{
       showPackInfo={false}
       showEditControls={true}
       onPressItem={handlePressItem}
+      increment={increment}
+      incrementIsDisabled={incrementIsDisabled}
+      decrement={decrement}
+      decrementIsDisabled={decrementIsDisabled}
     />
   );
 

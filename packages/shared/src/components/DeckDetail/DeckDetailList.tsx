@@ -1,5 +1,4 @@
-import { useNavigation } from '@react-navigation/native';
-import React, { memo, useCallback } from 'react';
+import React, { memo } from 'react';
 import { SectionList, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 
@@ -13,20 +12,13 @@ const styles = StyleSheet.create({
   },
 });
 
-const DeckDetailList = ({ deck }: { deck: DeckModel }) => {
-  const navigation = useNavigation();
-
-  const handlePressItem = useCallback(
-    (code: string) => {
-      if (navigation) {
-        navigation.navigate('DeckDetailCardDetail', {
-          code,
-        });
-      }
-    },
-    [navigation],
-  );
-
+const DeckDetailList = ({
+  deck,
+  handlePressItem,
+}: {
+  deck: DeckModel;
+  handlePressItem: (cardCode: string) => void;
+}) => {
   const renderSectionHeader = ({ section }) => (
     <SectionHeader>
       <SectionHeaderText>{section.title}</SectionHeaderText>

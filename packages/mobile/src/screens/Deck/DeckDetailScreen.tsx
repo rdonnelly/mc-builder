@@ -16,18 +16,20 @@ import FloatingControlBar, {
 } from '@components/FloatingControlBar';
 import { DecksCardListContext } from '@context/DecksCardListContext';
 import { DecksStackParamList } from '@navigation/DecksStackNavigator';
+import { StoreState } from '@store';
+import { deleteDeck } from '@store/actions';
 import { setClipboard } from '@utils/Clipboard';
 
 import DeckDetail from '@shared/components/DeckDetail';
 import { DeckModel, getCardListForDeck } from '@shared/data';
-import { StoreState } from '@shared/store';
-import { deleteDeck } from '@shared/store/actions';
 import { selectStoreDeck, selectStoreDeckCards } from '@shared/store/selectors';
 import { base, colors } from '@shared/styles';
 
-const DeckDetailScreen: React.FunctionComponent<{
+const DeckDetailScreen = ({
+  route,
+}: {
   route: RouteProp<DecksStackParamList, 'DeckDetail'>;
-}> = ({ route }) => {
+}) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
@@ -154,9 +156,20 @@ const DeckDetailScreen: React.FunctionComponent<{
     );
   };
 
+  const handlePressItem = useCallback(
+    (cardCode: string) => {
+      if (navigation) {
+        navigation.navigate('DeckDetailCardDetail', {
+          code: cardCode,
+        });
+      }
+    },
+    [navigation],
+  );
+
   return (
     <Container>
-      <DeckDetail deck={deckModel} />
+      <DeckDetail deck={deckModel} handlePressItem={handlePressItem} />
 
       <FloatingControlBar>
         <FloatingControlBar.FlexButton

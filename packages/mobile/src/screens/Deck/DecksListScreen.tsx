@@ -18,15 +18,15 @@ import FloatingControlBar, {
   FloatingControlButtonVariant,
 } from '@components/FloatingControlBar';
 import { DecksStackParamList } from '@navigation/DecksStackNavigator';
+import { StoreState } from '@store';
 import { getClipboard } from '@utils/Clipboard';
+import { validateClipboard } from '@utils/DeckParser';
 
 import DecksListItem from '@shared/components/DeckListItem';
 import { DeckModel } from '@shared/data';
-import { StoreState } from '@shared/store';
 import { setDeckSort } from '@shared/store/reducers/app';
 import { AppDeckSortKey } from '@shared/store/types';
 import { base, colors } from '@shared/styles';
-import { validateClipboard } from '@shared/utils/DeckParser';
 
 const styles = StyleSheet.create({
   contentContainerStyle: {

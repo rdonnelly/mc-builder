@@ -26,6 +26,8 @@
     "marvelsdb-json-data": "https://github.com/rdonnelly/marvelsdb-json-data.git#main",
     "memoize-one": "^5.1.1",
     "nanoid": "^3.1.20",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
     "react-native-gesture-handler": "^1.5.3",
     "react-native-haptic-feedback": "^1.9.0",
     "react-native-reanimated": "^1.4.0",

@@ -7,7 +7,7 @@ import styled from 'styled-components/native';
 import { CardModel } from '../../data';
 // import { shareImageUrl } from '../../utils/Share';
 
-const handleImageLongPress = (card: CardModel) => {
+const handleImageLongPress = (_card: CardModel) => {
   ReactNativeHapticFeedback.trigger('impactHeavy');
   // shareImageUrl(card.imageSrc);
 };

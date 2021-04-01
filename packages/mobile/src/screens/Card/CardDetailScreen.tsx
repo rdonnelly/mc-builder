@@ -21,12 +21,12 @@ import FloatingControlBar, {
 import { AppContext } from '@context/AppContext';
 import { CardsCardListContext } from '@context/CardsCardListContext';
 import { DecksCardListContext } from '@context/DecksCardListContext';
+import { useDeckModifications } from '@hooks';
 import { CardStackParamList } from '@navigation/CardsStackNavigator';
+import { StoreState } from '@store';
 
 import CardDetail from '@shared/components/CardDetail';
 import { CardModel } from '@shared/data';
-import { useDeckModifications } from '@shared/hooks';
-import { StoreState } from '@shared/store';
 import { selectStoreDeckCard } from '@shared/store/selectors';
 import { base, colors } from '@shared/styles';
 
@@ -55,6 +55,7 @@ const CardDetailScreen: React.FunctionComponent<{
     (c) => c.code === activeCardCode,
   );
   const activeCard = cardList[activeCardCodeIndex];
+  const activeCardName = activeCard?.name;
 
   const handleReport = useCallback(async () => {
     const url = encodeURI(
@@ -121,9 +122,9 @@ const CardDetailScreen: React.FunctionComponent<{
           </Pressable>
         );
       },
-      headerTitle: activeCard?.name,
+      headerTitle: activeCardName,
     });
-  }, [navigation, activeCard?.name, handleMenuOpen]);
+  }, [navigation, activeCardName, handleMenuOpen]);
 
   const getItemLayout = (_data: CardModel[], index: number) => ({
     length: windowWidth - 32,
@@ -168,7 +169,7 @@ const CardDetailScreen: React.FunctionComponent<{
     incrementIsDisabled,
     decrement,
     decrementIsDisabled,
-  } = useDeckModifications(deckCode, activeCard, deckCardCount);
+  } = useDeckModifications(deckCode);
 
   return (
     <Container>
@@ -197,33 +198,41 @@ const CardDetailScreen: React.FunctionComponent<{
             {deckCardCount}
           </FloatingControlBar.Text>
           <FloatingControlBar.FlexButton
-            onPress={() => increment()}
-            disabled={incrementIsDisabled}
+            onPress={() => increment(activeCard)}
+            disabled={incrementIsDisabled(activeCard, deckCardCount)}
             variant={
-              incrementIsDisabled
+              incrementIsDisabled(activeCard, deckCardCount)
                 ? FloatingControlButtonVariant.DISABLED
                 : FloatingControlButtonVariant.INVERTED_SUCCESS
             }
           >
             <FontAwesomeIcon
               name="plus"
-              color={incrementIsDisabled ? colors.grayDark : colors.green}
+              color={
+                incrementIsDisabled(activeCard, deckCardCount)
+                  ? colors.grayDark
+                  : colors.green
+              }
               size={16}
               solid
             />
           </FloatingControlBar.FlexButton>
           <FloatingControlBar.FlexButton
-            onPress={() => decrement()}
-            disabled={decrementIsDisabled}
+            onPress={() => decrement(activeCard)}
+            disabled={decrementIsDisabled(activeCard, deckCardCount)}
             variant={
-              decrementIsDisabled
+              decrementIsDisabled(activeCard, deckCardCount)
                 ? FloatingControlButtonVariant.DISABLED
                 : FloatingControlButtonVariant.INVERTED_DESTRUCTIVE
             }
           >
             <FontAwesomeIcon
               name="minus"
-              color={decrementIsDisabled ? colors.grayDark : colors.red}
+              color={
+                decrementIsDisabled(activeCard, deckCardCount)
+                  ? colors.grayDark
+                  : colors.red
+              }
               size={16}
               solid
             />

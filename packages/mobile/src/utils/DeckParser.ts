@@ -1,7 +1,7 @@
 // @ts-ignore
 import { MCDB_BASE_URI } from '@env';
 
-import { getPublicDeck } from '../api/deck';
+import { getPublicDeck } from '@shared/api/deck';
 
 export interface IImportDeck {
   code?: string;
@@ -23,6 +23,7 @@ const validateClipboard = async (
     `^${MCDB_BASE_URI}/decklist/view/(\\d+)/`,
     'gi',
   );
+
   if (mcdbUrlRegex.test(clipboardContent)) {
     try {
       const publicDeck = await getPublicDeck(clipboardContent);

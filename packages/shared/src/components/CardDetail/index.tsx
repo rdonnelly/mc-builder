@@ -29,10 +29,11 @@ const CardDetail = ({
   width: number;
 }) => {
   return (
-    <CardDetailContainer>
+    <CardDetailContainer width={width}>
       <ContainerScrollView
         contentContainerStyle={styles.scrollViewContentContainer}
         showsHorizontalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
       >
         <CardDetailHeader card={card} hideTitle={hideTitle} />
         <CardDetailStats card={card} />
@@ -47,7 +48,8 @@ const CardDetail = ({
 
 const CardDetailContainer = styled(base.Container)<{ width: number }>`
   background-color: ${colors.white};
-  width: 100%;
+  margin: 0 auto;
+  width: ${({ width }) => `${width}px`};
 `;
 
 const ContainerScrollView = styled(ScrollView)`

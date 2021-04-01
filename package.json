@@ -4,8 +4,7 @@
   "workspaces": {
     "packages": [
       "packages/*"
-    ],
-    "nohoist": []
+    ]
   },
   "scripts": {
     "android": "yarn workspace mobile android",
@@ -17,25 +16,14 @@
     "web": "yarn workspace web dev"
   },
   "dependencies": {
-    "@react-native-community/async-storage": "^1.7.1",
-    "@react-navigation/bottom-tabs": "^5.11.3",
-    "@react-navigation/native": "^5.9.0",
-    "@react-navigation/stack": "^5.13.0",
     "@reduxjs/toolkit": "^1.2.1",
     "lodash": "^4.17.15",
     "marvelsdb-json-data": "https://github.com/rdonnelly/marvelsdb-json-data.git#main",
     "memoize-one": "^5.1.1",
     "nanoid": "^3.1.20",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-native-gesture-handler": "^1.5.3",
     "react-native-haptic-feedback": "^1.9.0",
-    "react-native-reanimated": "^1.4.0",
     "react-native-render-html": "^5.1.0",
-    "react-native-safe-area-context": "^3.0.2",
-    "react-native-screens": "2.17.1",
     "react-native-vector-icons": "^8.1.0",
-    "react-native-web": "^0.15.0",
     "react-redux": "^7.1.3",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
@@ -46,6 +34,8 @@
   "devDependencies": {
     "@react-native-community/eslint-config": "^2.0.0",
     "@types/lodash": "^4.14.168",
+    "@types/react-native-vector-icons": "^6.4.5",
+    "@types/react-redux": "^7.1.15",
     "@types/styled-components": "^5.1.7",
     "@typescript-eslint/eslint-plugin": "^4.13.0",
     "@typescript-eslint/parser": "^4.13.0",

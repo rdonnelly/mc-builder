@@ -15,14 +15,14 @@ import {
 import {
   removeDeckCards,
   updateDeckCards,
-} from '@shared/store/reducers/deckCards';
+} from '@store/reducers/deckCards';
 import {
   addDeckCardsToDeck,
   createDeck,
   duplicateDeck,
   removeDeck,
   removeDeckCardFromDeck,
-} from '@shared/store/reducers/decks';
+} from '@store/reducers/decks';
 
 export const setUpNewDeck = (
   deckCode: string,

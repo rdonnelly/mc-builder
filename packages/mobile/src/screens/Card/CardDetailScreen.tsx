@@ -27,7 +27,7 @@ import { StoreState } from '@store';
 
 import CardDetail from '@shared/components/CardDetail';
 import { CardModel } from '@shared/data';
-import { selectStoreDeckCard } from '@shared/store/selectors';
+import { selectStoreDeckCard } from '@store/selectors';
 import { base, colors } from '@shared/styles';
 
 const CardDetailScreen: React.FunctionComponent<{

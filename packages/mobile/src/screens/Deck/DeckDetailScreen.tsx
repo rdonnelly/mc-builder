@@ -22,7 +22,7 @@ import { setClipboard } from '@utils/Clipboard';
 
 import DeckDetail from '@shared/components/DeckDetail';
 import { DeckModel, getCardListForDeck } from '@shared/data';
-import { selectStoreDeck, selectStoreDeckCards } from '@shared/store/selectors';
+import { selectStoreDeck, selectStoreDeckCards } from '@store/selectors';
 import { base, colors } from '@shared/styles';
 
 const DeckDetailScreen = ({

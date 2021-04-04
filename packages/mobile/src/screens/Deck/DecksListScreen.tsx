@@ -24,8 +24,8 @@ import { validateClipboard } from '@utils/DeckParser';
 
 import DecksListItem from '@shared/components/DeckListItem';
 import { DeckModel } from '@shared/data';
-import { setDeckSort } from '@shared/store/reducers/app';
-import { AppDeckSortKey } from '@shared/store/types';
+import { setDeckSort } from '@store/reducers/app';
+import { AppDeckSortKey } from '@store/types';
 import { base, colors } from '@shared/styles';
 
 const styles = StyleSheet.create({

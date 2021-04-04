@@ -9,7 +9,7 @@ import { DecksStackParamList } from '@navigation/DecksStackNavigator';
 import { StoreState } from '@store';
 
 import { DeckModel, getEligibleCardListForDeck } from '@shared/data';
-import { selectStoreDeck, selectStoreDeckCards } from '@shared/store/selectors';
+import { selectStoreDeck, selectStoreDeckCards } from '@store/selectors';
 
 export type DeckEditScreenNavigationProp = StackNavigationProp<
   DecksStackParamList,

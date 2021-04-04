@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { IStoreDeckCard, IStoreDeckCardState } from '../../store/types';
+import { IStoreDeckCard, IStoreDeckCardState } from '@store/types';
 
 const initialState = {
   codes: [],

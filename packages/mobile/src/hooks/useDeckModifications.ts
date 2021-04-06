@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import { useDispatch } from 'react-redux';
 
@@ -8,27 +9,39 @@ import { CardModel } from '@shared/data';
 export function useDeckModifications(deckCode: string) {
   const dispatch = useDispatch();
 
-  const incrementIsDisabled = (card: CardModel, quantity: number): boolean =>
-    (card.isUnique && quantity >= 1) ||
-    quantity >= card.deckLimit ||
-    (card.setCode != null && quantity >= card.setQuantity);
+  const incrementIsDisabled = useCallback(
+    (card: CardModel, quantity: number): boolean =>
+      (card.isUnique && quantity >= 1) ||
+      quantity >= card.deckLimit ||
+      (card.setCode != null && quantity >= card.setQuantity),
+    [],
+  );
 
-  const increment = (card: CardModel) => {
-    if (!incrementIsDisabled) {
-      ReactNativeHapticFeedback.trigger('selection');
-      dispatch(addCardToDeck(deckCode, card));
-    }
-  };
+  const increment = useCallback(
+    (card: CardModel) => {
+      if (!incrementIsDisabled) {
+        ReactNativeHapticFeedback.trigger('selection');
+        dispatch(addCardToDeck(deckCode, card));
+      }
+    },
+    [deckCode, incrementIsDisabled, dispatch],
+  );
 
-  const decrementIsDisabled = (card: CardModel, quantity: number): boolean =>
-    quantity <= 0 || (card.setCode != null && quantity <= card.setQuantity);
+  const decrementIsDisabled = useCallback(
+    (card: CardModel, quantity: number): boolean =>
+      quantity <= 0 || (card.setCode != null && quantity <= card.setQuantity),
+    [],
+  );
 
-  const decrement = (card: CardModel) => {
-    if (!decrementIsDisabled) {
-      ReactNativeHapticFeedback.trigger('selection');
-      dispatch(removeCardFromDeck(deckCode, card));
-    }
-  };
+  const decrement = useCallback(
+    (card: CardModel) => {
+      if (!decrementIsDisabled) {
+        ReactNativeHapticFeedback.trigger('selection');
+        dispatch(removeCardFromDeck(deckCode, card));
+      }
+    },
+    [deckCode, decrementIsDisabled, dispatch],
+  );
 
   return { increment, incrementIsDisabled, decrement, decrementIsDisabled };
 }

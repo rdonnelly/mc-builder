@@ -23,10 +23,12 @@ const CardDetail = ({
   card,
   hideTitle,
   width,
+  shareCardImage,
 }: {
   card: CardModel;
-  hideTitle?: boolean;
   width: number;
+  hideTitle?: boolean;
+  shareCardImage?: (card: CardModel) => void;
 }) => {
   return (
     <CardDetailContainer width={width}>
@@ -39,7 +41,11 @@ const CardDetail = ({
         <CardDetailStats card={card} />
         <CardDetailText card={card} />
         <CardDetailFooter card={card} />
-        <CardDetailImages card={card} maxWidth={width} />
+        <CardDetailImages
+          card={card}
+          maxWidth={width}
+          shareCardImage={shareCardImage}
+        />
         <CardDetailPack card={card} />
       </ContainerScrollView>
     </CardDetailContainer>

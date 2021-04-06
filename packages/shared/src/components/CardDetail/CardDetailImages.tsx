@@ -1,25 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { Image, Platform } from 'react-native';
 import { Pressable } from 'react-native';
-import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import styled from 'styled-components/native';
 
 import { CardModel } from '../../data';
-// import { shareImageUrl } from '../../utils/Share';
-
-const handleImageLongPress = (_card: CardModel) => {
-  ReactNativeHapticFeedback.trigger('impactHeavy');
-  // shareImageUrl(card.imageSrc);
-};
 
 const CardDetailImage = ({
   card,
   imageUri,
   maxWidth,
+  shareCardImage,
 }: {
   card: CardModel;
   imageUri: string;
   maxWidth: number;
+  shareCardImage?: (card: CardModel) => void;
 }) => {
   const [imageHeight, setImageHeight] = useState(0);
   const [imageWidth, setImageWidth] = useState(0);
@@ -45,7 +40,7 @@ const CardDetailImage = ({
   return (
     <Pressable
       disabled={Platform.OS !== 'ios'}
-      onLongPress={() => handleImageLongPress(card)}
+      onLongPress={() => shareCardImage(card)}
     >
       {({ pressed }) => (
         <CardDetailImageContainer

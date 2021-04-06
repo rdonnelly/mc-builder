@@ -19,14 +19,14 @@ import FloatingControlBar, {
 } from '@components/FloatingControlBar';
 import { DecksStackParamList } from '@navigation/DecksStackNavigator';
 import { StoreState } from '@store';
+import { setDeckSort } from '@store/reducers/app';
+import { AppDeckSortKey } from '@store/types';
 import { getClipboard } from '@utils/Clipboard';
-import { validateClipboard } from '@utils/DeckParser';
 
 import DecksListItem from '@shared/components/DeckListItem';
 import { DeckModel } from '@shared/data';
-import { setDeckSort } from '@store/reducers/app';
-import { AppDeckSortKey } from '@store/types';
 import { base, colors } from '@shared/styles';
+import { parseDeckFromString } from '@shared/utils/DeckParser';
 
 const styles = StyleSheet.create({
   contentContainerStyle: {
@@ -167,7 +167,7 @@ const DecksListScreen: React.FunctionComponent<{
 
   const handleImportDeck = async () => {
     const clipboardContent = await getClipboard();
-    const importDeck = await validateClipboard(clipboardContent);
+    const importDeck = await parseDeckFromString(clipboardContent);
 
     if (importDeck === false) {
       Alert.alert(

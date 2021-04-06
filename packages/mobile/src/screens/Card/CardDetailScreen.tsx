@@ -24,10 +24,11 @@ import { DecksCardListContext } from '@context/DecksCardListContext';
 import { useDeckModifications } from '@hooks';
 import { CardStackParamList } from '@navigation/CardsStackNavigator';
 import { StoreState } from '@store';
+import { selectStoreDeckCard } from '@store/selectors';
+import { shareImageUrl } from '@utils/Share';
 
 import CardDetail from '@shared/components/CardDetail';
 import { CardModel } from '@shared/data';
-import { selectStoreDeckCard } from '@store/selectors';
 import { base, colors } from '@shared/styles';
 
 const CardDetailScreen: React.FunctionComponent<{
@@ -83,6 +84,11 @@ const CardDetailScreen: React.FunctionComponent<{
     }
   }, [activeCardCode, activeCard.name]);
 
+  const shareCardImage = useCallback((card: CardModel) => {
+    ReactNativeHapticFeedback.trigger('impactHeavy');
+    shareImageUrl(card.imageSrc);
+  }, []);
+
   const handleMenuOpen = useCallback(() => {
     ReactNativeHapticFeedback.trigger('impactLight');
     showActionSheetWithOptions(
@@ -133,7 +139,12 @@ const CardDetailScreen: React.FunctionComponent<{
   });
 
   const renderItem = ({ item: card }) => (
-    <CardDetail card={card} hideTitle={true} width={windowWidth - 32} />
+    <CardDetail
+      card={card}
+      width={windowWidth - 32}
+      hideTitle={true}
+      shareCardImage={shareCardImage}
+    />
   );
 
   const viewabilityConfig = useRef({

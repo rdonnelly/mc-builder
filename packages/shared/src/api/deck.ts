@@ -1,17 +1,14 @@
-// @ts-ignore
-import { MCDB_BASE_URI } from '@env';
-
 // import { getAccessToken } from '../api/auth';
 
 // GET /api/public/deck/{deck_id}
-const getPublicDeck = async (dbUrl) => {
+const getPublicDeck = async (baseUrl: string, dbUrl: string) => {
   const matches = dbUrl.match(/\/decklist\/view\/(\d+)\//);
   if (!matches || matches.length !== 2) {
     return false;
   }
 
   const deckId = matches[1];
-  const uri = `${MCDB_BASE_URI}/api/public/decklist/${deckId}`;
+  const uri = `${baseUrl}/api/public/decklist/${deckId}`;
 
   const headers = new Headers();
   headers.append('cache-control', 'no-cache');

@@ -1,10 +1,10 @@
 import React, { memo } from 'react';
 import styled from 'styled-components/native';
 
+import DeckDetailHeader from '../../components/DeckDetail/DeckDetailHeader';
+import DeckDetailList from '../../components/DeckDetail/DeckDetailList';
 import { DeckModel } from '../../data';
 import { base, colors } from '../../styles';
-import DeckDetailHeader from './DeckDetailHeader';
-import DeckDetailList from './DeckDetailList';
 
 const DeckDetail = ({
   deck,

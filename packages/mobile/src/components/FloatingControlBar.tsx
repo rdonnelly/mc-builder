@@ -4,8 +4,6 @@ import styled from 'styled-components/native';
 
 import { base, colors } from '@shared/styles';
 
-// TODO fix typescript
-
 enum FloatingControlButtonVariant {
   ORANGE = 'orange',
   PURPLE = 'purple',

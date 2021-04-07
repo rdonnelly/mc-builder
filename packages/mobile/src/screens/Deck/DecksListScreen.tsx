@@ -20,11 +20,11 @@ import FloatingControlBar, {
 import { DecksStackParamList } from '@navigation/DecksStackNavigator';
 import { StoreState } from '@store';
 import { setDeckSort } from '@store/reducers/app';
-import { AppDeckSortKey } from '@store/types';
 import { getClipboard } from '@utils/Clipboard';
 
 import DecksListItem from '@shared/components/DeckListItem';
 import { DeckModel } from '@shared/data';
+import { AppDeckSortKey } from '@shared/store/types';
 import { base, colors } from '@shared/styles';
 import { parseDeckFromString } from '@shared/utils/DeckParser';
 

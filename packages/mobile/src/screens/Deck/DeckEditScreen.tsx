@@ -7,9 +7,9 @@ import DeckEdit from '@components/DeckEdit';
 import { DecksCardListContext } from '@context/DecksCardListContext';
 import { DecksStackParamList } from '@navigation/DecksStackNavigator';
 import { StoreState } from '@store';
+import { selectStoreDeck, selectStoreDeckCards } from '@store/selectors';
 
 import { DeckModel, getEligibleCardListForDeck } from '@shared/data';
-import { selectStoreDeck, selectStoreDeckCards } from '@store/selectors';
 
 export type DeckEditScreenNavigationProp = StackNavigationProp<
   DecksStackParamList,

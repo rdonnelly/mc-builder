@@ -3,7 +3,7 @@ import difference from 'lodash/difference';
 import uniq from 'lodash/uniq';
 
 import { FactionCode, SetCode } from '@shared/data';
-import { IStoreDeck, IStoreDeckState } from '@store/types';
+import { IStoreDeck, IStoreDeckState } from '@shared/store/types';
 
 const initialState = {
   codes: [],

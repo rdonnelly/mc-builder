@@ -1,4 +1,4 @@
-import { getPublicDeck } from '@shared/api/deck';
+import { getPublicDeck } from '../api/deck';
 
 export interface IImportDeck {
   code?: string;

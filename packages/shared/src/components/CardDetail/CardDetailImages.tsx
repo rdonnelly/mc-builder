@@ -58,9 +58,11 @@ const CardDetailImage = ({
 const CardDetailImages = ({
   card,
   maxWidth,
+  shareCardImage,
 }: {
   card: CardModel;
   maxWidth: number;
+  shareCardImage?: (card: CardModel) => void;
 }) => {
   const imageUriSet = card.imageUriSet;
 
@@ -72,6 +74,7 @@ const CardDetailImages = ({
           card={card}
           imageUri={imageUri}
           maxWidth={maxWidth}
+          shareCardImage={shareCardImage}
         />
       ))}
     </>

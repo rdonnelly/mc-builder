@@ -48,9 +48,82 @@ function App() {
 
   const appTheme = colorScheme === 'dark' ? darkTheme : lightTheme;
 
+  const config = {
+    screens: {
+      TabCards: {
+        screens: {
+          CardDetail: {
+            path: 'cards/:code',
+            exact: true,
+          },
+        },
+      },
+    },
+  };
+
+  const linking = {
+    prefixes: ['https://mcbuilder.app', 'mcbuilder://'],
+    config,
+    getStateFromPath: (path, options) => {
+      console.log('getStateFromPath', path);
+      const split = path.split('/').filter((s) => s);
+      console.log(split);
+
+      return {
+        routes: [
+          {
+            name: 'TabCards',
+            params: {
+              state: {
+                routes: [
+                  { name: 'CardsList' },
+                  { name: 'CardDetail', params: { code: '01013' } },
+                ],
+                index: 0,
+              },
+            },
+          },
+        ],
+      };
+
+      // Return a state object here
+      // You can also reuse the default logic by importing `getStateFromPath` from `@react-navigation/native`
+
+      // return {
+      //   routes: [
+      //     {
+      //       name: 'TabCards',
+      //       state: {
+      //         routes: [
+      //           {
+      //             name: 'CardDetail',
+      //             params: { code: '01013' },
+      //           },
+      //         ],
+      //       },
+      //     },
+      //   ],
+      // };
+
+      // return {
+      //   index: 0,
+      //   routes: [
+      //     {
+      //       name: 'CardDetail',
+      //       params: { code: '01013' },
+      //     },
+      //   ],
+      // };
+    },
+    // getPathFromState(state, config) {
+    //   // Return a path string here
+    //   // You can also reuse the default logic by importing `getPathFromState` from `@react-navigation/native`
+    // },
+  };
+
   return (
     <ThemeProvider theme={appTheme}>
-      <NavigationContainer>
+      <NavigationContainer linking={linking}>
         <StatusBar
           barStyle="light-content"
           translucent={true}

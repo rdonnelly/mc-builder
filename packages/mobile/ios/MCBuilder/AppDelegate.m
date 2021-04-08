@@ -2,6 +2,7 @@
 
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
+#import <React/RCTLinkingManager.h>
 #import <React/RCTRootView.h>
 
 #import "RNBootSplash.h"
@@ -57,8 +58,16 @@ static void InitializeFlipper(UIApplication *application) {
   return YES;
 }
 
-- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString *, id> *) options {
-  return [self.authorizationFlowManagerDelegate resumeExternalUserAgentFlowWithURL:url];
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options
+{
+  return [RCTLinkingManager application:app openURL:url options:options];
+}
+
+- (BOOL)application:(UIApplication *)app continueUserActivity:(nonnull NSUserActivity *)userActivity restorationHandler:(nonnull void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable)) restorationHandler
+{
+  return [RCTLinkingManager application:app
+                   continueUserActivity:userActivity
+                     restorationHandler:restorationHandler];
 }
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge

@@ -11,6 +11,7 @@
         <category android:name="android.intent.category.BROWSABLE"/>
         <data android:scheme="com.rdonnelly.mcdb"/>
         <data android:scheme="com.rdonnelly.mcbuilder"/>
+        <data android:scheme="mcbuilder"/>
       </intent-filter>
     </activity>
     <activity android:name="com.zoontek.rnbootsplash.RNBootSplashActivity" android:theme="@style/BootTheme" android:launchMode="singleTask">

@@ -66,6 +66,7 @@
 		40CBF491090BC1C5889AA669 /* libPods-MCBuilder-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MCBuilder-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4987552C6F6B22E1D95D1369 /* libPods-MCBuilder.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MCBuilder.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7472FF59A0A879CD5FCE8A38 /* Pods-MCBuilder-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MCBuilder-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-MCBuilder-tvOS/Pods-MCBuilder-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		951299AF261D438800402BD5 /* MCBuilder.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = MCBuilder.entitlements; path = MCBuilder/MCBuilder.entitlements; sourceTree = "<group>"; };
 		953FF6D3253008B000A14A6E /* BootSplash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = BootSplash.storyboard; path = MCBuilder/BootSplash.storyboard; sourceTree = "<group>"; };
 		955D4AFE2486FF73006872B6 /* marvel-icons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "marvel-icons.ttf"; path = "../assets/fonts/marvel-icons.ttf"; sourceTree = "<group>"; };
 		955D4AFF2486FF73006872B6 /* FontAwesome5_Pro_Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome5_Pro_Regular.ttf; path = ../assets/fonts/FontAwesome5_Pro_Regular.ttf; sourceTree = "<group>"; };
@@ -138,6 +139,7 @@
 		13B07FAE1A68108700A75B9A /* MCBuilder */ = {
 			isa = PBXGroup;
 			children = (
+				951299AF261D438800402BD5 /* MCBuilder.entitlements */,
 				953FF6D3253008B000A14A6E /* BootSplash.storyboard */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -323,10 +325,11 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = EZ4AQB6GC7;
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1240;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
+						LastSwiftMigration = 1240;
 						ProvisioningStyle = Automatic;
 					};
 					2D02E48F1E0B4A5D006451C7 = {
@@ -411,7 +414,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export NODE_BINARY=node\nexport EXTRA_PACKAGER_ARGS=\"--entry-file packages/mobile/index.js\"\n../../../node_modules/react-native/scripts/react-native-xcode.sh\n";
+			shellScript = "export PROJECT_ROOT=../\nexport NODE_BINARY=node\nexport EXTRA_PACKAGER_ARGS=\"--entry-file packages/mobile/index.js\"\n../../../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
 		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -791,6 +794,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = MCBuilder/MCBuilder.entitlements;
 				CURRENT_PROJECT_VERSION = 98;
 				DEVELOPMENT_TEAM = EZ4AQB6GC7;
 				ENABLE_BITCODE = NO;
@@ -808,6 +812,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.rdonnelly.mcdb;
 				PRODUCT_NAME = MCBuilder;
+				SWIFT_OBJC_BRIDGING_HEADER = "MCBuilder-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -821,6 +826,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = MCBuilder/MCBuilder.entitlements;
 				CURRENT_PROJECT_VERSION = 98;
 				DEVELOPMENT_TEAM = EZ4AQB6GC7;
 				INFOPLIST_FILE = MCBuilder/Info.plist;
@@ -833,6 +839,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.rdonnelly.mcdb;
 				PRODUCT_NAME = MCBuilder;
+				SWIFT_OBJC_BRIDGING_HEADER = "MCBuilder-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -846,6 +853,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -862,6 +870,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.rdonnelly.MCBuilder-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
+				SWIFT_OBJC_BRIDGING_HEADER = "MCBuilder-tvOS-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 10.0;
 			};
@@ -874,6 +885,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -890,6 +902,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.rdonnelly.MCBuilder-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
+				SWIFT_OBJC_BRIDGING_HEADER = "MCBuilder-tvOS-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 10.0;
 			};

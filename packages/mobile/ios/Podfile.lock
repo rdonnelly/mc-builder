@@ -257,7 +257,7 @@ PODS:
     - React-Core
   - react-native-sensitive-info (5.5.8):
     - React
-  - react-native-webview (11.3.1):
+  - react-native-webview (11.3.2):
     - React-Core
   - React-RCTActionSheet (0.63.4):
     - React-Core/RCTActionSheetHeaders (= 0.63.4)
@@ -329,15 +329,13 @@ PODS:
     - React-Core
   - RNCMaskedView (0.1.10):
     - React
-  - RNDeviceInfo (8.0.6):
-    - React-Core
   - RNGestureHandler (1.10.3):
     - React-Core
   - RNInAppBrowser (3.5.1):
     - React-Core
   - RNReactNativeHapticFeedback (1.11.0):
     - React-Core
-  - RNReanimated (1.13.2):
+  - RNReanimated (1.13.3):
     - React-Core
   - RNScreens (2.17.1):
     - React-Core
@@ -407,7 +405,6 @@ DEPENDENCIES:
   - "RNCAsyncStorage (from `../../../node_modules/@react-native-community/async-storage`)"
   - "RNCClipboard (from `../../../node_modules/@react-native-community/clipboard`)"
   - "RNCMaskedView (from `../../../node_modules/@react-native-community/masked-view`)"
-  - RNDeviceInfo (from `../../../node_modules/react-native-device-info`)
   - RNGestureHandler (from `../../../node_modules/react-native-gesture-handler`)
   - RNInAppBrowser (from `../../../node_modules/react-native-inappbrowser-reborn`)
   - RNReactNativeHapticFeedback (from `../../../node_modules/react-native-haptic-feedback`)
@@ -509,8 +506,6 @@ EXTERNAL SOURCES:
     :path: "../../../node_modules/@react-native-community/clipboard"
   RNCMaskedView:
     :path: "../../../node_modules/@react-native-community/masked-view"
-  RNDeviceInfo:
-    :path: "../../../node_modules/react-native-device-info"
   RNGestureHandler:
     :path: "../../../node_modules/react-native-gesture-handler"
   RNInAppBrowser:
@@ -561,7 +556,7 @@ SPEC CHECKSUMS:
   react-native-get-random-values: f0fc24a5887a3341589515a86282a574407b59e4
   react-native-safe-area-context: f0906bf8bc9835ac9a9d3f97e8bde2a997d8da79
   react-native-sensitive-info: 400c6e3d27945e15c8cddb5b4b92233c85ee06f8
-  react-native-webview: 07fca3f4378bd6ea26254bf63119bfd70f4fabeb
+  react-native-webview: 71567b6bf3d4e55914e580d720cc8f7df64af817
   React-RCTActionSheet: 89a0ca9f4a06c1f93c26067af074ccdce0f40336
   React-RCTAnimation: 1bde3ecc0c104c55df246eda516e0deb03c4e49b
   React-RCTBlob: a97d378b527740cc667e03ebfa183a75231ab0f0
@@ -577,11 +572,10 @@ SPEC CHECKSUMS:
   RNCAsyncStorage: b03032fdbdb725bea0bd9e5ec5a7272865ae7398
   RNCClipboard: 41d8d918092ae8e676f18adada19104fa3e68495
   RNCMaskedView: 5a8ec07677aa885546a0d98da336457e2bea557f
-  RNDeviceInfo: a91ad51aaf8dc7079f56614045cf6f0a923237bb
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
   RNInAppBrowser: 48b95ba7a4eaff5cc223bca338d3e319561dbd1b
   RNReactNativeHapticFeedback: 653a8c126a0f5e88ce15ffe280b3ff37e1fbb285
-  RNReanimated: e03f7425cb7a38dcf1b644d680d1bfc91c3337ad
+  RNReanimated: 514a11da3a2bcc6c3dfd9de32b38e2b9bf101926
   RNScreens: b6c9607e6fe47c1b6e2f1910d2acd46dd7ecea3a
   RNVectorIcons: 31cebfcf94e8cf8686eb5303ae0357da64d7a5a4
   Yoga: 4bd86afe9883422a7c4028c00e34790f560923d6

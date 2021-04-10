@@ -52,7 +52,7 @@ upload() {
                -p "@keychain:AC_PASSWORD"
 }
 
-push() {
+ios() {
   bumpBuild && podInstall && build && archive && exportArchive && upload $@ && mapsIos
 }
 
@@ -80,7 +80,8 @@ mapsIos() {
 
   yarn react-native bundle --platform ios \
                            --dev false \
-                           --entry-file index.js \
+                           --reset-cache \
+                           --entry-file $PWD/index.js \
                            --bundle-output ios-release.bundle \
                            --sourcemap-output ios-release.bundle.map
 

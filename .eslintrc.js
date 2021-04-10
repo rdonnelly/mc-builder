@@ -14,10 +14,11 @@ module.exports = {
     },
   },
   rules: {
-    'no-shadow': 'off',
     '@typescript-eslint/no-shadow': 'error',
-    'simple-import-sort/imports': 'error',
+    'no-shadow': 'off',
+    'react/react-in-jsx-scope': 'off',
     'simple-import-sort/exports': 'error',
+    'simple-import-sort/imports': 'error',
   },
   overrides: [
     {

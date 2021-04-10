@@ -14,7 +14,7 @@
     "ts": "tsc --noEmit --project tsconfig.json",
     "build:pod": "scripts/build.sh podInstall",
     "build:android": "scripts/build.sh android",
-    "build:ios": "scripts/build.sh push",
+    "build:ios": "scripts/build.sh ios",
     "build:getVersion": "scripts/build.sh getVersion",
     "build:setVersion": "scripts/build.sh setVersion"
   },

@@ -433,7 +433,7 @@ DEPENDENCIES:
   - RNInAppBrowser (from `../../../node_modules/react-native-inappbrowser-reborn`)
   - RNReactNativeHapticFeedback (from `../../../node_modules/react-native-haptic-feedback`)
   - RNReanimated (from `../../../node_modules/react-native-reanimated`)
-  - RNScreens (from `../../../node_modules/react-native-screens`)
+  - RNScreens (from `../node_modules/react-native-screens`)
   - RNVectorIcons (from `../../../node_modules/react-native-vector-icons`)
   - Yoga (from `../../../node_modules/react-native/ReactCommon/yoga`)
 
@@ -543,7 +543,7 @@ EXTERNAL SOURCES:
   RNReanimated:
     :path: "../../../node_modules/react-native-reanimated"
   RNScreens:
-    :path: "../../../node_modules/react-native-screens"
+    :path: "../node_modules/react-native-screens"
   RNVectorIcons:
     :path: "../../../node_modules/react-native-vector-icons"
   Yoga:

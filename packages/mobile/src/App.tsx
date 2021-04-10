@@ -9,7 +9,6 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { ThemeProvider } from 'styled-components';
 
 import { AppProvider } from '@context/AppContext';
-import { CardsCardListProvider } from '@context/CardsCardListContext';
 import { DecksCardListProvider } from '@context/DecksCardListContext';
 import TabNavigator from '@navigation/TabNavigator';
 import { persistor, store } from '@store';
@@ -26,19 +25,17 @@ export default function AppContainer() {
 
   return (
     <AppProvider>
-      <CardsCardListProvider>
-        <DecksCardListProvider>
-          <AppearanceProvider>
-            <ReduxProvider store={store}>
-              <PersistGate persistor={persistor}>
-                <ActionSheetProvider>
-                  <App />
-                </ActionSheetProvider>
-              </PersistGate>
-            </ReduxProvider>
-          </AppearanceProvider>
-        </DecksCardListProvider>
-      </CardsCardListProvider>
+      <DecksCardListProvider>
+        <AppearanceProvider>
+          <ReduxProvider store={store}>
+            <PersistGate persistor={persistor}>
+              <ActionSheetProvider>
+                <App />
+              </ActionSheetProvider>
+            </PersistGate>
+          </ReduxProvider>
+        </AppearanceProvider>
+      </DecksCardListProvider>
     </AppProvider>
   );
 }
@@ -64,61 +61,32 @@ function App() {
   const linking = {
     prefixes: ['https://mcbuilder.app', 'mcbuilder://'],
     config,
-    getStateFromPath: (path, options) => {
-      console.log('getStateFromPath', path);
+    getStateFromPath: (path, _options) => {
+      // https://github.com/react-navigation/react-navigation/blob/b89396888f46ba79af3cfd84be55fba79d8387d2/packages/core/src/getStateFromPath.tsx#L63
       const split = path.split('/').filter((s) => s);
-      console.log(split);
 
-      return {
-        routes: [
-          {
-            name: 'TabCards',
-            params: {
-              state: {
-                routes: [
-                  { name: 'CardsList' },
-                  { name: 'CardDetail', params: { code: '01013' } },
-                ],
-                index: 0,
+      if (split && split.length === 2) {
+        if (split[0] === 'cards') {
+          // TODO validate card code
+          return {
+            routes: [
+              {
+                name: 'TabCards',
+                params: {
+                  state: {
+                    routes: [
+                      { name: 'CardsList' },
+                      { name: 'CardDetail', params: { code: split[1] } },
+                    ],
+                    index: 0,
+                  },
+                },
               },
-            },
-          },
-        ],
-      };
-
-      // Return a state object here
-      // You can also reuse the default logic by importing `getStateFromPath` from `@react-navigation/native`
-
-      // return {
-      //   routes: [
-      //     {
-      //       name: 'TabCards',
-      //       state: {
-      //         routes: [
-      //           {
-      //             name: 'CardDetail',
-      //             params: { code: '01013' },
-      //           },
-      //         ],
-      //       },
-      //     },
-      //   ],
-      // };
-
-      // return {
-      //   index: 0,
-      //   routes: [
-      //     {
-      //       name: 'CardDetail',
-      //       params: { code: '01013' },
-      //     },
-      //   ],
-      // };
+            ],
+          };
+        }
+      }
     },
-    // getPathFromState(state, config) {
-    //   // Return a path string here
-    //   // You can also reuse the default logic by importing `getPathFromState` from `@react-navigation/native`
-    // },
   };
 
   return (

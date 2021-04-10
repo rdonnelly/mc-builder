@@ -247,13 +247,13 @@ export const getCardsMap = memoizeOne(() =>
 
 export const getFilteredCards = memoizeOne(
   ({
-    searchTerm,
+    searchString,
     filter,
     filterCode,
     cardCodes,
     sortType,
   }: {
-    searchTerm?: string;
+    searchString?: string;
     filter?: FilterCode;
     filterCode?:
       | FactionCode
@@ -270,8 +270,8 @@ export const getFilteredCards = memoizeOne(
     let filteredCards = getCards();
 
     const formattedSearchTerm =
-      searchTerm != null
-        ? searchTerm.toLowerCase().replace(/[^A-Za-z0-9]/g, '')
+      searchString != null
+        ? searchString.toLowerCase().replace(/[^A-Za-z0-9]/g, '')
         : null;
 
     filteredCards = filteredCards.filter((card) => {

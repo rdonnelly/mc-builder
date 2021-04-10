@@ -21,7 +21,7 @@ const FactionsListScreen: React.FunctionComponent<{
       if (navigation) {
         navigation.push('CardsList', {
           filter: FilterCodes.FACTION,
-          code,
+          filterCode: code,
         });
       }
     },

@@ -19,8 +19,6 @@ import FloatingControlBar, {
   FloatingControlButtonVariant,
 } from '@components/FloatingControlBar';
 import { AppContext } from '@context/AppContext';
-import { CardsCardListContext } from '@context/CardsCardListContext';
-import { DecksCardListContext } from '@context/DecksCardListContext';
 import { useDeckModifications } from '@hooks';
 import { CardStackParamList } from '@navigation/CardsStackNavigator';
 import { StoreState } from '@store';
@@ -28,39 +26,38 @@ import { selectStoreDeckCard } from '@store/selectors';
 import { shareImageUrl } from '@utils/Share';
 
 import CardDetail from '@shared/components/CardDetail';
-import { CardModel } from '@shared/data';
+import { CardModel, getCards, getFilteredCards } from '@shared/data';
 import { base, colors } from '@shared/styles';
 
-const CardDetailScreen: React.FunctionComponent<{
+const CardDetailScreen = ({
+  navigation,
+  route,
+}: {
   navigation: StackNavigationProp<CardStackParamList, 'CardDetail'>;
   route: RouteProp<CardStackParamList, 'CardDetail'>;
-}> = ({ navigation, route }) => {
-  let cardList: CardModel[];
-  const cardsCardListContext = useContext(CardsCardListContext);
-  const decksCardListContext = useContext(DecksCardListContext);
-
-  if (route.params.type === 'card') {
-    cardList = cardsCardListContext.cardList;
-  }
-  if (route.params.type === 'deck') {
-    cardList = decksCardListContext.cardList;
-  }
-
+}) => {
   const { windowWidth } = useContext(AppContext);
 
   const { showActionSheetWithOptions } = useActionSheet();
   const actionSheetAnchorRef = useRef(null);
 
+  const searchString = (route.params || {}).searchString;
+  const filter = (route.params || {}).filter;
+  const filterCode = (route.params || {}).filterCode;
+
+  const cards =
+    searchString || (filter && filterCode)
+      ? getFilteredCards({ searchString, filter, filterCode })
+      : getCards();
+
   const [activeCardCode, setActiveCardCode] = useState(route.params.code);
-  const activeCardCodeIndex = cardList.findIndex(
-    (c) => c.code === activeCardCode,
-  );
-  const activeCard = cardList[activeCardCodeIndex];
+  const activeCardCodeIndex = cards.findIndex((c) => c.code === activeCardCode);
+  const activeCard = cards[activeCardCodeIndex];
   const activeCardName = activeCard?.name;
 
   const handleReport = useCallback(async () => {
     const url = encodeURI(
-      `https://github.com/zzorba/marvelsdb-json-data/issues/new?title=Card Data Issue: ${activeCard.name} (${activeCardCode})&body=<!-- What issue do you see with the card data? -->`,
+      `https://github.com/zzorba/marvelsdb-json-data/issues/new?title=Card Data Issue: ${activeCardName} (${activeCardCode})&body=<!-- What issue do you see with the card data? -->`,
     );
     try {
       if (await InAppBrowser.isAvailable()) {
@@ -82,7 +79,7 @@ const CardDetailScreen: React.FunctionComponent<{
     } catch (error) {
       Linking.openURL(url);
     }
-  }, [activeCardCode, activeCard.name]);
+  }, [activeCardCode, activeCardName]);
 
   const shareCardImage = useCallback((card: CardModel) => {
     ReactNativeHapticFeedback.trigger('impactHeavy');
@@ -186,7 +183,7 @@ const CardDetailScreen: React.FunctionComponent<{
     <Container>
       <FlatList
         renderItem={renderItem}
-        data={cardList}
+        data={cards}
         keyExtractor={(item: CardModel) => `card-detail-screen-${item.code}`}
         getItemLayout={getItemLayout}
         horizontal={true}

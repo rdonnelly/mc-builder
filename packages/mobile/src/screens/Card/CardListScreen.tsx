@@ -1,19 +1,12 @@
 import { RouteProp, useScrollToTop } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { ListRenderItem, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 
 import FloatingControlBar, {
   FloatingControlButtonVariant,
 } from '@components/FloatingControlBar';
-import { CardsCardListContext } from '@context/CardsCardListContext';
 import { CardStackParamList } from '@navigation/CardsStackNavigator';
 
 import CardListItem from '@shared/components/CardListItem';
@@ -44,21 +37,19 @@ const CardListScreen = ({
   navigation: StackNavigationProp<CardStackParamList, 'CardsList'>;
   route: RouteProp<CardStackParamList, 'CardsList'>;
 }) => {
-  const [searchTerm, setSearchTerm] = useState(null);
+  const [searchString, setSearchString] = useState(null);
   const filter = (route.params || {}).filter;
-  const filterCode = (route.params || {}).code;
+  const filterCode = (route.params || {}).filterCode;
 
   const cards =
-    searchTerm || (filter && filterCode)
-      ? getFilteredCards({ searchTerm, filter, filterCode })
+    searchString || (filter && filterCode)
+      ? getFilteredCards({ searchString, filter, filterCode })
       : getCards();
 
   const flatListRef = useRef(null);
   useScrollToTop(flatListRef);
 
   const searchInputRef = useRef(null);
-
-  const { setCardsCardList } = useContext(CardsCardListContext);
 
   let filterName = null;
   if (filter && filterCode) {
@@ -102,24 +93,26 @@ const CardListScreen = ({
   const handlePressItem = useCallback(
     (code: string) => {
       if (navigation) {
-        setCardsCardList(cards);
         navigation.navigate('CardDetail', {
           code,
+          searchString,
+          filter,
+          filterCode,
         });
       }
     },
-    [navigation, setCardsCardList, cards],
+    [navigation, searchString, filter, filterCode],
   );
 
   const handleSubmitFromSearch = (event) => {
     const query = event.nativeEvent.text;
-    setSearchTerm(query);
+    setSearchString(query);
   };
 
   const handleChangeFromSearch = (event) => {
     const query = event.nativeEvent.text;
     if (!query) {
-      setSearchTerm(null);
+      setSearchString(null);
     }
   };
 
@@ -144,7 +137,7 @@ const CardListScreen = ({
           returnKeyType={'search'}
           onSubmitEditing={handleSubmitFromSearch}
           onChange={handleChangeFromSearch}
-          defaultValue={searchTerm}
+          defaultValue={searchString}
         />
       </ListHeader>
     );

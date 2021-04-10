@@ -19,12 +19,19 @@ import { colors } from '@shared/styles';
 export type CardStackParamList = {
   CardsList: {
     filter?: FilterCode;
-    code?: FactionCode | PackCode | SetCode | TypeCode;
+    filterCode?: FactionCode | PackCode | SetCode | TypeCode;
   };
   FactionsList: undefined;
   PacksList: undefined;
   TypesList: undefined;
-  CardDetail: { code: string; deckCode?: string; type?: 'card' | 'deck' };
+  CardDetail: {
+    code: string;
+    filter?: FilterCode;
+    filterCode?: FactionCode | PackCode | SetCode | TypeCode;
+    searchString?: string;
+    deckCode?: string;
+    type?: 'card' | 'deck';
+  };
 };
 
 const Stack = createNativeStackNavigator<CardStackParamList>();
@@ -51,7 +58,7 @@ export default () => {
           title: 'Cards',
         }}
         getId={({ params }) =>
-          params != null ? `${params.filter}-${params.code}` : undefined
+          params != null ? `${params.filter}-${params.filterCode}` : undefined
         }
       />
       <Stack.Screen

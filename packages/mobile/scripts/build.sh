@@ -62,7 +62,7 @@ android() {
 }
 
 mapsAndroid() {
-  export $(grep '^BUGSNAG_API_KEY' .env | xargs)
+  export $(grep '^BUGSNAG_API_KEY' $PWD/../../.env | xargs)
   VERSION="0.4"
 
   npx bugsnag-sourcemaps upload --api-key=$BUGSNAG_API_KEY \
@@ -75,7 +75,7 @@ mapsAndroid() {
 }
 
 mapsIos() {
-  export $(grep '^BUGSNAG_API_KEY' .env | xargs)
+  export $(grep '^BUGSNAG_API_KEY' $PWD/../../.env | xargs)
   VERSION="0.4"
 
   yarn react-native bundle --platform ios \

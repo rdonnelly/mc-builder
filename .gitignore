@@ -65,7 +65,7 @@ buck-out/
 *.jsbundle
 
 # CocoaPods
-/ios/Pods/
+packages/mobile/ios/Pods
 
 # Build Scripts
 ios/exportOptions.plist
@@ -76,3 +76,6 @@ ios-release.bundle.map
 .env
 .env.development
 .env.production
+
+# web
+.next

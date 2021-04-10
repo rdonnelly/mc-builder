@@ -14,15 +14,15 @@ module.exports = {
     },
   },
   rules: {
-    'no-shadow': 'off',
     '@typescript-eslint/no-shadow': 'error',
-    'simple-import-sort/imports': 'error',
+    'no-shadow': 'off',
+    'react/react-in-jsx-scope': 'off',
     'simple-import-sort/exports': 'error',
+    'simple-import-sort/imports': 'error',
   },
   overrides: [
     {
       files: '*',
-      // env: { node: true },
       rules: {
         'simple-import-sort/imports': [
           'error',
@@ -34,6 +34,7 @@ module.exports = {
               [
                 '^(@api|@components|@context|@data|@hooks|@navigation|@screens|@store|@styles|@utils)(/.*|$)',
               ],
+              ['^(@shared)(/.*|$)'],
               ['^\\.'],
             ],
           },

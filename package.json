@@ -19,8 +19,7 @@
     "lodash": "^4.17.15",
     "marvelsdb-json-data": "https://github.com/rdonnelly/marvelsdb-json-data.git#main",
     "memoize-one": "^5.1.1",
-    "nanoid": "^3.1.20",
-    "react-native-screens": "^3.1.0"
+    "nanoid": "^3.1.20"
   },
   "devDependencies": {
     "@react-native-community/eslint-config": "^2.0.0",

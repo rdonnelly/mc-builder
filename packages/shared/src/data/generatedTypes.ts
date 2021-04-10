@@ -38,6 +38,7 @@ export enum PackCodes {
   WSP = 'wsp',
   QSV = 'qsv',
   SCW = 'scw',
+  GMW = 'gmw',
 }
 
 export type PackCode =
@@ -56,7 +57,8 @@ export type PackCode =
   | 'ant'
   | 'wsp'
   | 'qsv'
-  | 'scw';
+  | 'scw'
+  | 'gmw';
 
 export enum SetCodes {
   RHINO = 'rhino',
@@ -132,6 +134,10 @@ export enum SetCodes {
   QSV_NEMESIS = 'qsv_nemesis',
   SCW = 'scw',
   SCW_NEMESIS = 'scw_nemesis',
+  GROOT = 'groot',
+  GROOT_NEMESIS = 'groot_nemesis',
+  ROCKET = 'rocket',
+  ROCKET_NEMESIS = 'rocket_nemesis',
 }
 
 export type SetCode =
@@ -207,7 +213,11 @@ export type SetCode =
   | 'qsv'
   | 'qsv_nemesis'
   | 'scw'
-  | 'scw_nemesis';
+  | 'scw_nemesis'
+  | 'groot'
+  | 'groot_nemesis'
+  | 'rocket'
+  | 'rocket_nemesis';
 
 export enum SetTypeCodes {
   VILLAIN = 'villain',

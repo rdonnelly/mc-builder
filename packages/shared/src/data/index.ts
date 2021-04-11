@@ -4,12 +4,7 @@ export {
   getCards,
   getFilteredCards,
 } from '../data/models/Card';
-export {
-  createDeckCardSections,
-  Deck as DeckModel,
-  getCardListForDeck,
-  getEligibleCardListForDeck,
-} from '../data/models/Deck';
+export { Deck as DeckModel } from '../data/models/Deck';
 export {
   Faction as FactionModel,
   getFaction,

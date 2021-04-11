@@ -17,6 +17,7 @@ import {
   FactionCode,
   FactionCodes,
   FilterCodes,
+  getCard,
   getFilteredCards,
   SetCode,
 } from '@shared/data';
@@ -64,11 +65,13 @@ export const setUpNewDeck = (
 
     if (initialDeckCards && initialDeckCards.length) {
       initialDeckCards.forEach((card) => {
+        const cardModel = getCard(card.code);
+
         const code = nanoid();
         deckCardCodes.push(code);
         deckCardData.push({
           code,
-          cardCode: card.code,
+          cardCode: cardModel.rootCode,
           quantity: card.quantity,
         });
       });

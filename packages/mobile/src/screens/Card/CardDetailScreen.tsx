@@ -26,13 +26,7 @@ import { selectStoreDeckCard } from '@store/selectors';
 import { shareImageUrl } from '@utils/Share';
 
 import CardDetail from '@shared/components/CardDetail';
-import {
-  CardModel,
-  getCardListForDeck,
-  getCards,
-  getEligibleCardListForDeck,
-  getFilteredCards,
-} from '@shared/data';
+import { CardModel, getCards, getFilteredCards } from '@shared/data';
 import { base, colors } from '@shared/styles';
 
 const CardDetailScreen = ({
@@ -65,11 +59,11 @@ const CardDetailScreen = ({
       break;
     }
     case 'deck': {
-      cards = getCardListForDeck(deckModel);
+      cards = deckModel.getCardList();
       break;
     }
     case 'deckEdit': {
-      cards = getEligibleCardListForDeck(deckModel);
+      cards = deckModel.getEligibleCardList();
       break;
     }
   }

@@ -64,8 +64,16 @@ export class Card {
     this.raw = card;
   }
 
+  get code() {
+    return this.raw.code;
+  }
+
+  get isDuplicate() {
+    return this.raw.duplicate_of != null;
+  }
+
   get root() {
-    if (this.raw.duplicate_of != null) {
+    if (this.isDuplicate) {
       const duplicateCard = getCard(this.raw.duplicate_of);
       return duplicateCard.root;
     }
@@ -73,8 +81,8 @@ export class Card {
     return this.raw;
   }
 
-  get code() {
-    return this.raw.code;
+  get rootCode() {
+    return this.root.code;
   }
 
   get cardCode() {
@@ -353,6 +361,10 @@ export const getEligibleCards = memoizeOne(
   (factionCodes: FactionCode[], setCode: SetCode) =>
     getCards()
       .filter((card) => {
+        if (card.isDuplicate) {
+          return false;
+        }
+
         // exclude cards that are not an Ally, Event, Resource, Support, or Upgrade
         if (
           ![

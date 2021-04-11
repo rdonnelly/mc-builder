@@ -13,19 +13,11 @@ import FloatingControlBar, {
   FloatingControlButtonVariant,
 } from '@components/FloatingControlBar';
 import { DecksStackParamList } from '@navigation/DecksStackNavigator';
-import { setUpNewDeck } from '@store/actions';
+import { importDeck } from '@store/actions';
 
 import CardListItem from '@shared/components/CardListItem';
-import {
-  CardModel,
-  FactionCode,
-  FactionCodes,
-  FilterCodes,
-  getFilteredCards,
-  getSet,
-  SetCode,
-  TypeCodes,
-} from '@shared/data';
+import { CardModel } from '@shared/data';
+import { useDeckImport } from '@shared/hooks';
 import { base, colors } from '@shared/styles';
 
 const styles = StyleSheet.create({
@@ -38,81 +30,24 @@ const DecksImportFormScreen: React.FunctionComponent<{
   navigation: StackNavigationProp<DecksStackParamList, 'DecksImport'>;
   route: RouteProp<DecksStackParamList, 'DecksImport'>;
 }> = ({ navigation, route }) => {
-  const deck = route.params.deck;
-  let deckSetCode: SetCode = null;
-  let deckAspectCodes: FactionCode[] = [];
-
   const dispatch = useDispatch();
   const insets = useSafeAreaInsets();
 
-  let filteredDeckCards = getFilteredCards({
-    cardCodes: Object.keys(deck.cards),
-  });
+  const importString = route.params.importString;
+  const {
+    deckToImport,
+    deckCardModels,
+    aspectCodes,
+    setCode,
+    set,
+    setCardModels,
+    identityImageSrcs,
+  } = useDeckImport(importString);
 
-  filteredDeckCards = filteredDeckCards.filter((card) => {
-    if (
-      card.typeCode === TypeCodes.ALTER_EGO ||
-      card.typeCode === TypeCodes.HERO
-    ) {
-      deckSetCode = card.setCode;
-    }
-
-    if (card.setCode == null) {
-      if (
-        [
-          FactionCodes.AGGRESSION,
-          FactionCodes.JUSTICE,
-          FactionCodes.LEADERSHIP,
-          FactionCodes.PROTECTION,
-        ].includes(card.factionCode as FactionCodes)
-      ) {
-        deckAspectCodes.push(card.factionCode);
-      }
-
-      return true;
-    }
-
-    return false;
-  });
-
-  deckAspectCodes = deckAspectCodes.filter((value, index, self) => {
-    return self.indexOf(value) === index;
-  });
-
-  const set = getSet(deckSetCode);
-
-  const setCards = getFilteredCards({
-    filter: FilterCodes.SET,
-    filterCode: deckSetCode,
-  }).filter((card) => card.factionCode !== FactionCodes.ENCOUNTER);
-
-  const identityImageSrcs = setCards
-    .filter(
-      (card) =>
-        card.typeCode === TypeCodes.ALTER_EGO ||
-        card.typeCode === TypeCodes.HERO,
-    )
-    .map((card) => card.imageSrc || null);
-
-  const importDeck = () => {
-    const deckCode = nanoid();
-    if (deck.name && deckSetCode && deckAspectCodes.length) {
-      const deckCards = filteredDeckCards.map((card) => ({
-        code: card.code,
-        quantity: deck.cards[card.code],
-      }));
-
-      dispatch(
-        setUpNewDeck(
-          deckCode,
-          deck.name,
-          deckSetCode,
-          deckAspectCodes,
-          deck.version,
-          deckCards,
-          deck.code,
-          deck.mcdbId,
-        ),
+  const submit = async () => {
+    if (deckToImport && deckToImport.name && setCode && aspectCodes.length) {
+      const deckCode = await dispatch(
+        importDeck(deckToImport, deckCardModels, setCode, aspectCodes),
       );
 
       if (navigation) {
@@ -132,17 +67,33 @@ const DecksImportFormScreen: React.FunctionComponent<{
   const renderCard: ListRenderItem<CardModel> = ({ item: card }) => (
     <CardListItem
       card={card}
-      count={card.setCode == null ? deck.cards[card.code] : card.setQuantity}
+      count={
+        card.setCode == null && deckToImport
+          ? deckToImport.cards[card.code]
+          : card.setQuantity
+      }
       showPackInfo={false}
     />
   );
 
+  if (!deckToImport) {
+    return (
+      <Container bottom={insets.bottom}>
+        <Info>
+          <TitleWrapper>
+            <Title>{deckToImport ? deckToImport.name : 'Loading'}</Title>
+          </TitleWrapper>
+        </Info>
+      </Container>
+    );
+  }
+
   return (
     <Container bottom={insets.bottom}>
       <Identities>
-        {identityImageSrcs.map((src) =>
+        {identityImageSrcs.map((src, i) =>
           src ? (
-            <IdentityWrapper>
+            <IdentityWrapper key={`identity_image_${i}`}>
               <IdentityImage source={{ uri: src }} />
             </IdentityWrapper>
           ) : null,
@@ -150,12 +101,12 @@ const DecksImportFormScreen: React.FunctionComponent<{
       </Identities>
       <Info>
         <TitleWrapper>
-          <Title>{deck.name}</Title>
+          <Title>{deckToImport ? deckToImport.name : 'Loading'}</Title>
         </TitleWrapper>
         <TraitsWrapper>
           <Traits>
             {set.name} –{' '}
-            {deckAspectCodes
+            {aspectCodes
               .map(
                 (aspect) =>
                   `${aspect.charAt(0).toUpperCase()}${aspect
@@ -168,7 +119,7 @@ const DecksImportFormScreen: React.FunctionComponent<{
       </Info>
       <FlatList
         renderItem={renderCard}
-        data={[].concat(setCards, filteredDeckCards)}
+        data={[].concat(setCardModels, deckCardModels)}
         keyExtractor={(card: CardModel) => card.code}
         contentContainerStyle={styles.contentContainerStyle}
       />
@@ -180,7 +131,7 @@ const DecksImportFormScreen: React.FunctionComponent<{
           Cancel
         </FloatingControlBar.FlexButton>
         <FloatingControlBar.FlexButton
-          onPress={() => importDeck()}
+          onPress={() => submit()}
           variant={FloatingControlButtonVariant.SUCCESS}
         >
           Import Deck

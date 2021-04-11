@@ -10,7 +10,22 @@ export interface IImportDeck {
   };
 }
 
-export const isMcdbUrl = (
+export const parseDeckFromString = async (
+  string: string,
+  baseUrl: string = 'https://marvelcdb.com',
+): Promise<IImportDeck | false> => {
+  if (isMcdbUrl(string, baseUrl)) {
+    return await fetchMcdbDeckFromUrl(string, baseUrl);
+  }
+
+  if (isDeckJson(string)) {
+    return Promise.resolve(parseDeckJson(string));
+  }
+
+  return Promise.resolve(false);
+};
+
+const isMcdbUrl = (
   string: string,
   baseUrl: string = 'https://marvelcdb.com',
 ): boolean => {
@@ -19,7 +34,7 @@ export const isMcdbUrl = (
   return mcdbUrlRegex.test(string);
 };
 
-export const fetchMcdbDeckFromUrl = async (
+const fetchMcdbDeckFromUrl = async (
   string: string,
   baseUrl: string = 'https://marvelcdb.com',
 ) => {
@@ -36,7 +51,7 @@ export const fetchMcdbDeckFromUrl = async (
   }
 };
 
-export const isDeckJson = (string: string): boolean => {
+const isDeckJson = (string: string): boolean => {
   let deck: IImportDeck;
 
   try {
@@ -58,7 +73,7 @@ export const isDeckJson = (string: string): boolean => {
   return true;
 };
 
-export const parseDeckJson = (string: string) => {
+const parseDeckJson = (string: string) => {
   let deck: IImportDeck;
 
   try {
@@ -89,17 +104,4 @@ export const parseDeckJson = (string: string) => {
   }
 
   return deck;
-};
-
-export const parseDeckFromString = async (
-  string: string,
-  baseUrl: string = 'https://marvelcdb.com',
-): Promise<IImportDeck | false> => {
-  if (isMcdbUrl(string, baseUrl)) {
-    return await fetchMcdbDeckFromUrl(string, baseUrl);
-  }
-
-  if (isDeckJson(string)) {
-    return Promise.resolve(parseDeckJson(string));
-  }
 };

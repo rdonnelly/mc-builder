@@ -21,6 +21,34 @@ import {
   getFilteredCards,
   SetCode,
 } from '@shared/data';
+import { IImportDeck } from '@shared/utils/DeckParser';
+
+export const importDeck = (
+  deckToImport: IImportDeck,
+  deckCards: CardModel[],
+  deckSetCode: SetCode,
+  deckAspectCodes: FactionCode[],
+): AppThunk => (dispatch) => {
+  const code = nanoid();
+
+  dispatch(
+    setUpNewDeck(
+      code,
+      deckToImport.name,
+      deckSetCode,
+      deckAspectCodes,
+      deckToImport.version,
+      deckCards.map((card: CardModel) => ({
+        code: card.code,
+        quantity: deckToImport.cards[card.code],
+      })),
+      deckToImport.code,
+      deckToImport.mcdbId,
+    ),
+  );
+
+  return Promise.resolve(code);
+};
 
 export const setUpNewDeck = (
   deckCode: string,

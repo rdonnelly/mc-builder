@@ -24,7 +24,7 @@ import { IImportDeck } from '@shared/utils/DeckParser';
 export type DecksStackParamList = {
   DecksList: undefined;
   DecksCreate: undefined;
-  DecksImport: { deck: IImportDeck };
+  DecksImport: { importString: string };
   DeckDetail: { code: string };
   DeckDetailCardDetail: {
     code: string;

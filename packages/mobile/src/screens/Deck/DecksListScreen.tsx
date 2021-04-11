@@ -167,18 +167,17 @@ const DecksListScreen: React.FunctionComponent<{
 
   const handleImportDeck = async () => {
     const clipboardContent = await getClipboard();
-    const importDeck = await parseDeckFromString(clipboardContent);
 
-    if (importDeck === false) {
-      Alert.alert(
-        'Could Not Import Deck',
-        'Please ensure that you have either a MarvelCDB public deck URL or a deck in shareable text format on your clipboard.',
-      );
+    // if (importDeck === false) {
+    //   Alert.alert(
+    //     'Could Not Import Deck',
+    //     'Please ensure that you have either a MarvelCDB public deck URL or a deck in shareable text format on your clipboard.',
+    //   );
+    //
+    //   return;
+    // }
 
-      return;
-    }
-
-    navigation.navigate('DecksImport', { deck: importDeck });
+    navigation.navigate('DecksImport', { importString: clipboardContent });
   };
 
   const renderCard: ListRenderItem<DeckModel> = ({ item: deck }) => (

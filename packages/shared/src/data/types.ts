@@ -80,6 +80,7 @@ export interface ICardRaw {
   deck_requirements: string;
   defense?: number;
   double_sided: boolean;
+  duplicate_of?: string;
   enemy_damage: number;
   enemy_evade: number;
   enemy_fight: number;

@@ -105,9 +105,9 @@ const CardDetailScreen = ({
     }
   }, [activeCardCode, activeCardName]);
 
-  const shareCardImage = useCallback((card: CardModel) => {
+  const shareCardImage = useCallback((uri: string) => {
     ReactNativeHapticFeedback.trigger('impactHeavy');
-    shareImageUrl(card.imageSrc);
+    shareImageUrl(uri);
   }, []);
 
   const handleMenuOpen = useCallback(() => {

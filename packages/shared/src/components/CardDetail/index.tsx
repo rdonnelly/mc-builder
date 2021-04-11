@@ -28,7 +28,7 @@ const CardDetail = ({
   card: CardModel;
   width: number;
   hideTitle?: boolean;
-  shareCardImage?: (card: CardModel) => void;
+  shareCardImage?: (uri: string) => void;
 }) => {
   return (
     <CardDetailContainer width={width}>

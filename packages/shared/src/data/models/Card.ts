@@ -36,6 +36,7 @@ const cards: ICardRaw[] = [].concat(
   require('marvelsdb-json-data/pack/core.json'),
   require('marvelsdb-json-data/pack/drs_encounter.json'),
   require('marvelsdb-json-data/pack/drs.json'),
+  require('marvelsdb-json-data/pack/gmw.json'),
   require('marvelsdb-json-data/pack/gob_encounter.json'),
   require('marvelsdb-json-data/pack/hlk_encounter.json'),
   require('marvelsdb-json-data/pack/hlk.json'),
@@ -63,6 +64,15 @@ export class Card {
     this.raw = card;
   }
 
+  get root() {
+    if (this.raw.duplicate_of != null) {
+      const duplicateCard = getCard(this.raw.duplicate_of);
+      return duplicateCard.root;
+    }
+
+    return this.raw;
+  }
+
   get code() {
     return this.raw.code;
   }
@@ -72,11 +82,11 @@ export class Card {
   }
 
   get name() {
-    return this.raw.name;
+    return this.root.name;
   }
 
   get faction() {
-    return getFactions().find((f) => f.code === this.raw.faction_code);
+    return getFactions().find((f) => f.code === this.root.faction_code);
   }
 
   get factionCode() {
@@ -100,7 +110,7 @@ export class Card {
   }
 
   get set() {
-    return getSets().find((s) => s.code === this.raw.set_code);
+    return getSets().find((s) => s.code === this.root.set_code);
   }
 
   get setCode() {
@@ -111,12 +121,8 @@ export class Card {
     return (this.set || {}).name;
   }
 
-  get setQuantity() {
-    return this.raw.quantity;
-  }
-
   get type() {
-    return getTypes().find((t) => t.code === this.raw.type_code);
+    return getTypes().find((t) => t.code === this.root.type_code);
   }
 
   get typeCode() {
@@ -128,87 +134,76 @@ export class Card {
   }
 
   get cost() {
-    return this.raw.cost;
+    return this.root.cost;
   }
 
   get flavor() {
-    return this.raw.flavor;
+    return this.root.flavor;
   }
 
   get text() {
-    return this.raw.text;
+    return this.root.text;
   }
 
   get backFlavor() {
-    return this.raw.back_flavor;
+    return this.root.back_flavor;
   }
 
   get backText() {
-    return this.raw.back_text;
+    return this.root.back_text;
   }
 
   get attackText() {
-    return this.raw.attack_text;
+    return this.root.attack_text;
   }
 
   get schemeText() {
-    return this.raw.scheme_text;
+    return this.root.scheme_text;
   }
 
   get boostText() {
-    if (this.raw.boost_text == null) {
+    if (this.root.boost_text == null) {
       return null;
     }
-    return `[special] <b>Boost</b>: ${this.raw.boost_text}`;
+    return `[special] <b>Boost</b>: ${this.root.boost_text}`;
   }
 
   get isHealthPerHero() {
-    return !!this.raw.health_per_hero;
+    return !!this.root.health_per_hero;
   }
 
   get resources() {
     if (
-      !this.raw.resource_energy &&
-      !this.raw.resource_mental &&
-      !this.raw.resource_physical &&
-      !this.raw.resource_wild
+      !this.root.resource_energy &&
+      !this.root.resource_mental &&
+      !this.root.resource_physical &&
+      !this.root.resource_wild
     ) {
       return null;
     }
 
     return {
-      energy: this.raw.resource_energy,
-      mental: this.raw.resource_mental,
-      physical: this.raw.resource_physical,
-      wild: this.raw.resource_wild,
+      energy: this.root.resource_energy,
+      mental: this.root.resource_mental,
+      physical: this.root.resource_physical,
+      wild: this.root.resource_wild,
     };
   }
 
-  get isUnique() {
-    return this.raw.is_unique || false;
+  get setQuantity() {
+    return this.raw.quantity;
   }
 
   get packPosition() {
     return this.raw.position;
   }
 
-  get setPosition() {
-    return this.raw.set_position;
+  get isUnique() {
+    return this.root.is_unique || false;
   }
 
   get deckLimit() {
-    return this.raw.deck_limit || 0;
-  }
-
-  get imageSrc() {
-    const cgdbId = this.pack.cgdbId;
-
-    if (cgdbId == null) {
-      return null;
-    }
-
-    const packCode = String(this.pack.cgdbId).padStart(2, '0');
-    return `https://lcgcdn.s3.amazonaws.com/mc/MC${packCode}en_${this.cardCode}.jpg`;
+    return this.root.deck_limit || 0;
   }
 
   get imageUriSet() {
@@ -218,18 +213,20 @@ export class Card {
       return [];
     }
 
-    const packCode = String(this.pack.cgdbId).padStart(2, '0');
+    const cardCode = this.root.code.slice(2).replace(/^0+/, '').toUpperCase();
+    const pack = getPacks().find((p) => p.code === this.root.pack_code);
+    const packCode = String(pack.cgdbId).padStart(2, '0');
     const isDoubleSided = ['main_scheme'].includes(this.typeCode);
 
     if (isDoubleSided) {
       return [
-        `https://lcgcdn.s3.amazonaws.com/mc/MC${packCode}en_${this.cardCode}A.jpg`,
-        `https://lcgcdn.s3.amazonaws.com/mc/MC${packCode}en_${this.cardCode}B.jpg`,
+        `https://lcgcdn.s3.amazonaws.com/mc/MC${packCode}en_${cardCode}A.jpg`,
+        `https://lcgcdn.s3.amazonaws.com/mc/MC${packCode}en_${cardCode}B.jpg`,
       ];
     }
 
     return [
-      `https://lcgcdn.s3.amazonaws.com/mc/MC${packCode}en_${this.cardCode}.jpg`,
+      `https://lcgcdn.s3.amazonaws.com/mc/MC${packCode}en_${cardCode}.jpg`,
     ];
   }
 }

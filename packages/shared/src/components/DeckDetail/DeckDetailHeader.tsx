@@ -17,14 +17,14 @@ const DeckHeader: React.FunctionComponent<{
       {identityCards && identityCards.length ? (
         <IdentityWrapper>
           {identityCards.map((card) =>
-            card.imageSrc ? (
+            card.imageUriSet != null ? (
               <Identity
                 key={`identity_${card.code}`}
                 onPress={() =>
                   onPressIdentity ? onPressIdentity(card.code) : null
                 }
               >
-                <IdentityImage source={{ uri: card.imageSrc }} />
+                <IdentityImage source={{ uri: card.imageUriSet[0] }} />
               </Identity>
             ) : null,
           )}

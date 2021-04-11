@@ -6,15 +6,13 @@ import styled from 'styled-components/native';
 import { CardModel } from '../../data';
 
 const CardDetailImage = ({
-  card,
   imageUri,
   maxWidth,
   shareCardImage,
 }: {
-  card: CardModel;
   imageUri: string;
   maxWidth: number;
-  shareCardImage?: (card: CardModel) => void;
+  shareCardImage?: (uri: string) => void;
 }) => {
   const [imageHeight, setImageHeight] = useState(0);
   const [imageWidth, setImageWidth] = useState(0);
@@ -40,7 +38,7 @@ const CardDetailImage = ({
   return (
     <Pressable
       disabled={Platform.OS !== 'ios'}
-      onLongPress={() => shareCardImage(card)}
+      onLongPress={() => shareCardImage(imageUri)}
     >
       {({ pressed }) => (
         <CardDetailImageContainer

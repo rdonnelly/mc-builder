@@ -46,7 +46,7 @@ const getResourceIcons = (card: CardModel) => {
             <Icon
               code={IconCode[resourceKey]}
               color={colors.icons[resourceKey]}
-              key={`resource_icon_${i}`}
+              key={`resource_icon_${resourceKey}_${i}`}
             />
           )),
       );

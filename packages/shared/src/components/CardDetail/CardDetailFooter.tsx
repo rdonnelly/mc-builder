@@ -39,7 +39,7 @@ const CardDetailFooter = ({ card }: { card: CardModel }) => {
               .map((_val, i) => (
                 <CardDetailFooterContainerResourceWrapper
                   color={colors.icons[`${resourceKey}Background`]}
-                  key={`resource_icon_${i}`}
+                  key={`resource_icon_${resourceKey}_${i}`}
                 >
                   <Icon
                     code={IconCode[resourceKey]}

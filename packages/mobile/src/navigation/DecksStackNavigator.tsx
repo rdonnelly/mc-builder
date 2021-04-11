@@ -11,6 +11,13 @@ import DeckEditScreen from '@screens/Deck/DeckEditScreen';
 import DecksImportScreen from '@screens/Deck/DecksImportScreen';
 import DecksListScreen from '@screens/Deck/DecksListScreen';
 
+import {
+  FactionCode,
+  FilterCode,
+  PackCode,
+  SetCode,
+  TypeCode,
+} from '@shared/data';
 import { colors } from '@shared/styles';
 import { IImportDeck } from '@shared/utils/DeckParser';
 
@@ -19,9 +26,23 @@ export type DecksStackParamList = {
   DecksCreate: undefined;
   DecksImport: { deck: IImportDeck };
   DeckDetail: { code: string };
-  DeckDetailCardDetail: { code: string; type?: 'card' | 'deck' };
+  DeckDetailCardDetail: {
+    code: string;
+    type: 'card' | 'deck' | 'deckEdit';
+    filter?: FilterCode;
+    filterCode?: FactionCode | PackCode | SetCode | TypeCode;
+    searchString?: string;
+    deckCode?: string;
+  };
   DeckEdit: { code: string };
-  DeckEditCardDetail: { code: string; type?: 'card' | 'deck' };
+  DeckEditCardDetail: {
+    code: string;
+    type: 'card' | 'deck' | 'deckEdit';
+    filter?: FilterCode;
+    filterCode?: FactionCode | PackCode | SetCode | TypeCode;
+    searchString?: string;
+    deckCode?: string;
+  };
   DeckRenameStack: undefined;
   DeckCloneStack: undefined;
 };
@@ -84,7 +105,6 @@ export default () => {
       <Stack.Screen
         name="DeckDetailCardDetail"
         component={CardDetailScreen}
-        initialParams={{ type: 'deck' }}
         options={{
           title: '',
         }}
@@ -103,7 +123,6 @@ export default () => {
       <Stack.Screen
         name="DeckEditCardDetail"
         component={CardDetailScreen}
-        initialParams={{ type: 'deck' }}
         options={{
           title: '',
         }}

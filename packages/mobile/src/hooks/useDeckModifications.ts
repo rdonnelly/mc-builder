@@ -18,8 +18,8 @@ export function useDeckModifications(deckCode: string) {
   );
 
   const increment = useCallback(
-    (card: CardModel) => {
-      if (!incrementIsDisabled) {
+    (card: CardModel, quantity: number) => {
+      if (!incrementIsDisabled(card, quantity)) {
         ReactNativeHapticFeedback.trigger('selection');
         dispatch(addCardToDeck(deckCode, card));
       }
@@ -34,8 +34,8 @@ export function useDeckModifications(deckCode: string) {
   );
 
   const decrement = useCallback(
-    (card: CardModel) => {
-      if (!decrementIsDisabled) {
+    (card: CardModel, quantity: number) => {
+      if (!decrementIsDisabled(card, quantity)) {
         ReactNativeHapticFeedback.trigger('selection');
         dispatch(removeCardFromDeck(deckCode, card));
       }

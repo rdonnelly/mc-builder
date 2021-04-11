@@ -9,7 +9,6 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { ThemeProvider } from 'styled-components';
 
 import { AppProvider } from '@context/AppContext';
-import { DecksCardListProvider } from '@context/DecksCardListContext';
 import TabNavigator from '@navigation/TabNavigator';
 import { persistor, store } from '@store';
 
@@ -25,17 +24,15 @@ export default function AppContainer() {
 
   return (
     <AppProvider>
-      <DecksCardListProvider>
-        <AppearanceProvider>
-          <ReduxProvider store={store}>
-            <PersistGate persistor={persistor}>
-              <ActionSheetProvider>
-                <App />
-              </ActionSheetProvider>
-            </PersistGate>
-          </ReduxProvider>
-        </AppearanceProvider>
-      </DecksCardListProvider>
+      <AppearanceProvider>
+        <ReduxProvider store={store}>
+          <PersistGate persistor={persistor}>
+            <ActionSheetProvider>
+              <App />
+            </ActionSheetProvider>
+          </PersistGate>
+        </ReduxProvider>
+      </AppearanceProvider>
     </AppProvider>
   );
 }
@@ -76,7 +73,10 @@ function App() {
                   state: {
                     routes: [
                       { name: 'CardsList' },
-                      { name: 'CardDetail', params: { code: split[1] } },
+                      {
+                        name: 'CardDetail',
+                        params: { code: split[1], type: 'card' },
+                      },
                     ],
                     index: 0,
                   },

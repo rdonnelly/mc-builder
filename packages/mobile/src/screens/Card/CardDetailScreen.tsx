@@ -19,14 +19,20 @@ import FloatingControlBar, {
   FloatingControlButtonVariant,
 } from '@components/FloatingControlBar';
 import { AppContext } from '@context/AppContext';
-import { useDeckModifications } from '@hooks';
+import { useDeck, useDeckModifications } from '@hooks';
 import { CardStackParamList } from '@navigation/CardsStackNavigator';
 import { StoreState } from '@store';
 import { selectStoreDeckCard } from '@store/selectors';
 import { shareImageUrl } from '@utils/Share';
 
 import CardDetail from '@shared/components/CardDetail';
-import { CardModel, getCards, getFilteredCards } from '@shared/data';
+import {
+  CardModel,
+  getCardListForDeck,
+  getCards,
+  getEligibleCardListForDeck,
+  getFilteredCards,
+} from '@shared/data';
 import { base, colors } from '@shared/styles';
 
 const CardDetailScreen = ({
@@ -41,14 +47,32 @@ const CardDetailScreen = ({
   const { showActionSheetWithOptions } = useActionSheet();
   const actionSheetAnchorRef = useRef(null);
 
+  const type = (route.params || {}).type;
   const searchString = (route.params || {}).searchString;
   const filter = (route.params || {}).filter;
   const filterCode = (route.params || {}).filterCode;
 
-  const cards =
-    searchString || (filter && filterCode)
-      ? getFilteredCards({ searchString, filter, filterCode })
-      : getCards();
+  const deckCode = (route.params || {}).deckCode;
+  const { deckModel } = useDeck(deckCode);
+
+  let cards;
+  switch (type) {
+    case 'card': {
+      cards =
+        searchString || (filter && filterCode)
+          ? getFilteredCards({ searchString, filter, filterCode })
+          : getCards();
+      break;
+    }
+    case 'deck': {
+      cards = getCardListForDeck(deckModel);
+      break;
+    }
+    case 'deckEdit': {
+      cards = getEligibleCardListForDeck(deckModel);
+      break;
+    }
+  }
 
   const [activeCardCode, setActiveCardCode] = useState(route.params.code);
   const activeCardCodeIndex = cards.findIndex((c) => c.code === activeCardCode);
@@ -162,7 +186,6 @@ const CardDetailScreen = ({
     }
   });
 
-  const deckCode = route.params.deckCode;
   const deckCard = useSelector((state: StoreState) =>
     selectStoreDeckCard(state, deckCode, activeCardCode),
   );
@@ -198,7 +221,7 @@ const CardDetailScreen = ({
         onViewableItemsChanged={handleViewableItemsChanged.current}
       />
 
-      {route.params.type === 'deck' && deckCode != null ? (
+      {route.params.type === 'deckEdit' && deckCode != null ? (
         <FloatingControlBar>
           <FloatingControlBar.Text
             variant={FloatingControlButtonVariant.INVERTED}
@@ -206,7 +229,7 @@ const CardDetailScreen = ({
             {deckCardCount}
           </FloatingControlBar.Text>
           <FloatingControlBar.FlexButton
-            onPress={() => increment(activeCard)}
+            onPress={() => increment(activeCard, deckCardCount)}
             disabled={incrementIsDisabled(activeCard, deckCardCount)}
             variant={
               incrementIsDisabled(activeCard, deckCardCount)
@@ -226,7 +249,7 @@ const CardDetailScreen = ({
             />
           </FloatingControlBar.FlexButton>
           <FloatingControlBar.FlexButton
-            onPress={() => decrement(activeCard)}
+            onPress={() => decrement(activeCard, deckCardCount)}
             disabled={decrementIsDisabled(activeCard, deckCardCount)}
             variant={
               decrementIsDisabled(activeCard, deckCardCount)

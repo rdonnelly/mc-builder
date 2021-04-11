@@ -1,28 +1,21 @@
 import { useActionSheet } from '@expo/react-native-action-sheet';
-import {
-  RouteProp,
-  useFocusEffect,
-  useNavigation,
-} from '@react-navigation/native';
-import React, { useCallback, useContext, useMemo, useRef } from 'react';
+import { RouteProp, useNavigation } from '@react-navigation/native';
+import React, { useCallback, useRef } from 'react';
 import { Alert, findNodeHandle, Platform } from 'react-native';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components/native';
 
 import FloatingControlBar, {
   FloatingControlButtonVariant,
 } from '@components/FloatingControlBar';
-import { DecksCardListContext } from '@context/DecksCardListContext';
+import { useDeck } from '@hooks';
 import { DecksStackParamList } from '@navigation/DecksStackNavigator';
-import { StoreState } from '@store';
 import { deleteDeck } from '@store/actions';
-import { selectStoreDeck, selectStoreDeckCards } from '@store/selectors';
 import { setClipboard } from '@utils/Clipboard';
 
 import DeckDetail from '@shared/components/DeckDetail';
-import { DeckModel, getCardListForDeck } from '@shared/data';
 import { base, colors } from '@shared/styles';
 
 const DeckDetailScreen = ({
@@ -34,24 +27,7 @@ const DeckDetailScreen = ({
   const navigation = useNavigation();
 
   const code = route.params.code;
-
-  const deck = useSelector((state: StoreState) => selectStoreDeck(state, code));
-  const deckCardEntities = useSelector((state: StoreState) =>
-    selectStoreDeckCards(state, deck.deckCardCodes),
-  );
-
-  const deckModel = useMemo(() => new DeckModel(deck, deckCardEntities), [
-    deck,
-    deckCardEntities,
-  ]);
-
-  const { setDecksCardList } = useContext(DecksCardListContext);
-  useFocusEffect(
-    useCallback(() => {
-      const deckCardList = getCardListForDeck(deckModel);
-      setDecksCardList(deckCardList);
-    }, []), // eslint-disable-line react-hooks/exhaustive-deps
-  );
+  const { deckModel } = useDeck(code);
 
   const { showActionSheetWithOptions } = useActionSheet();
   const actionSheetAnchorRef = useRef(null);
@@ -59,7 +35,7 @@ const DeckDetailScreen = ({
   const handleEditDeck = () => {
     if (navigation) {
       ReactNativeHapticFeedback.trigger('impactLight');
-      navigation.navigate('DeckEdit', { code: deck.code });
+      navigation.navigate('DeckEdit', { code });
     }
   };
 
@@ -67,7 +43,7 @@ const DeckDetailScreen = ({
     if (navigation) {
       navigation.navigate('DeckRenameStack', {
         screen: 'DeckRename',
-        params: { code: deck.code },
+        params: { code },
       });
     }
   };
@@ -76,7 +52,7 @@ const DeckDetailScreen = ({
     if (navigation) {
       navigation.navigate('DeckCloneStack', {
         screen: 'DeckClone',
-        params: { code: deck.code },
+        params: { code },
       });
     }
   };
@@ -148,7 +124,7 @@ const DeckDetailScreen = ({
           text: 'Delete',
           onPress: () => {
             navigation.goBack();
-            dispatch(deleteDeck(deck.code));
+            dispatch(deleteDeck(code));
           },
           style: 'destructive',
         },
@@ -161,10 +137,12 @@ const DeckDetailScreen = ({
       if (navigation) {
         navigation.navigate('DeckDetailCardDetail', {
           code: cardCode,
+          type: 'deck',
+          deckCode: code,
         });
       }
     },
-    [navigation],
+    [navigation, code],
   );
 
   return (

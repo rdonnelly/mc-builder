@@ -26,11 +26,11 @@ export type CardStackParamList = {
   TypesList: undefined;
   CardDetail: {
     code: string;
+    type: 'card' | 'deck' | 'deckEdit';
     filter?: FilterCode;
     filterCode?: FactionCode | PackCode | SetCode | TypeCode;
     searchString?: string;
     deckCode?: string;
-    type?: 'card' | 'deck';
   };
 };
 
@@ -85,7 +85,6 @@ export default () => {
       <Stack.Screen
         name="CardDetail"
         component={CardDetailScreen}
-        initialParams={{ type: 'card' }}
         options={{
           title: '',
         }}

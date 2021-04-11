@@ -95,6 +95,7 @@ const CardListScreen = ({
       if (navigation) {
         navigation.navigate('CardDetail', {
           code,
+          type: 'card',
           searchString,
           filter,
           filterCode,

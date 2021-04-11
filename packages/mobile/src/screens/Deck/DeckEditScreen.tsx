@@ -1,15 +1,10 @@
-import { RouteProp, useFocusEffect } from '@react-navigation/native';
+import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { useCallback, useContext, useEffect, useMemo } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
 
 import DeckEdit from '@components/DeckEdit';
-import { DecksCardListContext } from '@context/DecksCardListContext';
+import { useDeck } from '@hooks';
 import { DecksStackParamList } from '@navigation/DecksStackNavigator';
-import { StoreState } from '@store';
-import { selectStoreDeck, selectStoreDeckCards } from '@store/selectors';
-
-import { DeckModel, getEligibleCardListForDeck } from '@shared/data';
 
 export type DeckEditScreenNavigationProp = StackNavigationProp<
   DecksStackParamList,
@@ -28,27 +23,7 @@ const DeckEditScreen: React.FunctionComponent<{
   }, [navigation]);
 
   const code = route.params.code;
-
-  const deck = useSelector((state: StoreState) => selectStoreDeck(state, code));
-
-  const deckCardEntities = useSelector((state: StoreState) =>
-    selectStoreDeckCards(state, deck.deckCardCodes),
-  );
-
-  const deckModel = useMemo(() => new DeckModel(deck, deckCardEntities), [
-    deck,
-    deckCardEntities,
-  ]);
-
-  const { setDecksCardList } = useContext(DecksCardListContext);
-
-  useFocusEffect(
-    useCallback(() => {
-      const eligibleDeckCards = getEligibleCardListForDeck(deckModel);
-      setDecksCardList(eligibleDeckCards);
-    }, []), // eslint-disable-line react-hooks/exhaustive-deps
-  );
-
+  const { deckModel } = useDeck(code);
   return <DeckEdit deck={deckModel} />;
 };
 

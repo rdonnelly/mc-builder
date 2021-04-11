@@ -32,6 +32,7 @@ const DeckEditList: React.FunctionComponent<{
       if (navigation) {
         navigation.navigate('DeckEditCardDetail', {
           code,
+          type: 'deckEdit',
           deckCode: deck.code,
         });
       }

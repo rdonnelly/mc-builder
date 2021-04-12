@@ -16,6 +16,7 @@
     "ts": "yarn workspaces run ts"
   },
   "dependencies": {
+    "@types/react-native": "^0.64.2",
     "lodash": "^4.17.15",
     "marvelsdb-json-data": "https://github.com/rdonnelly/marvelsdb-json-data.git#main",
     "memoize-one": "^5.1.1",

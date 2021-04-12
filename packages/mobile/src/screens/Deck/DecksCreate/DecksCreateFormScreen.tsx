@@ -5,12 +5,12 @@ import { nanoid } from 'nanoid';
 import React, { useContext } from 'react';
 import { Pressable, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useDispatch } from 'react-redux';
 import styled from 'styled-components/native';
 
 import { DecksCreateContext } from '@context/DecksCreateContext';
 import { DecksCreateStackParamList } from '@navigation/DecksCreateStackNavigator';
 import { setUpNewDeck } from '@store/actions';
+import { useAppDispatch } from '@store/hooks';
 
 import { getFaction, getSet } from '@shared/data';
 import { base, colors } from '@shared/styles';
@@ -22,7 +22,7 @@ const DecksCreateFormScreen: React.FunctionComponent<{
     DecksCreateContext,
   );
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const insets = useSafeAreaInsets();
 
   const set = getSet(deckSet, false);

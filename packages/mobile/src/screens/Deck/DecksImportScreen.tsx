@@ -2,11 +2,9 @@ import 'react-native-get-random-values';
 
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { nanoid } from 'nanoid';
 import React from 'react';
 import { Alert, ListRenderItem, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useDispatch } from 'react-redux';
 import styled from 'styled-components/native';
 
 import FloatingControlBar, {
@@ -14,6 +12,7 @@ import FloatingControlBar, {
 } from '@components/FloatingControlBar';
 import { DecksStackParamList } from '@navigation/DecksStackNavigator';
 import { importDeck } from '@store/actions';
+import { useAppDispatch } from '@store/hooks';
 
 import CardListItem from '@shared/components/CardListItem';
 import { CardModel } from '@shared/data';
@@ -30,7 +29,7 @@ const DecksImportFormScreen: React.FunctionComponent<{
   navigation: StackNavigationProp<DecksStackParamList, 'DecksImport'>;
   route: RouteProp<DecksStackParamList, 'DecksImport'>;
 }> = ({ navigation, route }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const insets = useSafeAreaInsets();
 
   const importString = route.params.importString;
@@ -43,6 +42,15 @@ const DecksImportFormScreen: React.FunctionComponent<{
     setCardModels,
     identityImageSrcs,
   } = useDeckImport(importString);
+
+  // if (importDeck === false) {
+  //   Alert.alert(
+  //     'Could Not Import Deck',
+  //     'Please ensure that you have either a MarvelCDB public deck URL or a deck in shareable text format on your clipboard.',
+  //   );
+  //
+  //   return;
+  // }
 
   const submit = async () => {
     if (deckToImport && deckToImport.name && setCode && aspectCodes.length) {
@@ -76,6 +84,7 @@ const DecksImportFormScreen: React.FunctionComponent<{
     />
   );
 
+  // TODO better loading indicator
   if (!deckToImport) {
     return (
       <Container bottom={insets.bottom}>

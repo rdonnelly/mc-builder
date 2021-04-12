@@ -28,7 +28,7 @@ export const importDeck = (
   deckCards: CardModel[],
   deckSetCode: SetCode,
   deckAspectCodes: FactionCode[],
-): AppThunk => (dispatch) => {
+): AppThunk<Promise<string>> => (dispatch) => {
   const code = nanoid();
 
   dispatch(

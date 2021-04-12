@@ -2,7 +2,6 @@ import { useActionSheet } from '@expo/react-native-action-sheet';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useCallback, useLayoutEffect, useRef } from 'react';
 import {
-  Alert,
   findNodeHandle,
   ListRenderItem,
   Platform,
@@ -11,7 +10,6 @@ import {
 } from 'react-native';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
-import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/native';
 
 import FloatingControlBar, {
@@ -19,6 +17,7 @@ import FloatingControlBar, {
 } from '@components/FloatingControlBar';
 import { DecksStackParamList } from '@navigation/DecksStackNavigator';
 import { StoreState } from '@store';
+import { useAppDispatch, useAppSelector } from '@store/hooks';
 import { setDeckSort } from '@store/reducers/app';
 import { getClipboard } from '@utils/Clipboard';
 
@@ -26,7 +25,6 @@ import DecksListItem from '@shared/components/DeckListItem';
 import { DeckModel } from '@shared/data';
 import { AppDeckSortKey } from '@shared/store/types';
 import { base, colors } from '@shared/styles';
-import { parseDeckFromString } from '@shared/utils/DeckParser';
 
 const styles = StyleSheet.create({
   contentContainerStyle: {
@@ -37,13 +35,13 @@ const styles = StyleSheet.create({
 const DecksListScreen: React.FunctionComponent<{
   navigation: StackNavigationProp<DecksStackParamList, 'DecksList'>;
 }> = ({ navigation }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const deckSortKey = useSelector((state: StoreState) => {
+  const deckSortKey = useAppSelector((state: StoreState) => {
     return state.root.app.sorting.deck;
   });
 
-  const decks = useSelector((state: StoreState) => {
+  const decks = useAppSelector((state: StoreState) => {
     const deckEntities = state.root.decks.entities;
     const sortKey = state.root.app.sorting.deck;
 
@@ -167,16 +165,6 @@ const DecksListScreen: React.FunctionComponent<{
 
   const handleImportDeck = async () => {
     const clipboardContent = await getClipboard();
-
-    // if (importDeck === false) {
-    //   Alert.alert(
-    //     'Could Not Import Deck',
-    //     'Please ensure that you have either a MarvelCDB public deck URL or a deck in shareable text format on your clipboard.',
-    //   );
-    //
-    //   return;
-    // }
-
     navigation.navigate('DecksImport', { importString: clipboardContent });
   };
 

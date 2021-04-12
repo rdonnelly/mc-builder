@@ -4,7 +4,6 @@ import React, { useCallback, useRef } from 'react';
 import { Alert, findNodeHandle, Platform } from 'react-native';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
-import { useDispatch } from 'react-redux';
 import styled from 'styled-components/native';
 
 import FloatingControlBar, {
@@ -13,6 +12,7 @@ import FloatingControlBar, {
 import { useDeck } from '@hooks';
 import { DecksStackParamList } from '@navigation/DecksStackNavigator';
 import { deleteDeck } from '@store/actions';
+import { useAppDispatch } from '@store/hooks';
 import { setClipboard } from '@utils/Clipboard';
 
 import DeckDetail from '@shared/components/DeckDetail';
@@ -23,7 +23,7 @@ const DeckDetailScreen = ({
 }: {
   route: RouteProp<DecksStackParamList, 'DeckDetail'>;
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigation = useNavigation();
 
   const code = route.params.code;

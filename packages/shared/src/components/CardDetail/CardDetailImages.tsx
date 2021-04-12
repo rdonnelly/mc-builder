@@ -60,7 +60,7 @@ const CardDetailImages = ({
 }: {
   card: CardModel;
   maxWidth: number;
-  shareCardImage?: (card: CardModel) => void;
+  shareCardImage?: (uri: string) => void;
 }) => {
   const imageUriSet = card.imageUriSet;
 
@@ -69,7 +69,6 @@ const CardDetailImages = ({
       {imageUriSet.map((imageUri, i) => (
         <CardDetailImage
           key={`card_image_${card.code}_${i}`}
-          card={card}
           imageUri={imageUri}
           maxWidth={maxWidth}
           shareCardImage={shareCardImage}

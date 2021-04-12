@@ -12,7 +12,6 @@ import { findNodeHandle, Linking, Platform, Pressable } from 'react-native';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import { InAppBrowser } from 'react-native-inappbrowser-reborn';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
-import { useSelector } from 'react-redux';
 import styled from 'styled-components/native';
 
 import FloatingControlBar, {
@@ -22,6 +21,7 @@ import { AppContext } from '@context/AppContext';
 import { useDeck, useDeckModifications } from '@hooks';
 import { CardStackParamList } from '@navigation/CardsStackNavigator';
 import { StoreState } from '@store';
+import { useAppSelector } from '@store/hooks';
 import { selectStoreDeckCard } from '@store/selectors';
 import { shareImageUrl } from '@utils/Share';
 
@@ -180,7 +180,7 @@ const CardDetailScreen = ({
     }
   });
 
-  const deckCard = useSelector((state: StoreState) =>
+  const deckCard = useAppSelector((state: StoreState) =>
     selectStoreDeckCard(state, deckCode, activeCardCode),
   );
 

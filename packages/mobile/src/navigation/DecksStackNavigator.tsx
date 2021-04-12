@@ -19,7 +19,6 @@ import {
   TypeCode,
 } from '@shared/data';
 import { colors } from '@shared/styles';
-import { IImportDeck } from '@shared/utils/DeckParser';
 
 export type DecksStackParamList = {
   DecksList: undefined;

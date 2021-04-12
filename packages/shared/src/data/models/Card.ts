@@ -198,6 +198,10 @@ export class Card {
     };
   }
 
+  get setPosition() {
+    return this.raw.set_position;
+  }
+
   get setQuantity() {
     return this.raw.quantity;
   }

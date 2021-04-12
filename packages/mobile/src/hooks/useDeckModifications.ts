@@ -1,13 +1,13 @@
 import { useCallback } from 'react';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
-import { useDispatch } from 'react-redux';
 
 import { addCardToDeck, removeCardFromDeck } from '@store/actions';
+import { useAppDispatch } from '@store/hooks';
 
 import { CardModel } from '@shared/data';
 
 export function useDeckModifications(deckCode: string) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const incrementIsDisabled = useCallback(
     (card: CardModel, quantity: number): boolean =>

@@ -1,4 +1,3 @@
-import React from 'react';
 import { StyleSheet } from 'react-native';
 import Html from 'react-native-render-html';
 import styled from 'styled-components/native';

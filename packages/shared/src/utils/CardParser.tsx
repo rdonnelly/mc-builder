@@ -1,5 +1,3 @@
-import React from 'react';
-
 import Icon, { IconCode } from '../components/Icon';
 import { colors } from '../styles';
 

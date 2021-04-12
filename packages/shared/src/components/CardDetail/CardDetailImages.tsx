@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Image, Platform } from 'react-native';
 import { Pressable } from 'react-native';
 import styled from 'styled-components/native';

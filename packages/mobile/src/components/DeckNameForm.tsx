@@ -1,16 +1,19 @@
-import 'react-native-get-random-values';
-
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components/native';
 
 import { base, colors } from '@shared/styles';
 
-const DecksCreateFormScreen: React.FunctionComponent<{
+const DecksCreateFormScreen = ({
+  name,
+  submit,
+  submitLabel,
+  cancel,
+}: {
   name: string;
   submit: (deckName: string) => void;
   submitLabel: string;
   cancel: () => void;
-}> = ({ name, submit, submitLabel, cancel }) => {
+}) => {
   const [deckName, setDeckName] = useState(name);
 
   const inputRef = useRef(null);

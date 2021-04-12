@@ -1,4 +1,4 @@
-import React, { MutableRefObject } from 'react';
+import { MutableRefObject } from 'react';
 import styled from 'styled-components/native';
 
 import ListItem from '@components/ListItem';

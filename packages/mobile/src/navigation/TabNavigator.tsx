@@ -1,5 +1,4 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import React from 'react';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
 
 import CardsStackNavigator from '@navigation/CardsStackNavigator';

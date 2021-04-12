@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import { SectionList, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 

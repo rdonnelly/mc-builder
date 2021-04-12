@@ -1,5 +1,5 @@
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 
 import List from '@components/List';
 import { CardStackParamList } from '@navigation/CardsStackNavigator';

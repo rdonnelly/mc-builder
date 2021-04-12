@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import { forwardRef } from 'react';
 import { Pressable } from 'react-native';
 import styled from 'styled-components/native';
 

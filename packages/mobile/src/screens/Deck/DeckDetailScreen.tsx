@@ -1,6 +1,6 @@
 import { useActionSheet } from '@expo/react-native-action-sheet';
 import { RouteProp, useNavigation } from '@react-navigation/native';
-import React, { useCallback, useRef } from 'react';
+import { useCallback, useRef } from 'react';
 import { Alert, findNodeHandle, Platform } from 'react-native';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';

@@ -1,6 +1,6 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
 import DeckEdit from '@components/DeckEdit';
 import { useDeck } from '@hooks';

@@ -1,4 +1,4 @@
-import React, { createContext } from 'react';
+import { createContext } from 'react';
 import { useWindowDimensions } from 'react-native';
 
 const AppContext = createContext({

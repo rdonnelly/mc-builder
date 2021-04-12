@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import { memo } from 'react';
 import { SectionList, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 

@@ -2,7 +2,7 @@ import 'react-native-get-random-values';
 
 import { StackNavigationProp } from '@react-navigation/stack';
 import { nanoid } from 'nanoid';
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { Pressable, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import styled from 'styled-components/native';

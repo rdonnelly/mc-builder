@@ -1,6 +1,6 @@
 import { ActionSheetProvider } from '@expo/react-native-action-sheet';
 import { NavigationContainer } from '@react-navigation/native';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { StatusBar } from 'react-native';
 import { AppearanceProvider, useColorScheme } from 'react-native-appearance';
 import RNBootSplash from 'react-native-bootsplash';

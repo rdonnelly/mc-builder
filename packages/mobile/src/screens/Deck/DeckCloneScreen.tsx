@@ -15,10 +15,13 @@ import { selectStoreDeck } from '@store/selectors';
 
 import { base, colors } from '@shared/styles';
 
-const DeckCloneScreen: React.FunctionComponent<{
+const DeckCloneScreen = ({
+  navigation,
+  route,
+}: {
   navigation: StackNavigationProp<DeckCloneStackParamList, 'DeckClone'>;
   route: RouteProp<DeckCloneStackParamList, 'DeckClone'>;
-}> = ({ navigation, route }) => {
+}) => {
   const code = route.params.code;
 
   const deck = useAppSelector((state: StoreState) =>

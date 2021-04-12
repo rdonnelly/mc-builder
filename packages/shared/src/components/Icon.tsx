@@ -47,11 +47,15 @@ enum IconCodeString {
   WILD_OUTLINE = 'e912',
 }
 
-const Icon: React.FunctionComponent<{
+const Icon = ({
+  code,
+  color,
+  size,
+}: {
   code: IconCode;
   color?: string;
   size?: number;
-}> = ({ code, color, size }) => {
+}) => {
   const codeString: IconCodeString = IconCodeString[code] || null;
   const fontString: string = codeString
     ? String.fromCharCode(parseInt(codeString, 16))

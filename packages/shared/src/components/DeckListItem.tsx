@@ -7,10 +7,13 @@ import { base, colors } from '../styles';
 
 export const ITEM_HEIGHT = 64;
 
-const DecksListItem: React.FunctionComponent<{
+const DecksListItem = ({
+  deck,
+  onPressItem,
+}: {
   deck: DeckModel;
   onPressItem: any;
-}> = ({ deck, onPressItem }) => {
+}) => {
   return (
     <Container>
       <ListItemPressable onPress={() => onPressItem(deck.code)}>

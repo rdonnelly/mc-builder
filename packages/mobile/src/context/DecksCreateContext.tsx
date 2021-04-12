@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createContext, useState } from 'react';
 
 import { FactionCode, getFaction, getSet, SetCode } from '@shared/data';
 
@@ -11,7 +11,7 @@ interface IDecksCreateContext {
   setDeckAspect: (aspect: FactionCode[]) => void;
 }
 
-const DecksCreateContext = React.createContext({
+const DecksCreateContext = createContext({
   deckName: undefined,
   setDeckName: undefined,
   deckSet: undefined,
@@ -21,9 +21,9 @@ const DecksCreateContext = React.createContext({
 } as IDecksCreateContext);
 
 const DecksCreateProvider = (props) => {
-  const [deckName, setDeckName] = React.useState(null);
-  const [deckSet, setDeckSet] = React.useState(null);
-  const [deckAspect, setDeckAspect] = React.useState([]);
+  const [deckName, setDeckName] = useState(null);
+  const [deckSet, setDeckSet] = useState(null);
+  const [deckAspect, setDeckAspect] = useState([]);
 
   const updateDeckSet = (newDeckSet: SetCode) => {
     setDeckSet(newDeckSet);

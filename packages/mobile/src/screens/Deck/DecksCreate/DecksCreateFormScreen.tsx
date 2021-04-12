@@ -15,9 +15,11 @@ import { useAppDispatch } from '@store/hooks';
 import { getFaction, getSet } from '@shared/data';
 import { base, colors } from '@shared/styles';
 
-const DecksCreateFormScreen: React.FunctionComponent<{
+const DecksCreateFormScreen = ({
+  navigation,
+}: {
   navigation: StackNavigationProp<DecksCreateStackParamList, 'DecksCreateForm'>;
-}> = ({ navigation }) => {
+}) => {
   const { deckName, setDeckName, deckSet, deckAspect } = useContext(
     DecksCreateContext,
   );

@@ -24,13 +24,16 @@ const ITEM_HEIGHT = 48;
 const sets = getHeroSets();
 const aspects = getPrimaryFactions();
 
-const DecksCreateSelectScreen: React.FunctionComponent<{
+const DecksCreateSelectScreen = ({
+  navigation,
+  route,
+}: {
   navigation: StackNavigationProp<
     DecksCreateStackParamList,
     'DecksCreateSelect'
   >;
   route: RouteProp<DecksCreateStackParamList, 'DecksCreateSelect'>;
-}> = ({ navigation, route }) => {
+}) => {
   const { deckSet, setDeckSet, deckAspect, setDeckAspect } = useContext(
     DecksCreateContext,
   );

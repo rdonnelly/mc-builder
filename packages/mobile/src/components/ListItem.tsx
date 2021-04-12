@@ -6,10 +6,13 @@ import { base, colors } from '@shared/styles';
 
 export const ITEM_HEIGHT = 48;
 
-const ListItem: React.FunctionComponent<{
+const ListItem = ({
+  item,
+  handlePressItem,
+}: {
   item: { code: string; name: string };
   handlePressItem?: (code: string) => void;
-}> = ({ item, handlePressItem }) => {
+}) => {
   return (
     <Container>
       <ListItemPressable onPress={() => handlePressItem(item.code)}>

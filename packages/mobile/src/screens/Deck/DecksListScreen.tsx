@@ -32,9 +32,11 @@ const styles = StyleSheet.create({
   },
 });
 
-const DecksListScreen: React.FunctionComponent<{
+const DecksListScreen = ({
+  navigation,
+}: {
   navigation: StackNavigationProp<DecksStackParamList, 'DecksList'>;
-}> = ({ navigation }) => {
+}) => {
   const dispatch = useAppDispatch();
 
   const deckSortKey = useAppSelector((state: StoreState) => {

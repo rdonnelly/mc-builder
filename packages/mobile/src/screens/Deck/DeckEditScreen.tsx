@@ -11,10 +11,13 @@ export type DeckEditScreenNavigationProp = StackNavigationProp<
   'DeckEdit'
 >;
 
-const DeckEditScreen: React.FunctionComponent<{
+const DeckEditScreen = ({
+  navigation,
+  route,
+}: {
   navigation: DeckEditScreenNavigationProp;
   route: RouteProp<DecksStackParamList, 'DeckEdit'>;
-}> = ({ navigation, route }) => {
+}) => {
   useEffect(() => {
     navigation.setOptions({
       headerTitle: 'Edit Deck',

@@ -13,9 +13,11 @@ import {
   TypeCode,
 } from '@shared/data';
 
-const FactionsListScreen: React.FunctionComponent<{
+const FactionsListScreen = ({
+  navigation,
+}: {
   navigation: StackNavigationProp<CardStackParamList, 'FactionsList'>;
-}> = ({ navigation }) => {
+}) => {
   const handlePressItem = useCallback(
     (code: FactionCode | PackCode | SetCode | TypeCode) => {
       if (navigation) {

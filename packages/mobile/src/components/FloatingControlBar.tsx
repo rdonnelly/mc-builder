@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { Pressable } from 'react-native';
 import styled from 'styled-components/native';
 
@@ -23,7 +23,7 @@ const FloatingControlBar = (props) => {
   );
 };
 
-FloatingControlBar.EvenButton = React.forwardRef<
+FloatingControlBar.EvenButton = forwardRef<
   any,
   { onPress: any; disabled: boolean; variant: FloatingControlButtonVariant }
 >((props, ref) => {
@@ -46,7 +46,7 @@ FloatingControlBar.EvenButton = React.forwardRef<
   );
 }) as any;
 
-FloatingControlBar.FlexButton = React.forwardRef<
+FloatingControlBar.FlexButton = forwardRef<
   any,
   { onPress: any; disabled: boolean; variant: FloatingControlButtonVariant }
 >((props, ref) => {
@@ -69,7 +69,7 @@ FloatingControlBar.FlexButton = React.forwardRef<
   );
 }) as any;
 
-FloatingControlBar.InlineButton = React.forwardRef<
+FloatingControlBar.InlineButton = forwardRef<
   any,
   { onPress: any; disabled: boolean; variant: FloatingControlButtonVariant }
 >((props, ref) => {
@@ -92,7 +92,7 @@ FloatingControlBar.InlineButton = React.forwardRef<
   );
 }) as any;
 
-const FloatingControlBarText = React.forwardRef<
+const FloatingControlBarText = forwardRef<
   any,
   { pressed: boolean; variant: FloatingControlButtonVariant; wrapped?: boolean }
 >((props, ref) => (

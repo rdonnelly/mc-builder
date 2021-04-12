@@ -13,9 +13,7 @@ import { DeckDetailHeader } from '@shared/components/DeckDetail';
 import { DeckModel } from '@shared/data';
 import { base, colors } from '@shared/styles';
 
-const DeckEdit: React.FunctionComponent<{
-  deck: DeckModel;
-}> = ({ deck }) => {
+const DeckEdit = ({ deck }: { deck: DeckModel }) => {
   const navigation = useNavigation<DeckEditScreenNavigationProp>();
 
   const handlePressDone = () => {

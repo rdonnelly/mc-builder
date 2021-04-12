@@ -17,7 +17,7 @@ import { reset } from '@store/reducers/decks';
 import { base, colors } from '@shared/styles';
 // import { setAuthToken } from '@store/reducers/auth';
 
-const SettingsScreen: React.FunctionComponent<{}> = () => {
+const SettingsScreen = () => {
   const dispatch = useAppDispatch();
 
   const clearStore = () => {

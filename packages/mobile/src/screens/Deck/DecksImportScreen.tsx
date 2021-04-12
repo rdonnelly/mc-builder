@@ -1,5 +1,3 @@
-import 'react-native-get-random-values';
-
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
@@ -25,10 +23,13 @@ const styles = StyleSheet.create({
   },
 });
 
-const DecksImportFormScreen: React.FunctionComponent<{
+const DecksImportFormScreen = ({
+  navigation,
+  route,
+}: {
   navigation: StackNavigationProp<DecksStackParamList, 'DecksImport'>;
   route: RouteProp<DecksStackParamList, 'DecksImport'>;
-}> = ({ navigation, route }) => {
+}) => {
   const dispatch = useAppDispatch();
   const insets = useSafeAreaInsets();
 

@@ -15,10 +15,13 @@ import { selectStoreDeck } from '@store/selectors';
 
 import { base, colors } from '@shared/styles';
 
-const DeckRenameScreen: React.FunctionComponent<{
+const DeckRenameScreen = ({
+  navigation,
+  route,
+}: {
   navigation: StackNavigationProp<DeckRenameStackParamList, 'DeckRename'>;
   route: RouteProp<DeckRenameStackParamList, 'DeckRename'>;
-}> = ({ navigation, route }) => {
+}) => {
   const code = route.params.code;
 
   const deck = useAppSelector((state: StoreState) =>

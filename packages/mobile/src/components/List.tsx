@@ -1,18 +1,25 @@
-import React from 'react';
+import React, { MutableRefObject } from 'react';
 import styled from 'styled-components/native';
 
 import ListItem from '@components/ListItem';
 
 import { base } from '@shared/styles';
 
-const List: React.FunctionComponent<{
+const List = ({
+  name,
+  items,
+  count,
+  renderItem,
+  handlePressItem,
+  listRef,
+}: {
   name: string;
   items: any[];
   count?: number;
   renderItem?: any;
   handlePressItem?: (code: string) => void;
-  listRef?: React.MutableRefObject<any>;
-}> = ({ name, items, count, renderItem, handlePressItem, listRef }) => {
+  listRef?: MutableRefObject<any>;
+}) => {
   const defaultRenderItem = ({ item }) => (
     <ListItem item={item} handlePressItem={handlePressItem} />
   );

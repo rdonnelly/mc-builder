@@ -15,9 +15,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const DeckEditList: React.FunctionComponent<{
-  deck: DeckModel;
-}> = ({ deck }) => {
+const DeckEditList = ({ deck }: { deck: DeckModel }) => {
   const navigation = useNavigation();
 
   const {

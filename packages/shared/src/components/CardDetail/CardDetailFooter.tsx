@@ -10,7 +10,7 @@ const CardDetailFooter = ({ card }: { card: CardModel }) => {
     factionOrSetText = card.setName;
     if (card.setPosition != null) {
       const setNumbers = [];
-      for (let i = 0, j = card.raw.quantity; i < j; i++) {
+      for (let i = 0, j = card.setQuantity; i < j; i++) {
         setNumbers.push(`#${card.setPosition + i}`);
       }
       factionOrSetText += ` (${setNumbers.join(', ')})`;
@@ -58,12 +58,12 @@ const CardDetailFooter = ({ card }: { card: CardModel }) => {
           {resourceIcons}
         </CardDetailFooterContainerResource>
       ) : null}
-      {card.raw.boost == null && card.boostText == null ? null : (
+      {card.boost == null && card.boostText == null ? null : (
         <CardDetailFooterContainerBoost>
           {card.boostText ? (
             <Icon code={IconCode.special} color={colors.darkGray} size={16} />
           ) : null}
-          {[...Array(card.raw.boost || 0).keys()].map((i) => (
+          {[...Array(card.boost || 0).keys()].map((i) => (
             <Icon
               code={IconCode.boost}
               color={colors.darkGray}

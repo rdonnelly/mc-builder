@@ -15,15 +15,15 @@ const CardDetailHeader = ({
       {!hideTitle ? (
         <CardDetailHeaderContainerTitle>
           <CardDetailHeaderContainerTitleText>
-            {card.raw.name}
+            {card.name}
           </CardDetailHeaderContainerTitleText>
         </CardDetailHeaderContainerTitle>
       ) : null}
-      {card.raw.subname != null ? (
+      {card.subname != null ? (
         <CardDetailHeaderContainer>
           <CardDetailHeaderContainerSubtitle>
             <CardDetailHeaderContainerSubtitleText>
-              {card.raw.subname}
+              {card.subname}
             </CardDetailHeaderContainerSubtitleText>
           </CardDetailHeaderContainerSubtitle>
         </CardDetailHeaderContainer>
@@ -33,9 +33,9 @@ const CardDetailHeader = ({
           <CardDetailHeaderContainerTypesTextBold>
             {`${card.typeName}.`}
           </CardDetailHeaderContainerTypesTextBold>
-          {card.raw.traits ? (
+          {card.traits ? (
             <CardDetailHeaderContainerTypesText>
-              {` ${card.raw.traits}`}
+              {` ${card.traits}`}
             </CardDetailHeaderContainerTypesText>
           ) : null}
         </CardDetailHeaderContainerTypes>

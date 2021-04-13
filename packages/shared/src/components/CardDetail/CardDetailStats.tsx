@@ -13,8 +13,8 @@ const CardDetailStats = ({ card }: { card: CardModel }) => {
         <Stat key={'thwart'}>
           <StatData>
             <StatDataText>
-              {card.raw.thwart}
-              {card.raw.scheme_text ? (
+              {card.thwart}
+              {card.schemeText ? (
                 <Icon
                   code={IconCode.special}
                   color={colors.grayDark}
@@ -31,8 +31,8 @@ const CardDetailStats = ({ card }: { card: CardModel }) => {
         <Stat key={'attack'}>
           <StatData>
             <StatDataText>
-              {card.raw.attack}
-              {card.raw.attack_text ? (
+              {card.attack}
+              {card.attackText ? (
                 <Icon
                   code={IconCode.special}
                   color={colors.grayDark}
@@ -48,7 +48,7 @@ const CardDetailStats = ({ card }: { card: CardModel }) => {
         <StatSpacer key={'defense-spacer'} />,
         <Stat key={'defense'}>
           <StatData>
-            <StatDataText>{card.raw.defense}</StatDataText>
+            <StatDataText>{card.defense}</StatDataText>
           </StatData>
           <StatHeader>
             <StatHeaderText>DEF</StatHeaderText>
@@ -57,7 +57,7 @@ const CardDetailStats = ({ card }: { card: CardModel }) => {
         <StatSpacer key={'hand-spacer'} />,
         <Stat key={'hand-size'}>
           <StatData>
-            <StatDataText>{card.raw.hand_size}</StatDataText>
+            <StatDataText>{card.handSize}</StatDataText>
           </StatData>
           <StatHeader>
             <StatHeaderText>HAND</StatHeaderText>
@@ -66,7 +66,7 @@ const CardDetailStats = ({ card }: { card: CardModel }) => {
         <StatSpacer key={'health-spacer'} />,
         <Stat key={'health'}>
           <StatData>
-            <StatDataText>{card.raw.health}</StatDataText>
+            <StatDataText>{card.health}</StatDataText>
           </StatData>
           <StatHeader>
             <StatHeaderText>HP</StatHeaderText>
@@ -79,7 +79,7 @@ const CardDetailStats = ({ card }: { card: CardModel }) => {
       stats.push(
         <Stat key={'recover'}>
           <StatData>
-            <StatDataText>{card.raw.recover}</StatDataText>
+            <StatDataText>{card.recover}</StatDataText>
           </StatData>
           <StatHeader>
             <StatHeaderText>REC</StatHeaderText>
@@ -88,7 +88,7 @@ const CardDetailStats = ({ card }: { card: CardModel }) => {
         <StatSpacer key={'hand-spacer'} />,
         <Stat key={'hand-size'}>
           <StatData>
-            <StatDataText>{card.raw.hand_size}</StatDataText>
+            <StatDataText>{card.handSize}</StatDataText>
           </StatData>
           <StatHeader>
             <StatHeaderText>HAND</StatHeaderText>
@@ -97,7 +97,7 @@ const CardDetailStats = ({ card }: { card: CardModel }) => {
         <StatSpacer key={'health-spacer'} />,
         <Stat key={'health'}>
           <StatData>
-            <StatDataText>{card.raw.health}</StatDataText>
+            <StatDataText>{card.health}</StatDataText>
           </StatData>
           <StatHeader>
             <StatHeaderText>HP</StatHeaderText>
@@ -109,11 +109,11 @@ const CardDetailStats = ({ card }: { card: CardModel }) => {
     case 'side_scheme':
     case 'main_scheme': {
       stats.push(
-        card.raw.threat == null ? null : (
+        card.threat == null ? null : (
           <Stat key={'threat-threat'}>
             <StatData>
               <StatDataText>
-                {card.raw.threat}
+                {card.threat}
                 <Icon
                   code={IconCode.perHero}
                   color={colors.grayDark}
@@ -126,12 +126,12 @@ const CardDetailStats = ({ card }: { card: CardModel }) => {
             </StatHeader>
           </Stat>
         ),
-        card.raw.threat == null ? null : <StatSpacer key={'threat-spacer'} />,
+        card.threat == null ? null : <StatSpacer key={'threat-spacer'} />,
         <Stat key={'base-threat'}>
           <StatData>
             <StatDataText>
-              {card.raw.base_threat}
-              {!card.raw.base_threat || card.raw.base_threat_fixed ? null : (
+              {card.threatBase}
+              {!card.threatBase || card.threatBaseIsFixed ? null : (
                 <Icon
                   code={IconCode.perHero}
                   color={colors.grayDark}
@@ -144,23 +144,23 @@ const CardDetailStats = ({ card }: { card: CardModel }) => {
             <StatHeaderText>BASE THREAT</StatHeaderText>
           </StatHeader>
         </Stat>,
-        card.raw.escalation_threat == null ? null : (
+        card.threatEscalation == null ? null : (
           <StatSpacer key={'escalation-spacer'} />
         ),
-        card.raw.escalation_threat == null ? null : (
+        card.threatEscalation == null ? null : (
           <Stat key={'escalation-threat'}>
             <StatData>
               <StatDataText>
-                +{card.raw.escalation_threat}
-                {!card.raw.escalation_threat ||
-                card.raw.escalation_threat_fixed ? null : (
+                +{card.threatEscalation}
+                {!card.threatEscalation ||
+                card.threatEscalationIsFixed ? null : (
                   <Icon
                     code={IconCode.perHero}
                     color={colors.grayDark}
                     size={16}
                   />
                 )}
-                {card.raw.escalation_threat_fixed ? null : (
+                {card.threatEscalationIsFixed ? null : (
                   <Icon
                     code={IconCode.special}
                     color={colors.grayDark}
@@ -180,12 +180,12 @@ const CardDetailStats = ({ card }: { card: CardModel }) => {
     }
     case 'attachment': {
       stats.push(
-        card.raw.attack == null ? null : (
+        card.attack == null ? null : (
           <Stat key={'attack'}>
             <StatData>
               <StatDataText>
-                +{card.raw.attack}
-                {card.raw.attack_text ? (
+                +{card.attack}
+                {card.attackText ? (
                   <Icon
                     code={IconCode.special}
                     color={colors.grayDark}
@@ -199,15 +199,15 @@ const CardDetailStats = ({ card }: { card: CardModel }) => {
             </StatHeader>
           </Stat>
         ),
-        card.raw.attack == null || card.raw.scheme == null ? null : (
+        card.attack == null || card.scheme == null ? null : (
           <StatSpacer key={'scheme-spacer'} />
         ),
-        card.raw.scheme == null ? null : (
+        card.scheme == null ? null : (
           <Stat key={'scheme'}>
             <StatData>
               <StatDataText>
-                +{card.raw.scheme}
-                {card.raw.scheme_text ? (
+                +{card.scheme}
+                {card.schemeText ? (
                   <Icon
                     code={IconCode.special}
                     color={colors.grayDark}
@@ -234,7 +234,7 @@ const CardDetailStats = ({ card }: { card: CardModel }) => {
         stats.push(
           <Stat key={'cost'}>
             <StatData>
-              <StatDataText>{card.raw.cost}</StatDataText>
+              <StatDataText>{card.cost}</StatDataText>
             </StatData>
             <StatHeader>
               <StatHeaderText>COST</StatHeaderText>
@@ -249,15 +249,15 @@ const CardDetailStats = ({ card }: { card: CardModel }) => {
           <Stat key={'thwart'}>
             <StatData>
               <StatDataText>
-                {card.raw.thwart != null ? card.raw.thwart : '–'}
-                {card.raw.scheme_text ? (
+                {card.thwart != null ? card.thwart : '–'}
+                {card.schemeText ? (
                   <Icon
                     code={IconCode.special}
                     color={colors.grayDark}
                     size={16}
                   />
                 ) : null}
-                {[...Array(card.raw.thwart_cost || 0).keys()].map((i) => (
+                {[...Array(card.thwartCost || 0).keys()].map((i) => (
                   <Icon
                     code={IconCode.cost}
                     color={colors.grayDark}
@@ -275,15 +275,15 @@ const CardDetailStats = ({ card }: { card: CardModel }) => {
           <Stat key={'attack'}>
             <StatData>
               <StatDataText>
-                {card.raw.attack}
-                {card.raw.attack_text ? (
+                {card.attack}
+                {card.attackText ? (
                   <Icon
                     code={IconCode.special}
                     color={colors.grayDark}
                     size={16}
                   />
                 ) : null}
-                {[...Array(card.raw.attack_cost || 0).keys()].map((i) => (
+                {[...Array(card.attackCost || 0).keys()].map((i) => (
                   <Icon
                     code={IconCode.cost}
                     color={colors.grayDark}
@@ -300,12 +300,12 @@ const CardDetailStats = ({ card }: { card: CardModel }) => {
         );
       }
 
-      if (card.raw.health) {
+      if (card.health) {
         stats.push(
           <StatSpacer key={'health-spacer'} />,
           <Stat key={'health'}>
             <StatData>
-              <StatDataText>{card.raw.health}</StatDataText>
+              <StatDataText>{card.health}</StatDataText>
             </StatData>
             <StatHeader>
               <StatHeaderText>HP</StatHeaderText>
@@ -322,8 +322,8 @@ const CardDetailStats = ({ card }: { card: CardModel }) => {
         <Stat key={'scheme'}>
           <StatData>
             <StatDataText>
-              {card.raw.scheme}
-              {card.raw.scheme_text ? (
+              {card.scheme}
+              {card.schemeText ? (
                 <Icon
                   code={IconCode.special}
                   color={colors.grayDark}
@@ -340,8 +340,8 @@ const CardDetailStats = ({ card }: { card: CardModel }) => {
         <Stat key={'attack'}>
           <StatData>
             <StatDataText>
-              {card.raw.attack}
-              {card.raw.attack_text ? (
+              {card.attack}
+              {card.attackText ? (
                 <Icon
                   code={IconCode.special}
                   color={colors.grayDark}
@@ -358,7 +358,7 @@ const CardDetailStats = ({ card }: { card: CardModel }) => {
         <Stat key={'health'}>
           <StatData>
             <StatDataText>
-              {card.raw.health}
+              {card.health}
               {card.isHealthPerHero ? (
                 <Icon
                   code={IconCode.perHero}
@@ -378,7 +378,7 @@ const CardDetailStats = ({ card }: { card: CardModel }) => {
         card.typeCode !== 'villain' ? null : (
           <Stat key={'stage'}>
             <StatData>
-              <StatDataText>{card.raw.stage}</StatDataText>
+              <StatDataText>{card.stage}</StatDataText>
             </StatData>
             <StatHeader>
               <StatHeaderText>STAGE</StatHeaderText>

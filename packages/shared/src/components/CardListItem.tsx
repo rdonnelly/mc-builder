@@ -80,9 +80,10 @@ const CardListItem = ({
   decrementIsDisabled?: (card: CardModel, quantity: number) => boolean;
 }) => {
   let infoText = '';
+  const cardStage = card.stage;
 
-  if (card.typeCode === TypeCodes.VILLAIN && card.raw.stage != null) {
-    infoText = `${infoText} · ${card.typeName} · Stage ${card.raw.stage}`;
+  if (card.typeCode === TypeCodes.VILLAIN && cardStage != null) {
+    infoText = `${infoText} · ${card.typeName} · Stage ${cardStage}`;
   } else if (card.cost != null) {
     infoText = `${infoText} · ${card.typeName} · ${card.cost}`;
   } else {

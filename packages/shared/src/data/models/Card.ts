@@ -72,7 +72,7 @@ export class Card {
     return this.raw.duplicate_of != null;
   }
 
-  get root() {
+  get root(): ICardRaw {
     if (this.isDuplicate) {
       const duplicateCard = getCard(this.raw.duplicate_of);
       return duplicateCard.root;
@@ -91,6 +91,14 @@ export class Card {
 
   get name() {
     return this.root.name;
+  }
+
+  get subname() {
+    return this.root.subname;
+  }
+
+  get traits() {
+    return this.root.traits;
   }
 
   get faction() {
@@ -149,6 +157,70 @@ export class Card {
     return this.root.flavor;
   }
 
+  get stage() {
+    return this.root.stage;
+  }
+
+  get attack() {
+    return this.root.attack;
+  }
+
+  get attackCost() {
+    return this.root.attack_cost;
+  }
+
+  get defense() {
+    return this.root.defense;
+  }
+
+  get handSize() {
+    return this.root.hand_size;
+  }
+
+  get health() {
+    return this.root.health;
+  }
+
+  get isHealthPerHero() {
+    return !!this.root.health_per_hero;
+  }
+
+  get recover() {
+    return this.root.recover;
+  }
+
+  get scheme() {
+    return this.root.scheme;
+  }
+
+  get threat() {
+    return this.root.threat;
+  }
+
+  get threatBase() {
+    return this.root.base_threat;
+  }
+
+  get threatBaseIsFixed() {
+    return this.root.base_threat_fixed;
+  }
+
+  get threatEscalation() {
+    return this.root.escalation_threat;
+  }
+
+  get threatEscalationIsFixed() {
+    return this.root.escalation_threat_fixed;
+  }
+
+  get thwart() {
+    return this.root.thwart;
+  }
+
+  get thwartCost() {
+    return this.root.thwart_cost;
+  }
+
   get text() {
     return this.root.text;
   }
@@ -165,8 +237,24 @@ export class Card {
     return this.root.attack_text;
   }
 
+  get schemeAcceleration() {
+    return this.root.scheme_acceleration;
+  }
+
+  get schemeCrisis() {
+    return this.root.scheme_crisis;
+  }
+
+  get schemeHazard() {
+    return this.root.scheme_hazard;
+  }
+
   get schemeText() {
     return this.root.scheme_text;
+  }
+
+  get boost() {
+    return this.root.boost;
   }
 
   get boostText() {
@@ -174,10 +262,6 @@ export class Card {
       return null;
     }
     return `[special] <b>Boost</b>: ${this.root.boost_text}`;
-  }
-
-  get isHealthPerHero() {
-    return !!this.root.health_per_hero;
   }
 
   get resources() {

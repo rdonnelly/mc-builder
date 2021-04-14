@@ -62,20 +62,18 @@ android() {
 }
 
 mapsAndroid() {
-  export $(grep '^BUGSNAG_API_KEY' $PWD/../../.env | xargs)
+  export $(grep '^BUGSNAG_API_KEY' $PWD/.env | xargs)
   VERSION="0.4"
 
-  npx bugsnag-sourcemaps upload --api-key=$BUGSNAG_API_KEY \
-                                --app-version=$VERSION \
-                                --minifiedFile=android/app/build/generated/assets/react/release/index.android.bundle \
-                                --source-map=android/app/build/generated/sourcemaps/react/release/index.android.bundle.map \
-                                --minified-url=index.android.bundle \
-                                --upload-sources \
-                                --overwrite
+  npx @bugsnag/source-maps upload-react-native --api-key $BUGSNAG_API_KEY \
+                                               --app-version $VERSION \
+                                               --platform android \
+                                               --source-map android/app/build/generated/sourcemaps/react/release/index.android.bundle.map \
+                                               --bundle android/app/build/generated/assets/react/release/index.android.bundle
 }
 
 mapsIos() {
-  export $(grep '^BUGSNAG_API_KEY' $PWD/../../.env | xargs)
+  export $(grep '^BUGSNAG_API_KEY' $PWD/.env | xargs)
   VERSION="0.4"
 
   yarn react-native bundle --platform ios \

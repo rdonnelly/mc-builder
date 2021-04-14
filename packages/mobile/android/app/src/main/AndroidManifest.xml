@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.rdonnelly.mcdb">
+  package="com.rdonnelly.mcbuilder">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -32,7 +32,7 @@
           <action android:name="android.intent.action.VIEW"/>
           <category android:name="android.intent.category.DEFAULT"/>
           <category android:name="android.intent.category.BROWSABLE"/>
-          <data android:scheme="mcbuilder"/>
+          <data android:scheme="mcbuilder" android:host="cards" />
         </intent-filter>
       </activity>
     </application>

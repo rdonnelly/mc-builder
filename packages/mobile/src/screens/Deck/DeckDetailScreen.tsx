@@ -63,8 +63,8 @@ const DeckDetailScreen = ({
       {
         options: [
           'Close',
-          'Copy Pretty Text to Clipboard',
-          'Copy Shareable Text to Clipboard',
+          'Copy Formatted Text',
+          'Copy Shareable URL',
           'Rename Deck',
           'Clone Deck',
           'Delete Deck',
@@ -83,7 +83,7 @@ const DeckDetailScreen = ({
             break;
           }
           case 2: {
-            handleCopyShareableDeck();
+            handleCopyShareableUrl();
             break;
           }
           case 3: {
@@ -108,9 +108,9 @@ const DeckDetailScreen = ({
     setClipboard(deckModel.prettyText);
   };
 
-  const handleCopyShareableDeck = () => {
+  const handleCopyShareableUrl = () => {
     ReactNativeHapticFeedback.trigger('impactLight');
-    setClipboard(deckModel.shareableText);
+    setClipboard(deckModel.shareableUri);
   };
 
   const handleDeleteDeck = () => {

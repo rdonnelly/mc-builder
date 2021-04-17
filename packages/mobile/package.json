@@ -28,6 +28,7 @@
     "@react-navigation/stack": "^5.13.0",
     "@reduxjs/toolkit": "^1.2.1",
     "bugsnag-react-native": "^2.23.7",
+    "js-base64": "^3.6.0",
     "react": "17.0.1",
     "react-native": "0.64.0",
     "react-native-app-auth": "^6.0.0",

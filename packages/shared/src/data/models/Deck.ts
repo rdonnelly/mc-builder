@@ -1,5 +1,6 @@
 import isDeepEqual from 'lodash/isEqual';
 import keyBy from 'lodash/keyBy';
+import { Base64 } from 'js-base64';
 import memoizeOne from 'memoize-one';
 
 import { compareCardFaction } from '../../data/cardUtils';
@@ -195,7 +196,7 @@ ${basicCardsText || 'None'}
     return text;
   }
 
-  get shareableText(): string {
+  get shareableJsonString(): string {
     const text = JSON.stringify({
       code: this.code,
       version: this.version,
@@ -216,6 +217,12 @@ ${basicCardsText || 'None'}
     });
 
     return text;
+  }
+
+  get shareableUri(): string {
+    return `https://mcbuilder.app/decks/${Base64.encodeURI(
+      this.shareableJsonString,
+    )}`;
   }
 
   getCardList() {

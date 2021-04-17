@@ -63,15 +63,19 @@ const ListFooterText = styled.Text`
 
 const ListChevronWrapper = styled.View``;
 
-const ListChevron = styled(({ _isActive, _name, ...rest }) => (
-  <FontAwesomeIcon name={'chevron-right'} {...rest} />
-))<{
-  isActive: boolean;
-}>`
-  color: ${(props) =>
-    props.isActive ? colors.darkGray : colors.lightGrayDark};
-  margin-top: 2px;
-`;
+const ListChevron = ({
+  isActive,
+  size,
+}: {
+  isActive?: boolean;
+  size?: number;
+}) => (
+  <FontAwesomeIcon
+    name={'chevron-right'}
+    color={isActive ? colors.darkGray : colors.lightGrayDark}
+    size={size ? size : 16}
+  />
+);
 
 const TextInput = styled.TextInput`
   background-color: ${colors.white};

@@ -1,9 +1,19 @@
 import { getPublicDeck } from '../api/deck';
+import {
+  CardModel,
+  FactionCode,
+  FactionCodes,
+  FilterCodes,
+  getFilteredCards,
+  SetCode,
+  TypeCodes,
+} from '../data';
+import { IStoreDeck, IStoreDeckCard } from '../store/types';
 
 export interface IImportDeck {
   code?: string;
-  mcdbId?: number;
   name: string;
+  mcdbId?: number;
   version: number;
   cards: {
     [key: string]: number;
@@ -51,7 +61,7 @@ const fetchMcdbDeckFromUrl = async (
   }
 };
 
-const isDeckJson = (string: string): boolean => {
+export const isDeckJson = (string: string): boolean => {
   let deck: IImportDeck;
 
   try {
@@ -73,7 +83,7 @@ const isDeckJson = (string: string): boolean => {
   return true;
 };
 
-const parseDeckJson = (string: string) => {
+export const parseDeckJson = (string: string) => {
   let deck: IImportDeck;
 
   try {
@@ -104,4 +114,77 @@ const parseDeckJson = (string: string) => {
   }
 
   return deck;
+};
+
+export const convertImportToStoreDeckComponents = (
+  deckToImport: IImportDeck,
+): { storeDeck: IStoreDeck; storeDeckCards: IStoreDeckCard[] } => {
+  const now = new Date();
+  const created = now.getTime() + now.getTimezoneOffset() * 60000;
+  let aspectCodes: FactionCode[] = [];
+  let setCode: SetCode = null;
+
+  const storeDeckCards: IStoreDeckCard[] = [];
+
+  const deckCardModels = getFilteredCards({
+    cardCodes: Object.keys(deckToImport.cards),
+  }).filter((card) => {
+    if (
+      card.typeCode === TypeCodes.ALTER_EGO ||
+      card.typeCode === TypeCodes.HERO
+    ) {
+      setCode = card.setCode;
+    }
+
+    if (card.setCode == null) {
+      if (
+        [
+          FactionCodes.AGGRESSION,
+          FactionCodes.JUSTICE,
+          FactionCodes.LEADERSHIP,
+          FactionCodes.PROTECTION,
+        ].includes(card.factionCode as FactionCodes)
+      ) {
+        aspectCodes.push(card.factionCode);
+      }
+
+      return true;
+    }
+
+    return false;
+  });
+
+  const setCardModels = getFilteredCards({
+    filter: FilterCodes.SET,
+    filterCode: setCode,
+  }).filter((card) => card.factionCode !== FactionCodes.ENCOUNTER);
+
+  deckCardModels.forEach((card: CardModel) => {
+    storeDeckCards.push({
+      code: null,
+      cardCode: card.code,
+      quantity: deckToImport.cards[card.code],
+    });
+  });
+
+  setCardModels.forEach((card: CardModel) => {
+    storeDeckCards.push({
+      code: null,
+      cardCode: card.code,
+      quantity: card.setQuantity,
+    });
+  });
+
+  const storeDeck: IStoreDeck = {
+    code: deckToImport.code,
+    name: deckToImport.name,
+    version: deckToImport.version,
+    setCode: setCode,
+    aspectCodes: aspectCodes,
+    deckCardCodes: [],
+    created: created,
+    updated: created,
+  };
+
+  return { storeDeck, storeDeckCards };
 };

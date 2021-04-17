@@ -1,4 +1,4 @@
-import { Pressable } from 'react-native';
+import { Pressable, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 
 import { DeckModel } from '../../data';
@@ -50,7 +50,9 @@ const DeckHeader = ({
 
 const Container = styled.View`
   background-color: ${colors.lightGray};
-  margin: 16px;
+  border-bottom-color: ${colors.white};
+  border-bottom-width: ${StyleSheet.hairlineWidth}px;
+  padding: 16px;
   width: 100%;
 `;
 

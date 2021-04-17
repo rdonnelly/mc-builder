@@ -180,7 +180,7 @@ const CardListItem = ({
             ) : null}
             {onPressItem != null ? (
               <ListChevronWrapper>
-                <ListChevron size={16} />
+                <ListChevron />
               </ListChevronWrapper>
             ) : null}
           </ListItemInner>
@@ -199,7 +199,9 @@ const ListItemOuter = styled(base.Container)`
   justify-content: center;
 `;
 
-const ListItemPressable = styled(Pressable)``;
+const ListItemPressable = styled(Pressable)`
+  width: 100%;
+`;
 
 const ListItemInner = styled.View<{ pressed: boolean }>`
   align-items: center;
@@ -326,6 +328,6 @@ const CardCountDecrementButtonBackground = styled(CardCountButtonBackground)<{
 
 const ListChevronWrapper = styled(base.ListChevronWrapper)``;
 
-const ListChevron = styled(base.ListChevron)``;
+const ListChevron = base.ListChevron;
 
 export default memo(CardListItem);

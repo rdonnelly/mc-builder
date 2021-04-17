@@ -17,7 +17,7 @@ const DeckDetailList = ({
   handlePressItem,
 }: {
   deck: DeckModel;
-  handlePressItem: (cardCode: string) => void;
+  handlePressItem?: (cardCode: string) => void;
 }) => {
   const renderSectionHeader = ({ section }) => (
     <SectionHeader>

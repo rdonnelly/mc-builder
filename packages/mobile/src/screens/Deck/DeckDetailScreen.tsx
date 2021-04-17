@@ -110,7 +110,7 @@ const DeckDetailScreen = ({
 
   const handleCopyShareableUrl = () => {
     ReactNativeHapticFeedback.trigger('impactLight');
-    setClipboard(deckModel.shareableUri);
+    setClipboard(deckModel.shareableUrl);
   };
 
   const handleDeleteDeck = () => {

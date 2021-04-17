@@ -17,7 +17,8 @@ import { CardStackParamList } from '@navigation/CardsStackNavigator';
 import { StoreState } from '@store';
 import { useAppSelector } from '@store/hooks';
 import { selectStoreDeckCard } from '@store/selectors';
-import { shareUrl, shareImageUrl } from '@utils/Share';
+import { setClipboard } from '@utils/Clipboard';
+import { shareImageUrl } from '@utils/Share';
 
 import CardDetail from '@shared/components/CardDetail';
 import { CardModel, getCards, getFilteredCards } from '@shared/data';
@@ -94,12 +95,9 @@ const CardDetailScreen = ({
   }, [activeCardCode, activeCardName]);
 
   const handleShareUrl = useCallback(async () => {
-    try {
-      await shareUrl(activeCard.shareUri);
-    } catch (error) {
-      Linking.openURL(activeCard.shareUri);
-    }
-  }, [activeCard.shareUri]);
+    ReactNativeHapticFeedback.trigger('impactLight');
+    setClipboard(activeCard.shareableUrl);
+  }, [activeCard.shareableUrl]);
 
   const handleMenuOpen = useCallback(() => {
     ReactNativeHapticFeedback.trigger('impactLight');

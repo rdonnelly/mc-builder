@@ -219,7 +219,7 @@ ${basicCardsText || 'None'}
     return text;
   }
 
-  get shareableUri(): string {
+  get shareableUrl(): string {
     return `https://mcbuilder.app/decks/${Base64.encodeURI(
       this.shareableJsonString,
     )}`;

@@ -326,7 +326,7 @@ export class Card {
     ];
   }
 
-  get shareUri() {
+  get shareableUrl() {
     return `https://mcbuilder.app/cards/${this.code}`;
   }
 }

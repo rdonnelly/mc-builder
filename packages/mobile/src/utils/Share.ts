@@ -1,5 +1,26 @@
-import { Platform, Share } from 'react-native';
+import { Platform, Share, ShareContent } from 'react-native';
 import RNFetchBlob from 'rn-fetch-blob';
+
+export function shareUrl(url: string) {
+  let shareObject: ShareContent = null;
+
+  switch (Platform.OS) {
+    case 'android': {
+      shareObject = {
+        message: url,
+      };
+      break;
+    }
+    case 'ios': {
+      shareObject = {
+        url: url,
+      };
+      break;
+    }
+  }
+
+  return Share.share(shareObject);
+}
 
 export function shareImageUrl(url: string) {
   if (Platform.OS === 'ios') {

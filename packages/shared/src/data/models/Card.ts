@@ -325,6 +325,10 @@ export class Card {
       `https://lcgcdn.s3.amazonaws.com/mc/MC${packCode}en_${cardCode}.jpg`,
     ];
   }
+
+  get shareUri() {
+    return `https://mcbuilder.app/cards/${this.code}`;
+  }
 }
 
 export const getCards = memoizeOne(() =>

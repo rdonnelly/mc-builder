@@ -17,7 +17,7 @@ import { CardStackParamList } from '@navigation/CardsStackNavigator';
 import { StoreState } from '@store';
 import { useAppSelector } from '@store/hooks';
 import { selectStoreDeckCard } from '@store/selectors';
-import { shareImageUrl } from '@utils/Share';
+import { shareUrl, shareImageUrl } from '@utils/Share';
 
 import CardDetail from '@shared/components/CardDetail';
 import { CardModel, getCards, getFilteredCards } from '@shared/data';
@@ -93,16 +93,19 @@ const CardDetailScreen = ({
     }
   }, [activeCardCode, activeCardName]);
 
-  const shareCardImage = useCallback((uri: string) => {
-    ReactNativeHapticFeedback.trigger('impactHeavy');
-    shareImageUrl(uri);
-  }, []);
+  const handleShareUrl = useCallback(async () => {
+    try {
+      await shareUrl(activeCard.shareUri);
+    } catch (error) {
+      Linking.openURL(activeCard.shareUri);
+    }
+  }, [activeCard.shareUri]);
 
   const handleMenuOpen = useCallback(() => {
     ReactNativeHapticFeedback.trigger('impactLight');
     showActionSheetWithOptions(
       {
-        options: ['Close', 'Report a Card Issue'],
+        options: ['Close', 'Report a Card Issue', 'Share Card URL'],
         cancelButtonIndex: 0,
         anchor:
           Platform.OS === 'ios'
@@ -115,10 +118,14 @@ const CardDetailScreen = ({
             handleReport();
             break;
           }
+          case 2: {
+            handleShareUrl();
+            break;
+          }
         }
       },
     );
-  }, [showActionSheetWithOptions, handleReport]);
+  }, [showActionSheetWithOptions, handleReport, handleShareUrl]);
 
   useEffect(() => {
     navigation.setOptions({
@@ -128,10 +135,10 @@ const CardDetailScreen = ({
           <Pressable onPress={() => handleMenuOpen()}>
             {({ pressed }) => (
               <FontAwesomeIcon
-                ref={actionSheetAnchorRef}
-                name="exclamation-circle"
+                name="ellipsis-h"
                 color={pressed ? colors.whiteTranslucent : colors.white}
                 size={24}
+                ref={actionSheetAnchorRef}
               />
             )}
           </Pressable>
@@ -146,6 +153,11 @@ const CardDetailScreen = ({
     offset: (windowWidth - 32) * index,
     index,
   });
+
+  const shareCardImage = useCallback((uri: string) => {
+    ReactNativeHapticFeedback.trigger('impactHeavy');
+    shareImageUrl(uri);
+  }, []);
 
   const renderItem = ({ item: card }) => (
     <CardDetail

@@ -1,6 +1,6 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { Alert, ListRenderItem, StyleSheet } from 'react-native';
+import { Alert, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import styled from 'styled-components/native';
 
@@ -11,16 +11,9 @@ import { DecksStackParamList } from '@navigation/DecksStackNavigator';
 import { importDeck } from '@store/actions';
 import { useAppDispatch } from '@store/hooks';
 
-import CardListItem from '@shared/components/CardListItem';
-import { CardModel } from '@shared/data';
+import DeckDetail from '@shared/components/DeckDetail';
 import { useDeckImport } from '@shared/hooks';
 import { base, colors } from '@shared/styles';
-
-const styles = StyleSheet.create({
-  contentContainerStyle: {
-    paddingBottom: 48,
-  },
-});
 
 const DecksImportFormScreen = ({
   navigation,
@@ -33,15 +26,7 @@ const DecksImportFormScreen = ({
   const insets = useSafeAreaInsets();
 
   const importString = route.params.importString;
-  const {
-    deckToImport,
-    deckCardModels,
-    aspectCodes,
-    setCode,
-    set,
-    setCardModels,
-    identityImageSrcs,
-  } = useDeckImport(importString);
+  const { deckToImport } = useDeckImport(importString);
 
   // if (importDeck === false) {
   //   Alert.alert(
@@ -53,10 +38,13 @@ const DecksImportFormScreen = ({
   // }
 
   const submit = async () => {
-    if (deckToImport && deckToImport.name && setCode && aspectCodes.length) {
-      const deckCode = await dispatch(
-        importDeck(deckToImport, deckCardModels, setCode, aspectCodes),
-      );
+    if (
+      deckToImport &&
+      deckToImport.name &&
+      deckToImport.setCode &&
+      deckToImport.aspectCodes.length
+    ) {
+      const deckCode = await dispatch(importDeck(deckToImport));
 
       if (navigation) {
         navigation.goBack();
@@ -71,18 +59,6 @@ const DecksImportFormScreen = ({
       );
     }
   };
-
-  const renderCard: ListRenderItem<CardModel> = ({ item: card }) => (
-    <CardListItem
-      card={card}
-      count={
-        card.setCode == null && deckToImport
-          ? deckToImport.cards[card.code]
-          : card.setQuantity
-      }
-      showPackInfo={false}
-    />
-  );
 
   // TODO better loading indicator
   if (!deckToImport) {
@@ -99,39 +75,7 @@ const DecksImportFormScreen = ({
 
   return (
     <Container bottom={insets.bottom}>
-      <Identities>
-        {identityImageSrcs.map((src, i) =>
-          src ? (
-            <IdentityWrapper key={`identity_image_${i}`}>
-              <IdentityImage source={{ uri: src }} />
-            </IdentityWrapper>
-          ) : null,
-        )}
-      </Identities>
-      <Info>
-        <TitleWrapper>
-          <Title>{deckToImport ? deckToImport.name : 'Loading'}</Title>
-        </TitleWrapper>
-        <TraitsWrapper>
-          <Traits>
-            {set.name} –{' '}
-            {aspectCodes
-              .map(
-                (aspect) =>
-                  `${aspect.charAt(0).toUpperCase()}${aspect
-                    .substr(1)
-                    .toLowerCase()}`,
-              )
-              .join(', ')}
-          </Traits>
-        </TraitsWrapper>
-      </Info>
-      <FlatList
-        renderItem={renderCard}
-        data={[].concat(setCardModels, deckCardModels)}
-        keyExtractor={(card: CardModel) => card.code}
-        contentContainerStyle={styles.contentContainerStyle}
-      />
+      <DeckDetail deck={deckToImport} />
       <FloatingControlBar>
         <FloatingControlBar.FlexButton
           onPress={() => navigation.goBack()}
@@ -156,27 +100,6 @@ const Container = styled(base.Container)<{ bottom: number }>`
   padding-bottom: ${(props) => Math.max(props.bottom, 16)}px;
 `;
 
-const Identities = styled.View`
-  flex-direction: row;
-  padding: 16px;
-`;
-
-const IdentityWrapper = styled.View`
-  background-color: ${colors.lightGray};
-  border: 2px solid ${colors.white};
-  border-radius: ${({ theme }) => theme.borderRadius.lg};
-  height: 96px;
-  margin-horizontal: 8px;
-  overflow: hidden;
-  width: 96px;
-`;
-
-const IdentityImage = styled.Image`
-  height: 176px;
-  width: 176px;
-  left: -50%;
-`;
-
 const Info = styled.View`
   border-bottom-color: ${colors.gray};
   border-bottom-width: 4px;
@@ -193,15 +116,5 @@ const Title = styled.Text`
   font-weight: ${({ theme }) => theme.fontWeight.black};
   text-align: center;
 `;
-
-const TraitsWrapper = styled.View``;
-
-const Traits = styled.Text`
-  color: ${colors.grayDark};
-  font-size: ${({ theme }) => theme.fontSize.list};
-  text-align: center;
-`;
-
-const FlatList = styled(base.FlatList)``;
 
 export default DecksImportFormScreen;

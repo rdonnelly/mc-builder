@@ -1,3 +1,5 @@
+import { Base64 } from 'js-base64';
+
 import { getPublicDeck } from '../api/deck';
 import {
   CardModel,
@@ -23,16 +25,28 @@ export interface IImportDeck {
 export const parseDeckFromString = async (
   string: string,
   baseUrl: string = 'https://marvelcdb.com',
-): Promise<IImportDeck | false> => {
+): Promise<
+  { storeDeck: IStoreDeck; storeDeckCards: IStoreDeckCard[] } | false
+> => {
+  let importDeck: IImportDeck;
+
   if (isMcdbUrl(string, baseUrl)) {
-    return await fetchMcdbDeckFromUrl(string, baseUrl);
+    importDeck = await fetchMcdbDeckFromUrl(string, baseUrl);
+  }
+
+  if (isDeckPayload(string)) {
+    importDeck = parseDeckPayload(string);
   }
 
   if (isDeckJson(string)) {
-    return Promise.resolve(parseDeckJson(string));
+    importDeck = parseDeckJson(string);
   }
 
-  return Promise.resolve(false);
+  if (importDeck != null) {
+    return convertImportToStoreDeckComponents(importDeck);
+  }
+
+  return false;
 };
 
 const isMcdbUrl = (
@@ -47,7 +61,7 @@ const isMcdbUrl = (
 const fetchMcdbDeckFromUrl = async (
   string: string,
   baseUrl: string = 'https://marvelcdb.com',
-) => {
+): Promise<IImportDeck> => {
   try {
     const publicDeck = await getPublicDeck(baseUrl, string);
     return {
@@ -57,7 +71,7 @@ const fetchMcdbDeckFromUrl = async (
       version: 0,
     };
   } catch (e) {
-    return false;
+    return null;
   }
 };
 
@@ -83,13 +97,13 @@ export const isDeckJson = (string: string): boolean => {
   return true;
 };
 
-export const parseDeckJson = (string: string) => {
+export const parseDeckJson = (string: string): IImportDeck => {
   let deck: IImportDeck;
 
   try {
     deck = JSON.parse(string);
   } catch (e) {
-    return false;
+    return null;
   }
 
   if (
@@ -99,7 +113,7 @@ export const parseDeckJson = (string: string) => {
     deck.cards == null ||
     typeof deck.cards !== 'object'
   ) {
-    return false;
+    return null;
   }
 
   if (Array.isArray(deck.cards)) {
@@ -109,8 +123,28 @@ export const parseDeckJson = (string: string) => {
         return map;
       }, {});
     } catch (e) {
-      return false;
+      return null;
     }
+  }
+
+  return deck;
+};
+
+export const isDeckPayload = (string: string): boolean => {
+  if (Base64.isValid(string)) {
+    const decoded = Base64.decode(string);
+    return isDeckJson(decoded);
+  }
+
+  return false;
+};
+
+export const parseDeckPayload = (string: string): IImportDeck => {
+  let deck: IImportDeck;
+
+  if (Base64.isValid(string)) {
+    const decoded = Base64.decode(string);
+    deck = parseDeckJson(decoded);
   }
 
   return deck;

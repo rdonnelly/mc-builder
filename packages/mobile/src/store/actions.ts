@@ -14,6 +14,7 @@ import {
 
 import {
   CardModel,
+  DeckModel,
   FactionCode,
   FactionCodes,
   FilterCodes,
@@ -21,26 +22,25 @@ import {
   getFilteredCards,
   SetCode,
 } from '@shared/data';
-import { IImportDeck } from '@shared/utils/DeckParser';
+import { IStoreDeckCard } from '@shared/store/types';
 
 export const importDeck = (
-  deckToImport: IImportDeck,
-  deckCards: CardModel[],
-  deckSetCode: SetCode,
-  deckAspectCodes: FactionCode[],
+  deckToImport: DeckModel,
 ): AppThunk<Promise<string>> => (dispatch) => {
   const code = nanoid();
+
+  // TODO we are passing a full set of cards instead of the abbreviated list
 
   dispatch(
     setUpNewDeck(
       code,
       deckToImport.name,
-      deckSetCode,
-      deckAspectCodes,
+      deckToImport.setCode,
+      deckToImport.aspectCodes,
       deckToImport.version,
-      deckCards.map((card: CardModel) => ({
-        code: card.code,
-        quantity: deckToImport.cards[card.code],
+      deckToImport.rawCards.map((card: IStoreDeckCard) => ({
+        code: card.cardCode,
+        quantity: card.quantity,
       })),
       deckToImport.code,
       deckToImport.mcdbId,

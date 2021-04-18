@@ -1,6 +1,6 @@
+import { Base64 } from 'js-base64';
 import isDeepEqual from 'lodash/isEqual';
 import keyBy from 'lodash/keyBy';
-import { Base64 } from 'js-base64';
 import memoizeOne from 'memoize-one';
 
 import { compareCardFaction } from '../../data/cardUtils';
@@ -153,6 +153,10 @@ export class Deck {
     // TODO restricted list
     // TODO spider-woman equal double aspect
     return this.cardCount >= 40 && this.cardCount <= 50;
+  }
+
+  get mcdbId(): number {
+    return this.raw.mcdbId;
   }
 
   get prettyText(): string {

@@ -11,7 +11,7 @@ const DeckDetail = ({
   handlePressItem,
 }: {
   deck: DeckModel;
-  handlePressItem: (cardCode: string) => void;
+  handlePressItem?: (cardCode: string) => void;
 }) => {
   return (
     <Container>

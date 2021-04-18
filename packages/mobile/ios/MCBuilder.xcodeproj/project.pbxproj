@@ -17,7 +17,6 @@
 		697A957BCF1B42D9BE0423D6 /* Komika.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E6795F0A4775413DAF10CAB3 /* Komika.ttf */; };
 		772FC72A15EA437A9EED1C76 /* FontAwesome5_Pro_Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6E079965016C40C58C7FCC44 /* FontAwesome5_Pro_Light.ttf */; };
 		777FCC0F323D4A7BBC7672C1 /* FontAwesome5_Pro_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 824D3703F4454F4FBDF5EE8B /* FontAwesome5_Pro_Regular.ttf */; };
-		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		95584AA9261FC3050081B9D4 /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95584AA8261FC3050081B9D4 /* BootSplash.storyboard */; };
 		DA66DBF6FFE34503A846AB17 /* marvel-icons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BD74B92CE33F4412A898B43E /* marvel-icons.ttf */; };
 		E97081273B18A232924177C0 /* libPods-MCBuilder-MCBuilderTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0977725785EEB17DD60B5175 /* libPods-MCBuilder-MCBuilderTests.a */; };
@@ -49,7 +48,6 @@
 		5260B1DD18C837FEDBDF34AA /* Pods-MCBuilder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MCBuilder.debug.xcconfig"; path = "Target Support Files/Pods-MCBuilder/Pods-MCBuilder.debug.xcconfig"; sourceTree = "<group>"; };
 		5EE04ED1CFC74FE4892CB85F /* FontAwesome5_Pro_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Pro_Brands.ttf; path = ../assets/fonts/FontAwesome5_Pro_Brands.ttf; sourceTree = "<group>"; };
 		6E079965016C40C58C7FCC44 /* FontAwesome5_Pro_Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Pro_Light.ttf; path = ../assets/fonts/FontAwesome5_Pro_Light.ttf; sourceTree = "<group>"; };
-		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = MCBuilder/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		824D3703F4454F4FBDF5EE8B /* FontAwesome5_Pro_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Pro_Regular.ttf; path = ../assets/fonts/FontAwesome5_Pro_Regular.ttf; sourceTree = "<group>"; };
 		9387C0FBC38611C55A814F2A /* Pods-MCBuilder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MCBuilder.release.xcconfig"; path = "Target Support Files/Pods-MCBuilder/Pods-MCBuilder.release.xcconfig"; sourceTree = "<group>"; };
 		95584AA8261FC3050081B9D4 /* BootSplash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = BootSplash.storyboard; path = MCBuilder/BootSplash.storyboard; sourceTree = "<group>"; };
@@ -107,7 +105,6 @@
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
-				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
 			name = MCBuilder;
@@ -274,7 +271,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				95584AA9261FC3050081B9D4 /* BootSplash.storyboard in Resources */,
-				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				3D891D324E794F458DB75B6F /* FontAwesome5_Pro_Brands.ttf in Resources */,
 				772FC72A15EA437A9EED1C76 /* FontAwesome5_Pro_Light.ttf in Resources */,

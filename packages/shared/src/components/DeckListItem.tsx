@@ -33,7 +33,7 @@ const DecksListItem = ({
               </DeckDetailsInfo>
             </DeckDetails>
             <ListChevronWrapper>
-              <ListChevron name={'chevron-right'} size={16} />
+              <ListChevron size={16} />
             </ListChevronWrapper>
           </ListItemInner>
         )}

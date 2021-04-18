@@ -20,7 +20,7 @@ const ListItem = ({
           <ListItemInner pressed={pressed}>
             <ListItemInnerText>{item.name}</ListItemInnerText>
             <ListChevronWrapper>
-              <ListChevron name={'chevron-right'} size={16} />
+              <ListChevron size={16} />
             </ListChevronWrapper>
           </ListItemInner>
         )}

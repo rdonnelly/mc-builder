@@ -69,7 +69,7 @@ const DecksCreateFormScreen = ({
                   {set ? set.name : 'No Hero Selected'}
                 </LinkRowText>
                 <LinkRowChevronWrapper>
-                  <LinkRowChevron name={'chevron-right'} size={16} />
+                  <LinkRowChevron size={16} />
                 </LinkRowChevronWrapper>
               </LinkRowInner>
             )}
@@ -91,7 +91,7 @@ const DecksCreateFormScreen = ({
                   {factionText}
                 </LinkRowText>
                 <LinkRowChevronWrapper>
-                  <LinkRowChevron name={'chevron-right'} size={16} />
+                  <LinkRowChevron size={16} />
                 </LinkRowChevronWrapper>
               </LinkRowInner>
             )}

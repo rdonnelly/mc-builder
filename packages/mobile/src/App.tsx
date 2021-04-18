@@ -85,6 +85,27 @@ function App() {
             ],
           };
         }
+        if (split[0] === 'decks') {
+          return {
+            routes: [
+              {
+                name: 'TabDecks',
+                params: {
+                  state: {
+                    routes: [
+                      { name: 'DecksList' },
+                      {
+                        name: 'DecksImport',
+                        params: { importString: split[1] },
+                      },
+                    ],
+                    index: 0,
+                  },
+                },
+              },
+            ],
+          };
+        }
       }
     },
   };

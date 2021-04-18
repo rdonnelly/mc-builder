@@ -1,6 +1,6 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { Alert, StyleSheet } from 'react-native';
+import { ActivityIndicator, Alert } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import styled from 'styled-components/native';
 
@@ -60,15 +60,11 @@ const DecksImportFormScreen = ({
     }
   };
 
-  // TODO better loading indicator
   if (!deckToImport) {
     return (
       <Container bottom={insets.bottom}>
-        <Info>
-          <TitleWrapper>
-            <Title>{deckToImport ? deckToImport.name : 'Loading'}</Title>
-          </TitleWrapper>
-        </Info>
+        <LoadingText>Loading...</LoadingText>
+        <ActivityIndicator color={colors.gray} />
       </Container>
     );
   }
@@ -95,25 +91,18 @@ const DecksImportFormScreen = ({
 };
 
 const Container = styled(base.Container)<{ bottom: number }>`
+  align-items: center;
   background-color: ${colors.lightGray};
-  padding-top: 32px;
+  flex-direction: column;
+  justify-content: space-around;
   padding-bottom: ${(props) => Math.max(props.bottom, 16)}px;
+  padding-top: 34px;
 `;
 
-const Info = styled.View`
-  border-bottom-color: ${colors.gray};
-  border-bottom-width: 4px;
-  padding-bottom: 16px;
-  width: 100%;
-`;
-
-const TitleWrapper = styled.View`
-  margin-bottom: 8px;
-`;
-
-const Title = styled.Text`
+const LoadingText = styled.Text`
+  color: ${colors.gray};
   font-size: ${({ theme }) => theme.fontSize.heading};
-  font-weight: ${({ theme }) => theme.fontWeight.black};
+  font-weight: ${({ theme }) => theme.fontWeight.bold};
   text-align: center;
 `;
 

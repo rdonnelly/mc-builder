@@ -4,7 +4,7 @@
 const getPublicDeck = async (baseUrl: string, dbUrl: string) => {
   const matches = dbUrl.match(/\/decklist\/view\/(\d+)\//);
   if (!matches || matches.length !== 2) {
-    return false;
+    return null;
   }
 
   const deckId = matches[1];
@@ -14,13 +14,18 @@ const getPublicDeck = async (baseUrl: string, dbUrl: string) => {
   headers.append('cache-control', 'no-cache');
   headers.append('pragma', 'no-cache');
 
-  const response = await fetch(uri, {
-    method: 'GET',
-    headers,
-  });
-  const data = await response.json();
+  try {
+    const response = await fetch(uri, {
+      method: 'GET',
+      headers,
+    });
+    const data = await response.json();
+    const meta = JSON.parse(data.meta);
 
-  return data;
+    return { data, meta };
+  } catch (e) {
+    return null;
+  }
 };
 
 // GET /api/oauth2/decks

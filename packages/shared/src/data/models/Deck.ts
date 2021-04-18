@@ -202,9 +202,10 @@ ${basicCardsText || 'None'}
 
   get shareableJsonString(): string {
     const text = JSON.stringify({
-      code: this.code,
-      version: this.version,
       name: this.name,
+      aspects: this.aspectCodes,
+      version: this.version,
+      code: this.code,
       cards: {
         ...this.cards
           .filter(

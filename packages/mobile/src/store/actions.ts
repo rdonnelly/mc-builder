@@ -29,8 +29,6 @@ export const importDeck = (
 ): AppThunk<Promise<string>> => (dispatch) => {
   const code = nanoid();
 
-  // TODO we are passing a full set of cards instead of the abbreviated list
-
   dispatch(
     setUpNewDeck(
       code,
@@ -38,12 +36,12 @@ export const importDeck = (
       deckToImport.setCode,
       deckToImport.aspectCodes,
       deckToImport.version,
+      deckToImport.code,
+      deckToImport.mcdbId,
       deckToImport.rawCards.map((card: IStoreDeckCard) => ({
         code: card.cardCode,
         quantity: card.quantity,
       })),
-      deckToImport.code,
-      deckToImport.mcdbId,
     ),
   );
 
@@ -56,9 +54,9 @@ export const setUpNewDeck = (
   deckSet: SetCode,
   deckAspect: FactionCode[],
   version?: number,
-  initialDeckCards?: { code: string; quantity: number }[],
   importCode?: string,
   mcdbId?: number,
+  initialDeckCards?: { code: string; quantity: number }[],
 ): AppThunk => (dispatch) => {
   if (deckName && deckSet && deckAspect.length) {
     dispatch(
@@ -76,31 +74,37 @@ export const setUpNewDeck = (
     const deckCardCodes = [];
     const deckCardData = [];
 
-    const setCards = getFilteredCards({
-      filter: FilterCodes.SET,
-      filterCode: deckSet,
-    }).filter((card) => card.factionCode !== FactionCodes.ENCOUNTER);
-
-    setCards.forEach((card) => {
-      const code = nanoid();
-      deckCardCodes.push(code);
-      deckCardData.push({
-        code,
-        cardCode: card.code,
-        quantity: card.setQuantity,
-      });
-    });
-
     if (initialDeckCards && initialDeckCards.length) {
+      // if we get a full list of cards, use that
       initialDeckCards.forEach((card) => {
         const cardModel = getCard(card.code);
 
         const code = nanoid();
+
         deckCardCodes.push(code);
+
         deckCardData.push({
           code,
           cardCode: cardModel.rootCode,
           quantity: card.quantity,
+        });
+      });
+    } else {
+      // otherwise, add set cards to start
+      const setCards = getFilteredCards({
+        filter: FilterCodes.SET,
+        filterCode: deckSet,
+      }).filter((card) => card.factionCode !== FactionCodes.ENCOUNTER);
+
+      setCards.forEach((card) => {
+        const code = nanoid();
+
+        deckCardCodes.push(code);
+
+        deckCardData.push({
+          code,
+          cardCode: card.code,
+          quantity: card.setQuantity,
         });
       });
     }

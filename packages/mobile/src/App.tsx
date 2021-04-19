@@ -1,3 +1,4 @@
+import Bugsnag from '@bugsnag/react-native';
 import { ActionSheetProvider } from '@expo/react-native-action-sheet';
 import { NavigationContainer } from '@react-navigation/native';
 import { useEffect } from 'react';
@@ -13,6 +14,8 @@ import TabNavigator from '@navigation/TabNavigator';
 import { persistor, store } from '@store';
 
 import { colors, darkTheme, lightTheme } from '@shared/styles';
+
+Bugsnag.start();
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 declare var global: { HermesInternal: null | {} };

@@ -35,5 +35,7 @@
           <data android:scheme="mcbuilder" android:host="cards" />
         </intent-filter>
       </activity>
+      <meta-data android:name="com.bugsnag.android.API_KEY"
+             android:value="e5c34f880df93151bc4547eade19f10c"/>
     </application>
 </manifest>

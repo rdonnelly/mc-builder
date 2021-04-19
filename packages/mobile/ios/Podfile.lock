@@ -5,10 +5,7 @@ PODS:
   - AppAuth/Core (1.4.0)
   - AppAuth/ExternalUserAgent (1.4.0)
   - boost-for-react-native (1.63.0)
-  - BugsnagReactNative (2.23.10):
-    - BugsnagReactNative/Core (= 2.23.10)
-    - React
-  - BugsnagReactNative/Core (2.23.10):
+  - BugsnagReactNative (7.9.3):
     - React
   - CocoaAsyncSocket (7.6.5)
   - DoubleConversion (1.1.6)
@@ -368,7 +365,7 @@ PODS:
     - Yoga (~> 1.14)
 
 DEPENDENCIES:
-  - BugsnagReactNative (from `../../../node_modules/bugsnag-react-native`)
+  - "BugsnagReactNative (from `../../../node_modules/@bugsnag/react-native`)"
   - DoubleConversion (from `../../../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - FBLazyVector (from `../../../node_modules/react-native/Libraries/FBLazyVector`)
   - FBReactNativeSpec (from `../../../node_modules/react-native/React/FBReactNativeSpec`)
@@ -455,7 +452,7 @@ SPEC REPOS:
 
 EXTERNAL SOURCES:
   BugsnagReactNative:
-    :path: "../../../node_modules/bugsnag-react-native"
+    :path: "../../../node_modules/@bugsnag/react-native"
   DoubleConversion:
     :podspec: "../../../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec"
   FBLazyVector:
@@ -552,7 +549,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   AppAuth: 31bcec809a638d7bd2f86ea8a52bd45f6e81e7c7
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
-  BugsnagReactNative: 98fb350df4bb0c94cce903023531a1a5cc11fa51
+  BugsnagReactNative: 9385d83cf10870cedf39f50f5e40c1eee29dffd3
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   DoubleConversion: cf9b38bf0b2d048436d9a82ad2abe1404f11e7de
   FBLazyVector: 49cbe4b43e445b06bf29199b6ad2057649e4c8f5

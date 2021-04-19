@@ -53,46 +53,13 @@ upload() {
 }
 
 ios() {
-  bumpBuild && podInstall && build && archive && exportArchive && upload $@ && mapsIos
+  bumpBuild && podInstall && build && archive && exportArchive && upload $@
 }
 
 android() {
   # update versionCode and versionName in android/app/build.gradle
-  cd android && ./gradlew bundleRelease && cd .. && mapsAndroid
+  cd android && ./gradlew bundleRelease && cd ..
 }
-
-mapsAndroid() {
-  export $(grep '^BUGSNAG_API_KEY' $PWD/.env | xargs)
-  VERSION="0.5"
-
-  npx @bugsnag/source-maps upload-react-native --api-key $BUGSNAG_API_KEY \
-                                               --app-version $VERSION \
-                                               --platform android \
-                                               --source-map android/app/build/generated/sourcemaps/react/release/index.android.bundle.map \
-                                               --bundle android/app/build/generated/assets/react/release/index.android.bundle
-}
-
-mapsIos() {
-  export $(grep '^BUGSNAG_API_KEY' $PWD/.env | xargs)
-  VERSION="0.5"
-
-  yarn react-native bundle --platform ios \
-                           --dev false \
-                           --reset-cache \
-                           --entry-file $PWD/index.js \
-                           --bundle-output ios-release.bundle \
-                           --sourcemap-output ios-release.bundle.map
-
-  curl --http1.1 https://upload.bugsnag.com/react-native-source-map \
-       -F apiKey=$BUGSNAG_API_KEY \
-       -F appVersion=$VERSION \
-       -F dev=false \
-       -F platform=ios \
-       -F sourceMap=@ios-release.bundle.map \
-       -F bundle=@ios-release.bundle \
-       -F projectRoot=`pwd`
-}
-
 
 # we must have exactly one task, and maybe some arguments for that task
 # checking for emptiness of the command line argument string is a convenient

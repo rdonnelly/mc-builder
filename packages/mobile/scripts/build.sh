@@ -21,6 +21,13 @@ podInstall() {
   cd ios && pod install && cd ..
 }
 
+clean() {
+  xcodebuild -workspace $PWD/ios/MCBuilder.xcworkspace \
+             -scheme MCBuilder \
+             clean
+  rm -rf $PWD/ios/build
+}
+
 build() {
   xcodebuild -workspace $PWD/ios/MCBuilder.xcworkspace \
              -scheme MCBuilder \
@@ -53,7 +60,7 @@ upload() {
 }
 
 ios() {
-  bumpBuild && podInstall && build && archive && exportArchive && upload $@
+  bumpBuild && podInstall && clean && build && archive && exportArchive && upload $@
 }
 
 android() {

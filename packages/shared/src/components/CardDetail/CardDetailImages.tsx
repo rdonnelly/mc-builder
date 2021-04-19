@@ -5,54 +5,6 @@ import styled from 'styled-components/native';
 
 import { CardModel } from '../../data';
 
-const CardDetailImage = ({
-  imageUri,
-  maxWidth,
-  shareCardImage,
-}: {
-  imageUri: string;
-  maxWidth: number;
-  shareCardImage?: (uri: string) => void;
-}) => {
-  const [imageHeight, setImageHeight] = useState(0);
-  const [imageWidth, setImageWidth] = useState(0);
-
-  useEffect(() => {
-    Image.getSize(
-      imageUri,
-      (width, height) => {
-        const newWidth = Math.min(width, maxWidth);
-        const newHeight = (height / width) * newWidth;
-
-        setImageHeight(newHeight);
-        setImageWidth(newWidth);
-      },
-      () => {},
-    );
-  }, [imageUri, maxWidth]);
-
-  if (!imageHeight || !imageWidth) {
-    return null;
-  }
-
-  return (
-    <Pressable
-      disabled={Platform.OS !== 'ios'}
-      onLongPress={() => shareCardImage(imageUri)}
-    >
-      {({ pressed }) => (
-        <CardDetailImageContainer
-          height={imageHeight}
-          width={imageWidth}
-          pressed={pressed}
-        >
-          <CardImage resizeMode="contain" source={{ uri: `${imageUri}` }} />
-        </CardDetailImageContainer>
-      )}
-    </Pressable>
-  );
-};
-
 const CardDetailImages = ({
   card,
   maxWidth,
@@ -76,6 +28,57 @@ const CardDetailImages = ({
       ))}
     </>
   ) : null;
+};
+
+const CardDetailImage = ({
+  imageUri,
+  maxWidth,
+  shareCardImage,
+}: {
+  imageUri: string;
+  maxWidth: number;
+  shareCardImage?: (uri: string) => void;
+}) => {
+  const [imageHeight, setImageHeight] = useState(0);
+  const [imageWidth, setImageWidth] = useState(0);
+
+  useEffect(() => {
+    Image.getSize(
+      imageUri,
+      (width, height) => {
+        const newWidth = Math.min(width, maxWidth);
+        const newHeight = (height / width) * newWidth;
+
+        setImageHeight(newHeight);
+        setImageWidth(newWidth);
+      },
+      () => {
+        setImageHeight(null);
+        setImageWidth(null);
+      },
+    );
+  }, [imageUri, maxWidth]);
+
+  if (!imageHeight || !imageWidth) {
+    return null;
+  }
+
+  return (
+    <Pressable
+      disabled={Platform.OS !== 'ios'}
+      onLongPress={() => shareCardImage(imageUri)}
+    >
+      {({ pressed }) => (
+        <CardDetailImageContainer
+          height={imageHeight}
+          width={imageWidth}
+          pressed={pressed}
+        >
+          <CardImage resizeMode="contain" source={{ uri: `${imageUri}` }} />
+        </CardDetailImageContainer>
+      )}
+    </Pressable>
+  );
 };
 
 const CardDetailImageContainer = styled.View<{

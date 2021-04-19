@@ -1,4 +1,5 @@
-import { Pressable, StyleSheet } from 'react-native';
+import { useEffect, useState } from 'react';
+import { Image, Pressable, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 
 import { DeckModel } from '../../data';
@@ -11,25 +12,58 @@ const DeckHeader = ({
   deck: DeckModel;
   onPressIdentity?: (code: string) => void;
 }) => {
-  const identityCards = deck.identityCards;
   const deckCardCount = deck.cardCount;
+
+  const [imageUris, setImageUris] = useState(null);
+
+  useEffect(() => {
+    const identityCards = deck.identityCards;
+    const candidateUris = {};
+    if (identityCards && identityCards.length) {
+      identityCards.forEach((card) => {
+        if (card.imageUriSet && card.imageUriSet.length) {
+          candidateUris[card.code] = card.imageUriSet[0];
+        }
+      });
+    }
+
+    const verifiedUris = {};
+
+    Promise.all(
+      Object.keys(candidateUris).map(
+        (cardCode) =>
+          new Promise<void>((resolve, reject) => {
+            Image.getSize(
+              candidateUris[cardCode],
+              () => {
+                verifiedUris[cardCode] = candidateUris[cardCode];
+                resolve();
+              },
+              () => {
+                reject();
+              },
+            );
+          }),
+      ),
+    ).then(() => {
+      setImageUris(verifiedUris);
+    });
+  }, [deck]);
 
   return (
     <Container>
-      {identityCards && identityCards.length ? (
+      {imageUris ? (
         <IdentityWrapper>
-          {identityCards.map((card) =>
-            card.imageUriSet != null ? (
-              <Identity
-                key={`identity_${card.code}`}
-                onPress={() =>
-                  onPressIdentity ? onPressIdentity(card.code) : null
-                }
-              >
-                <IdentityImage source={{ uri: card.imageUriSet[0] }} />
-              </Identity>
-            ) : null,
-          )}
+          {Object.keys(imageUris).map((cardCode) => (
+            <Identity
+              key={`identity_${cardCode}`}
+              onPress={() =>
+                onPressIdentity ? onPressIdentity(cardCode) : null
+              }
+            >
+              <IdentityImage source={{ uri: imageUris[cardCode] }} />
+            </Identity>
+          ))}
         </IdentityWrapper>
       ) : null}
       <Info>

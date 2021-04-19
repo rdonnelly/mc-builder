@@ -88,7 +88,6 @@ export const isDeckJson = (string: string): boolean => {
 
   try {
     string = string.replace(/^https:\/\/mcbuilder.app\/decks\//gi, '');
-    console.log(string);
     deck = JSON.parse(string);
   } catch (e) {
     return false;
@@ -114,7 +113,6 @@ export const parseDeckJson = (string: string): IImportDeck => {
 
   try {
     string = string.replace(/^https:\/\/mcbuilder.app\/decks\//gi, '');
-    console.log(string);
     deck = JSON.parse(string);
   } catch (e) {
     return null;
@@ -148,7 +146,6 @@ export const parseDeckJson = (string: string): IImportDeck => {
 
 export const isDeckPayload = (string: string): boolean => {
   string = string.replace(/^https:\/\/mcbuilder.app\/decks\//gi, '');
-  console.log(string, Base64.isValid(string));
   if (Base64.isValid(string)) {
     const decoded = Base64.decode(string);
     return isDeckJson(decoded);
@@ -163,7 +160,6 @@ export const parseDeckPayload = (string: string): IImportDeck => {
   string = string.replace(/^https:\/\/mcbuilder.app\/decks\//gi, '');
   if (Base64.isValid(string)) {
     const decoded = Base64.decode(string);
-    console.log(decoded);
     deck = parseDeckJson(decoded);
   }
 

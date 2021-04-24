@@ -64,7 +64,7 @@ const DeckDetailScreen = ({
         options: [
           'Close',
           'Copy Formatted Text',
-          'Copy Shareable URL',
+          'Copy Share URL',
           'Rename Deck',
           'Clone Deck',
           'Delete Deck',

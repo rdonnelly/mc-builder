@@ -103,7 +103,7 @@ const CardDetailScreen = ({
     ReactNativeHapticFeedback.trigger('impactLight');
     showActionSheetWithOptions(
       {
-        options: ['Close', 'Report a Card Issue', 'Share Card URL'],
+        options: ['Close', 'Report a Card Issue', 'Copy Share URL'],
         cancelButtonIndex: 0,
         anchor:
           Platform.OS === 'ios'

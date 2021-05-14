@@ -16,7 +16,6 @@
     "ts": "yarn workspaces run ts"
   },
   "dependencies": {
-    "@types/react-native": "^0.64.2",
     "lodash": "^4.17.15",
     "marvelsdb-json-data": "https://github.com/rdonnelly/marvelsdb-json-data.git#main",
     "memoize-one": "^5.1.1",
@@ -32,7 +31,7 @@
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "patch-package": "^6.2.2",
     "postinstall-postinstall": "^2.1.0",
-    "prettier": "^2.2.1",
+    "prettier": "2.3.0",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.3"
   }

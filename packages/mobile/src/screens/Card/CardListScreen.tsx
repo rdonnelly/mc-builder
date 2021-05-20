@@ -1,6 +1,7 @@
 import { RouteProp, useScrollToTop } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import debounce from 'lodash/debounce';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ListRenderItem, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 
@@ -111,17 +112,30 @@ const CardListScreen = ({
     [navigation, searchString, filter, filterCode],
   );
 
-  const handleSubmitFromSearch = (event) => {
-    const query = event.nativeEvent.text;
-    setSearchString(query);
-  };
+  const handleSubmitFromSearch = useCallback(
+    (event) => {
+      const query = event.nativeEvent.text;
+      setSearchString(query);
+    },
+    [setSearchString],
+  );
 
-  const handleChangeFromSearch = (event) => {
-    const query = event.nativeEvent.text;
-    if (!query) {
-      setSearchString(null);
-    }
-  };
+  const setSearchStringDebounced = useMemo(
+    () => debounce((value) => setSearchString(value), 250),
+    [],
+  );
+
+  const handleChangeFromSearch = useCallback(
+    (event) => {
+      const query = event.nativeEvent.text;
+      if (query) {
+        setSearchStringDebounced(query);
+      } else {
+        setSearchStringDebounced(null);
+      }
+    },
+    [setSearchStringDebounced],
+  );
 
   const handleScrollBeginDrag = () => {
     searchInputRef.current.blur();
@@ -131,7 +145,7 @@ const CardListScreen = ({
     <CardListItem card={card} onPressItem={handlePressItem} />
   );
 
-  const renderHeader = () => {
+  const renderHeader = useCallback(() => {
     return (
       <ListHeader>
         <ListHeaderInput
@@ -148,7 +162,7 @@ const CardListScreen = ({
         />
       </ListHeader>
     );
-  };
+  }, [handleChangeFromSearch, handleSubmitFromSearch]);
 
   const renderFooter = () => {
     if (cards.length === 0) {

@@ -9,7 +9,7 @@ import FloatingControlBar, {
 } from '@components/FloatingControlBar';
 import { CardStackParamList } from '@navigation/CardsStackNavigator';
 
-import CardListItem from '@shared/components/CardListItem';
+import CardListItem, { ITEM_HEIGHT } from '@shared/components/CardListItem';
 import {
   CardModel,
   FactionCode,
@@ -28,6 +28,12 @@ const styles = StyleSheet.create({
   contentContainerStyle: {
     paddingBottom: 72,
   },
+});
+
+const getItemLayout = (_data, index: number) => ({
+  length: ITEM_HEIGHT,
+  offset: ITEM_HEIGHT * index,
+  index,
 });
 
 const CardListScreen = ({
@@ -164,6 +170,7 @@ const CardListScreen = ({
       <FlatList
         ref={flatListRef}
         renderItem={renderCard}
+        getItemLayout={getItemLayout}
         data={cards}
         keyExtractor={(card: CardModel) => card.code}
         contentContainerStyle={styles.contentContainerStyle}

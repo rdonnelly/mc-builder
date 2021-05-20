@@ -97,21 +97,6 @@ const CardListScreen = ({
     }
   };
 
-  const handlePressItem = useCallback(
-    (code: string) => {
-      if (navigation) {
-        navigation.navigate('CardDetail', {
-          code,
-          type: 'card',
-          searchString,
-          filter,
-          filterCode,
-        });
-      }
-    },
-    [navigation, searchString, filter, filterCode],
-  );
-
   const handleSubmitFromSearch = useCallback(
     (event) => {
       const query = event.nativeEvent.text;
@@ -141,8 +126,28 @@ const CardListScreen = ({
     searchInputRef.current.blur();
   };
 
-  const renderCard: ListRenderItem<CardModel> = ({ item: card }) => (
-    <CardListItem card={card} onPressItem={handlePressItem} />
+  const handlePressItem = useCallback(
+    (code: string) => {
+      if (navigation) {
+        navigation.navigate('CardDetail', {
+          code,
+          type: 'card',
+          searchString,
+          filter,
+          filterCode,
+        });
+      }
+    },
+    [navigation, searchString, filter, filterCode],
+  );
+
+  const keyExtractor = useCallback((card: CardModel) => card.code, []);
+
+  const renderCard: ListRenderItem<CardModel> = useCallback(
+    ({ item: card }) => (
+      <CardListItem card={card} onPressItem={handlePressItem} />
+    ),
+    [handlePressItem],
   );
 
   const renderHeader = useCallback(() => {
@@ -186,11 +191,13 @@ const CardListScreen = ({
         renderItem={renderCard}
         getItemLayout={getItemLayout}
         data={cards}
-        keyExtractor={(card: CardModel) => card.code}
+        keyExtractor={keyExtractor}
         contentContainerStyle={styles.contentContainerStyle}
         onScrollBeginDrag={handleScrollBeginDrag}
         ListHeaderComponent={renderHeader}
         ListFooterComponent={renderFooter}
+        maxToRenderPerBatch={14}
+        updateCellsBatchingPeriod={100}
       />
 
       {!filter && !filterCode ? (

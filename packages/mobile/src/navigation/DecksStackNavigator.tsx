@@ -1,12 +1,12 @@
 import { Platform } from 'react-native';
 import { createNativeStackNavigator } from 'react-native-screens/native-stack';
 
-import DeckCloneStackNavigator from '@navigation/DeckCloneStackNavigator';
-import DeckRenameStackNavigator from '@navigation/DeckRenameStackNavigator';
 import DecksCreateStackNavigator from '@navigation/DecksCreateStackNavigator';
 import CardDetailScreen from '@screens/Card/CardDetailScreen';
+import DeckCloneScreen from '@screens/Deck/DeckCloneScreen';
 import DeckDetailScreen from '@screens/Deck/DeckDetailScreen';
 import DeckEditScreen from '@screens/Deck/DeckEditScreen';
+import DeckRenameScreen from '@screens/Deck/DeckRenameScreen';
 import DecksImportScreen from '@screens/Deck/DecksImportScreen';
 import DecksListScreen from '@screens/Deck/DecksListScreen';
 
@@ -41,8 +41,8 @@ export type DecksStackParamList = {
     searchString?: string;
     deckCode?: string;
   };
-  DeckRenameStack: undefined;
-  DeckCloneStack: undefined;
+  DeckRename: { code: string };
+  DeckClone: { code: string };
 };
 
 const Stack = createNativeStackNavigator<DecksStackParamList>();
@@ -80,7 +80,6 @@ export default () => {
         name="DecksCreate"
         component={DecksCreateStackNavigator}
         options={{
-          headerShown: false,
           stackPresentation: shouldUseModal ? 'modal' : 'transparentModal',
         }}
       />
@@ -88,7 +87,6 @@ export default () => {
         name="DecksImport"
         component={DecksImportScreen}
         options={{
-          headerShown: false,
           stackPresentation: shouldUseModal ? 'modal' : 'transparentModal',
         }}
       />
@@ -129,20 +127,24 @@ export default () => {
         }
       />
       <Stack.Screen
-        name="DeckRenameStack"
-        component={DeckRenameStackNavigator}
+        name="DeckRename"
+        component={DeckRenameScreen}
         options={{
-          headerShown: false,
-          stackPresentation: shouldUseModal ? 'modal' : 'transparentModal',
+          title: 'Rename Deck',
+          headerShown: true,
+          stackPresentation: 'modal',
         }}
+        getId={({ params }) => (params != null ? `${params.code}` : undefined)}
       />
       <Stack.Screen
-        name="DeckCloneStack"
-        component={DeckCloneStackNavigator}
+        name="DeckClone"
+        component={DeckCloneScreen}
         options={{
-          headerShown: false,
-          stackPresentation: shouldUseModal ? 'modal' : 'transparentModal',
+          title: 'Clone Deck',
+          headerShown: true,
+          stackPresentation: 'modal',
         }}
+        getId={({ params }) => (params != null ? `${params.code}` : undefined)}
       />
     </Stack.Navigator>
   );

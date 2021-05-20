@@ -45,9 +45,11 @@ const DeckHeader = ({
             );
           }),
       ),
-    ).then(() => {
-      setImageUris(verifiedUris);
-    });
+    )
+      .then(() => {
+        setImageUris(verifiedUris);
+      })
+      .catch(() => {});
   }, [deck]);
 
   return (

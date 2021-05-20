@@ -7,7 +7,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import styled from 'styled-components/native';
 
 import DeckNameForm from '@components/DeckNameForm';
-import { DeckCloneStackParamList } from '@navigation/DeckCloneStackNavigator';
+import { DecksStackParamList } from '@navigation/DecksStackNavigator';
 import { StoreState } from '@store';
 import { cloneDeck } from '@store/actions';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
@@ -15,12 +15,17 @@ import { selectStoreDeck } from '@store/selectors';
 
 import { base, colors } from '@shared/styles';
 
+export type DeckCloneScreenNavigationProp = StackNavigationProp<
+  DecksStackParamList,
+  'DeckClone'
+>;
+
 const DeckCloneScreen = ({
   navigation,
   route,
 }: {
-  navigation: StackNavigationProp<DeckCloneStackParamList, 'DeckClone'>;
-  route: RouteProp<DeckCloneStackParamList, 'DeckClone'>;
+  navigation: DeckCloneScreenNavigationProp;
+  route: RouteProp<DecksStackParamList, 'DeckClone'>;
 }) => {
   const code = route.params.code;
 

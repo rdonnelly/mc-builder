@@ -7,7 +7,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import styled from 'styled-components/native';
 
 import DeckNameForm from '@components/DeckNameForm';
-import { DeckRenameStackParamList } from '@navigation/DeckRenameStackNavigator';
+import { DecksStackParamList } from '@navigation/DecksStackNavigator';
 import { StoreState } from '@store';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
 import { updateDeck } from '@store/reducers/decks';
@@ -15,12 +15,17 @@ import { selectStoreDeck } from '@store/selectors';
 
 import { base, colors } from '@shared/styles';
 
+export type DeckRenameScreenNavigationProp = StackNavigationProp<
+  DecksStackParamList,
+  'DeckRename'
+>;
+
 const DeckRenameScreen = ({
   navigation,
   route,
 }: {
-  navigation: StackNavigationProp<DeckRenameStackParamList, 'DeckRename'>;
-  route: RouteProp<DeckRenameStackParamList, 'DeckRename'>;
+  navigation: DeckRenameScreenNavigationProp;
+  route: RouteProp<DecksStackParamList, 'DeckRename'>;
 }) => {
   const code = route.params.code;
 

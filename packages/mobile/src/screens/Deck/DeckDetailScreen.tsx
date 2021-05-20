@@ -41,19 +41,13 @@ const DeckDetailScreen = ({
 
   const handleRenameDeck = () => {
     if (navigation) {
-      navigation.navigate('DeckRenameStack', {
-        screen: 'DeckRename',
-        params: { code },
-      });
+      navigation.navigate('DeckRename', { code });
     }
   };
 
   const handleCloneDeck = () => {
     if (navigation) {
-      navigation.navigate('DeckCloneStack', {
-        screen: 'DeckClone',
-        params: { code },
-      });
+      navigation.navigate('DeckClone', { code });
     }
   };
 

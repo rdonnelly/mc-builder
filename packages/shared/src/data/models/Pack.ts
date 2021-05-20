@@ -1,4 +1,5 @@
 import packsRaw from 'marvelsdb-json-data/packs.json';
+import packTypesRaw from 'marvelsdb-json-data/packtypes.json';
 
 import { IPackRaw, PackCode } from '../../data/types';
 
@@ -15,6 +16,12 @@ export class Pack {
 
   get name() {
     return this.raw.name;
+  }
+
+  get description() {
+    return packTypesRaw.find(
+      (packType) => packType.code === this.raw.pack_type_code,
+    )?.name;
   }
 
   get type() {

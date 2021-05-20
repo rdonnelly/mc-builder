@@ -4,13 +4,13 @@ import styled from 'styled-components/native';
 
 import { base, colors } from '@shared/styles';
 
-export const ITEM_HEIGHT = 48;
+export const ITEM_HEIGHT = 64;
 
 const ListItem = ({
   item,
   handlePressItem,
 }: {
-  item: { code: string; name: string };
+  item: { code: string; name: string; description: string };
   handlePressItem?: (code: string) => void;
 }) => {
   return (
@@ -18,7 +18,14 @@ const ListItem = ({
       <ListItemPressable onPress={() => handlePressItem(item.code)}>
         {({ pressed }) => (
           <ListItemInner pressed={pressed}>
-            <ListItemInnerText>{item.name}</ListItemInnerText>
+            <ListItemInnerText>
+              <ListItemInnerTextTitle>{item.name}</ListItemInnerTextTitle>
+              {item.description ? (
+                <ListItemInnerTextSubtitle>
+                  {item.description}
+                </ListItemInnerTextSubtitle>
+              ) : null}
+            </ListItemInnerText>
             <ListChevronWrapper>
               <ListChevron size={16} />
             </ListChevronWrapper>
@@ -53,10 +60,17 @@ const ListItemInner = styled.View<{ pressed: boolean }>`
   width: 100%;
 `;
 
-const ListItemInnerText = styled.Text`
+const ListItemInnerText = styled.View``;
+
+const ListItemInnerTextTitle = styled.Text`
   color: ${colors.darkGray};
   font-size: ${({ theme }) => theme.fontSize.list};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
+`;
+
+const ListItemInnerTextSubtitle = styled.Text`
+  color: ${colors.gray};
+  font-size: ${({ theme }) => theme.fontSize.subtext};
 `;
 
 const ListChevronWrapper = styled(base.ListChevronWrapper)``;

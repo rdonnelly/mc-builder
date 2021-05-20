@@ -1,9 +1,15 @@
 import { MutableRefObject } from 'react';
 import styled from 'styled-components/native';
 
-import ListItem from '@components/ListItem';
+import ListItem, { ITEM_HEIGHT } from '@components/ListItem';
 
 import { base } from '@shared/styles';
+
+const getItemLayout = (_data, index: number) => ({
+  length: ITEM_HEIGHT,
+  offset: ITEM_HEIGHT * index,
+  index,
+});
 
 const List = ({
   name,
@@ -44,6 +50,7 @@ const List = ({
       <FlatList
         ref={listRef}
         renderItem={renderItem != null ? renderItem : defaultRenderItem}
+        getItemLayout={getItemLayout}
         data={items}
         keyExtractor={(item: any) => item.code}
         ListFooterComponent={renderFooter}

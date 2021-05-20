@@ -21,6 +21,7 @@ import {
   ICardRaw,
   PackCode,
   SetCode,
+  SetCodes,
   TypeCode,
   TypeCodes,
 } from '../../data/types';
@@ -331,6 +332,10 @@ export class Card {
   get shareableUrl() {
     return `https://mcbuilder.app/cards/${this.code}`;
   }
+
+  hasTrait(trait: string) {
+    return this.traits ? this.traits.toLowerCase().includes(trait) : false;
+  }
 }
 
 export const getCards = memoizeOne(() =>
@@ -476,10 +481,20 @@ export const getEligibleCards = memoizeOne(
           card.factionCode,
         );
 
-        // exclude cards that are not in faction, do not belong to hero
+        const isGamoraEligible =
+          setCode === SetCodes.GAM &&
+          card.typeCode === TypeCodes.EVENT &&
+          (card.hasTrait('attack') || card.hasTrait('thwart'));
+
+        // card must match at least one of the following:
+        // 1) has matching set code
+        // 2) in faction + no set code
+        // 3) works with Gamora (attack or thwart event) + no set code
+
         if (
-          (!isInFaction || card.setCode != null) &&
-          card.setCode !== setCode
+          card.setCode !== setCode &&
+          !(isInFaction && card.setCode == null) &&
+          !(isGamoraEligible && card.setCode == null)
         ) {
           return false;
         }

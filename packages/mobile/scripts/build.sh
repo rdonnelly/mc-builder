@@ -65,7 +65,7 @@ ios() {
 
 android() {
   # update versionCode and versionName in android/app/build.gradle
-  cd android && ./gradlew bundleRelease && cd ..
+  clean && cd android && ./gradlew bundleRelease && cd ..
 }
 
 # we must have exactly one task, and maybe some arguments for that task

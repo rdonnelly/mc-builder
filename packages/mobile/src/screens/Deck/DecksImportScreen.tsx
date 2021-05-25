@@ -28,14 +28,13 @@ const DecksImportFormScreen = ({
   const importString = route.params.importString;
   const { deckToImport } = useDeckImport(importString);
 
-  // if (importDeck === false) {
-  //   Alert.alert(
-  //     'Could Not Import Deck',
-  //     'Please ensure that you have either a MarvelCDB public deck URL or a deck in shareable text format on your clipboard.',
-  //   );
-  //
-  //   return;
-  // }
+  if (deckToImport === false) {
+    Alert.alert(
+      'Could Not Import Deck',
+      'Please ensure that your clipboard contains either a MC Builder Share URL or a MarvelCDB public deck URL.',
+      [{ text: 'OK', onPress: () => navigation.goBack() }],
+    );
+  }
 
   const submit = async () => {
     if (

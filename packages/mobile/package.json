@@ -12,6 +12,7 @@
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "ts": "tsc --noEmit --project tsconfig.json",
+    "build:clean": "scripts/build.sh clean",
     "build:pod": "scripts/build.sh podInstall",
     "build:android": "scripts/build.sh android",
     "build:ios": "scripts/build.sh ios",

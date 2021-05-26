@@ -80,6 +80,7 @@ export default () => {
         name="DecksCreate"
         component={DecksCreateStackNavigator}
         options={{
+          headerShown: false,
           stackPresentation: shouldUseModal ? 'modal' : 'transparentModal',
         }}
       />

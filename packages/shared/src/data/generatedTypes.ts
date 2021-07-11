@@ -41,6 +41,7 @@ export enum PackCodes {
   GMW = 'gmw',
   STLD = 'stld',
   GAM = 'gam',
+  DRAX = 'drax',
 }
 
 export type PackCode =
@@ -62,7 +63,8 @@ export type PackCode =
   | 'scw'
   | 'gmw'
   | 'stld'
-  | 'gam';
+  | 'gam'
+  | 'drax';
 
 export enum SetCodes {
   RHINO = 'rhino',
@@ -128,7 +130,7 @@ export enum SetCodes {
   KANG = 'kang',
   TEMPORAL = 'temporal',
   EXP_KANG = 'exp_kang',
-  ANCHRONAUTS = 'anchronauts',
+  ANACHRONAUTS = 'anachronauts',
   MOT = 'mot',
   ANT = 'ant',
   ANT_NEMESIS = 'ant_nemesis',
@@ -146,6 +148,8 @@ export enum SetCodes {
   STLD_NEMESIS = 'stld_nemesis',
   GAM = 'gam',
   GAM_NEMESIS = 'gam_nemesis',
+  DRAX = 'drax',
+  DRAX_NEMESIS = 'drax_nemesis',
 }
 
 export type SetCode =
@@ -212,7 +216,7 @@ export type SetCode =
   | 'kang'
   | 'temporal'
   | 'exp_kang'
-  | 'anchronauts'
+  | 'anachronauts'
   | 'mot'
   | 'ant'
   | 'ant_nemesis'
@@ -229,7 +233,9 @@ export type SetCode =
   | 'stld'
   | 'stld_nemesis'
   | 'gam'
-  | 'gam_nemesis';
+  | 'gam_nemesis'
+  | 'drax'
+  | 'drax_nemesis';
 
 export enum SetTypeCodes {
   VILLAIN = 'villain',

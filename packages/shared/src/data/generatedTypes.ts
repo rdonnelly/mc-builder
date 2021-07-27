@@ -42,6 +42,7 @@ export enum PackCodes {
   STLD = 'stld',
   GAM = 'gam',
   DRAX = 'drax',
+  VNM = 'vnm',
 }
 
 export type PackCode =
@@ -64,7 +65,8 @@ export type PackCode =
   | 'gmw'
   | 'stld'
   | 'gam'
-  | 'drax';
+  | 'drax'
+  | 'vnm';
 
 export enum SetCodes {
   RHINO = 'rhino',
@@ -150,6 +152,8 @@ export enum SetCodes {
   GAM_NEMESIS = 'gam_nemesis',
   DRAX = 'drax',
   DRAX_NEMESIS = 'drax_nemesis',
+  VNM = 'vnm',
+  VNM_NEMESIS = 'vnm_nemesis',
 }
 
 export type SetCode =
@@ -235,7 +239,9 @@ export type SetCode =
   | 'gam'
   | 'gam_nemesis'
   | 'drax'
-  | 'drax_nemesis';
+  | 'drax_nemesis'
+  | 'vnm'
+  | 'vnm_nemesis';
 
 export enum SetTypeCodes {
   VILLAIN = 'villain',

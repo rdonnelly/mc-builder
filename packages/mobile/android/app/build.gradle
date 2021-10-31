@@ -151,8 +151,8 @@ android {
         applicationId "com.rdonnelly.mcbuilder"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 120
-        versionName "0.7"
+        versionCode 122
+        versionName "0.8"
         manifestPlaceholders = [
             appAuthRedirectScheme: 'com.rdonnelly.mcbuilder'
         ]
@@ -247,5 +247,5 @@ apply from: file("../../../../node_modules/@react-native-community/cli-platform-
 
 bugsnag {
   uploadReactNativeMappings = true
-  nodeModulesDir = new File("../../../../node_modules")
+  nodeModulesDir = file("../../../../node_modules")
 }

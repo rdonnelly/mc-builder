@@ -43,6 +43,8 @@ export enum PackCodes {
   GAM = 'gam',
   DRAX = 'drax',
   VNM = 'vnm',
+  MTS = 'mts',
+  NEBU = 'nebu',
 }
 
 export type PackCode =
@@ -66,7 +68,9 @@ export type PackCode =
   | 'stld'
   | 'gam'
   | 'drax'
-  | 'vnm';
+  | 'vnm'
+  | 'mts'
+  | 'nebu';
 
 export enum SetCodes {
   RHINO = 'rhino',
@@ -154,6 +158,40 @@ export enum SetCodes {
   DRAX_NEMESIS = 'drax_nemesis',
   VNM = 'vnm',
   VNM_NEMESIS = 'vnm_nemesis',
+  THE_MARKET = 'the_market',
+  CHALLENGE = 'challenge',
+  BADOON_HEADHUNTER = 'badoon_headhunter',
+  BROTHERHOOD_OF_BADOON = 'brotherhood_of_badoon',
+  COLLECTOR1 = 'collector1',
+  COLLECTOR2 = 'collector2',
+  NEBULA = 'nebula',
+  RONAN = 'ronan',
+  BAND_OF_BADOON = 'band_of_badoon',
+  GALACTIC_ARTIFACTS = 'galactic_artifacts',
+  KREE_MILITANT = 'kree_militant',
+  MENAGERIE_MEDLEY = 'menagerie_medley',
+  SPACE_PIRATES = 'space_pirates',
+  SHIP_COMMAND = 'ship_command',
+  POWER_STONE = 'power_stone',
+  SPECTRUM = 'spectrum',
+  SPECTRUM_NEMESIS = 'spectrum_nemesis',
+  WARLOCK = 'warlock',
+  WARLOCK_NEMESIS = 'warlock_nemesis',
+  EBONY_MAW = 'ebony_maw',
+  TOWER_DEFENSE = 'tower_defense',
+  THANOS = 'thanos',
+  HELA = 'hela',
+  LOKI = 'loki',
+  BLACK_ORDER = 'black_order',
+  ARMIES_OF_TITAN = 'armies_of_titan',
+  CHILDREN_OF_THANOS = 'children_of_thanos',
+  INFINITY_GAUNTLET = 'infinity_gauntlet',
+  LEGIONS_OF_HEL = 'legions_of_hel',
+  FROST_GIANTS = 'frost_giants',
+  ENCHANTRESS = 'enchantress',
+  MTS_CAMPAIGN = 'mts_campaign',
+  NEBU = 'nebu',
+  NEBU_NEMESIS = 'nebu_nemesis',
 }
 
 export type SetCode =
@@ -241,7 +279,41 @@ export type SetCode =
   | 'drax'
   | 'drax_nemesis'
   | 'vnm'
-  | 'vnm_nemesis';
+  | 'vnm_nemesis'
+  | 'the_market'
+  | 'challenge'
+  | 'badoon_headhunter'
+  | 'brotherhood_of_badoon'
+  | 'collector1'
+  | 'collector2'
+  | 'nebula'
+  | 'ronan'
+  | 'band_of_badoon'
+  | 'galactic_artifacts'
+  | 'kree_militant'
+  | 'menagerie_medley'
+  | 'space_pirates'
+  | 'ship_command'
+  | 'power_stone'
+  | 'spectrum'
+  | 'spectrum_nemesis'
+  | 'warlock'
+  | 'warlock_nemesis'
+  | 'ebony_maw'
+  | 'tower_defense'
+  | 'thanos'
+  | 'hela'
+  | 'loki'
+  | 'black_order'
+  | 'armies_of_titan'
+  | 'children_of_thanos'
+  | 'infinity_gauntlet'
+  | 'legions_of_hel'
+  | 'frost_giants'
+  | 'enchantress'
+  | 'mts_campaign'
+  | 'nebu'
+  | 'nebu_nemesis';
 
 export enum SetTypeCodes {
   VILLAIN = 'villain',

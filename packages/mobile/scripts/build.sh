@@ -25,6 +25,9 @@ clean() {
   xcodebuild -workspace $PWD/ios/MCBuilder.xcworkspace \
              -scheme MCBuilder \
              clean
+  rm -rf $PWD/android/.gradle
+  rm -rf $PWD/android/build
+  cd $PWD/android && ./gradlew clean && cd ..
   rm -rf $PWD/ios/build
 }
 

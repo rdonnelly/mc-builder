@@ -54,6 +54,7 @@ exportArchive() {
 
 upload() {
   xcrun altool --upload-app \
+               --type ios \
                -f $PWD/ios/build/MCBuilder.ipa \
                -u $@ \
                -p "@keychain:AC_PASSWORD"

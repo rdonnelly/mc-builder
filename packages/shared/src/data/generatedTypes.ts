@@ -45,6 +45,9 @@ export enum PackCodes {
   VNM = 'vnm',
   MTS = 'mts',
   NEBU = 'nebu',
+  WARM = 'warm',
+  HOOD = 'hood',
+  VALK = 'valk',
 }
 
 export type PackCode =
@@ -70,7 +73,10 @@ export type PackCode =
   | 'drax'
   | 'vnm'
   | 'mts'
-  | 'nebu';
+  | 'nebu'
+  | 'warm'
+  | 'hood'
+  | 'valk';
 
 export enum SetCodes {
   RHINO = 'rhino',
@@ -192,6 +198,22 @@ export enum SetCodes {
   MTS_CAMPAIGN = 'mts_campaign',
   NEBU = 'nebu',
   NEBU_NEMESIS = 'nebu_nemesis',
+  WARM = 'warm',
+  WARM_NEMESIS = 'warm_nemesis',
+  THE_HOOD = 'the_hood',
+  BEASTY_BOYS = 'beasty_boys',
+  BROTHERS_GRIMM = 'brothers_grimm',
+  CROSSFIRE_CREW = 'crossfire_crew',
+  MISTER_HYDE = 'mister_hyde',
+  RANSACKED_ARMORY = 'ransacked_armory',
+  STATE_OF_EMERGENCY = 'state_of_emergency',
+  STREETS_OF_MAYHEM = 'streets_of_mayhem',
+  SINISTER_SYNDICATE = 'sinister_syndicate',
+  WRECKING_CREW_MODULAR = 'wrecking_crew_modular',
+  STANDARD_II = 'standard_ii',
+  EXPERT_II = 'expert_ii',
+  VALK = 'valk',
+  VALK_NEMESIS = 'valk_nemesis',
 }
 
 export type SetCode =
@@ -313,7 +335,23 @@ export type SetCode =
   | 'enchantress'
   | 'mts_campaign'
   | 'nebu'
-  | 'nebu_nemesis';
+  | 'nebu_nemesis'
+  | 'warm'
+  | 'warm_nemesis'
+  | 'the_hood'
+  | 'beasty_boys'
+  | 'brothers_grimm'
+  | 'crossfire_crew'
+  | 'mister_hyde'
+  | 'ransacked_armory'
+  | 'state_of_emergency'
+  | 'streets_of_mayhem'
+  | 'sinister_syndicate'
+  | 'wrecking_crew_modular'
+  | 'standard_ii'
+  | 'expert_ii'
+  | 'valk'
+  | 'valk_nemesis';
 
 export enum SetTypeCodes {
   VILLAIN = 'villain',

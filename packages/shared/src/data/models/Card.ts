@@ -502,6 +502,8 @@ export const getEligibleCards = memoizeOne(
           card.typeCode === TypeCodes.EVENT &&
           (card.hasTrait('attack') || card.hasTrait('thwart'));
 
+        const isAdamWarlockEligible = setCode === SetCodes.WARLOCK;
+
         // card must match at least one of the following:
         // 1) has matching set code
         // 2) in faction + no set code
@@ -510,7 +512,8 @@ export const getEligibleCards = memoizeOne(
         if (
           card.setCode !== setCode &&
           !(isInFaction && card.setCode == null) &&
-          !(isGamoraEligible && card.setCode == null)
+          !(isGamoraEligible && card.setCode == null) &&
+          !(isAdamWarlockEligible && card.setCode == null)
         ) {
           return false;
         }

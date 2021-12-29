@@ -275,6 +275,7 @@ const getExtraCardsForDeck = memoizeOne((setCode: SetCode): IDeckCard[] => {
   }).filter((card) => card.factionCode === FactionCodes.ENCOUNTER);
   extraCards.push(...encounterCards);
 
+  // add Doctor Strange invocation cards
   if (setCode === SetCodes.DOCTOR_STRANGE) {
     const invocationCards = getFilteredCards({
       filter: FilterCodes.SET,

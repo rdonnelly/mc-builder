@@ -18,12 +18,8 @@ const styles = StyleSheet.create({
 const DeckEditList = ({ deck }: { deck: DeckModel }) => {
   const navigation = useNavigation();
 
-  const {
-    increment,
-    incrementIsDisabled,
-    decrement,
-    decrementIsDisabled,
-  } = useDeckModifications(deck.code);
+  const { increment, incrementIsDisabled, decrement, decrementIsDisabled } =
+    useDeckModifications(deck.code, deck.setCode);
 
   const handlePressItem = useCallback(
     (code: string) => {

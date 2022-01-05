@@ -12,7 +12,7 @@ import { DecksCreateStackParamList } from '@navigation/DecksCreateStackNavigator
 import { setUpNewDeck } from '@store/actions';
 import { useAppDispatch } from '@store/hooks';
 
-import { getFaction, getSet } from '@shared/data';
+import { getFaction, getSet, SetCodes } from '@shared/data';
 import { base, colors } from '@shared/styles';
 
 const DecksCreateFormScreen = ({
@@ -20,9 +20,8 @@ const DecksCreateFormScreen = ({
 }: {
   navigation: StackNavigationProp<DecksCreateStackParamList, 'DecksCreateForm'>;
 }) => {
-  const { deckName, setDeckName, deckSet, deckAspect } = useContext(
-    DecksCreateContext,
-  );
+  const { deckName, setDeckName, deckSet, deckAspect } =
+    useContext(DecksCreateContext);
 
   const dispatch = useAppDispatch();
   const insets = useSafeAreaInsets();
@@ -37,17 +36,34 @@ const DecksCreateFormScreen = ({
     : 'No Aspect Selected';
 
   const submit = () => {
-    const deckCode = nanoid();
-    if (deckName && deckSet && deckAspect.length) {
-      dispatch(setUpNewDeck(deckCode, deckName, deckSet, deckAspect));
+    if (!deckName || !deckSet) {
+      return false;
+    }
 
-      if (navigation) {
-        navigation.pop();
-        // @ts-ignore
-        navigation.navigate('DeckDetail', {
-          code: deckCode,
-        });
+    const aspectCount = deckAspect.length;
+    if (deckSet === SetCodes.SPIDER_WOMAN) {
+      if (aspectCount !== 2) {
+        return false;
       }
+    } else if (deckSet === SetCodes.WARLOCK) {
+      if (aspectCount !== 0) {
+        return false;
+      }
+    } else {
+      if (aspectCount !== 1) {
+        return false;
+      }
+    }
+
+    const deckCode = nanoid();
+    dispatch(setUpNewDeck(deckCode, deckName, deckSet, deckAspect));
+
+    if (navigation) {
+      navigation.pop();
+      // @ts-ignore
+      navigation.navigate('DeckDetail', {
+        code: deckCode,
+      });
     }
   };
 

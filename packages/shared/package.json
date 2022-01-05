@@ -1,6 +1,6 @@
 {
-  "name": "shared",
-  "version": "0.1.0",
+  "name": "@mc-builder/shared",
+  "version": "1.0.0",
   "private": true,
   "workspaces": {
     "nohoist": [

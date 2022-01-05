@@ -2,7 +2,11 @@
   "name": "shared",
   "version": "0.1.0",
   "private": true,
-  "main": "src/index.js",
+  "workspaces": {
+    "nohoist": [
+      "**"
+    ]
+  },
   "scripts": {
     "generateTypes": "ts-node scripts/generateTypes.ts",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",

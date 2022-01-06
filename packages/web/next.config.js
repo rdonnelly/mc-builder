@@ -6,9 +6,10 @@ const withTM = require('next-transpile-modules')([
 ]);
 
 module.exports = withTM({
-  future: {
-    webpack5: true,
-  },
+  // experimental: {
+  //   // ssr and displayName are configured by default
+  //   styledComponents: true,
+  // },
   webpack: (config) => {
     config.resolve.alias = {
       ...(config.resolve.alias || {}),

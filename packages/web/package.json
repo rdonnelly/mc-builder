@@ -30,7 +30,6 @@
     "@types/react-native": "^0.66.1",
     "@types/styled-components": "^5.1.9",
     "@types/styled-components-react-native": "^5.1.1",
-    "babel-plugin-module-resolver": "^4.1.0",
-    "babel-plugin-react-native-web": "^0.15.0"
+    "babel-plugin-module-resolver": "^4.1.0"
   }
 }

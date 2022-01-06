@@ -3,7 +3,10 @@ import difference from 'lodash/difference';
 import uniq from 'lodash/uniq';
 
 import { FactionCode, SetCode } from '@mc-builder/shared/src/data';
-import { IStoreDeck, IStoreDeckState } from '@mc-builder/shared/src/store/types';
+import {
+  IStoreDeck,
+  IStoreDeckState,
+} from '@mc-builder/shared/src/store/types';
 
 const initialState = {
   codes: [],
@@ -27,15 +30,8 @@ const decksSlice = createSlice({
       }>,
     ) {
       const { payload } = action;
-      const {
-        code,
-        name,
-        setCode,
-        aspectCodes,
-        version,
-        source,
-        mcdbId,
-      } = payload;
+      const { code, name, setCode, aspectCodes, version, source, mcdbId } =
+        payload;
 
       const now = new Date();
       const created = now.getTime() + now.getTimezoneOffset() * 60000;

@@ -24,239 +24,243 @@ import {
 } from '@mc-builder/shared/src/data';
 import { IStoreDeckCard } from '@mc-builder/shared/src/store/types';
 
-export const importDeck = (
-  deckToImport: DeckModel,
-): AppThunk<Promise<string>> => (dispatch) => {
-  const code = nanoid();
+export const importDeck =
+  (deckToImport: DeckModel): AppThunk<Promise<string>> =>
+  (dispatch) => {
+    const code = nanoid();
 
-  dispatch(
-    setUpNewDeck(
-      code,
-      deckToImport.name,
-      deckToImport.setCode,
-      deckToImport.aspectCodes,
-      deckToImport.version,
-      deckToImport.code,
-      deckToImport.mcdbId,
-      deckToImport.rawCards.map((card: IStoreDeckCard) => ({
-        code: card.cardCode,
-        quantity: card.quantity,
-      })),
-    ),
-  );
-
-  return Promise.resolve(code);
-};
-
-export const setUpNewDeck = (
-  deckCode: string,
-  deckName: string,
-  deckSet: SetCode,
-  deckAspect: FactionCode[],
-  version?: number,
-  importCode?: string,
-  mcdbId?: number,
-  initialDeckCards?: { code: string; quantity: number }[],
-): AppThunk => (dispatch) => {
-  if (deckName && deckSet && deckAspect.length) {
     dispatch(
-      createDeck({
-        code: deckCode,
-        name: deckName,
-        setCode: deckSet,
-        aspectCodes: deckAspect,
-        version,
-        source: importCode,
-        mcdbId,
-      }),
-    );
-
-    const deckCardCodes = [];
-    const deckCardData = [];
-
-    if (initialDeckCards && initialDeckCards.length) {
-      // if we get a full list of cards, use that
-      initialDeckCards.forEach((card) => {
-        const cardModel = getCard(card.code);
-
-        const code = nanoid();
-
-        deckCardCodes.push(code);
-
-        deckCardData.push({
-          code,
-          cardCode: cardModel.rootCode,
+      setUpNewDeck(
+        code,
+        deckToImport.name,
+        deckToImport.setCode,
+        deckToImport.aspectCodes,
+        deckToImport.version,
+        deckToImport.code,
+        deckToImport.mcdbId,
+        deckToImport.rawCards.map((card: IStoreDeckCard) => ({
+          code: card.cardCode,
           quantity: card.quantity,
-        });
-      });
-    } else {
-      // otherwise, add set cards to start
-      const setCards = getFilteredCards({
-        filter: FilterCodes.SET,
-        filterCode: deckSet,
-      }).filter((card) => card.factionCode !== FactionCodes.ENCOUNTER);
-
-      setCards.forEach((card) => {
-        const code = nanoid();
-
-        deckCardCodes.push(code);
-
-        deckCardData.push({
-          code,
-          cardCode: card.code,
-          quantity: card.setQuantity,
-        });
-      });
-    }
-
-    dispatch(updateDeckCards({ deckCards: deckCardData }));
-
-    dispatch(
-      addDeckCardsToDeck({ code: deckCode, deckCardCodes: deckCardCodes }),
-    );
-  }
-};
-
-export const addCardToDeck = (deckCode: string, card: CardModel): AppThunk => (
-  dispatch,
-  getState,
-) => {
-  const deck = getState().root.decks.entities[deckCode];
-  const deckCardEntities = getState().root.deckCards.entities;
-  const deckCardCode = deck.deckCardCodes.find(
-    (code) => deckCardEntities[code].cardCode === card.code,
-  );
-
-  if (deckCardCode !== undefined) {
-    const deckCard = deckCardEntities[deckCardCode];
-
-    dispatch(
-      updateDeckCards({
-        deckCards: [
-          {
-            ...deckCard,
-            quantity: Math.min(deckCard.quantity + 1, card.deckLimit),
-          },
-        ],
-      }),
-    );
-  } else {
-    const newDeckCardCode = nanoid();
-    dispatch(
-      updateDeckCards({
-        deckCards: [
-          {
-            code: newDeckCardCode,
-            cardCode: card.code,
-            quantity: 1,
-          },
-        ],
-      }),
+        })),
+      ),
     );
 
-    dispatch(
-      addDeckCardsToDeck({ code: deckCode, deckCardCodes: [newDeckCardCode] }),
-    );
-  }
-};
+    return Promise.resolve(code);
+  };
 
-export const removeCardFromDeck = (
-  deckCode: string,
-  card: CardModel,
-): AppThunk => (dispatch, getState) => {
-  const deck = getState().root.decks.entities[deckCode];
-  const deckCardEntities = getState().root.deckCards.entities;
-  const deckCardCode = deck.deckCardCodes.find(
-    (code) => deckCardEntities[code].cardCode === card.code,
-  );
-  const deckCard = deckCardEntities[deckCardCode];
-
-  if (deckCard !== undefined) {
-    if (deckCard.quantity <= 1) {
+export const setUpNewDeck =
+  (
+    deckCode: string,
+    deckName: string,
+    deckSet: SetCode,
+    deckAspect: FactionCode[],
+    version?: number,
+    importCode?: string,
+    mcdbId?: number,
+    initialDeckCards?: { code: string; quantity: number }[],
+  ): AppThunk =>
+  (dispatch) => {
+    if (deckName && deckSet && deckAspect.length) {
       dispatch(
-        removeDeckCards({
-          codes: [deckCard.code],
-        }),
-      );
-
-      dispatch(
-        removeDeckCardFromDeck({
+        createDeck({
           code: deckCode,
-          deckCardCodes: [deckCard.code],
+          name: deckName,
+          setCode: deckSet,
+          aspectCodes: deckAspect,
+          version,
+          source: importCode,
+          mcdbId,
         }),
       );
-    } else {
+
+      const deckCardCodes = [];
+      const deckCardData = [];
+
+      if (initialDeckCards && initialDeckCards.length) {
+        // if we get a full list of cards, use that
+        initialDeckCards.forEach((card) => {
+          const cardModel = getCard(card.code);
+
+          const code = nanoid();
+
+          deckCardCodes.push(code);
+
+          deckCardData.push({
+            code,
+            cardCode: cardModel.rootCode,
+            quantity: card.quantity,
+          });
+        });
+      } else {
+        // otherwise, add set cards to start
+        const setCards = getFilteredCards({
+          filter: FilterCodes.SET,
+          filterCode: deckSet,
+        }).filter((card) => card.factionCode !== FactionCodes.ENCOUNTER);
+
+        setCards.forEach((card) => {
+          const code = nanoid();
+
+          deckCardCodes.push(code);
+
+          deckCardData.push({
+            code,
+            cardCode: card.code,
+            quantity: card.setQuantity,
+          });
+        });
+      }
+
+      dispatch(updateDeckCards({ deckCards: deckCardData }));
+
+      dispatch(
+        addDeckCardsToDeck({ code: deckCode, deckCardCodes: deckCardCodes }),
+      );
+    }
+  };
+
+export const addCardToDeck =
+  (deckCode: string, card: CardModel): AppThunk =>
+  (dispatch, getState) => {
+    const deck = getState().root.decks.entities[deckCode];
+    const deckCardEntities = getState().root.deckCards.entities;
+    const deckCardCode = deck.deckCardCodes.find(
+      (code) => deckCardEntities[code].cardCode === card.code,
+    );
+
+    if (deckCardCode !== undefined) {
+      const deckCard = deckCardEntities[deckCardCode];
+
       dispatch(
         updateDeckCards({
           deckCards: [
             {
               ...deckCard,
-              quantity: deckCard.quantity - 1,
+              quantity: Math.min(deckCard.quantity + 1, card.deckLimit),
             },
           ],
         }),
       );
+    } else {
+      const newDeckCardCode = nanoid();
+      dispatch(
+        updateDeckCards({
+          deckCards: [
+            {
+              code: newDeckCardCode,
+              cardCode: card.code,
+              quantity: 1,
+            },
+          ],
+        }),
+      );
+
+      dispatch(
+        addDeckCardsToDeck({
+          code: deckCode,
+          deckCardCodes: [newDeckCardCode],
+        }),
+      );
     }
-  }
-};
+  };
 
-export const deleteDeck = (deckCode: string): AppThunk => (
-  dispatch,
-  getState,
-) => {
-  const deck = getState().root.decks.entities[deckCode];
+export const removeCardFromDeck =
+  (deckCode: string, card: CardModel): AppThunk =>
+  (dispatch, getState) => {
+    const deck = getState().root.decks.entities[deckCode];
+    const deckCardEntities = getState().root.deckCards.entities;
+    const deckCardCode = deck.deckCardCodes.find(
+      (code) => deckCardEntities[code].cardCode === card.code,
+    );
+    const deckCard = deckCardEntities[deckCardCode];
 
-  // dispatch list of deckCards to delete
-  dispatch(
-    removeDeckCards({
-      codes: deck.deckCardCodes,
-    }),
-  );
+    if (deckCard !== undefined) {
+      if (deckCard.quantity <= 1) {
+        dispatch(
+          removeDeckCards({
+            codes: [deckCard.code],
+          }),
+        );
 
-  // dispatch a deck delete
-  dispatch(
-    removeDeck({
-      code: deckCode,
-    }),
-  );
-};
+        dispatch(
+          removeDeckCardFromDeck({
+            code: deckCode,
+            deckCardCodes: [deckCard.code],
+          }),
+        );
+      } else {
+        dispatch(
+          updateDeckCards({
+            deckCards: [
+              {
+                ...deckCard,
+                quantity: deckCard.quantity - 1,
+              },
+            ],
+          }),
+        );
+      }
+    }
+  };
 
-export const cloneDeck = (deckCode: string, deckName: string): AppThunk => (
-  dispatch,
-  getState,
-) => {
-  const deck = getState().root.decks.entities[deckCode];
-  const deckCardEntities = getState().root.deckCards.entities;
+export const deleteDeck =
+  (deckCode: string): AppThunk =>
+  (dispatch, getState) => {
+    const deck = getState().root.decks.entities[deckCode];
 
-  const newDeckCode = nanoid();
+    // dispatch list of deckCards to delete
+    dispatch(
+      removeDeckCards({
+        codes: deck.deckCardCodes,
+      }),
+    );
 
-  const newDeckCardEntities = deck.deckCardCodes.map((deckCardCode) => ({
-    code: nanoid(),
-    cardCode: deckCardEntities[deckCardCode].cardCode,
-    quantity: deckCardEntities[deckCardCode].quantity,
-  }));
+    // dispatch a deck delete
+    dispatch(
+      removeDeck({
+        code: deckCode,
+      }),
+    );
+  };
 
-  const newDeckCardCodes = newDeckCardEntities.map(
-    (newDeckCardEntity) => newDeckCardEntity.code,
-  );
+export const cloneDeck =
+  (deckCode: string, deckName: string): AppThunk =>
+  (dispatch, getState) => {
+    const deck = getState().root.decks.entities[deckCode];
+    const deckCardEntities = getState().root.deckCards.entities;
 
-  dispatch(
-    duplicateDeck({
-      code: deckCode,
-      newCode: newDeckCode,
-      newName: deckName,
-    }),
-  );
+    const newDeckCode = nanoid();
 
-  dispatch(
-    updateDeckCards({
-      deckCards: newDeckCardEntities,
-    }),
-  );
+    const newDeckCardEntities = deck.deckCardCodes.map((deckCardCode) => ({
+      code: nanoid(),
+      cardCode: deckCardEntities[deckCardCode].cardCode,
+      quantity: deckCardEntities[deckCardCode].quantity,
+    }));
 
-  dispatch(
-    addDeckCardsToDeck({ code: newDeckCode, deckCardCodes: newDeckCardCodes }),
-  );
+    const newDeckCardCodes = newDeckCardEntities.map(
+      (newDeckCardEntity) => newDeckCardEntity.code,
+    );
 
-  return newDeckCode;
-};
+    dispatch(
+      duplicateDeck({
+        code: deckCode,
+        newCode: newDeckCode,
+        newName: deckName,
+      }),
+    );
+
+    dispatch(
+      updateDeckCards({
+        deckCards: newDeckCardEntities,
+      }),
+    );
+
+    dispatch(
+      addDeckCardsToDeck({
+        code: newDeckCode,
+        deckCardCodes: newDeckCardCodes,
+      }),
+    );
+
+    return newDeckCode;
+  };

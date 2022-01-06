@@ -34,13 +34,11 @@ const DecksCreateSelectScreen = ({
   >;
   route: RouteProp<DecksCreateStackParamList, 'DecksCreateSelect'>;
 }) => {
-  const { deckSet, setDeckSet, deckAspect, setDeckAspect } = useContext(
-    DecksCreateContext,
-  );
+  const { deckSet, setDeckSet, deckAspect, setDeckAspect } =
+    useContext(DecksCreateContext);
 
-  const [selectedAspects, setSelectedAspects] = useState<FactionCode[]>(
-    deckAspect,
-  );
+  const [selectedAspects, setSelectedAspects] =
+    useState<FactionCode[]>(deckAspect);
 
   const insets = useSafeAreaInsets();
 

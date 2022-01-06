@@ -200,6 +200,13 @@ ${basicCardsText || 'None'}
     return text;
   }
 
+  get description(): string {
+    const deckCardCount = this.cardCount;
+    return `${this.setName} | ${this.aspects
+      .map((aspect) => aspect.name)
+      .join(', ')} | ${deckCardCount} Card${deckCardCount === 1 ? '' : 's'}`;
+  }
+
   get shareableJsonString(): string {
     const text = JSON.stringify({
       name: this.name,

@@ -11,9 +11,9 @@ import { DecksStackParamList } from '@navigation/DecksStackNavigator';
 import { importDeck } from '@store/actions';
 import { useAppDispatch } from '@store/hooks';
 
-import DeckDetail from '@shared/components/DeckDetail';
-import { useDeckImport } from '@shared/hooks';
-import { base, colors } from '@shared/styles';
+import DeckDetail from '@mc-builder/shared/src/components/DeckDetail';
+import { useDeckImport } from '@mc-builder/shared/src/hooks';
+import { base, colors } from '@mc-builder/shared/src/styles';
 
 const DecksImportFormScreen = ({
   navigation,

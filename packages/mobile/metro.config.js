@@ -11,6 +11,6 @@ module.exports = {
   },
   watchFolders: [
     // watch for shared folder changes
-    path.resolve(__dirname, '../shared'),
+    path.resolve(__dirname, '../../'),
   ],
 };

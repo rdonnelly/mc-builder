@@ -6,7 +6,7 @@ import { DecksCreateProvider } from '@context/DecksCreateContext';
 import DecksCreateFormScreen from '@screens/Deck/DecksCreate/DecksCreateFormScreen';
 import DecksCreateSelectScreen from '@screens/Deck/DecksCreate/DecksCreateSelectScreen';
 
-import { colors } from '@shared/styles';
+import { colors } from '@mc-builder/shared/src/styles';
 
 export type DecksCreateStackParamList = {
   DecksCreateForm: undefined;

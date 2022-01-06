@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components/native';
 
-import { base, colors } from '@shared/styles';
+import { base, colors } from '@mc-builder/shared/src/styles';
 
 const DecksCreateFormScreen = ({
   name,

@@ -15,8 +15,8 @@ import { deleteDeck } from '@store/actions';
 import { useAppDispatch } from '@store/hooks';
 import { setClipboard } from '@utils/Clipboard';
 
-import DeckDetail from '@shared/components/DeckDetail';
-import { base, colors } from '@shared/styles';
+import DeckDetail from '@mc-builder/shared/src/components/DeckDetail';
+import { base, colors } from '@mc-builder/shared/src/styles';
 
 const DeckDetailScreen = ({
   route,

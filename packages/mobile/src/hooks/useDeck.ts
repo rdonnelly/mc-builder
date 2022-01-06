@@ -4,7 +4,7 @@ import { StoreState } from '@store';
 import { useAppSelector } from '@store/hooks';
 import { selectStoreDeck, selectStoreDeckCards } from '@store/selectors';
 
-import { DeckModel } from '@shared/data';
+import { DeckModel } from '@mc-builder/shared/src/data';
 
 export function useDeck(code: string) {
   const deck = useAppSelector((state: StoreState) =>

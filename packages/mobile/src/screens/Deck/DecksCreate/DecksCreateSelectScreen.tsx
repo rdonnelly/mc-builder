@@ -16,8 +16,8 @@ import {
   SetCode,
   SetCodes,
   SetModel,
-} from '@shared/data';
-import { base, colors } from '@shared/styles';
+} from '@mc-builder/shared/src/data';
+import { base, colors } from '@mc-builder/shared/src/styles';
 
 const ITEM_HEIGHT = 48;
 

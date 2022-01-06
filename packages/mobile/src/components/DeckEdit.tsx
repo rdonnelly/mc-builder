@@ -9,9 +9,9 @@ import FloatingControlBar, {
 } from '@components/FloatingControlBar';
 import { DeckEditScreenNavigationProp } from '@screens/Deck/DeckEditScreen';
 
-import { DeckDetailHeader } from '@shared/components/DeckDetail';
-import { DeckModel } from '@shared/data';
-import { base, colors } from '@shared/styles';
+import { DeckDetailHeader } from '@mc-builder/shared/src/components/DeckDetail';
+import { DeckModel } from '@mc-builder/shared/src/data';
+import { base, colors } from '@mc-builder/shared/src/styles';
 
 const DeckEdit = ({ deck }: { deck: DeckModel }) => {
   const navigation = useNavigation<DeckEditScreenNavigationProp>();

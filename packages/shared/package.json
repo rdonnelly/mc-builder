@@ -11,7 +11,6 @@
     "react": "*",
     "react-dom": "*",
     "react-native-vector-icons": "*",
-    "react-native-web": "*",
-    "styled-components": "*"
+    "react-native-web": "*"
   }
 }

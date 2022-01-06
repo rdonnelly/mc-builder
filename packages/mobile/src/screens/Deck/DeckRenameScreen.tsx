@@ -13,7 +13,7 @@ import { useAppDispatch, useAppSelector } from '@store/hooks';
 import { updateDeck } from '@store/reducers/decks';
 import { selectStoreDeck } from '@store/selectors';
 
-import { base, colors } from '@shared/styles';
+import { base, colors } from '@mc-builder/shared/src/styles';
 
 export type DeckRenameScreenNavigationProp = StackNavigationProp<
   DecksStackParamList,

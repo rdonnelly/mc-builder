@@ -1,6 +1,6 @@
 import { createContext, useState } from 'react';
 
-import { FactionCode, getFaction, getSet, SetCode } from '@shared/data';
+import { FactionCode, getFaction, getSet, SetCode } from '@mc-builder/shared/src/data';
 
 interface IDecksCreateContext {
   deckName: string;

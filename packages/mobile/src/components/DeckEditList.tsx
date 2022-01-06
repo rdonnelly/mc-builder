@@ -5,9 +5,9 @@ import styled from 'styled-components/native';
 
 import { useDeckModifications } from '@hooks';
 
-import CardListItem from '@shared/components/CardListItem';
-import { CardModel, DeckModel } from '@shared/data';
-import { base, colors } from '@shared/styles';
+import CardListItem from '@mc-builder/shared/src/components/CardListItem';
+import { CardModel, DeckModel } from '@mc-builder/shared/src/data';
+import { base, colors } from '@mc-builder/shared/src/styles';
 
 const styles = StyleSheet.create({
   contentContainerStyle: {

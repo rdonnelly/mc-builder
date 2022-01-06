@@ -12,8 +12,8 @@ import { DecksCreateStackParamList } from '@navigation/DecksCreateStackNavigator
 import { setUpNewDeck } from '@store/actions';
 import { useAppDispatch } from '@store/hooks';
 
-import { getFaction, getSet, SetCodes } from '@shared/data';
-import { base, colors } from '@shared/styles';
+import { getFaction, getSet, SetCodes } from '@mc-builder/shared/src/data';
+import { base, colors } from '@mc-builder/shared/src/styles';
 
 const DecksCreateFormScreen = ({
   navigation,

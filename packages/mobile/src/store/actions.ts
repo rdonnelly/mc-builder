@@ -21,8 +21,8 @@ import {
   getCard,
   getFilteredCards,
   SetCode,
-} from '@shared/data';
-import { IStoreDeckCard } from '@shared/store/types';
+} from '@mc-builder/shared/src/data';
+import { IStoreDeckCard } from '@mc-builder/shared/src/store/types';
 
 export const importDeck = (
   deckToImport: DeckModel,

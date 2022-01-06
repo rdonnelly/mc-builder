@@ -13,7 +13,7 @@ import { cloneDeck } from '@store/actions';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
 import { selectStoreDeck } from '@store/selectors';
 
-import { base, colors } from '@shared/styles';
+import { base, colors } from '@mc-builder/shared/src/styles';
 
 export type DeckCloneScreenNavigationProp = StackNavigationProp<
   DecksStackParamList,

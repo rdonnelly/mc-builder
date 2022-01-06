@@ -198,7 +198,7 @@ const CardDetailScreen = ({
   }
 
   const { increment, incrementIsDisabled, decrement, decrementIsDisabled } =
-    useDeckModifications(deckCode, deckModel.setCode);
+    useDeckModifications(deckCode, deckModel?.setCode);
 
   return (
     <Container>

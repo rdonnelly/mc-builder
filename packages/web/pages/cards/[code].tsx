@@ -1,17 +1,17 @@
-import { useWindowWidth } from '@react-hook/window-size/throttled';
 import Head from 'next/head';
 
-import CardDetail from '@shared/components/CardDetail';
-import { Card, getCard, getCards } from '@shared/data/models/Card';
-import { colors } from '@shared/styles';
+import CardDetail from '@mc-builder/shared/src/components/CardDetail';
+import {
+  Card,
+  getCard,
+  getCards,
+} from '@mc-builder/shared/src/data/models/Card';
+import { colors } from '@mc-builder/shared/src/styles';
 
 import Header from '../../components/Header';
 import getAbsoluteUrl from '../../utils/getAbsoluteUrl';
 
 const CardPage = ({ rawCard, meta }) => {
-  const windowWidth = useWindowWidth();
-  const width = Math.min(windowWidth, 768);
-
   const card = new Card(rawCard);
 
   return (
@@ -29,7 +29,7 @@ const CardPage = ({ rawCard, meta }) => {
         <meta property="og:image:secure_url" content={meta.imageUrl} />
       </Head>
       <Header color={colors.orange}>Cards</Header>
-      <CardDetail card={card} width={width} />
+      <CardDetail card={card} />
     </>
   );
 };

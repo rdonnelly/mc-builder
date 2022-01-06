@@ -7,11 +7,9 @@ import { CardModel } from '../../data';
 
 const CardDetailImages = ({
   card,
-  maxWidth,
   shareCardImage,
 }: {
   card: CardModel;
-  maxWidth: number;
   shareCardImage?: (uri: string) => void;
 }) => {
   const imageUriSet = card.imageUriSet;
@@ -22,7 +20,6 @@ const CardDetailImages = ({
         <CardDetailImage
           key={`card_image_${card.code}_${i}`}
           imageUri={imageUri}
-          maxWidth={maxWidth}
           shareCardImage={shareCardImage}
         />
       ))}
@@ -32,11 +29,9 @@ const CardDetailImages = ({
 
 const CardDetailImage = ({
   imageUri,
-  maxWidth,
   shareCardImage,
 }: {
   imageUri: string;
-  maxWidth: number;
   shareCardImage?: (uri: string) => void;
 }) => {
   const [imageHeight, setImageHeight] = useState(0);
@@ -46,7 +41,7 @@ const CardDetailImage = ({
     Image.getSize(
       imageUri,
       (width, height) => {
-        const newWidth = Math.min(width, maxWidth);
+        const newWidth = Math.min(width, 300);
         const newHeight = (height / width) * newWidth;
 
         setImageHeight(newHeight);
@@ -57,7 +52,7 @@ const CardDetailImage = ({
         setImageWidth(null);
       },
     );
-  }, [imageUri, maxWidth]);
+  }, [imageUri]);
 
   if (!imageHeight || !imageWidth) {
     return null;

@@ -5,7 +5,7 @@ import { createGlobalStyle } from 'styled-components';
 import { ThemeProvider } from 'styled-components/native';
 import useDarkMode from 'use-dark-mode';
 
-import { darkTheme, lightTheme } from '@shared/styles';
+import { darkTheme, lightTheme } from '@mc-builder/shared/src/styles';
 
 const GlobalStyle = createGlobalStyle`
   *, *::before, *::after {

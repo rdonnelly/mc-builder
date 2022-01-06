@@ -1,7 +1,6 @@
 const path = require('path');
 
 module.exports = {
-  watchFolders: [path.resolve(__dirname, '../../')],
   transformer: {
     getTransformOptions: async () => ({
       transform: {
@@ -10,4 +9,8 @@ module.exports = {
       },
     }),
   },
+  watchFolders: [
+    // watch for shared folder changes
+    path.resolve(__dirname, '../shared'),
+  ],
 };

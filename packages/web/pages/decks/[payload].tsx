@@ -3,17 +3,17 @@ import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
-import DeckDetailHeader from '@shared/components/DeckDetail/DeckDetailHeader';
-import DeckDetailList from '@shared/components/DeckDetail/DeckDetailList';
-import { DeckModel } from '@shared/data';
-import { IStoreDeck, IStoreDeckCard } from '@shared/store/types';
-import { colors } from '@shared/styles';
+import DeckDetailHeader from '@mc-builder/shared/src/components/DeckDetail/DeckDetailHeader';
+import DeckDetailList from '@mc-builder/shared/src/components/DeckDetail/DeckDetailList';
+import { DeckModel } from '@mc-builder/shared/src/data';
+import { IStoreDeck, IStoreDeckCard } from '@mc-builder/shared/src/store/types';
+import { colors } from '@mc-builder/shared/src/styles';
 import {
   convertImportToStoreDeckComponents,
   IImportDeck,
   isDeckJson,
   parseDeckJson,
-} from '@shared/utils/DeckParser';
+} from '@mc-builder/shared/src/utils/DeckParser';
 
 import Header from '../../components/Header';
 import getAbsoluteUrl from '../../utils/getAbsoluteUrl';

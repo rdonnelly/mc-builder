@@ -1,9 +1,8 @@
 const withTM = require('next-transpile-modules')([
-  'shared',
-  'styled-components',
+  '@mc-builder/shared',
   'styled-components/native',
   'react-native-render-html',
-  'react-native-vector-icons/dist',
+  'react-native-vector-icons',
 ]);
 
 module.exports = withTM({
@@ -14,8 +13,6 @@ module.exports = withTM({
     config.resolve.alias = {
       ...(config.resolve.alias || {}),
       'react-native$': 'react-native-web',
-      'react-native-vector-icons/FontAwesome5Pro$':
-        'react-native-vector-icons/dist/FontAwesome5Pro',
     };
 
     return config;

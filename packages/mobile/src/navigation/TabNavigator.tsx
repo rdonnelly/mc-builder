@@ -5,7 +5,7 @@ import CardsStackNavigator from '@navigation/CardsStackNavigator';
 import DecksStackNavigator from '@navigation/DecksStackNavigator';
 import SettingsStackNavigator from '@navigation/SettingsStackNavigator';
 
-import { colors } from '@shared/styles';
+import { colors } from '@mc-builder/shared/src/styles';
 
 export type BottomTabNavigatorParamList = {
   TabCards: undefined;

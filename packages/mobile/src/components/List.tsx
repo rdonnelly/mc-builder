@@ -3,7 +3,7 @@ import styled from 'styled-components/native';
 
 import ListItem, { ITEM_HEIGHT } from '@components/ListItem';
 
-import { base } from '@shared/styles';
+import { base } from '@mc-builder/shared/src/styles';
 
 const getItemLayout = (_data, index: number) => ({
   length: ITEM_HEIGHT,

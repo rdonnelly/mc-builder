@@ -13,7 +13,7 @@ import { AppProvider } from '@context/AppContext';
 import TabNavigator from '@navigation/TabNavigator';
 import { persistor, store } from '@store';
 
-import { colors, darkTheme, lightTheme } from '@shared/styles';
+import { colors, darkTheme, lightTheme } from '@mc-builder/shared/src/styles';
 
 Bugsnag.start();
 

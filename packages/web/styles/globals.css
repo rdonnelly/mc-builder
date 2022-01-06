@@ -1,0 +1,15 @@
+@font-face {
+  font-family: 'FontAwesome5_Pro_Regular';
+  src: url('/fonts/FontAwesome5_Pro_Regular.ttf');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'marvel-icons';
+  src: url('/fonts/marvel-icons.ttf');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}

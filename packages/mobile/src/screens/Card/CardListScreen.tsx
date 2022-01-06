@@ -10,7 +10,9 @@ import FloatingControlBar, {
 } from '@components/FloatingControlBar';
 import { CardStackParamList } from '@navigation/CardsStackNavigator';
 
-import CardListItem, { ITEM_HEIGHT } from '@shared/components/CardListItem';
+import CardListItem, {
+  ITEM_HEIGHT,
+} from '@mc-builder/shared/src/components/CardListItem';
 import {
   CardModel,
   FactionCode,
@@ -22,8 +24,8 @@ import {
   getType,
   PackCode,
   TypeCode,
-} from '@shared/data';
-import { base, colors } from '@shared/styles';
+} from '@mc-builder/shared/src/data';
+import { base, colors } from '@mc-builder/shared/src/styles';
 
 const styles = StyleSheet.create({
   contentContainerStyle: {
@@ -167,7 +169,7 @@ const CardListScreen = ({
         />
       </ListHeader>
     );
-  }, [handleChangeFromSearch, handleSubmitFromSearch]);
+  }, [handleChangeFromSearch, handleSubmitFromSearch, searchString]);
 
   const renderFooter = () => {
     if (cards.length === 0) {

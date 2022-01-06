@@ -1,6 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { IStoreDeckCard, IStoreDeckCardState } from '@shared/store/types';
+import {
+  IStoreDeckCard,
+  IStoreDeckCardState,
+} from '@mc-builder/shared/src/store/types';
 
 const initialState = {
   codes: [],

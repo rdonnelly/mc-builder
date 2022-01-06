@@ -11,7 +11,7 @@ import {
   PackCode,
   SetCode,
   TypeCode,
-} from '@shared/data';
+} from '@mc-builder/shared/src/data';
 
 const FactionsListScreen = ({
   navigation,

@@ -1,6 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { AppDeckSortKey, IStoreAppState } from '@shared/store/types';
+import {
+  AppDeckSortKey,
+  IStoreAppState,
+} from '@mc-builder/shared/src/store/types';
 
 const initialState = {
   sorting: {

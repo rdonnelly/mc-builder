@@ -12,8 +12,8 @@ import {
   PackCode,
   SetCode,
   TypeCode,
-} from '@shared/data';
-import { colors } from '@shared/styles';
+} from '@mc-builder/shared/src/data';
+import { colors } from '@mc-builder/shared/src/styles';
 
 export type CardStackParamList = {
   CardsList: {

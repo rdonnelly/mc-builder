@@ -20,9 +20,13 @@ import { selectStoreDeckCard } from '@store/selectors';
 import { setClipboard } from '@utils/Clipboard';
 import { shareImageUrl } from '@utils/Share';
 
-import CardDetail from '@shared/components/CardDetail';
-import { CardModel, getCards, getFilteredCards } from '@shared/data';
-import { base, colors } from '@shared/styles';
+import CardDetail from '@mc-builder/shared/src/components/CardDetail';
+import {
+  CardModel,
+  getCards,
+  getFilteredCards,
+} from '@mc-builder/shared/src/data';
+import { base, colors } from '@mc-builder/shared/src/styles';
 
 const CardDetailScreen = ({
   navigation,
@@ -44,7 +48,7 @@ const CardDetailScreen = ({
   const deckCode = (route.params || {}).deckCode;
   const { deckModel } = useDeck(deckCode);
 
-  let cards;
+  let cards: CardModel[];
   switch (type) {
     case 'card': {
       cards =
@@ -193,12 +197,8 @@ const CardDetailScreen = ({
     deckCardCount = deckCard.quantity;
   }
 
-  const {
-    increment,
-    incrementIsDisabled,
-    decrement,
-    decrementIsDisabled,
-  } = useDeckModifications(deckCode);
+  const { increment, incrementIsDisabled, decrement, decrementIsDisabled } =
+    useDeckModifications(deckCode, deckModel.setCode);
 
   return (
     <Container>

@@ -5,6 +5,5 @@
     "module": "commonjs",
     "noEmit": true
   },
-  "include": ["*.js", "**/*.js", "**/*.json", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+  "include": ["*.js", "**/*.js", "**/*.json", "**/*.ts", "**/*.tsx"]
 }

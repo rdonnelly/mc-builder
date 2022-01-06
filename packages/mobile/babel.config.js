@@ -36,7 +36,6 @@ module.exports = {
           '@hooks': './src/hooks',
           '@navigation': './src/navigation',
           '@screens': './src/screens',
-          '@shared': 'shared/src',
           '@store': './src/store',
           '@styles': './src/styles',
           '@utils': './src/utils',

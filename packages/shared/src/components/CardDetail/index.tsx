@@ -26,7 +26,7 @@ const CardDetail = ({
   shareCardImage,
 }: {
   card: CardModel;
-  width: number;
+  width?: number;
   hideTitle?: boolean;
   shareCardImage?: (uri: string) => void;
 }) => {
@@ -41,11 +41,7 @@ const CardDetail = ({
         <CardDetailStats card={card} />
         <CardDetailText card={card} />
         <CardDetailFooter card={card} />
-        <CardDetailImages
-          card={card}
-          maxWidth={width}
-          shareCardImage={shareCardImage}
-        />
+        <CardDetailImages card={card} shareCardImage={shareCardImage} />
         <CardDetailPack card={card} />
       </ContainerScrollView>
     </CardDetailContainer>
@@ -55,7 +51,8 @@ const CardDetail = ({
 const CardDetailContainer = styled(base.Container)<{ width: number }>`
   background-color: ${colors.white};
   margin: 0 auto;
-  width: ${({ width }) => `${width}px`};
+  max-width: 768px;
+  width: ${({ width }) => (width ? `${width}px` : '100%')};
 `;
 
 const ContainerScrollView = styled(ScrollView)`

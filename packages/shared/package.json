@@ -1,8 +1,7 @@
 {
-  "name": "shared",
-  "version": "0.1.0",
+  "name": "@mc-builder/shared",
+  "version": "1.0.0",
   "private": true,
-  "main": "src/index.js",
   "scripts": {
     "generateTypes": "ts-node scripts/generateTypes.ts",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",

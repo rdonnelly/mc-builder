@@ -246,10 +246,7 @@ const CardDetailsName = styled.View`
 
 const CardDetailsNameText = styled.Text`
   color: ${colors.darkGray};
-  font-size: ${({ theme }) => {
-    console.log('asdfasdf', theme);
-    return theme.fontSize.list;
-  }};
+  font-size: ${({ theme }) => theme.fontSize.list};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;
 

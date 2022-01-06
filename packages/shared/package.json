@@ -6,11 +6,5 @@
     "generateTypes": "ts-node scripts/generateTypes.ts",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "ts": "tsc --noEmit --project tsconfig.json"
-  },
-  "peerDependencies": {
-    "react": "*",
-    "react-dom": "*",
-    "react-native-vector-icons": "*",
-    "react-native-web": "*"
   }
 }

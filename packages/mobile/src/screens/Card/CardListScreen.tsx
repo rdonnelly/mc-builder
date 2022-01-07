@@ -1,7 +1,7 @@
 import { useScrollToTop } from '@react-navigation/native';
 import debounce from 'lodash/debounce';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { ListRenderItem, StyleSheet } from 'react-native';
+import { ListRenderItem, Platform, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 
 import FloatingControlBar, {
@@ -37,6 +37,8 @@ const getItemLayout = (_data, index: number) => ({
   offset: ITEM_HEIGHT * index,
   index,
 });
+
+const isIOS = Platform.OS === 'ios';
 
 const CardListScreen = ({ navigation, route }: CardsListScreenProps) => {
   const [searchString, setSearchString] = useState(null);
@@ -90,6 +92,16 @@ const CardListScreen = ({ navigation, route }: CardsListScreenProps) => {
     }
   };
 
+  const searchInputRef = useRef(null);
+
+  const handleSubmitFromSearch = useCallback(
+    (event) => {
+      const query = event.nativeEvent.text;
+      setSearchString(query);
+    },
+    [setSearchString],
+  );
+
   const setSearchStringDebounced = useMemo(
     () => debounce((value) => setSearchString(value), 250),
     [],
@@ -133,6 +145,25 @@ const CardListScreen = ({ navigation, route }: CardsListScreenProps) => {
     [handlePressItem],
   );
 
+  const renderHeader = useCallback(() => {
+    return isIOS ? null : (
+      <ListHeader>
+        <ListHeaderInput
+          autoCapitalize={'none'}
+          autoCorrect={false}
+          clearButtonMode={'always'}
+          placeholder={'Search'}
+          placeholderTextColor={colors.gray}
+          ref={searchInputRef}
+          returnKeyType={'search'}
+          onSubmitEditing={handleSubmitFromSearch}
+          // onChange={handleChangeFromSearch}
+          defaultValue={searchString}
+        />
+      </ListHeader>
+    );
+  }, [handleSubmitFromSearch, searchString]);
+
   const renderFooter = () => {
     if (cards.length === 0) {
       return null;
@@ -157,6 +188,7 @@ const CardListScreen = ({ navigation, route }: CardsListScreenProps) => {
         data={cards}
         keyExtractor={keyExtractor}
         contentContainerStyle={styles.contentContainerStyle}
+        ListHeaderComponent={renderHeader}
         ListFooterComponent={renderFooter}
         maxToRenderPerBatch={14}
         updateCellsBatchingPeriod={100}
@@ -193,6 +225,14 @@ const Container = styled(base.Container)`
 `;
 
 const FlatList = styled(base.FlatList)``;
+
+const ListHeader = styled(base.ListHeader)`
+  background-color: ${colors.lightGray};
+`;
+
+const ListHeaderInput = styled(base.TextInput)`
+  flex: 1 1 0;
+`;
 
 const ListFooter = styled(base.ListFooter)``;
 

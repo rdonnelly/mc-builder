@@ -48,11 +48,17 @@ function App() {
   const config = {
     screens: {
       TabCards: {
+        path: '',
         screens: {
-          CardDetail: {
-            path: 'cards/:code',
-            exact: true,
-          },
+          CardsList: 'cards',
+          CardDetail: 'cards/:code',
+        },
+      },
+      TabDecks: {
+        path: '',
+        screens: {
+          DecksList: 'decks',
+          DecksImport: 'decks/:importString',
         },
       },
     },
@@ -61,10 +67,8 @@ function App() {
   const linking = {
     prefixes: ['https://mcbuilder.app', 'mcbuilder://'],
     config,
-    getStateFromPath: (path, _options) => {
-      // https://github.com/react-navigation/react-navigation/blob/b89396888f46ba79af3cfd84be55fba79d8387d2/packages/core/src/getStateFromPath.tsx#L63
+    getStateFromPath: (path, _config) => {
       const split = path.split('/').filter((s) => s);
-
       if (split && split.length === 2) {
         if (split[0] === 'cards') {
           // TODO validate card code

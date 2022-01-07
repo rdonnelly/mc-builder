@@ -1,8 +1,7 @@
-import { StackNavigationProp } from '@react-navigation/stack';
 import { useCallback } from 'react';
 
 import List from '@components/List';
-import { CardStackParamList } from '@navigation/CardsStackNavigator';
+import { TypesListScreenProps } from '@navigation/CardsStackNavigator';
 
 import {
   FactionCode,
@@ -13,11 +12,7 @@ import {
   TypeCode,
 } from '@mc-builder/shared/src/data';
 
-const FactionsListScreen = ({
-  navigation,
-}: {
-  navigation: StackNavigationProp<CardStackParamList, 'FactionsList'>;
-}) => {
+const FactionsListScreen = ({ navigation }: TypesListScreenProps) => {
   const handlePressItem = useCallback(
     (code: FactionCode | PackCode | SetCode | TypeCode) => {
       if (navigation) {

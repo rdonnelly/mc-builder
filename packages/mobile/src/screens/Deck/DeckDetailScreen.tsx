@@ -1,5 +1,4 @@
 import { useActionSheet } from '@expo/react-native-action-sheet';
-import { RouteProp, useNavigation } from '@react-navigation/native';
 import { useCallback, useRef } from 'react';
 import { Alert, findNodeHandle, Platform } from 'react-native';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
@@ -10,7 +9,7 @@ import FloatingControlBar, {
   FloatingControlButtonVariant,
 } from '@components/FloatingControlBar';
 import { useDeck } from '@hooks';
-import { DecksStackParamList } from '@navigation/DecksStackNavigator';
+import { DeckDetailScreenProps } from '@navigation/DecksStackNavigator';
 import { deleteDeck } from '@store/actions';
 import { useAppDispatch } from '@store/hooks';
 import { setClipboard } from '@utils/Clipboard';
@@ -18,13 +17,8 @@ import { setClipboard } from '@utils/Clipboard';
 import DeckDetail from '@mc-builder/shared/src/components/DeckDetail';
 import { base, colors } from '@mc-builder/shared/src/styles';
 
-const DeckDetailScreen = ({
-  route,
-}: {
-  route: RouteProp<DecksStackParamList, 'DeckDetail'>;
-}) => {
+const DeckDetailScreen = ({ navigation, route }: DeckDetailScreenProps) => {
   const dispatch = useAppDispatch();
-  const navigation = useNavigation();
 
   const code = route.params.code;
   const { deckModel } = useDeck(code);

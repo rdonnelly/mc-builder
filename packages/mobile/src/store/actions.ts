@@ -224,7 +224,7 @@ export const deleteDeck =
   };
 
 export const cloneDeck =
-  (deckCode: string, deckName: string): AppThunk =>
+  (deckCode: string, deckName: string): AppThunk<string> =>
   (dispatch, getState) => {
     const deck = getState().root.decks.entities[deckCode];
     const deckCardEntities = getState().root.deckCards.entities;

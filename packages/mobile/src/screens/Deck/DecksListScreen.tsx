@@ -1,5 +1,4 @@
 import { useActionSheet } from '@expo/react-native-action-sheet';
-import { StackNavigationProp } from '@react-navigation/stack';
 import { useCallback, useLayoutEffect, useRef } from 'react';
 import {
   findNodeHandle,
@@ -15,7 +14,7 @@ import styled from 'styled-components/native';
 import FloatingControlBar, {
   FloatingControlButtonVariant,
 } from '@components/FloatingControlBar';
-import { DecksStackParamList } from '@navigation/DecksStackNavigator';
+import { DecksListScreenProps } from '@navigation/DecksStackNavigator';
 import { StoreState } from '@store';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
 import { setDeckSort } from '@store/reducers/app';
@@ -32,11 +31,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const DecksListScreen = ({
-  navigation,
-}: {
-  navigation: StackNavigationProp<DecksStackParamList, 'DecksList'>;
-}) => {
+const DecksListScreen = ({ navigation }: DecksListScreenProps) => {
   const dispatch = useAppDispatch();
 
   const deckSortKey = useAppSelector((state: StoreState) => {

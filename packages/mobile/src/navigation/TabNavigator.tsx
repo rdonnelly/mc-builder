@@ -1,4 +1,7 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {
+  BottomTabScreenProps,
+  createBottomTabNavigator,
+} from '@react-navigation/bottom-tabs';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
 
 import CardsStackNavigator from '@navigation/CardsStackNavigator';
@@ -7,23 +10,39 @@ import SettingsStackNavigator from '@navigation/SettingsStackNavigator';
 
 import { colors } from '@mc-builder/shared/src/styles';
 
-export type BottomTabNavigatorParamList = {
+export type TabNavigatorParamList = {
   TabCards: undefined;
   TabDecks: undefined;
   TabSettings: undefined;
 };
 
-const Tab = createBottomTabNavigator<BottomTabNavigatorParamList>();
+export type TabCardsScreenProps = BottomTabScreenProps<
+  TabNavigatorParamList,
+  'TabCards'
+>;
+
+export type TabDecksScreenProps = BottomTabScreenProps<
+  TabNavigatorParamList,
+  'TabDecks'
+>;
+
+export type TabSettingsScreenProps = BottomTabScreenProps<
+  TabNavigatorParamList,
+  'TabSettings'
+>;
+
+const Tab = createBottomTabNavigator<TabNavigatorParamList>();
 
 export default () => {
   return (
     <Tab.Navigator
       initialRouteName="TabCards"
-      tabBarOptions={{
-        activeTintColor: colors.darkGray,
-        inactiveTintColor: colors.gray,
-        inactiveBackgroundColor: colors.lightGray,
-        style: {
+      screenOptions={{
+        headerShown: false,
+        tabBarActiveTintColor: colors.darkGray,
+        tabBarInactiveTintColor: colors.gray,
+        tabBarInactiveBackgroundColor: colors.lightGray,
+        tabBarStyle: {
           backgroundColor: colors.lightGray,
         },
       }}

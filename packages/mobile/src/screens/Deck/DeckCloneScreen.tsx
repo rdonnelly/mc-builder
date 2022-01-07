@@ -1,13 +1,11 @@
 import 'react-native-get-random-values';
 
-import { RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
 import { useCallback } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import styled from 'styled-components/native';
 
 import DeckNameForm from '@components/DeckNameForm';
-import { DecksStackParamList } from '@navigation/DecksStackNavigator';
+import { DeckCloneScreenProps } from '@navigation/DecksStackNavigator';
 import { StoreState } from '@store';
 import { cloneDeck } from '@store/actions';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
@@ -15,18 +13,7 @@ import { selectStoreDeck } from '@store/selectors';
 
 import { base, colors } from '@mc-builder/shared/src/styles';
 
-export type DeckCloneScreenNavigationProp = StackNavigationProp<
-  DecksStackParamList,
-  'DeckClone'
->;
-
-const DeckCloneScreen = ({
-  navigation,
-  route,
-}: {
-  navigation: DeckCloneScreenNavigationProp;
-  route: RouteProp<DecksStackParamList, 'DeckClone'>;
-}) => {
+const DeckCloneScreen = ({ navigation, route }: DeckCloneScreenProps) => {
   const code = route.params.code;
 
   const deck = useAppSelector((state: StoreState) =>
@@ -43,7 +30,6 @@ const DeckCloneScreen = ({
 
         if (navigation) {
           navigation.pop();
-          // @ts-ignore
           navigation.navigate('DeckDetail', {
             code: deckCode,
           });

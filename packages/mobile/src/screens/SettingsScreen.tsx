@@ -8,6 +8,7 @@ import {
 import InAppBrowser from 'react-native-inappbrowser-reborn';
 import styled from 'styled-components/native';
 
+import { SettingsScreenProps } from '@navigation/SettingsStackNavigator';
 import { useAppDispatch } from '@store/hooks';
 // import { getDecks } from '@api/deck';
 import { reset } from '@store/reducers/decks';
@@ -16,7 +17,7 @@ import { reset } from '@store/reducers/decks';
 import { base, colors } from '@mc-builder/shared/src/styles';
 // import { setAuthToken } from '@store/reducers/auth';
 
-const SettingsScreen = () => {
+const SettingsScreen = ({}: SettingsScreenProps) => {
   const dispatch = useAppDispatch();
 
   const clearStore = () => {

@@ -1,23 +1,10 @@
-import { RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
 import { useEffect } from 'react';
 
 import DeckEdit from '@components/DeckEdit';
 import { useDeck } from '@hooks';
-import { DecksStackParamList } from '@navigation/DecksStackNavigator';
+import { DeckEditScreenProps } from '@navigation/DecksStackNavigator';
 
-export type DeckEditScreenNavigationProp = StackNavigationProp<
-  DecksStackParamList,
-  'DeckEdit'
->;
-
-const DeckEditScreen = ({
-  navigation,
-  route,
-}: {
-  navigation: DeckEditScreenNavigationProp;
-  route: RouteProp<DecksStackParamList, 'DeckEdit'>;
-}) => {
+const DeckEditScreen = ({ navigation, route }: DeckEditScreenProps) => {
   useEffect(() => {
     navigation.setOptions({
       headerTitle: 'Edit Deck',

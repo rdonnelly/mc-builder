@@ -1,5 +1,3 @@
-import { RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
 import { ActivityIndicator, Alert } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import styled from 'styled-components/native';
@@ -7,7 +5,7 @@ import styled from 'styled-components/native';
 import FloatingControlBar, {
   FloatingControlButtonVariant,
 } from '@components/FloatingControlBar';
-import { DecksStackParamList } from '@navigation/DecksStackNavigator';
+import { DecksImportScreenProps } from '@navigation/DecksStackNavigator';
 import { importDeck } from '@store/actions';
 import { useAppDispatch } from '@store/hooks';
 
@@ -18,10 +16,7 @@ import { base, colors } from '@mc-builder/shared/src/styles';
 const DecksImportFormScreen = ({
   navigation,
   route,
-}: {
-  navigation: StackNavigationProp<DecksStackParamList, 'DecksImport'>;
-  route: RouteProp<DecksStackParamList, 'DecksImport'>;
-}) => {
+}: DecksImportScreenProps) => {
   const dispatch = useAppDispatch();
   const insets = useSafeAreaInsets();
 

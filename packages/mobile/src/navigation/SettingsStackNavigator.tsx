@@ -1,4 +1,7 @@
-import { createNativeStackNavigator } from 'react-native-screens/native-stack';
+import {
+  createNativeStackNavigator,
+  NativeStackScreenProps,
+} from '@react-navigation/native-stack';
 
 import SettingsScreen from '@screens/SettingsScreen';
 
@@ -7,6 +10,11 @@ import { colors } from '@mc-builder/shared/src/styles';
 export type SettingsStackParamList = {
   Settings: undefined;
 };
+
+export type SettingsScreenProps = NativeStackScreenProps<
+  SettingsStackParamList,
+  'Settings'
+>;
 
 const Stack = createNativeStackNavigator<SettingsStackParamList>();
 

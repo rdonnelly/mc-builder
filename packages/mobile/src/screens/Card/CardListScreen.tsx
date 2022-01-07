@@ -1,5 +1,4 @@
-import { RouteProp, useScrollToTop } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
+import { useScrollToTop } from '@react-navigation/native';
 import debounce from 'lodash/debounce';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ListRenderItem, StyleSheet } from 'react-native';
@@ -8,7 +7,7 @@ import styled from 'styled-components/native';
 import FloatingControlBar, {
   FloatingControlButtonVariant,
 } from '@components/FloatingControlBar';
-import { CardStackParamList } from '@navigation/CardsStackNavigator';
+import { CardsListScreenProps } from '@navigation/CardsStackNavigator';
 
 import CardListItem, {
   ITEM_HEIGHT,
@@ -39,13 +38,7 @@ const getItemLayout = (_data, index: number) => ({
   index,
 });
 
-const CardListScreen = ({
-  navigation,
-  route,
-}: {
-  navigation: StackNavigationProp<CardStackParamList, 'CardsList'>;
-  route: RouteProp<CardStackParamList, 'CardsList'>;
-}) => {
+const CardListScreen = ({ navigation, route }: CardsListScreenProps) => {
   const [searchString, setSearchString] = useState(null);
   const filter = (route.params || {}).filter;
   const filterCode = (route.params || {}).filterCode;
@@ -57,8 +50,6 @@ const CardListScreen = ({
 
   const flatListRef = useRef(null);
   useScrollToTop(flatListRef);
-
-  const searchInputRef = useRef(null);
 
   let filterName = null;
   if (filter && filterCode) {
@@ -99,34 +90,24 @@ const CardListScreen = ({
     }
   };
 
-  const handleSubmitFromSearch = useCallback(
-    (event) => {
-      const query = event.nativeEvent.text;
-      setSearchString(query);
-    },
-    [setSearchString],
-  );
-
   const setSearchStringDebounced = useMemo(
     () => debounce((value) => setSearchString(value), 250),
     [],
   );
 
-  const handleChangeFromSearch = useCallback(
-    (event) => {
-      const query = event.nativeEvent.text;
-      if (query) {
-        setSearchStringDebounced(query);
-      } else {
-        setSearchStringDebounced(null);
-      }
-    },
-    [setSearchStringDebounced],
-  );
-
-  const handleScrollBeginDrag = () => {
-    searchInputRef.current.blur();
-  };
+  useEffect(() => {
+    navigation.setOptions({
+      headerSearchBarOptions: {
+        autoCapitalize: 'none',
+        barTintColor: colors.white,
+        hideWhenScrolling: false,
+        onChangeText: (event) => {
+          const query = event.nativeEvent.text;
+          setSearchStringDebounced(query);
+        },
+      },
+    });
+  }, [navigation, setSearchStringDebounced]);
 
   const handlePressItem = useCallback(
     (code: string) => {
@@ -152,25 +133,6 @@ const CardListScreen = ({
     [handlePressItem],
   );
 
-  const renderHeader = useCallback(() => {
-    return (
-      <ListHeader>
-        <ListHeaderInput
-          autoCapitalize={'none'}
-          autoCorrect={false}
-          clearButtonMode={'always'}
-          placeholder={'Search'}
-          placeholderTextColor={colors.gray}
-          ref={searchInputRef}
-          returnKeyType={'search'}
-          onSubmitEditing={handleSubmitFromSearch}
-          onChange={handleChangeFromSearch}
-          defaultValue={searchString}
-        />
-      </ListHeader>
-    );
-  }, [handleChangeFromSearch, handleSubmitFromSearch, searchString]);
-
   const renderFooter = () => {
     if (cards.length === 0) {
       return null;
@@ -195,8 +157,6 @@ const CardListScreen = ({
         data={cards}
         keyExtractor={keyExtractor}
         contentContainerStyle={styles.contentContainerStyle}
-        onScrollBeginDrag={handleScrollBeginDrag}
-        ListHeaderComponent={renderHeader}
         ListFooterComponent={renderFooter}
         maxToRenderPerBatch={14}
         updateCellsBatchingPeriod={100}
@@ -233,14 +193,6 @@ const Container = styled(base.Container)`
 `;
 
 const FlatList = styled(base.FlatList)``;
-
-const ListHeader = styled(base.ListHeader)`
-  background-color: ${colors.lightGray};
-`;
-
-const ListHeaderInput = styled(base.TextInput)`
-  flex: 1 1 0;
-`;
 
 const ListFooter = styled(base.ListFooter)``;
 

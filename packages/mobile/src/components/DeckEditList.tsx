@@ -4,10 +4,13 @@ import { SectionList, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 
 import { useDeckModifications } from '@hooks';
+import { DeckEditScreenProps } from '@navigation/DecksStackNavigator';
 
 import CardListItem from '@mc-builder/shared/src/components/CardListItem';
 import { CardModel, DeckModel } from '@mc-builder/shared/src/data';
 import { base, colors } from '@mc-builder/shared/src/styles';
+
+type DeckEditNavigationProps = DeckEditScreenProps['navigation'];
 
 const styles = StyleSheet.create({
   contentContainerStyle: {
@@ -16,7 +19,7 @@ const styles = StyleSheet.create({
 });
 
 const DeckEditList = ({ deck }: { deck: DeckModel }) => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<DeckEditNavigationProps>();
 
   const { increment, incrementIsDisabled, decrement, decrementIsDisabled } =
     useDeckModifications(deck.code, deck.setCode);

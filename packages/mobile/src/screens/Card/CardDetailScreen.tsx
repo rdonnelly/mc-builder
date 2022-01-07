@@ -1,6 +1,4 @@
 import { useActionSheet } from '@expo/react-native-action-sheet';
-import { RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
 import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { findNodeHandle, Linking, Platform, Pressable } from 'react-native';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
@@ -13,7 +11,7 @@ import FloatingControlBar, {
 } from '@components/FloatingControlBar';
 import { AppContext } from '@context/AppContext';
 import { useDeck, useDeckModifications } from '@hooks';
-import { CardStackParamList } from '@navigation/CardsStackNavigator';
+import { CardDetailScreenProps } from '@navigation/CardsStackNavigator';
 import { StoreState } from '@store';
 import { useAppSelector } from '@store/hooks';
 import { selectStoreDeckCard } from '@store/selectors';
@@ -28,13 +26,7 @@ import {
 } from '@mc-builder/shared/src/data';
 import { base, colors } from '@mc-builder/shared/src/styles';
 
-const CardDetailScreen = ({
-  navigation,
-  route,
-}: {
-  navigation: StackNavigationProp<CardStackParamList, 'CardDetail'>;
-  route: RouteProp<CardStackParamList, 'CardDetail'>;
-}) => {
+const CardDetailScreen = ({ navigation, route }: CardDetailScreenProps) => {
   const { windowWidth } = useContext(AppContext);
 
   const { showActionSheetWithOptions } = useActionSheet();

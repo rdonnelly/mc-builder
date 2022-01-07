@@ -1,6 +1,6 @@
 import 'react-native-get-random-values';
 
-import { StackNavigationProp } from '@react-navigation/stack';
+import { CompositeScreenProps } from '@react-navigation/native';
 import { nanoid } from 'nanoid';
 import { useContext } from 'react';
 import { Pressable, StyleSheet } from 'react-native';
@@ -8,18 +8,22 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import styled from 'styled-components/native';
 
 import { DecksCreateContext } from '@context/DecksCreateContext';
-import { DecksCreateStackParamList } from '@navigation/DecksCreateStackNavigator';
+import { DecksCreateFormScreenProps } from '@navigation/DecksCreateStackNavigator';
+import { DecksCreateScreenProps } from '@navigation/DecksStackNavigator';
 import { setUpNewDeck } from '@store/actions';
 import { useAppDispatch } from '@store/hooks';
 
 import { getFaction, getSet, SetCodes } from '@mc-builder/shared/src/data';
 import { base, colors } from '@mc-builder/shared/src/styles';
 
+type DecksCreateFormScreenCompositeProps = CompositeScreenProps<
+  DecksCreateFormScreenProps,
+  DecksCreateScreenProps
+>;
+
 const DecksCreateFormScreen = ({
   navigation,
-}: {
-  navigation: StackNavigationProp<DecksCreateStackParamList, 'DecksCreateForm'>;
-}) => {
+}: DecksCreateFormScreenCompositeProps) => {
   const { deckName, setDeckName, deckSet, deckAspect } =
     useContext(DecksCreateContext);
 
@@ -60,7 +64,6 @@ const DecksCreateFormScreen = ({
 
     if (navigation) {
       navigation.pop();
-      // @ts-ignore
       navigation.navigate('DeckDetail', {
         code: deckCode,
       });

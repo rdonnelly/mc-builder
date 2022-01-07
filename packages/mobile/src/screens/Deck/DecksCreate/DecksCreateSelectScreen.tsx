@@ -1,12 +1,10 @@
-import { RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
 import { useContext, useEffect, useState } from 'react';
 import { Pressable, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import styled from 'styled-components/native';
 
 import { DecksCreateContext } from '@context/DecksCreateContext';
-import { DecksCreateStackParamList } from '@navigation/DecksCreateStackNavigator';
+import { DecksCreateSelectScreenProps } from '@navigation/DecksCreateStackNavigator';
 
 import {
   FactionCode,
@@ -27,13 +25,7 @@ const aspects = getPrimaryFactions();
 const DecksCreateSelectScreen = ({
   navigation,
   route,
-}: {
-  navigation: StackNavigationProp<
-    DecksCreateStackParamList,
-    'DecksCreateSelect'
-  >;
-  route: RouteProp<DecksCreateStackParamList, 'DecksCreateSelect'>;
-}) => {
+}: DecksCreateSelectScreenProps) => {
   const { deckSet, setDeckSet, deckAspect, setDeckAspect } =
     useContext(DecksCreateContext);
 

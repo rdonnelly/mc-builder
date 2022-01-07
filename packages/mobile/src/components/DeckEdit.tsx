@@ -7,14 +7,16 @@ import DeckEditList from '@components/DeckEditList';
 import FloatingControlBar, {
   FloatingControlButtonVariant,
 } from '@components/FloatingControlBar';
-import { DeckEditScreenNavigationProp } from '@screens/Deck/DeckEditScreen';
+import { DeckEditScreenProps } from '@navigation/DecksStackNavigator';
 
 import { DeckDetailHeader } from '@mc-builder/shared/src/components/DeckDetail';
 import { DeckModel } from '@mc-builder/shared/src/data';
 import { base, colors } from '@mc-builder/shared/src/styles';
 
+type DeckEditNavigationProps = DeckEditScreenProps['navigation'];
+
 const DeckEdit = ({ deck }: { deck: DeckModel }) => {
-  const navigation = useNavigation<DeckEditScreenNavigationProp>();
+  const navigation = useNavigation<DeckEditNavigationProps>();
 
   const handlePressDone = () => {
     if (navigation) {

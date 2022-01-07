@@ -1,4 +1,7 @@
-import { createNativeStackNavigator } from 'react-native-screens/native-stack';
+import {
+  createNativeStackNavigator,
+  NativeStackScreenProps,
+} from '@react-navigation/native-stack';
 
 import CardDetailScreen from '@screens/Card/CardDetailScreen';
 import CardListScreen from '@screens/Card/CardListScreen';
@@ -32,6 +35,31 @@ export type CardStackParamList = {
     deckCode?: string;
   };
 };
+
+export type CardsListScreenProps = NativeStackScreenProps<
+  CardStackParamList,
+  'CardsList'
+>;
+
+export type FactionsListScreenProps = NativeStackScreenProps<
+  CardStackParamList,
+  'FactionsList'
+>;
+
+export type PacksListScreenProps = NativeStackScreenProps<
+  CardStackParamList,
+  'PacksList'
+>;
+
+export type TypesListScreenProps = NativeStackScreenProps<
+  CardStackParamList,
+  'TypesList'
+>;
+
+export type CardDetailScreenProps = NativeStackScreenProps<
+  CardStackParamList,
+  'CardDetail'
+>;
 
 const Stack = createNativeStackNavigator<CardStackParamList>();
 

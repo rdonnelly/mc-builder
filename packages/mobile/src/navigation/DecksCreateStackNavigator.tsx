@@ -1,5 +1,8 @@
+import {
+  createNativeStackNavigator,
+  NativeStackScreenProps,
+} from '@react-navigation/native-stack';
 import { Platform } from 'react-native';
-import { createNativeStackNavigator } from 'react-native-screens/native-stack';
 import styled from 'styled-components/native';
 
 import { DecksCreateProvider } from '@context/DecksCreateContext';
@@ -12,6 +15,16 @@ export type DecksCreateStackParamList = {
   DecksCreateForm: undefined;
   DecksCreateSelect: { type: 'hero' | 'aspect' };
 };
+
+export type DecksCreateFormScreenProps = NativeStackScreenProps<
+  DecksCreateStackParamList,
+  'DecksCreateForm'
+>;
+
+export type DecksCreateSelectScreenProps = NativeStackScreenProps<
+  DecksCreateStackParamList,
+  'DecksCreateSelect'
+>;
 
 const Stack = createNativeStackNavigator<DecksCreateStackParamList>();
 

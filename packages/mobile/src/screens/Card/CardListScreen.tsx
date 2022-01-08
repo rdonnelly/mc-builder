@@ -1,7 +1,12 @@
 import { useScrollToTop } from '@react-navigation/native';
 import debounce from 'lodash/debounce';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { ListRenderItem, Platform, StyleSheet } from 'react-native';
+import {
+  ListRenderItem,
+  NativeScrollEvent,
+  Platform,
+  StyleSheet,
+} from 'react-native';
 import styled from 'styled-components/native';
 import Animated, {
   useSharedValue,
@@ -189,25 +194,74 @@ const CardListScreen = ({ navigation, route }: CardsListScreenProps) => {
     );
   };
 
-  const scrollY = useSharedValue(0);
-  const scrollHandler = useAnimatedScrollHandler({
-    onScroll: (e) => {
-      scrollY.value = e.contentOffset.y;
-    },
-  });
+  const scrollYValue = useSharedValue(0);
+  const scrollUpValue = useSharedValue(0);
   const animatedStyles = useAnimatedStyle(() => {
-    cancelAnimation(scrollY);
+    cancelAnimation(scrollYValue);
 
-    const height = interpolate(
-      scrollY.value,
-      [0, 100],
-      [SEARCH_BAR_HEIGHT, 0],
-      Extrapolate.CLAMP,
+    const opacity = withTiming(
+      interpolate(
+        scrollYValue.value,
+        [0, SEARCH_BAR_HEIGHT],
+        [1, 0.5],
+        Extrapolate.CLAMP,
+      ),
+      { duration: 16 },
+    );
+    const maxHeight = withTiming(
+      interpolate(
+        scrollYValue.value,
+        [0, SEARCH_BAR_HEIGHT],
+        [0, -SEARCH_BAR_HEIGHT],
+        Extrapolate.CLAMP,
+      ),
+      { duration: 16 },
     );
 
     return {
-      height: withTiming(height, { duration: 16 }),
+      opacity: opacity,
+      marginTop: maxHeight,
     };
+  });
+
+  const scrollHandlerWorklet = (
+    ev: NativeScrollEvent,
+    scrollYValueRef: Animated.SharedValue<number>,
+    upValueRef: Animated.SharedValue<number>,
+    MAX_HEIGHT: number,
+  ) => {
+    'worklet';
+    const { y } = ev.contentOffset;
+    const diff = y - upValueRef.value;
+    const scrollYValue = scrollYValueRef.value + diff;
+
+    if (y < ev.contentSize.height - ev.layoutMeasurement.height) {
+      if (y > MAX_HEIGHT) {
+        if (y < upValueRef.value) {
+          scrollYValueRef.value = Math.max(0, scrollYValue);
+        } else {
+          if (scrollYValueRef.value < MAX_HEIGHT) {
+            scrollYValueRef.value = Math.min(MAX_HEIGHT, scrollYValue);
+          } else {
+            scrollYValueRef.value = MAX_HEIGHT;
+          }
+        }
+        upValueRef.value = Math.max(0, y);
+      } else {
+        if (upValueRef.value) {
+          upValueRef.value = Math.max(0, y);
+          scrollYValueRef.value = Math.max(0, scrollYValue);
+        } else {
+          scrollYValueRef.value = y;
+        }
+      }
+    }
+  };
+
+  const scrollHandler = useAnimatedScrollHandler({
+    onScroll: (e) => {
+      scrollHandlerWorklet(e, scrollYValue, scrollUpValue, SEARCH_BAR_HEIGHT);
+    },
   });
 
   return (
@@ -280,7 +334,7 @@ const SearchBar = styled(Animated.View)`
 `;
 
 const CardList = styled(Animated.FlatList)`
-  background-color: ${colors.yellow};
+  background-color: ${colors.white};
   flex: 1 1 auto;
   width: 100%;
 `;

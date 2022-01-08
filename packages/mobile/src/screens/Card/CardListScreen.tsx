@@ -3,6 +3,15 @@ import debounce from 'lodash/debounce';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ListRenderItem, Platform, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
+import Animated, {
+  useSharedValue,
+  useAnimatedScrollHandler,
+  useAnimatedStyle,
+  interpolate,
+  Extrapolate,
+  cancelAnimation,
+  withTiming,
+} from 'react-native-reanimated';
 
 import FloatingControlBar, {
   FloatingControlButtonVariant,
@@ -39,6 +48,7 @@ const getItemLayout = (_data, index: number) => ({
 });
 
 const isIOS = Platform.OS === 'ios';
+const SEARCH_BAR_HEIGHT = 64;
 
 const CardListScreen = ({ navigation, route }: CardsListScreenProps) => {
   const [searchString, setSearchString] = useState(null);
@@ -179,10 +189,47 @@ const CardListScreen = ({ navigation, route }: CardsListScreenProps) => {
     );
   };
 
+  const scrollY = useSharedValue(0);
+  const scrollHandler = useAnimatedScrollHandler({
+    onScroll: (e) => {
+      scrollY.value = e.contentOffset.y;
+    },
+  });
+  const animatedStyles = useAnimatedStyle(() => {
+    cancelAnimation(scrollY);
+
+    const height = interpolate(
+      scrollY.value,
+      [0, 100],
+      [SEARCH_BAR_HEIGHT, 0],
+      Extrapolate.CLAMP,
+    );
+
+    return {
+      height: withTiming(height, { duration: 16 }),
+    };
+  });
+
   return (
     <Container>
-      <FlatList
-        ref={flatListRef}
+      <SearchBar style={[animatedStyles]}>
+        <ListHeader>
+          <ListHeaderInput
+            autoCapitalize={'none'}
+            autoCorrect={false}
+            clearButtonMode={'always'}
+            placeholder={'Search'}
+            placeholderTextColor={colors.gray}
+            ref={searchInputRef}
+            returnKeyType={'search'}
+            onSubmitEditing={handleSubmitFromSearch}
+            // onChange={handleChangeFromSearch}
+            defaultValue={searchString}
+          />
+        </ListHeader>
+      </SearchBar>
+      <CardList
+        // ref={flatListRef}
         renderItem={renderCard}
         getItemLayout={getItemLayout}
         data={cards}
@@ -192,6 +239,8 @@ const CardListScreen = ({ navigation, route }: CardsListScreenProps) => {
         ListFooterComponent={renderFooter}
         maxToRenderPerBatch={14}
         updateCellsBatchingPeriod={100}
+        scrollEventThrottle={16}
+        onScroll={scrollHandler}
       />
 
       {!filter && !filterCode ? (
@@ -224,7 +273,17 @@ const Container = styled(base.Container)`
   background-color: ${colors.white};
 `;
 
-const FlatList = styled(base.FlatList)``;
+const SearchBar = styled(Animated.View)`
+  background: blue;
+  height: ${SEARCH_BAR_HEIGHT}px;
+  width: 100%;
+`;
+
+const CardList = styled(Animated.FlatList)`
+  background-color: ${colors.yellow};
+  flex: 1 1 auto;
+  width: 100%;
+`;
 
 const ListHeader = styled(base.ListHeader)`
   background-color: ${colors.lightGray};

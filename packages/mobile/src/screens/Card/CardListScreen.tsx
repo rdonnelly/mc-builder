@@ -1,12 +1,7 @@
 import { useScrollToTop } from '@react-navigation/native';
 import debounce from 'lodash/debounce';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import {
-  ListRenderItem,
-  NativeScrollEvent,
-  Platform,
-  StyleSheet,
-} from 'react-native';
+import { ListRenderItem, NativeScrollEvent, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 import Animated, {
   useSharedValue,
@@ -41,18 +36,22 @@ import {
 import { base, colors } from '@mc-builder/shared/src/styles';
 
 const styles = StyleSheet.create({
-  contentContainerStyle: {
+  cardList: {
+    backgroundColor: colors.white,
+    flex: 1,
+    width: '100%',
+  },
+  cardListContentContainerStyle: {
     paddingBottom: 72,
   },
 });
 
-const getItemLayout = (_data, index: number) => ({
+const getItemLayout = (data, index: number) => ({
   length: ITEM_HEIGHT,
   offset: ITEM_HEIGHT * index,
   index,
 });
 
-const isIOS = Platform.OS === 'ios';
 const SEARCH_BAR_HEIGHT = 64;
 
 const CardListScreen = ({ navigation, route }: CardsListScreenProps) => {
@@ -65,7 +64,7 @@ const CardListScreen = ({ navigation, route }: CardsListScreenProps) => {
       ? getFilteredCards({ searchString, filter, filterCode })
       : getCards();
 
-  const flatListRef = useRef(null);
+  const flatListRef = useRef<Animated.FlatList>(null);
   useScrollToTop(flatListRef);
 
   let filterName = null;
@@ -159,25 +158,6 @@ const CardListScreen = ({ navigation, route }: CardsListScreenProps) => {
     ),
     [handlePressItem],
   );
-
-  const renderHeader = useCallback(() => {
-    return isIOS ? null : (
-      <ListHeader>
-        <ListHeaderInput
-          autoCapitalize={'none'}
-          autoCorrect={false}
-          clearButtonMode={'always'}
-          placeholder={'Search'}
-          placeholderTextColor={colors.gray}
-          ref={searchInputRef}
-          returnKeyType={'search'}
-          onSubmitEditing={handleSubmitFromSearch}
-          // onChange={handleChangeFromSearch}
-          defaultValue={searchString}
-        />
-      </ListHeader>
-    );
-  }, [handleSubmitFromSearch, searchString]);
 
   const renderFooter = () => {
     if (cards.length === 0) {
@@ -282,14 +262,14 @@ const CardListScreen = ({ navigation, route }: CardsListScreenProps) => {
           />
         </ListHeader>
       </SearchBar>
-      <CardList
-        // ref={flatListRef}
+      <Animated.FlatList
+        forwardedRef={flatListRef}
         renderItem={renderCard}
         getItemLayout={getItemLayout}
         data={cards}
         keyExtractor={keyExtractor}
-        contentContainerStyle={styles.contentContainerStyle}
-        ListHeaderComponent={renderHeader}
+        style={styles.cardList}
+        contentContainerStyle={styles.cardListContentContainerStyle}
         ListFooterComponent={renderFooter}
         maxToRenderPerBatch={14}
         updateCellsBatchingPeriod={100}
@@ -330,12 +310,6 @@ const Container = styled(base.Container)`
 const SearchBar = styled(Animated.View)`
   background: blue;
   height: ${SEARCH_BAR_HEIGHT}px;
-  width: 100%;
-`;
-
-const CardList = styled(Animated.FlatList)`
-  background-color: ${colors.white};
-  flex: 1 1 auto;
   width: 100%;
 `;
 

@@ -1,3 +1,5 @@
+// TODO: check Android
+// TODO: pull search bar stuff out
 import { useScrollToTop } from '@react-navigation/native';
 import debounce from 'lodash/debounce';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
@@ -108,32 +110,26 @@ const CardListScreen = ({ navigation, route }: CardsListScreenProps) => {
 
   const searchInputRef = useRef(null);
 
-  const handleSubmitFromSearch = useCallback(
-    (event) => {
-      const query = event.nativeEvent.text;
-      setSearchString(query);
-    },
-    [setSearchString],
-  );
+  const handleScrollBeginDrag = () => {
+    searchInputRef?.current?.blur();
+  };
 
   const setSearchStringDebounced = useMemo(
     () => debounce((value) => setSearchString(value), 250),
     [],
   );
 
-  useEffect(() => {
-    navigation.setOptions({
-      headerSearchBarOptions: {
-        autoCapitalize: 'none',
-        barTintColor: colors.white,
-        hideWhenScrolling: false,
-        onChangeText: (event) => {
-          const query = event.nativeEvent.text;
-          setSearchStringDebounced(query);
-        },
-      },
-    });
-  }, [navigation, setSearchStringDebounced]);
+  const handleSearch = useCallback(
+    (event) => {
+      const query = event.nativeEvent.text;
+      if (query) {
+        setSearchStringDebounced(query);
+      } else {
+        setSearchStringDebounced(null);
+      }
+    },
+    [setSearchStringDebounced],
+  );
 
   const handlePressItem = useCallback(
     (code: string) => {
@@ -256,8 +252,8 @@ const CardListScreen = ({ navigation, route }: CardsListScreenProps) => {
             placeholderTextColor={colors.gray}
             ref={searchInputRef}
             returnKeyType={'search'}
-            onSubmitEditing={handleSubmitFromSearch}
-            // onChange={handleChangeFromSearch}
+            onSubmitEditing={handleSearch}
+            onChange={handleSearch}
             defaultValue={searchString}
           />
         </ListHeader>
@@ -275,6 +271,7 @@ const CardListScreen = ({ navigation, route }: CardsListScreenProps) => {
         updateCellsBatchingPeriod={100}
         scrollEventThrottle={16}
         onScroll={scrollHandler}
+        onScrollBeginDrag={handleScrollBeginDrag}
       />
 
       {!filter && !filterCode ? (
@@ -308,13 +305,12 @@ const Container = styled(base.Container)`
 `;
 
 const SearchBar = styled(Animated.View)`
-  background: blue;
   height: ${SEARCH_BAR_HEIGHT}px;
   width: 100%;
 `;
 
 const ListHeader = styled(base.ListHeader)`
-  background-color: ${colors.lightGray};
+  background-color: ${colors.lightGrayDark};
 `;
 
 const ListHeaderInput = styled(base.TextInput)`

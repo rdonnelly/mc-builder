@@ -1,0 +1,13 @@
+diff --git a/node_modules/react-native-reanimated/react-native-reanimated.d.ts b/node_modules/react-native-reanimated/react-native-reanimated.d.ts
+index 18f81cd..a544d5b 100644
+--- a/node_modules/react-native-reanimated/react-native-reanimated.d.ts
++++ b/node_modules/react-native-reanimated/react-native-reanimated.d.ts
+@@ -257,7 +257,7 @@ declare module 'react-native-reanimated' {
+       getNode(): ReactNativeScrollView;
+     }
+     export class Code extends Component<CodeProps> {}
+-    export class FlatList extends Component<AnimateProps<FlatList>> {
++    export class FlatList extends Component<AnimateProps<FlatListProps>> {
+       itemLayoutAnimation: ILayoutAnimationBuilder;
+       getNode(): ReactNativeFlatList;
+     }

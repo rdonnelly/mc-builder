@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "android": "react-native run-android --no-packager",
-    "android:emu": "emulator -avd Pixel_3_API_27 -netdelay none -netspeed full",
+    "android:emu": "emulator -avd Pixel_3a_API_29 -netdelay none -netspeed full",
     "android:release": "react-native run-android --variant=release",
     "ios": "react-native run-ios --simulator='iPhone 12 mini' --no-packager",
     "ipad": "react-native run-ios --simulator='iPad Pro (11-inch) (2nd generation)'",
@@ -39,7 +39,7 @@
     "react-native": "0.66.4",
     "react-native-app-auth": "^6.0.0",
     "react-native-appearance": "^0.3.4",
-    "react-native-bootsplash": "^3.1.2",
+    "react-native-bootsplash": "^4.0.2",
     "react-native-dotenv": "^3.3.1",
     "react-native-flipper": "^0.127.0",
     "react-native-gesture-handler": "^2.1.0",

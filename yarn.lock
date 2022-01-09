@@ -7813,10 +7813,10 @@ react-native-base64@0.0.2:
   resolved "https://registry.yarnpkg.com/react-native-base64/-/react-native-base64-0.0.2.tgz#c28463c2c6779ac3ec5fdd12979ebc8c5f9b410a"
   integrity sha512-Fu/J1a2y0X22EJDWqJR2oEa1fpP4gTFjYxk8ElJdt1Yak3HOXmFJ7EohLVHU2DaQkgmKfw8qb7u/48gpzveRbg==
 
-react-native-bootsplash@^3.1.2:
-  version "3.2.7"
-  resolved "https://registry.yarnpkg.com/react-native-bootsplash/-/react-native-bootsplash-3.2.7.tgz#c14a3314069105ae2cb08d07dff65de4dbad9827"
-  integrity sha512-jc46lBuKeZerdUndY0yJw2mIbvX0kMHpkKsayxqJfjCiMorklSPZt0dyvaM9KyebCVop54udMJAySbnZVCEvIQ==
+react-native-bootsplash@^4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/react-native-bootsplash/-/react-native-bootsplash-4.0.2.tgz#af64537a65ea18bf1cbb09633600975cfe48c51d"
+  integrity sha512-zSorquCsF1jxEhJK+UQR4Tb9a9TeYegrrJwb5ANkFksKnViNVg91PjmYI+/UNrhfgM0fLxUm7agHP1v5AfuBtQ==
   dependencies:
     chalk "^4.1.2"
     fs-extra "^10.0.0"

@@ -7,6 +7,7 @@ import Animated, {
   Extrapolate,
   cancelAnimation,
   withTiming,
+  Easing,
 } from 'react-native-reanimated';
 
 type useListSearchBarProps = {
@@ -21,7 +22,7 @@ export function useListSearchBar({ height }: useListSearchBarProps) {
 
     const opacity = withTiming(
       interpolate(scrollYValue.value, [0, height], [1, 0.5], Extrapolate.CLAMP),
-      { duration: 16 },
+      { duration: 10, easing: Easing.linear },
     );
     const maxHeight = withTiming(
       interpolate(
@@ -30,7 +31,7 @@ export function useListSearchBar({ height }: useListSearchBarProps) {
         [0, -height],
         Extrapolate.CLAMP,
       ),
-      { duration: 16 },
+      { duration: 10, easing: Easing.linear },
     );
 
     return {

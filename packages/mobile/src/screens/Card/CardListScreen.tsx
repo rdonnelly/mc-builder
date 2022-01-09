@@ -194,7 +194,7 @@ const CardListScreen = ({ navigation, route }: CardsListScreenProps) => {
         ListFooterComponent={renderFooter}
         maxToRenderPerBatch={14}
         updateCellsBatchingPeriod={100}
-        scrollEventThrottle={16}
+        scrollEventThrottle={1}
         onScroll={searchBarScrollHandler}
         onScrollBeginDrag={handleScrollBeginDrag}
       />

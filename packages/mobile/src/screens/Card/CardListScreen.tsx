@@ -1,23 +1,15 @@
 // TODO: check Android
-// TODO: pull search bar stuff out
 import { useScrollToTop } from '@react-navigation/native';
 import debounce from 'lodash/debounce';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { ListRenderItem, NativeScrollEvent, StyleSheet } from 'react-native';
+import { ListRenderItem, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
-import Animated, {
-  useSharedValue,
-  useAnimatedScrollHandler,
-  useAnimatedStyle,
-  interpolate,
-  Extrapolate,
-  cancelAnimation,
-  withTiming,
-} from 'react-native-reanimated';
+import Animated from 'react-native-reanimated';
 
 import FloatingControlBar, {
   FloatingControlButtonVariant,
 } from '@components/FloatingControlBar';
+import { useListSearchBar } from '@hooks/useListSearchBar';
 import { CardsListScreenProps } from '@navigation/CardsStackNavigator';
 
 import CardListItem, {
@@ -48,13 +40,15 @@ const styles = StyleSheet.create({
   },
 });
 
-const getItemLayout = (data, index: number) => ({
+const SEARCH_BAR_HEIGHT = 64;
+
+const getItemLayout = (data: CardModel, index: number) => ({
   length: ITEM_HEIGHT,
   offset: ITEM_HEIGHT * index,
   index,
 });
 
-const SEARCH_BAR_HEIGHT = 64;
+const keyExtractor = (card: CardModel) => card.code;
 
 const CardListScreen = ({ navigation, route }: CardsListScreenProps) => {
   const [searchString, setSearchString] = useState(null);
@@ -65,9 +59,6 @@ const CardListScreen = ({ navigation, route }: CardsListScreenProps) => {
     searchString || (filter && filterCode)
       ? getFilteredCards({ searchString, filter, filterCode })
       : getCards();
-
-  const flatListRef = useRef<Animated.FlatList>(null);
-  useScrollToTop(flatListRef);
 
   let filterName = null;
   if (filter && filterCode) {
@@ -90,6 +81,23 @@ const CardListScreen = ({ navigation, route }: CardsListScreenProps) => {
     }
   }, [filterName, navigation]);
 
+  const flatListRef = useRef<Animated.FlatList>(null);
+  useScrollToTop(flatListRef);
+
+  const searchInputRef = useRef(null);
+  const handleScrollBeginDrag = () => {
+    searchInputRef?.current?.blur();
+  };
+
+  const setSearchStringDebounced = useMemo(
+    () => debounce((value) => setSearchString(value), 250),
+    [],
+  );
+
+  const { searchBarScrollHandler, searchBarAnimatedStyles } = useListSearchBar({
+    height: SEARCH_BAR_HEIGHT,
+  });
+
   const handlePressFactions = () => {
     if (navigation) {
       navigation.navigate('FactionsList');
@@ -107,17 +115,6 @@ const CardListScreen = ({ navigation, route }: CardsListScreenProps) => {
       navigation.navigate('TypesList');
     }
   };
-
-  const searchInputRef = useRef(null);
-
-  const handleScrollBeginDrag = () => {
-    searchInputRef?.current?.blur();
-  };
-
-  const setSearchStringDebounced = useMemo(
-    () => debounce((value) => setSearchString(value), 250),
-    [],
-  );
 
   const handleSearch = useCallback(
     (event) => {
@@ -146,8 +143,6 @@ const CardListScreen = ({ navigation, route }: CardsListScreenProps) => {
     [navigation, searchString, filter, filterCode],
   );
 
-  const keyExtractor = useCallback((card: CardModel) => card.code, []);
-
   const renderCard: ListRenderItem<CardModel> = useCallback(
     ({ item: card }) => (
       <CardListItem card={card} onPressItem={handlePressItem} />
@@ -170,79 +165,9 @@ const CardListScreen = ({ navigation, route }: CardsListScreenProps) => {
     );
   };
 
-  const scrollYValue = useSharedValue(0);
-  const scrollUpValue = useSharedValue(0);
-  const animatedStyles = useAnimatedStyle(() => {
-    cancelAnimation(scrollYValue);
-
-    const opacity = withTiming(
-      interpolate(
-        scrollYValue.value,
-        [0, SEARCH_BAR_HEIGHT],
-        [1, 0.5],
-        Extrapolate.CLAMP,
-      ),
-      { duration: 16 },
-    );
-    const maxHeight = withTiming(
-      interpolate(
-        scrollYValue.value,
-        [0, SEARCH_BAR_HEIGHT],
-        [0, -SEARCH_BAR_HEIGHT],
-        Extrapolate.CLAMP,
-      ),
-      { duration: 16 },
-    );
-
-    return {
-      opacity: opacity,
-      marginTop: maxHeight,
-    };
-  });
-
-  const scrollHandlerWorklet = (
-    ev: NativeScrollEvent,
-    scrollYValueRef: Animated.SharedValue<number>,
-    upValueRef: Animated.SharedValue<number>,
-    MAX_HEIGHT: number,
-  ) => {
-    'worklet';
-    const { y } = ev.contentOffset;
-    const diff = y - upValueRef.value;
-    const scrollYValue = scrollYValueRef.value + diff;
-
-    if (y < ev.contentSize.height - ev.layoutMeasurement.height) {
-      if (y > MAX_HEIGHT) {
-        if (y < upValueRef.value) {
-          scrollYValueRef.value = Math.max(0, scrollYValue);
-        } else {
-          if (scrollYValueRef.value < MAX_HEIGHT) {
-            scrollYValueRef.value = Math.min(MAX_HEIGHT, scrollYValue);
-          } else {
-            scrollYValueRef.value = MAX_HEIGHT;
-          }
-        }
-        upValueRef.value = Math.max(0, y);
-      } else {
-        if (upValueRef.value) {
-          upValueRef.value = Math.max(0, y);
-          scrollYValueRef.value = Math.max(0, scrollYValue);
-        } else {
-          scrollYValueRef.value = y;
-        }
-      }
-    }
-  };
-
-  const scrollHandler = useAnimatedScrollHandler({
-    onScroll: (e) => {
-      scrollHandlerWorklet(e, scrollYValue, scrollUpValue, SEARCH_BAR_HEIGHT);
-    },
-  });
-
   return (
     <Container>
-      <SearchBar style={[animatedStyles]}>
+      <SearchBar style={[searchBarAnimatedStyles]}>
         <ListHeader>
           <ListHeaderInput
             autoCapitalize={'none'}
@@ -270,7 +195,7 @@ const CardListScreen = ({ navigation, route }: CardsListScreenProps) => {
         maxToRenderPerBatch={14}
         updateCellsBatchingPeriod={100}
         scrollEventThrottle={16}
-        onScroll={scrollHandler}
+        onScroll={searchBarScrollHandler}
         onScrollBeginDrag={handleScrollBeginDrag}
       />
 

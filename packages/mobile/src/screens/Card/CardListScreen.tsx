@@ -1,4 +1,3 @@
-// TODO: check Android
 import { useScrollToTop } from '@react-navigation/native';
 import debounce from 'lodash/debounce';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';

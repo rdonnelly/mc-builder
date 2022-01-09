@@ -152,8 +152,8 @@ android {
         applicationId "com.rdonnelly.mcbuilder"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 125
-        versionName "0.10"
+        versionCode 130
+        versionName "0.11"
         manifestPlaceholders = [
             appAuthRedirectScheme: 'com.rdonnelly.mcbuilder'
         ]

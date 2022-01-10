@@ -92,8 +92,10 @@ const CardDetailScreen = ({ navigation, route }: CardDetailScreenProps) => {
 
   const handleShareUrl = useCallback(async () => {
     ReactNativeHapticFeedback.trigger('impactLight');
-    setClipboard(activeCard.shareableUrl);
-  }, [activeCard.shareableUrl]);
+    if (activeCard?.shareableUrl) {
+      setClipboard(activeCard?.shareableUrl);
+    }
+  }, [activeCard?.shareableUrl]);
 
   const handleMenuOpen = useCallback(() => {
     ReactNativeHapticFeedback.trigger('impactLight');

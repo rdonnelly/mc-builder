@@ -3,7 +3,7 @@ import debounce from 'lodash/debounce';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ListRenderItem, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
-import Animated from 'react-native-reanimated';
+import Animated, { scrollTo, useAnimatedRef } from 'react-native-reanimated';
 
 import FloatingControlBar, {
   FloatingControlButtonVariant,
@@ -80,7 +80,7 @@ const CardListScreen = ({ navigation, route }: CardsListScreenProps) => {
     }
   }, [filterName, navigation]);
 
-  const flatListRef = useRef<Animated.FlatList>(null);
+  const flatListRef = useAnimatedRef<Animated.FlatList>();
   useScrollToTop(flatListRef);
 
   const searchInputRef = useRef(null);
@@ -89,7 +89,16 @@ const CardListScreen = ({ navigation, route }: CardsListScreenProps) => {
   };
 
   const setSearchStringDebounced = useMemo(
-    () => debounce((value) => setSearchString(value), 250),
+    () =>
+      debounce((value) => {
+        setSearchString(value);
+
+        // scroll list to top
+        flatListRef?.current
+          // @ts-ignore
+          .getScrollResponder()
+          .scrollTo({ x: 0, y: 0, animated: true });
+      }, 250),
     [],
   );
 

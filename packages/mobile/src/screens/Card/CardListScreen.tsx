@@ -3,7 +3,7 @@ import debounce from 'lodash/debounce';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ListRenderItem, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
-import Animated, { scrollTo, useAnimatedRef } from 'react-native-reanimated';
+import Animated, { useAnimatedRef } from 'react-native-reanimated';
 
 import FloatingControlBar, {
   FloatingControlButtonVariant,
@@ -103,6 +103,7 @@ const CardListScreen = ({ navigation, route }: CardsListScreenProps) => {
   );
 
   const { searchBarScrollHandler, searchBarAnimatedStyles } = useListSearchBar({
+    disabled: !!searchString,
     height: SEARCH_BAR_HEIGHT,
   });
 

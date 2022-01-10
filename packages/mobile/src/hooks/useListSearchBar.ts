@@ -11,13 +11,21 @@ import Animated, {
 } from 'react-native-reanimated';
 
 type useListSearchBarProps = {
+  disabled: boolean;
   height: number;
 };
 
-export function useListSearchBar({ height }: useListSearchBarProps) {
+export function useListSearchBar({ disabled, height }: useListSearchBarProps) {
   const scrollYValue = useSharedValue(0);
   const scrollUpValue = useSharedValue(0);
   const animatedStyles = useAnimatedStyle(() => {
+    if (disabled) {
+      return {
+        marginTop: 0,
+        opacity: 1,
+      };
+    }
+
     cancelAnimation(scrollYValue);
 
     const opacity = withTiming(
@@ -35,8 +43,8 @@ export function useListSearchBar({ height }: useListSearchBarProps) {
     );
 
     return {
-      opacity: opacity,
       marginTop: maxHeight,
+      opacity: opacity,
     };
   });
 

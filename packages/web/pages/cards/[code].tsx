@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import styled from 'styled-components/native';
 
 import CardDetail from '@mc-builder/shared/src/components/CardDetail';
 import {
@@ -29,10 +30,18 @@ const CardPage = ({ rawCard, meta }) => {
         <meta property="og:image:secure_url" content={meta.imageUrl} />
       </Head>
       <Header color={colors.orange}>Cards</Header>
-      <CardDetail card={card} />
+      <CardDetailWrapper>
+        <CardDetail card={card} />
+      </CardDetailWrapper>
     </>
   );
 };
+
+const CardDetailWrapper = styled.View`
+  margin: 0 auto;
+  max-width: 768px;
+  width: 100%;
+`;
 
 // This function gets called at build time
 export async function getStaticPaths() {

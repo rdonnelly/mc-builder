@@ -2,6 +2,7 @@ import { Base64 } from 'js-base64';
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import styled from 'styled-components/native';
 
 import DeckDetailHeader from '@mc-builder/shared/src/components/DeckDetail/DeckDetailHeader';
 import DeckDetailList from '@mc-builder/shared/src/components/DeckDetail/DeckDetailList';
@@ -53,11 +54,20 @@ const DeckPage = ({
         />
       </Head>
       <Header color={colors.purple}>Decks</Header>
-      <DeckDetailHeader deck={deck} />
-      <DeckDetailList deck={deck} handlePressItem={handlePressItem} />
+      <DeckDetailWrapper>
+        <DeckDetailHeader deck={deck} />
+        <DeckDetailList deck={deck} handlePressItem={handlePressItem} />
+      </DeckDetailWrapper>
     </>
   );
 };
+
+const DeckDetailWrapper = styled.View`
+  background: ${colors.lightGray};
+  margin: 0 auto;
+  max-width: 768px;
+  width: 100%;
+`;
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const payload = params.payload as string;

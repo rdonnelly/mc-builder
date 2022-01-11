@@ -1,14 +1,16 @@
 import { memo } from 'react';
-import { SectionList, StyleSheet } from 'react-native';
+import { Platform, SectionList, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 
 import CardListItem from '../../components/CardListItem';
 import { CardModel, DeckModel } from '../../data';
 import { colors } from '../../styles';
 
+const isWeb = Platform.OS === 'web';
+
 const styles = StyleSheet.create({
   contentContainerStyle: {
-    paddingBottom: 80,
+    paddingBottom: isWeb ? 0 : 80,
   },
 });
 

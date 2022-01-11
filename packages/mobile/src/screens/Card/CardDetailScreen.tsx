@@ -1,6 +1,13 @@
 import { useActionSheet } from '@expo/react-native-action-sheet';
 import { useCallback, useContext, useEffect, useRef, useState } from 'react';
-import { findNodeHandle, Linking, Platform, Pressable } from 'react-native';
+import {
+  Dimensions,
+  findNodeHandle,
+  FlatList,
+  Linking,
+  Platform,
+  Pressable,
+} from 'react-native';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import { InAppBrowser } from 'react-native-inappbrowser-reborn';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
@@ -63,6 +70,30 @@ const CardDetailScreen = ({ navigation, route }: CardDetailScreenProps) => {
   const activeCardCodeIndex = cards.findIndex((c) => c.code === activeCardCode);
   const activeCard = cards[activeCardCodeIndex];
   const activeCardName = activeCard?.name;
+
+  const deckCard = useAppSelector((state: StoreState) =>
+    selectStoreDeckCard(state, deckCode, activeCardCode),
+  );
+
+  let deckCardCount = activeCardCode ? 0 : null;
+  if (deckCard != null) {
+    deckCardCount = deckCard.quantity;
+  }
+
+  const { increment, incrementIsDisabled, decrement, decrementIsDisabled } =
+    useDeckModifications(deckCode, deckModel?.setCode);
+
+  const flatListRef = useRef<FlatList>(null);
+
+  useEffect(() => {
+    const subscription = Dimensions.addEventListener('change', ({ window }) => {
+      flatListRef?.current?.scrollToOffset({
+        offset: (window.width - 32) * activeCardCodeIndex,
+        animated: false,
+      });
+    });
+    return () => subscription?.remove();
+  }, [activeCardCodeIndex]);
 
   const handleReport = useCallback(async () => {
     const url = encodeURI(
@@ -144,16 +175,16 @@ const CardDetailScreen = ({ navigation, route }: CardDetailScreenProps) => {
     });
   }, [navigation, activeCardName, handleMenuOpen]);
 
+  const shareCardImage = useCallback((uri: string) => {
+    ReactNativeHapticFeedback.trigger('impactHeavy');
+    shareImageUrl(uri);
+  }, []);
+
   const getItemLayout = (_data: CardModel[], index: number) => ({
     length: windowWidth - 32,
     offset: (windowWidth - 32) * index,
     index,
   });
-
-  const shareCardImage = useCallback((uri: string) => {
-    ReactNativeHapticFeedback.trigger('impactHeavy');
-    shareImageUrl(uri);
-  }, []);
 
   const renderItem = ({ item: card }) => (
     <CardDetail
@@ -182,25 +213,15 @@ const CardDetailScreen = ({ navigation, route }: CardDetailScreenProps) => {
     }
   });
 
-  const deckCard = useAppSelector((state: StoreState) =>
-    selectStoreDeckCard(state, deckCode, activeCardCode),
-  );
-
-  let deckCardCount = activeCardCode ? 0 : null;
-  if (deckCard != null) {
-    deckCardCount = deckCard.quantity;
-  }
-
-  const { increment, incrementIsDisabled, decrement, decrementIsDisabled } =
-    useDeckModifications(deckCode, deckModel?.setCode);
-
   return (
     <Container>
-      <FlatList
+      <CardDetailFlatList
         renderItem={renderItem}
         data={cards}
         keyExtractor={(item: CardModel) => `card-detail-screen-${item.code}`}
         getItemLayout={getItemLayout}
+        as={FlatList}
+        ref={flatListRef}
         horizontal={true}
         scrollEnabled={true}
         pagingEnabled={true}
@@ -272,10 +293,11 @@ const Container = styled(base.Container)`
   width: auto;
 `;
 
-const FlatList = styled(base.FlatList)`
+const CardDetailFlatList = styled.FlatList`
+  background-color: ${colors.white};
   flex: 1 1 auto;
-  width: 100%;
   height: 100%;
+  width: 100%;
 `;
 
 export default CardDetailScreen;

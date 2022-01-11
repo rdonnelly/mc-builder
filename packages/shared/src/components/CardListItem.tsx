@@ -255,14 +255,14 @@ const CardDetailsInfo = styled.View`
 `;
 
 const CardDetailsInfoText = styled.Text`
-  color: ${colors.gray};
+  color: ${colors.grayDark};
   font-size: ${({ theme }) => theme.fontSize.subtext};
 `;
 
 const CardDetailsInfoFactionOrSet = styled.Text<{
   color?: string;
 }>`
-  color: ${(props) => (props.color ? props.color : colors.gray)};
+  color: ${(props) => (props.color ? props.color : colors.grayDark)};
   font-size: ${({ theme }) => theme.fontSize.subtext};
 `;
 

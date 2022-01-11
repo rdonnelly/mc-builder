@@ -148,6 +148,10 @@ const CardDetailText = ({ card }: { card: CardModel }) => {
       return newSections;
     }, []);
 
+  if (sections.length === 0) {
+    return null;
+  }
+
   return <CardDetailTextContainer>{sections}</CardDetailTextContainer>;
 };
 

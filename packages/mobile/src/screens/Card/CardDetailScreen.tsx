@@ -88,7 +88,7 @@ const CardDetailScreen = ({ navigation, route }: CardDetailScreenProps) => {
   useEffect(() => {
     const subscription = Dimensions.addEventListener('change', ({ window }) => {
       flatListRef?.current?.scrollToOffset({
-        offset: (window.width - 32) * activeCardCodeIndex,
+        offset: window.width * activeCardCodeIndex,
         animated: false,
       });
     });
@@ -181,18 +181,19 @@ const CardDetailScreen = ({ navigation, route }: CardDetailScreenProps) => {
   }, []);
 
   const getItemLayout = (_data: CardModel[], index: number) => ({
-    length: windowWidth - 32,
-    offset: (windowWidth - 32) * index,
+    length: windowWidth,
+    offset: windowWidth * index,
     index,
   });
 
   const renderItem = ({ item: card }) => (
-    <CardDetail
-      card={card}
-      width={windowWidth - 32}
-      hideTitle={true}
-      shareCardImage={shareCardImage}
-    />
+    <CardDetailFlatListItem width={windowWidth}>
+      <CardDetail
+        card={card}
+        hideTitle={true}
+        shareCardImage={shareCardImage}
+      />
+    </CardDetailFlatListItem>
   );
 
   const viewabilityConfig = useRef({
@@ -289,8 +290,6 @@ const CardDetailScreen = ({ navigation, route }: CardDetailScreenProps) => {
 
 const Container = styled(base.Container)`
   background-color: ${colors.white};
-  padding-horizontal: 16px;
-  width: auto;
 `;
 
 const CardDetailFlatList = styled.FlatList`
@@ -298,6 +297,14 @@ const CardDetailFlatList = styled.FlatList`
   flex: 1 1 auto;
   height: 100%;
   width: 100%;
+`;
+
+const CardDetailFlatListItem = styled.View<{ width: number }>`
+  flex: 1 1 auto;
+  margin: 0 auto;
+  max-width: 768px;
+  padding-horizontal: 16px;
+  width: ${({ width }) => `${width}px`};
 `;
 
 export default CardDetailScreen;

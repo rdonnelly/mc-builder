@@ -22,16 +22,14 @@ const styles = StyleSheet.create({
 const CardDetail = ({
   card,
   hideTitle,
-  width,
   shareCardImage,
 }: {
   card: CardModel;
-  width?: number;
   hideTitle?: boolean;
   shareCardImage?: (uri: string) => void;
 }) => {
   return (
-    <CardDetailContainer width={width}>
+    <CardDetailContainer>
       <ContainerScrollView
         contentContainerStyle={styles.scrollViewContentContainer}
         showsHorizontalScrollIndicator={false}
@@ -48,15 +46,11 @@ const CardDetail = ({
   );
 };
 
-const CardDetailContainer = styled(base.Container)<{ width: number }>`
+const CardDetailContainer = styled(base.Container)`
   background-color: ${colors.white};
-  margin: 0 auto;
-  max-width: 768px;
-  width: ${({ width }) => (width ? `${width}px` : '100%')};
 `;
 
 const ContainerScrollView = styled(ScrollView)`
-  flex: 1 1 auto;
   width: 100%;
 `;
 

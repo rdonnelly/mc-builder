@@ -200,6 +200,7 @@ const ListItemOuter = styled(base.Container)`
 `;
 
 const ListItemPressable = styled(Pressable)`
+  flex: 1 1 auto;
   width: 100%;
 `;
 

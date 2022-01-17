@@ -128,6 +128,7 @@ export default () => {
         name="DecksCreate"
         component={DecksCreateStackNavigator}
         options={{
+          gestureEnabled: false,
           headerShown: false,
           presentation: shouldUseModal ? 'modal' : 'transparentModal',
         }}
@@ -136,6 +137,8 @@ export default () => {
         name="DecksImport"
         component={DecksImportScreen}
         options={{
+          gestureEnabled: false,
+          headerShown: false,
           presentation: shouldUseModal ? 'modal' : 'transparentModal',
         }}
       />

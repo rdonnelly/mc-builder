@@ -1,10 +1,19 @@
 import { useActionSheet } from '@expo/react-native-action-sheet';
-import { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import {
   Dimensions,
   findNodeHandle,
   FlatList,
   Linking,
+  NativeScrollEvent,
+  NativeSyntheticEvent,
   Platform,
   Pressable,
 } from 'react-native';
@@ -12,6 +21,7 @@ import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import { InAppBrowser } from 'react-native-inappbrowser-reborn';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
 import styled from 'styled-components/native';
+import throttle from 'lodash/throttle';
 
 import FloatingControlBar, {
   FloatingControlButtonVariant,
@@ -32,6 +42,12 @@ import {
   getFilteredCards,
 } from '@mc-builder/shared/src/data';
 import { base, colors } from '@mc-builder/shared/src/styles';
+import debounce from 'lodash/debounce';
+
+const shareCardImage = (uri: string) => {
+  ReactNativeHapticFeedback.trigger('impactHeavy');
+  shareImageUrl(uri);
+};
 
 const CardDetailScreen = ({ navigation, route }: CardDetailScreenProps) => {
   const { windowWidth } = useContext(AppContext);
@@ -66,16 +82,19 @@ const CardDetailScreen = ({ navigation, route }: CardDetailScreenProps) => {
     }
   }
 
-  const [activeCardCode, setActiveCardCode] = useState(route.params.code);
-  const activeCardCodeIndex = cards.findIndex((c) => c.code === activeCardCode);
-  const activeCard = cards[activeCardCodeIndex];
-  const activeCardName = activeCard?.name;
+  const index = useMemo(
+    () => cards.findIndex((c) => c.code === route.params.code),
+    [route.params.code],
+  );
+  const indexRef = useRef(index);
+  const [activeCardIndex, setActiveCardIndex] = useState(index);
+  const activeCard = cards[activeCardIndex];
 
   const deckCard = useAppSelector((state: StoreState) =>
-    selectStoreDeckCard(state, deckCode, activeCardCode),
+    selectStoreDeckCard(state, deckCode, activeCard?.code),
   );
 
-  let deckCardCount = activeCardCode ? 0 : null;
+  let deckCardCount = activeCard != null ? 0 : null;
   if (deckCard != null) {
     deckCardCount = deckCard.quantity;
   }
@@ -83,21 +102,10 @@ const CardDetailScreen = ({ navigation, route }: CardDetailScreenProps) => {
   const { increment, incrementIsDisabled, decrement, decrementIsDisabled } =
     useDeckModifications(deckCode, deckModel?.setCode);
 
-  const flatListRef = useRef<FlatList>(null);
-
-  useEffect(() => {
-    const subscription = Dimensions.addEventListener('change', ({ window }) => {
-      flatListRef?.current?.scrollToOffset({
-        offset: window.width * activeCardCodeIndex,
-        animated: false,
-      });
-    });
-    return () => subscription?.remove();
-  }, [activeCardCodeIndex]);
-
   const handleReport = useCallback(async () => {
+    const card = cards[indexRef.current];
     const url = encodeURI(
-      `https://github.com/zzorba/marvelsdb-json-data/issues/new?title=Card Data Issue: ${activeCardName} (${activeCardCode})&body=<!-- What issue do you see with the card data? -->`,
+      `https://github.com/zzorba/marvelsdb-json-data/issues/new?title=Card Data Issue: ${card.name} (${card.code})&body=<!-- What issue do you see with the card data? -->`,
     );
     try {
       if (await InAppBrowser.isAvailable()) {
@@ -119,14 +127,15 @@ const CardDetailScreen = ({ navigation, route }: CardDetailScreenProps) => {
     } catch (error) {
       Linking.openURL(url);
     }
-  }, [activeCardCode, activeCardName]);
+  }, []);
 
   const handleShareUrl = useCallback(async () => {
     ReactNativeHapticFeedback.trigger('impactLight');
-    if (activeCard?.shareableUrl) {
-      setClipboard(activeCard?.shareableUrl);
+    const card = cards[indexRef.current];
+    if (card?.shareableUrl) {
+      setClipboard(card?.shareableUrl);
     }
-  }, [activeCard?.shareableUrl]);
+  }, []);
 
   const handleMenuOpen = useCallback(() => {
     ReactNativeHapticFeedback.trigger('impactLight');
@@ -171,20 +180,56 @@ const CardDetailScreen = ({ navigation, route }: CardDetailScreenProps) => {
           </Pressable>
         );
       },
-      headerTitle: activeCardName,
     });
-  }, [navigation, activeCardName, handleMenuOpen]);
+  }, [navigation, activeCard, handleMenuOpen]);
 
-  const shareCardImage = useCallback((uri: string) => {
-    ReactNativeHapticFeedback.trigger('impactHeavy');
-    shareImageUrl(uri);
+  const viewabilityConfig = useRef({
+    viewAreaCoveragePercentThreshold: 50,
+  });
+
+  const handleViewableItemsChanged = useRef(({ viewableItems }) => {
+    if (viewableItems.length) {
+      navigation.setOptions({
+        headerTitle: viewableItems[0].item.name,
+      });
+    } else {
+      navigation.setOptions({
+        headerTitle: '',
+      });
+    }
+  });
+
+  const flatListRef = useRef<FlatList>(null);
+
+  const scrollToActive = useCallback(
+    throttle(
+      (windowWidth) => {
+        flatListRef?.current?.scrollToOffset({
+          offset: windowWidth * indexRef.current,
+          animated: false,
+        });
+      },
+      50,
+      { leading: false, trailing: true },
+    ),
+    [],
+  );
+
+  useEffect(() => {
+    const subscription = Dimensions.addEventListener('change', ({ window }) => {
+      scrollToActive(window.width);
+    });
+    return () => subscription?.remove();
   }, []);
 
-  const getItemLayout = (_data: CardModel[], index: number) => ({
-    length: windowWidth,
-    offset: windowWidth * index,
-    index,
-  });
+  const getItemLayout = useCallback(
+    (_data: CardModel[], index: number) => ({
+      length: windowWidth,
+      offset: windowWidth * index,
+      index,
+    }),
+    [windowWidth],
+  );
 
   const renderItem = ({ item: card }) => (
     <CardDetailFlatListItem width={windowWidth}>
@@ -196,23 +241,15 @@ const CardDetailScreen = ({ navigation, route }: CardDetailScreenProps) => {
     </CardDetailFlatListItem>
   );
 
-  const viewabilityConfig = useRef({
-    viewAreaCoveragePercentThreshold: 50,
-  });
+  const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    const newIndex = Math.max(
+      0,
+      Math.round(event.nativeEvent.contentOffset.x / windowWidth),
+    );
 
-  const handleViewableItemsChanged = useRef(({ viewableItems }) => {
-    if (viewableItems.length) {
-      setActiveCardCode(viewableItems[0].item.code);
-      navigation.setOptions({
-        headerTitle: viewableItems[0].item.name,
-      });
-    } else {
-      setActiveCardCode(null);
-      navigation.setOptions({
-        headerTitle: '',
-      });
-    }
-  });
+    indexRef.current = newIndex;
+    setActiveCardIndex(newIndex);
+  };
 
   return (
     <Container>
@@ -230,8 +267,9 @@ const CardDetailScreen = ({ navigation, route }: CardDetailScreenProps) => {
         initialNumToRender={1}
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
-        initialScrollIndex={activeCardCodeIndex}
+        initialScrollIndex={indexRef.current}
         viewabilityConfig={viewabilityConfig.current}
+        onScroll={handleScroll}
         onViewableItemsChanged={handleViewableItemsChanged.current}
       />
 
@@ -244,8 +282,12 @@ const CardDetailScreen = ({ navigation, route }: CardDetailScreenProps) => {
           </FloatingControlBar.Text>
           <FloatingControlBar.FlexButton
             onPress={() => increment(activeCard, deckCardCount)}
-            disabled={incrementIsDisabled(activeCard, deckCardCount)}
+            disabled={
+              activeCard == null ||
+              incrementIsDisabled(activeCard, deckCardCount)
+            }
             variant={
+              activeCard == null ||
               incrementIsDisabled(activeCard, deckCardCount)
                 ? FloatingControlButtonVariant.DISABLED
                 : FloatingControlButtonVariant.INVERTED_SUCCESS
@@ -254,6 +296,7 @@ const CardDetailScreen = ({ navigation, route }: CardDetailScreenProps) => {
             <FontAwesomeIcon
               name="plus"
               color={
+                activeCard == null ||
                 incrementIsDisabled(activeCard, deckCardCount)
                   ? colors.grayDark
                   : colors.green
@@ -264,8 +307,12 @@ const CardDetailScreen = ({ navigation, route }: CardDetailScreenProps) => {
           </FloatingControlBar.FlexButton>
           <FloatingControlBar.FlexButton
             onPress={() => decrement(activeCard, deckCardCount)}
-            disabled={decrementIsDisabled(activeCard, deckCardCount)}
+            disabled={
+              activeCard == null ||
+              decrementIsDisabled(activeCard, deckCardCount)
+            }
             variant={
+              activeCard == null ||
               decrementIsDisabled(activeCard, deckCardCount)
                 ? FloatingControlButtonVariant.DISABLED
                 : FloatingControlButtonVariant.INVERTED_DESTRUCTIVE
@@ -274,6 +321,7 @@ const CardDetailScreen = ({ navigation, route }: CardDetailScreenProps) => {
             <FontAwesomeIcon
               name="minus"
               color={
+                activeCard == null ||
                 decrementIsDisabled(activeCard, deckCardCount)
                   ? colors.grayDark
                   : colors.red

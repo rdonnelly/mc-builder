@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Image, Platform } from 'react-native';
 import { Pressable } from 'react-native';
 import styled from 'styled-components/native';
@@ -36,6 +36,7 @@ const CardDetailImage = ({
 }) => {
   const [imageHeight, setImageHeight] = useState(0);
   const [imageWidth, setImageWidth] = useState(0);
+  const isMounted = useRef(true);
 
   useEffect(() => {
     Image.getSize(
@@ -44,14 +45,22 @@ const CardDetailImage = ({
         const newWidth = Math.min(width, 300);
         const newHeight = (height / width) * newWidth;
 
-        setImageHeight(newHeight);
-        setImageWidth(newWidth);
+        if (isMounted.current) {
+          setImageHeight(newHeight);
+          setImageWidth(newWidth);
+        }
       },
       () => {
-        setImageHeight(null);
-        setImageWidth(null);
+        if (isMounted.current) {
+          setImageHeight(null);
+          setImageWidth(null);
+        }
       },
     );
+
+    return () => {
+      isMounted.current = false;
+    };
   }, [imageUri]);
 
   if (!imageHeight || !imageWidth) {

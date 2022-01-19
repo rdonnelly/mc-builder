@@ -12,6 +12,9 @@ const DeckHeader = ({
   deck: DeckModel;
   onPressIdentity?: (code: string) => void;
 }) => {
+  const deckAspectString = deck.aspects?.length
+    ? `${deck.aspectNames.join(', ')} – `
+    : '';
   const deckCardCount = deck.cardCount;
 
   const [imageUris, setImageUris] = useState(null);
@@ -74,8 +77,7 @@ const DeckHeader = ({
         </TitleWrapper>
         <TraitsWrapper>
           <Traits>
-            {deck.set.name} –{' '}
-            {deck.aspects.map((aspect) => aspect.name).join(', ')} –{' '}
+            {deck.set.name} – {deckAspectString}
             {`${deck.cardCount} Card${deckCardCount === 1 ? '' : 's'}`}
           </Traits>
         </TraitsWrapper>

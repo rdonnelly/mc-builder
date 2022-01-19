@@ -150,8 +150,10 @@ export class Deck {
   }
 
   get isLegal(): boolean {
-    // TODO restricted list
-    // TODO spider-woman equal double aspect
+    // TODO additional isLegal params
+    //      - restricted list
+    //      - Spider-Woman equal number of cards from two aspects
+    //      - Adam Warlock equal number of cards from four aspects
     return this.cardCount >= 40 && this.cardCount <= 50;
   }
 
@@ -160,6 +162,9 @@ export class Deck {
   }
 
   get prettyText(): string {
+    const aspectString = this.aspects?.length
+      ? `${this.aspectNames.join(', ')} – `
+      : '';
     const cardsSectioned = this.cardsSectioned;
 
     const heroCardsText = cardsSectioned
@@ -186,7 +191,7 @@ export class Deck {
 
     const text = `${this.name}
 ---
-${this.set.name} – ${this.aspectNames.join(', ')} – ${this.cardCount} Cards
+${this.set.name} – ${aspectString}${this.cardCount} Cards
 
 Hero Cards:
 ${heroCardsText || 'None'}
@@ -202,9 +207,15 @@ ${basicCardsText || 'None'}
 
   get description(): string {
     const deckCardCount = this.cardCount;
-    return `${this.setName} | ${this.aspects
-      .map((aspect) => aspect.name)
-      .join(', ')} | ${deckCardCount} Card${deckCardCount === 1 ? '' : 's'}`;
+    let string = `${this.setName} | `;
+
+    if (this.aspects.length) {
+      string += `${this.aspects.map((aspect) => aspect.name).join(', ')} | `;
+    }
+
+    string += `${deckCardCount} Card${deckCardCount === 1 ? '' : 's'}`;
+
+    return string;
   }
 
   get shareableJsonString(): string {

@@ -13,6 +13,10 @@ const DecksListItem = ({
   deck: DeckModel;
   onPressItem: any;
 }) => {
+  const deckAspectString = deck.aspects?.length
+    ? deck.aspectNames.join(', ')
+    : '';
+
   return (
     <Container>
       <ListItemPressable onPress={() => onPressItem(deck.code)}>
@@ -27,8 +31,8 @@ const DecksListItem = ({
               <DeckDetailsInfo>
                 <DeckDetailsInfoText>
                   <Text>{deck.setName}</Text>
-                  <Text>&nbsp;&middot;&nbsp;</Text>
-                  <Text>{deck.aspectNames.join(' + ')}</Text>
+                  {deckAspectString ? <Text>&nbsp;&middot;&nbsp;</Text> : null}
+                  {deckAspectString ? <Text>{deckAspectString}</Text> : null}
                 </DeckDetailsInfoText>
               </DeckDetailsInfo>
             </DeckDetails>

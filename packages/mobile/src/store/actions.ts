@@ -60,63 +60,61 @@ export const setUpNewDeck =
     initialDeckCards?: { code: string; quantity: number }[],
   ): AppThunk =>
   (dispatch) => {
-    if (deckName && deckSet && deckAspect.length) {
-      dispatch(
-        createDeck({
-          code: deckCode,
-          name: deckName,
-          setCode: deckSet,
-          aspectCodes: deckAspect,
-          version,
-          source: importCode,
-          mcdbId,
-        }),
-      );
+    dispatch(
+      createDeck({
+        code: deckCode,
+        name: deckName,
+        setCode: deckSet,
+        aspectCodes: deckAspect,
+        version,
+        source: importCode,
+        mcdbId,
+      }),
+    );
 
-      const deckCardCodes = [];
-      const deckCardData = [];
+    const deckCardCodes = [];
+    const deckCardData = [];
 
-      if (initialDeckCards && initialDeckCards.length) {
-        // if we get a full list of cards, use that
-        initialDeckCards.forEach((card) => {
-          const cardModel = getCard(card.code);
+    if (initialDeckCards && initialDeckCards.length) {
+      // if we get a full list of cards, use that
+      initialDeckCards.forEach((card) => {
+        const cardModel = getCard(card.code);
 
-          const code = nanoid();
+        const code = nanoid();
 
-          deckCardCodes.push(code);
+        deckCardCodes.push(code);
 
-          deckCardData.push({
-            code,
-            cardCode: cardModel.rootCode,
-            quantity: card.quantity,
-          });
+        deckCardData.push({
+          code,
+          cardCode: cardModel.rootCode,
+          quantity: card.quantity,
         });
-      } else {
-        // otherwise, add set cards to start
-        const setCards = getFilteredCards({
-          filter: FilterCodes.SET,
-          filterCode: deckSet,
-        }).filter((card) => card.factionCode !== FactionCodes.ENCOUNTER);
+      });
+    } else {
+      // otherwise, add set cards to start
+      const setCards = getFilteredCards({
+        filter: FilterCodes.SET,
+        filterCode: deckSet,
+      }).filter((card) => card.factionCode !== FactionCodes.ENCOUNTER);
 
-        setCards.forEach((card) => {
-          const code = nanoid();
+      setCards.forEach((card) => {
+        const code = nanoid();
 
-          deckCardCodes.push(code);
+        deckCardCodes.push(code);
 
-          deckCardData.push({
-            code,
-            cardCode: card.code,
-            quantity: card.setQuantity,
-          });
+        deckCardData.push({
+          code,
+          cardCode: card.code,
+          quantity: card.setQuantity,
         });
-      }
-
-      dispatch(updateDeckCards({ deckCards: deckCardData }));
-
-      dispatch(
-        addDeckCardsToDeck({ code: deckCode, deckCardCodes: deckCardCodes }),
-      );
+      });
     }
+
+    dispatch(updateDeckCards({ deckCards: deckCardData }));
+
+    dispatch(
+      addDeckCardsToDeck({ code: deckCode, deckCardCodes: deckCardCodes }),
+    );
   };
 
 export const addCardToDeck =

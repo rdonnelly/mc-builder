@@ -508,9 +508,10 @@ export const getEligibleCards = memoizeOne(
         // 1) has matching set code
         // 2) in faction + no set code
         // 3) works with Gamora (attack or thwart event) + no set code
+        // 4) works with Adam Warlock + no set code
 
         if (
-          card.setCode !== setCode &&
+          !(card.setCode == setCode) &&
           !(isInFaction && card.setCode == null) &&
           !(isGamoraEligible && card.setCode == null) &&
           !(isAdamWarlockEligible && card.setCode == null)

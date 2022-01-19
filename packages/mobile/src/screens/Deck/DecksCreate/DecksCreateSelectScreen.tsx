@@ -90,6 +90,8 @@ const DecksCreateSelectScreen = ({
     }
   };
 
+  console.log(deckAspect, items);
+
   const renderItem = ({ item }) => (
     <Row>
       <ListItemPressable onPress={() => handlePressItem(item.code)}>
@@ -155,12 +157,11 @@ const ListItemInnerText = styled.Text`
 
 const ListIconWrapper = styled.View``;
 
-const ListIcon = styled(base.ListChevron).attrs(() => ({
-  name: 'check-circle',
+const ListIcon = styled(base.ListIcon).attrs<{ active: boolean }>((props) => ({
+  name: props.active ? 'check-circle' : 'circle',
+  color: props.active ? colors.green : colors.gray,
   size: 20,
-  solid: true,
-}))<{ active: boolean }>`
-  color: ${(props) => (props.active ? colors.green : colors.lightGray)};
-`;
+  solid: props.active,
+}))``;
 
 export default DecksCreateSelectScreen;

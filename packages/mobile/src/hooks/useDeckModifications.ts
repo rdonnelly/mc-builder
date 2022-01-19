@@ -7,11 +7,14 @@ import { useAppDispatch } from '@store/hooks';
 import { CardModel, SetCode, SetCodes } from '@mc-builder/shared/src/data';
 
 export function useDeckModifications(deckCode: string, deckSetCode: SetCode) {
-  // TODO check Warlock set and only allow 0 or 1 copies of non-Warlock cards
   const dispatch = useAppDispatch();
 
   const incrementIsDisabled = useCallback(
     (card: CardModel, quantity: number): boolean => {
+      if (card == null) {
+        return false;
+      }
+
       let upperLimit = card.deckLimit;
 
       if (card.isUnique) {
@@ -40,6 +43,10 @@ export function useDeckModifications(deckCode: string, deckSetCode: SetCode) {
 
   const decrementIsDisabled = useCallback(
     (card: CardModel, quantity: number): boolean => {
+      if (card == null) {
+        return false;
+      }
+
       let lowerLimit = 0;
 
       if (card.setCode != null) {

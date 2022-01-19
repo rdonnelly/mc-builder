@@ -2,9 +2,10 @@ import 'react-native-get-random-values';
 
 import { CompositeScreenProps } from '@react-navigation/native';
 import { nanoid } from 'nanoid';
-import { useContext } from 'react';
-import { Pressable, StyleSheet } from 'react-native';
+import { useCallback, useContext, useEffect, useState } from 'react';
+import { Pressable } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
 import styled from 'styled-components/native';
 
 import { DecksCreateContext } from '@context/DecksCreateContext';
@@ -15,6 +16,15 @@ import { useAppDispatch } from '@store/hooks';
 
 import { getFaction, getSet, SetCodes } from '@mc-builder/shared/src/data';
 import { base, colors } from '@mc-builder/shared/src/styles';
+
+interface DecksCreateFormErrors {
+  fields: {
+    hero: string;
+    aspect: string;
+    name: string;
+  };
+  showErrors: boolean;
+}
 
 type DecksCreateFormScreenCompositeProps = CompositeScreenProps<
   DecksCreateFormScreenProps,
@@ -35,28 +45,81 @@ const DecksCreateFormScreen = ({
     const faction = getFaction(aspect, false);
     return faction.name;
   });
-  const factionText = factionNames.length
-    ? factionNames.join(' + ')
-    : 'No Aspect Selected';
 
-  const submit = () => {
-    if (!deckName || !deckSet) {
-      return false;
+  let requiredAspectCount = 1;
+  const aspectCount = deckAspect.length;
+  if (deckSet === SetCodes.SPIDER_WOMAN) {
+    requiredAspectCount = 2;
+  } else if (deckSet === SetCodes.WARLOCK) {
+    requiredAspectCount = 0;
+  }
+
+  let factionText = factionNames.join(', ');
+  if (factionNames?.length <= 0) {
+    switch (requiredAspectCount) {
+      case 0:
+        factionText = 'No Aspect Required';
+        break;
+      case 1:
+        factionText = 'Select an Aspect';
+        break;
+      case 2:
+        factionText = 'Select Two Aspects';
+        break;
     }
+  }
 
-    const aspectCount = deckAspect.length;
-    if (deckSet === SetCodes.SPIDER_WOMAN) {
-      if (aspectCount !== 2) {
-        return false;
+  const [errors, setErrors] = useState<DecksCreateFormErrors>({
+    fields: {
+      hero: null,
+      aspect: null,
+      name: null,
+    },
+    showErrors: false,
+  });
+
+  const validate = useCallback(
+    (showErrors = false) => {
+      let hasError = false;
+      const fieldErrors = {
+        hero: null,
+        aspect: null,
+        name: null,
+      };
+
+      if (!deckSet) {
+        hasError = true;
+        fieldErrors.hero = 'Please choose a hero for your deck';
       }
-    } else if (deckSet === SetCodes.WARLOCK) {
-      if (aspectCount !== 0) {
-        return false;
+
+      if (aspectCount !== requiredAspectCount) {
+        hasError = true;
+        if (requiredAspectCount === 1) {
+          fieldErrors.aspect = 'Please choose an aspect';
+        } else if (requiredAspectCount === 2) {
+          fieldErrors.aspect = 'Please choose two aspects';
+        }
       }
-    } else {
-      if (aspectCount !== 1) {
-        return false;
+
+      if (!deckName) {
+        hasError = true;
+        fieldErrors.name = 'Please provide a name for your deck';
       }
+
+      setErrors({ fields: fieldErrors, showErrors });
+
+      return !hasError;
+    },
+    [deckSet, deckAspect, deckName, setErrors],
+  );
+
+  useEffect(() => {
+    validate();
+  }, [deckName, deckSet, deckAspect]);
+
+  const submit = useCallback(() => {
+    if (!validate(true)) {
+      return false;
     }
 
     const deckCode = nanoid();
@@ -68,14 +131,14 @@ const DecksCreateFormScreen = ({
         code: deckCode,
       });
     }
-  };
+  }, [deckName, deckSet, deckAspect]);
 
   return (
     <Container paddingBottom={insets.bottom}>
       <Form>
         <FormSection>
           <ControlLabel>
-            <ControlLabelText>Select Hero</ControlLabelText>
+            <ControlLabelText>Hero</ControlLabelText>
           </ControlLabel>
           <LinkRowPressable
             onPress={() =>
@@ -83,9 +146,12 @@ const DecksCreateFormScreen = ({
             }
           >
             {({ pressed }) => (
-              <LinkRowInner pressed={pressed}>
+              <LinkRowInner
+                hasError={errors.showErrors && errors.fields.hero != null}
+                pressed={pressed}
+              >
                 <LinkRowText active={set}>
-                  {set ? set.name : 'No Hero Selected'}
+                  {set ? set.name : 'Select a Hero'}
                 </LinkRowText>
                 <LinkRowChevronWrapper>
                   <LinkRowChevron size={16} />
@@ -93,28 +159,57 @@ const DecksCreateFormScreen = ({
               </LinkRowInner>
             )}
           </LinkRowPressable>
+          {errors.showErrors && errors.fields.hero ? (
+            <ControlMessage>
+              <FontAwesomeIcon
+                name="exclamation-circle"
+                color={colors.red}
+                size={16}
+                solid
+              />
+              <ControlMessageText>{errors.fields.hero}</ControlMessageText>
+            </ControlMessage>
+          ) : null}
         </FormSection>
 
         <FormSection>
           <ControlLabel>
-            <ControlLabelText>Select Aspect</ControlLabelText>
+            <ControlLabelText>Aspect</ControlLabelText>
           </ControlLabel>
           <LinkRowPressable
+            disabled={requiredAspectCount <= 0}
             onPress={() =>
               navigation.navigate('DecksCreateSelect', { type: 'aspect' })
             }
           >
             {({ pressed }) => (
-              <LinkRowInner pressed={pressed}>
+              <LinkRowInner
+                disabled={requiredAspectCount <= 0}
+                hasError={errors.showErrors && errors.fields.aspect != null}
+                pressed={pressed}
+              >
                 <LinkRowText active={!!deckAspect.length}>
                   {factionText}
                 </LinkRowText>
-                <LinkRowChevronWrapper>
-                  <LinkRowChevron size={16} />
-                </LinkRowChevronWrapper>
+                {requiredAspectCount > 0 ? (
+                  <LinkRowChevronWrapper>
+                    <LinkRowChevron size={16} />
+                  </LinkRowChevronWrapper>
+                ) : null}
               </LinkRowInner>
             )}
           </LinkRowPressable>
+          {errors.showErrors && errors.fields.aspect ? (
+            <ControlMessage>
+              <FontAwesomeIcon
+                name="exclamation-circle"
+                color={colors.red}
+                size={16}
+                solid
+              />
+              <ControlMessageText>{errors.fields.aspect}</ControlMessageText>
+            </ControlMessage>
+          ) : null}
         </FormSection>
 
         <FormSection>
@@ -126,13 +221,25 @@ const DecksCreateFormScreen = ({
               autoCorrect={false}
               clearButtonMode={'always'}
               editable={true}
-              placeholder={'Deck Name'}
-              placeholderTextColor={colors.gray}
+              placeholder={'Enter Deck Name'}
+              placeholderTextColor={colors.grayDark}
               returnKeyType={'done'}
               value={deckName}
               onChangeText={(value) => setDeckName(value)}
+              hasError={errors.showErrors && errors.fields.name != null}
             />
           </Control>
+          {errors.showErrors && errors.fields.name ? (
+            <ControlMessage>
+              <FontAwesomeIcon
+                name="exclamation-circle"
+                color={colors.red}
+                size={16}
+                solid
+              />
+              <ControlMessageText>{errors.fields.name}</ControlMessageText>
+            </ControlMessage>
+          ) : null}
         </FormSection>
       </Form>
 
@@ -178,9 +285,23 @@ const ControlLabel = styled.View`
 `;
 
 const ControlLabelText = styled.Text`
-  color: ${colors.grayDark};
+  color: ${colors.darkGray};
   font-size: ${({ theme }) => theme.fontSize.label};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
+`;
+
+const ControlMessage = styled.View`
+  align-items: center;
+  flex-direction: row;
+  margin-top: 4px;
+  padding-horizontal: 16px;
+`;
+
+const ControlMessageText = styled.Text`
+  color: ${colors.red};
+  font-size: ${({ theme }) => theme.fontSize.label};
+  font-weight: 500;
+  margin-left: 4px;
 `;
 
 const Control = styled.View`
@@ -189,28 +310,36 @@ const Control = styled.View`
   width: 100%;
 `;
 
-const TextInput = styled(base.TextInput)`
+const TextInput = styled(base.TextInput)<{ hasError?: boolean }>`
+  border-color: ${(props) => (props.hasError ? colors.red : 'transparent')};
+  border-width: 2px;
   width: 100%;
 `;
 
-const LinkRowPressable = styled(Pressable)``;
+const LinkRowPressable = styled(Pressable)`
+  margin-horizontal: 16px;
+`;
 
-const LinkRowInner = styled.View<{ pressed: boolean }>`
-  background-color: ${colors.white};
-  border-bottom-color: ${colors.lightGrayDark};
-  border-bottom-width: ${StyleSheet.hairlineWidth}px;
+const LinkRowInner = styled.View<{
+  disabled?: boolean;
+  hasError?: boolean;
+  pressed: boolean;
+}>`
+  align-items: center;
+  background-color: ${(props) =>
+    props.disabled ? colors.whiteTranslucent : colors.white};
+  border-color: ${(props) => (props.hasError ? colors.red : 'transparent')};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
+  border-width: 2px;
   flex-direction: row;
   justify-content: space-between;
   opacity: ${(props) => (props.pressed ? 0.5 : 1.0)};
-  margin-horizontal: 16px;
-  padding: 16px;
+  padding: 12px;
 `;
 
 const LinkRowText = styled.Text<{ active: boolean }>`
-  color: ${(props) => (props.active ? colors.darkGray : colors.gray)};
-  font-size: ${({ theme }) => theme.fontSize.list};
-  font-weight: ${({ theme }) => theme.fontWeight.bold};
+  color: ${(props) => (props.active ? colors.darkGray : colors.grayDark)};
+  font-size: ${({ theme }) => theme.fontSize.input};
 `;
 
 const LinkRowChevronWrapper = styled(base.ListChevronWrapper)``;

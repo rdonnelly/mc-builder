@@ -77,6 +77,25 @@ const ListChevron = ({
   />
 );
 
+const ListIcon = ({
+  name,
+  color,
+  size,
+  solid,
+}: {
+  name: string;
+  color?: string;
+  size?: number;
+  solid?: boolean;
+}) => (
+  <FontAwesomeIcon
+    name={name}
+    color={color ? color : colors.darkGray}
+    size={size ? size : 16}
+    solid={solid ? solid : false}
+  />
+);
+
 const TextInput = styled.TextInput`
   background-color: ${colors.white};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
@@ -98,5 +117,6 @@ export default {
   ListFooterText: ListFooterText,
   ListChevronWrapper: ListChevronWrapper,
   ListChevron: ListChevron,
+  ListIcon: ListIcon,
   TextInput: TextInput,
 };

@@ -34,7 +34,7 @@
     "@types/lodash": "^4.14.168",
     "js-base64": "^3.6.0",
     "marvelsdb-json-data": "https://github.com/rdonnelly/marvelsdb-json-data.git#main",
-    "nanoid": "^3.1.20",
+    "nanoid": "^3.1.31",
     "react": "17.0.2",
     "react-native": "0.66.4",
     "react-native-app-auth": "^6.0.0",

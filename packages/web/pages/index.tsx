@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import { useWindowDimensions } from 'react-native';
 import { Text } from 'react-native-web';
 import styled from 'styled-components/native';
 
@@ -6,7 +7,6 @@ import { base, colors } from '@mc-builder/shared/src/styles';
 
 import Header from '../components/Header';
 import getAbsoluteUrl from '../utils/getAbsoluteUrl';
-import { useWindowDimensions } from 'react-native';
 
 const IndexPage = () => {
   // TODO fix window width

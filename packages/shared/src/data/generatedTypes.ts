@@ -48,6 +48,7 @@ export enum PackCodes {
   WARM = 'warm',
   HOOD = 'hood',
   VALK = 'valk',
+  VISION = 'vision',
 }
 
 export type PackCode =
@@ -76,7 +77,8 @@ export type PackCode =
   | 'nebu'
   | 'warm'
   | 'hood'
-  | 'valk';
+  | 'valk'
+  | 'vision';
 
 export enum SetCodes {
   RHINO = 'rhino',
@@ -214,6 +216,8 @@ export enum SetCodes {
   EXPERT_II = 'expert_ii',
   VALK = 'valk',
   VALK_NEMESIS = 'valk_nemesis',
+  VISION = 'vision',
+  VISION_NEMESIS = 'vision_nemesis',
 }
 
 export type SetCode =
@@ -351,7 +355,9 @@ export type SetCode =
   | 'standard_ii'
   | 'expert_ii'
   | 'valk'
-  | 'valk_nemesis';
+  | 'valk_nemesis'
+  | 'vision'
+  | 'vision_nemesis';
 
 export enum SetTypeCodes {
   VILLAIN = 'villain',

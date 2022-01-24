@@ -68,6 +68,8 @@ const cards: ICardRaw[] = [].concat(
   require('marvelsdb-json-data/pack/twc_encounter.json'),
   require('marvelsdb-json-data/pack/valk_encounter.json'),
   require('marvelsdb-json-data/pack/valk.json'),
+  require('marvelsdb-json-data/pack/vision_encounter.json'),
+  require('marvelsdb-json-data/pack/vision.json'),
   require('marvelsdb-json-data/pack/vnm_encounter.json'),
   require('marvelsdb-json-data/pack/vnm.json'),
   require('marvelsdb-json-data/pack/warm_encounter.json'),

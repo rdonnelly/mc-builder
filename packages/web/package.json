@@ -15,7 +15,7 @@
     "babel-plugin-react-native-web": "^0.17.5",
     "babel-plugin-styled-components": "^2.0.2",
     "js-base64": "^3.6.0",
-    "next": "^12.0.7",
+    "next": "^12.0.8",
     "next-transpile-modules": "^9.0.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
@@ -27,9 +27,9 @@
     "use-dark-mode": "^2.3.1"
   },
   "devDependencies": {
-    "@next/eslint-plugin-next": "^12.0.7",
+    "@next/eslint-plugin-next": "^12.0.8",
     "@types/react-native": "^0.66.1",
-    "@types/styled-components": "^5.1.9",
+    "@types/styled-components": "^5.1.21",
     "@types/styled-components-react-native": "^5.1.1",
     "babel-plugin-module-resolver": "^4.1.0"
   }

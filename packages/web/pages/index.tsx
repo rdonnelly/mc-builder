@@ -6,8 +6,12 @@ import { base, colors } from '@mc-builder/shared/src/styles';
 
 import Header from '../components/Header';
 import getAbsoluteUrl from '../utils/getAbsoluteUrl';
+import { useWindowDimensions } from 'react-native';
 
 const IndexPage = () => {
+  // TODO fix window width
+  const { width } = useWindowDimensions();
+
   return (
     <>
       <Head>
@@ -32,36 +36,24 @@ const IndexPage = () => {
       <Header color={colors.blue}>MC Builder</Header>
       <ScrollView>
         <Container>
-          <Image
+          <Logo
             resizeMode="contain"
             source={{ uri: '/images/mc-icon-1024.png' }}
           />
-          <Paragraph>
-            <ParagraphText>
-              Having trouble remembering what comes in a card pack? Looking for
-              a reference to check card text? Need help building a deck and
-              seeing available cards? Let the MC Deck Builder app help!
-            </ParagraphText>
-          </Paragraph>
 
           <List>
             <ListItem>
-              <ListItemText>
-                Browse available cards and pack (through most recent official US
-                release)
-              </ListItemText>
+              <ListItemText>Browse available cards and releases</ListItemText>
             </ListItem>
             <ListItem>
               <ListItemText>
-                Assemble a deck; just choose your hero, aspect, and get going
+                Assemble a deck; choose your hero and aspect to start
               </ListItemText>
             </ListItem>
             <ListItem>
-              <ListItemText>
-                Share your deck view others to view and import
-              </ListItemText>
+              <ListItemText>Share and view decks from friends</ListItemText>
             </ListItem>
-            <ListItem>
+            <ListItem last={true}>
               <ListItemText>
                 Import decks from{' '}
                 <LinkText
@@ -74,14 +66,36 @@ const IndexPage = () => {
             </ListItem>
           </List>
 
+          <StoreLinkContainer width={width}>
+            <StoreLink
+              href="https://apps.apple.com/us/app/mc-builder/id1516561943"
+              hrefAttrs={{ target: '_blank' }}
+            >
+              <StoreImage
+                resizeMode="contain"
+                source={{ uri: '/images/apple-app-store.png' }}
+              />
+            </StoreLink>
+            <StoreLink
+              href="https://play.google.com/store/apps/details?id=com.rdonnelly.mcbuilder"
+              hrefAttrs={{ target: '_blank' }}
+            >
+              <StoreImage
+                resizeMode="contain"
+                source={{ uri: '/images/google-play-store.png' }}
+              />
+            </StoreLink>
+          </StoreLinkContainer>
+
           <Paragraph>
-            <ParagraphText>
-              The app is coming soon.{' '}
+            <ParagraphText center={true}>
+              If you would like to stay on the cutting edge and help test the
+              app, please{' '}
               <LinkText
                 href="https://forms.gle/yqpHm3V9t8AKr7v46"
                 hrefAttrs={{ target: '_blank' }}
               >
-                Fill out this form to join the beta!
+                fill out this form to join the beta!
               </LinkText>
             </ParagraphText>
           </Paragraph>
@@ -140,7 +154,7 @@ const Container = styled(base.Container)`
   width: 100%;
 `;
 
-const Image = styled.Image`
+const Logo = styled.Image`
   height: 200px;
   margin-bottom: 24px;
   width: 200px;
@@ -153,7 +167,7 @@ const Heading = styled.View`
 `;
 
 const HeadingText = styled.Text`
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 800;
 `;
 
@@ -163,8 +177,9 @@ const Paragraph = styled.View`
   width: 100%;
 `;
 
-const ParagraphText = styled.Text`
+const ParagraphText = styled.Text<{ center?: boolean }>`
   font-size: 18px;
+  text-align: ${({ center }) => (center ? 'center' : 'left')};
 `;
 
 const LinkText = styled(Text)`
@@ -173,21 +188,42 @@ const LinkText = styled(Text)`
 `;
 
 const List = styled.View`
+  background: ${colors.lightGray};
+  border-radius: 6px;
   margin-bottom: 24px;
   max-width: 584px;
-  padding: 0 16px;
+  padding-horizontal: 16px;
   width: 100%;
 `;
 
-const ListItem = styled.View`
-  border-left-color: ${colors.orange};
-  border-left-width: 4px;
-  padding-left: 8px;
-  margin-bottom: 16px;
+const ListItem = styled.View<{ last?: boolean }>`
+  border-bottom-width: ${({ last }) => (last ? 0 : '1px')};
+  border-bottom-color: ${colors.lightGrayDark};
+  padding-vertical: 16px;
 `;
 
 const ListItemText = styled.Text`
   font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+`;
+
+const StoreLinkContainer = styled.View<{ width: number }>`
+  display: flex;
+  flex-direction: ${({ width }) => (width >= 786 ? 'row' : 'column')};
+  margin-bottom: 24px;
+`;
+
+const StoreLink = styled(Text)`
+  margin-bottom: 8px;
+  @media (min-width: 768px) {
+    margin-bottom: 0px;
+  }
+`;
+
+const StoreImage = styled.Image`
+  height: 72px;
+  width: 235px;
 `;
 
 export default IndexPage;

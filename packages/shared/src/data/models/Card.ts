@@ -20,6 +20,7 @@ import {
   FilterCodes,
   ICardRaw,
   PackCode,
+  PackCodes,
   SetCode,
   SetCodes,
   TypeCode,
@@ -331,19 +332,26 @@ export class Card {
     }
 
     const cardCode = this.root.code.slice(2).replace(/^0+/, '').toUpperCase();
-    const pack = getPacks().find((p) => p.code === this.root.pack_code);
-    const packCode = String(pack.cgdbId).padStart(2, '0');
-    const isDoubleSided = ['main_scheme'].includes(this.typeCode);
+    let packUrlPart = '';
+    if (this.root.pack_code === PackCodes.RON) {
+      packUrlPart = 'pnp01en';
+    } else {
+      const pack = getPacks().find((p) => p.code === this.root.pack_code);
+      const packCode = String(pack.position).padStart(2, '0');
+      packUrlPart = `mc${packCode}en`;
+    }
+
+    const isDoubleSided = ['main_scheme'].includes(this.root.type_code);
 
     if (isDoubleSided) {
       return [
-        `https://lcgcdn.s3.amazonaws.com/mc/MC${packCode}en_${cardCode}A.jpg`,
-        `https://lcgcdn.s3.amazonaws.com/mc/MC${packCode}en_${cardCode}B.jpg`,
+        `https://marvel-champions-cards.s3.us-west-2.amazonaws.com/${packUrlPart}/${cardCode}A.png`,
+        `https://marvel-champions-cards.s3.us-west-2.amazonaws.com/${packUrlPart}/${cardCode}B.png`,
       ];
     }
 
     return [
-      `https://lcgcdn.s3.amazonaws.com/mc/MC${packCode}en_${cardCode}.jpg`,
+      `https://marvel-champions-cards.s3.us-west-2.amazonaws.com/${packUrlPart}/${cardCode}.png`,
     ];
   }
 

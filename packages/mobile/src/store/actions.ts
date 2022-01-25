@@ -1,4 +1,5 @@
 import 'react-native-get-random-values';
+import { batch } from 'react-redux';
 
 import { nanoid } from 'nanoid';
 
@@ -60,18 +61,6 @@ export const setUpNewDeck =
     initialDeckCards?: { code: string; quantity: number }[],
   ): AppThunk =>
   (dispatch) => {
-    dispatch(
-      createDeck({
-        code: deckCode,
-        name: deckName,
-        setCode: deckSet,
-        aspectCodes: deckAspect,
-        version,
-        source: importCode,
-        mcdbId,
-      }),
-    );
-
     const deckCardCodes = [];
     const deckCardData = [];
 
@@ -109,12 +98,25 @@ export const setUpNewDeck =
         });
       });
     }
+    batch(() => {
+      dispatch(
+        createDeck({
+          code: deckCode,
+          name: deckName,
+          setCode: deckSet,
+          aspectCodes: deckAspect,
+          version,
+          source: importCode,
+          mcdbId,
+        }),
+      );
 
-    dispatch(updateDeckCards({ deckCards: deckCardData }));
+      dispatch(updateDeckCards({ deckCards: deckCardData }));
 
-    dispatch(
-      addDeckCardsToDeck({ code: deckCode, deckCardCodes: deckCardCodes }),
-    );
+      dispatch(
+        addDeckCardsToDeck({ code: deckCode, deckCardCodes: deckCardCodes }),
+      );
+    });
   };
 
 export const addCardToDeck =
@@ -126,40 +128,42 @@ export const addCardToDeck =
       (code) => deckCardEntities[code].cardCode === card.code,
     );
 
-    if (deckCardCode !== undefined) {
-      const deckCard = deckCardEntities[deckCardCode];
+    batch(() => {
+      if (deckCardCode !== undefined) {
+        const deckCard = deckCardEntities[deckCardCode];
 
-      dispatch(
-        updateDeckCards({
-          deckCards: [
-            {
-              ...deckCard,
-              quantity: Math.min(deckCard.quantity + 1, card.deckLimit),
-            },
-          ],
-        }),
-      );
-    } else {
-      const newDeckCardCode = nanoid();
-      dispatch(
-        updateDeckCards({
-          deckCards: [
-            {
-              code: newDeckCardCode,
-              cardCode: card.code,
-              quantity: 1,
-            },
-          ],
-        }),
-      );
+        dispatch(
+          updateDeckCards({
+            deckCards: [
+              {
+                ...deckCard,
+                quantity: Math.min(deckCard.quantity + 1, card.deckLimit),
+              },
+            ],
+          }),
+        );
+      } else {
+        const newDeckCardCode = nanoid();
+        dispatch(
+          updateDeckCards({
+            deckCards: [
+              {
+                code: newDeckCardCode,
+                cardCode: card.code,
+                quantity: 1,
+              },
+            ],
+          }),
+        );
 
-      dispatch(
-        addDeckCardsToDeck({
-          code: deckCode,
-          deckCardCodes: [newDeckCardCode],
-        }),
-      );
-    }
+        dispatch(
+          addDeckCardsToDeck({
+            code: deckCode,
+            deckCardCodes: [newDeckCardCode],
+          }),
+        );
+      }
+    });
   };
 
 export const removeCardFromDeck =
@@ -172,33 +176,35 @@ export const removeCardFromDeck =
     );
     const deckCard = deckCardEntities[deckCardCode];
 
-    if (deckCard !== undefined) {
-      if (deckCard.quantity <= 1) {
-        dispatch(
-          removeDeckCards({
-            codes: [deckCard.code],
-          }),
-        );
+    batch(() => {
+      if (deckCard !== undefined) {
+        if (deckCard.quantity <= 1) {
+          dispatch(
+            removeDeckCards({
+              codes: [deckCard.code],
+            }),
+          );
 
-        dispatch(
-          removeDeckCardFromDeck({
-            code: deckCode,
-            deckCardCodes: [deckCard.code],
-          }),
-        );
-      } else {
-        dispatch(
-          updateDeckCards({
-            deckCards: [
-              {
-                ...deckCard,
-                quantity: deckCard.quantity - 1,
-              },
-            ],
-          }),
-        );
+          dispatch(
+            removeDeckCardFromDeck({
+              code: deckCode,
+              deckCardCodes: [deckCard.code],
+            }),
+          );
+        } else {
+          dispatch(
+            updateDeckCards({
+              deckCards: [
+                {
+                  ...deckCard,
+                  quantity: deckCard.quantity - 1,
+                },
+              ],
+            }),
+          );
+        }
       }
-    }
+    });
   };
 
 export const deleteDeck =
@@ -206,19 +212,21 @@ export const deleteDeck =
   (dispatch, getState) => {
     const deck = getState().root.decks.entities[deckCode];
 
-    // dispatch list of deckCards to delete
-    dispatch(
-      removeDeckCards({
-        codes: deck.deckCardCodes,
-      }),
-    );
+    batch(() => {
+      // dispatch list of deckCards to delete
+      dispatch(
+        removeDeckCards({
+          codes: deck.deckCardCodes,
+        }),
+      );
 
-    // dispatch a deck delete
-    dispatch(
-      removeDeck({
-        code: deckCode,
-      }),
-    );
+      // dispatch a deck delete
+      dispatch(
+        removeDeck({
+          code: deckCode,
+        }),
+      );
+    });
   };
 
 export const cloneDeck =
@@ -239,26 +247,28 @@ export const cloneDeck =
       (newDeckCardEntity) => newDeckCardEntity.code,
     );
 
-    dispatch(
-      duplicateDeck({
-        code: deckCode,
-        newCode: newDeckCode,
-        newName: deckName,
-      }),
-    );
+    batch(() => {
+      dispatch(
+        duplicateDeck({
+          code: deckCode,
+          newCode: newDeckCode,
+          newName: deckName,
+        }),
+      );
 
-    dispatch(
-      updateDeckCards({
-        deckCards: newDeckCardEntities,
-      }),
-    );
+      dispatch(
+        updateDeckCards({
+          deckCards: newDeckCardEntities,
+        }),
+      );
 
-    dispatch(
-      addDeckCardsToDeck({
-        code: newDeckCode,
-        deckCardCodes: newDeckCardCodes,
-      }),
-    );
+      dispatch(
+        addDeckCardsToDeck({
+          code: newDeckCode,
+          deckCardCodes: newDeckCardCodes,
+        }),
+      );
+    });
 
     return newDeckCode;
   };

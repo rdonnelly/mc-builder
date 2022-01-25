@@ -110,12 +110,12 @@ const DecksCreateFormScreen = ({
 
       return !hasError;
     },
-    [deckSet, deckAspect, deckName, setErrors],
+    [deckSet, deckName, aspectCount, requiredAspectCount, setErrors],
   );
 
   useEffect(() => {
     validate();
-  }, [deckName, deckSet, deckAspect]);
+  }, [deckName, deckSet, deckAspect, validate]);
 
   const submit = useCallback(() => {
     if (!validate(true)) {
@@ -131,7 +131,7 @@ const DecksCreateFormScreen = ({
         code: deckCode,
       });
     }
-  }, [deckName, deckSet, deckAspect]);
+  }, [deckName, deckSet, deckAspect, dispatch, navigation, validate]);
 
   return (
     <Container paddingBottom={insets.bottom}>

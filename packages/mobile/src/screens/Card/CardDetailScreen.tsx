@@ -1,4 +1,5 @@
 import { useActionSheet } from '@expo/react-native-action-sheet';
+import throttle from 'lodash/throttle';
 import {
   useCallback,
   useContext,
@@ -21,7 +22,6 @@ import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import { InAppBrowser } from 'react-native-inappbrowser-reborn';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
 import styled from 'styled-components/native';
-import throttle from 'lodash/throttle';
 
 import FloatingControlBar, {
   FloatingControlButtonVariant,
@@ -42,7 +42,6 @@ import {
   getFilteredCards,
 } from '@mc-builder/shared/src/data';
 import { base, colors } from '@mc-builder/shared/src/styles';
-import debounce from 'lodash/debounce';
 
 const shareCardImage = (uri: string) => {
   ReactNativeHapticFeedback.trigger('impactHeavy');
@@ -82,12 +81,12 @@ const CardDetailScreen = ({ navigation, route }: CardDetailScreenProps) => {
     }
   }
 
-  const index = useMemo(
+  const cardIndex = useMemo(
     () => cards.findIndex((c) => c.code === route.params.code),
-    [route.params.code],
+    [cards, route.params.code],
   );
-  const indexRef = useRef(index);
-  const [activeCardIndex, setActiveCardIndex] = useState(index);
+  const cardIndexRef = useRef(cardIndex);
+  const [activeCardIndex, setActiveCardIndex] = useState(cardIndex);
   const activeCard = cards[activeCardIndex];
 
   const deckCard = useAppSelector((state: StoreState) =>
@@ -103,7 +102,7 @@ const CardDetailScreen = ({ navigation, route }: CardDetailScreenProps) => {
     useDeckModifications(deckCode, deckModel?.setCode);
 
   const handleReport = useCallback(async () => {
-    const card = cards[indexRef.current];
+    const card = cards[cardIndexRef.current];
     const url = encodeURI(
       `https://github.com/zzorba/marvelsdb-json-data/issues/new?title=Card Data Issue: ${card.name} (${card.code})&body=<!-- What issue do you see with the card data? -->`,
     );
@@ -127,15 +126,15 @@ const CardDetailScreen = ({ navigation, route }: CardDetailScreenProps) => {
     } catch (error) {
       Linking.openURL(url);
     }
-  }, []);
+  }, [cards]);
 
   const handleShareUrl = useCallback(async () => {
     ReactNativeHapticFeedback.trigger('impactLight');
-    const card = cards[indexRef.current];
+    const card = cards[cardIndexRef.current];
     if (card?.shareableUrl) {
       setClipboard(card?.shareableUrl);
     }
-  }, []);
+  }, [cards]);
 
   const handleMenuOpen = useCallback(() => {
     ReactNativeHapticFeedback.trigger('impactLight');
@@ -201,11 +200,12 @@ const CardDetailScreen = ({ navigation, route }: CardDetailScreenProps) => {
 
   const flatListRef = useRef<FlatList>(null);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const scrollToActive = useCallback(
     throttle(
-      (windowWidth) => {
+      (currentWindowWidth) => {
         flatListRef?.current?.scrollToOffset({
-          offset: windowWidth * indexRef.current,
+          offset: currentWindowWidth * cardIndexRef.current,
           animated: false,
         });
       },
@@ -220,7 +220,7 @@ const CardDetailScreen = ({ navigation, route }: CardDetailScreenProps) => {
       scrollToActive(window.width);
     });
     return () => subscription?.remove();
-  }, []);
+  }, [scrollToActive]);
 
   const getItemLayout = useCallback(
     (_data: CardModel[], index: number) => ({
@@ -247,7 +247,7 @@ const CardDetailScreen = ({ navigation, route }: CardDetailScreenProps) => {
       Math.round(event.nativeEvent.contentOffset.x / windowWidth),
     );
 
-    indexRef.current = newIndex;
+    cardIndexRef.current = newIndex;
     setActiveCardIndex(newIndex);
   };
 
@@ -267,7 +267,7 @@ const CardDetailScreen = ({ navigation, route }: CardDetailScreenProps) => {
         initialNumToRender={1}
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
-        initialScrollIndex={indexRef.current}
+        initialScrollIndex={cardIndexRef.current}
         viewabilityConfig={viewabilityConfig.current}
         onScroll={handleScroll}
         onViewableItemsChanged={handleViewableItemsChanged.current}

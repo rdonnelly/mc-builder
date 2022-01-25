@@ -1,7 +1,7 @@
 import 'react-native-get-random-values';
-import { batch } from 'react-redux';
 
 import { nanoid } from 'nanoid';
+import { batch } from 'react-redux';
 
 import { AppThunk } from '@store';
 import { removeDeckCards, updateDeckCards } from '@store/reducers/deckCards';

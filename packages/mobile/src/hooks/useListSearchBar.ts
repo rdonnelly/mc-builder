@@ -1,13 +1,13 @@
 import { NativeScrollEvent } from 'react-native';
 import Animated, {
-  useSharedValue,
+  cancelAnimation,
+  Easing,
+  Extrapolate,
+  interpolate,
   useAnimatedScrollHandler,
   useAnimatedStyle,
-  interpolate,
-  Extrapolate,
-  cancelAnimation,
+  useSharedValue,
   withTiming,
-  Easing,
 } from 'react-native-reanimated';
 
 type useListSearchBarProps = {
@@ -57,15 +57,15 @@ export function useListSearchBar({ disabled, height }: useListSearchBarProps) {
     'worklet';
     const { y } = ev.contentOffset;
     const diff = y - upValueRef.value;
-    const scrollYValue = scrollYValueRef.value + diff;
+    const newScrollYValue = scrollYValueRef.value + diff;
 
     if (y < ev.contentSize.height - ev.layoutMeasurement.height) {
       if (y > MAX_HEIGHT) {
         if (y < upValueRef.value) {
-          scrollYValueRef.value = Math.max(0, scrollYValue);
+          scrollYValueRef.value = Math.max(0, newScrollYValue);
         } else {
           if (scrollYValueRef.value < MAX_HEIGHT) {
-            scrollYValueRef.value = Math.min(MAX_HEIGHT, scrollYValue);
+            scrollYValueRef.value = Math.min(MAX_HEIGHT, newScrollYValue);
           } else {
             scrollYValueRef.value = MAX_HEIGHT;
           }
@@ -74,7 +74,7 @@ export function useListSearchBar({ disabled, height }: useListSearchBarProps) {
       } else {
         if (upValueRef.value) {
           upValueRef.value = Math.max(0, y);
-          scrollYValueRef.value = Math.max(0, scrollYValue);
+          scrollYValueRef.value = Math.max(0, newScrollYValue);
         } else {
           scrollYValueRef.value = y;
         }

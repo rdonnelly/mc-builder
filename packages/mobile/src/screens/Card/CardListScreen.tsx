@@ -2,8 +2,8 @@ import { useScrollToTop } from '@react-navigation/native';
 import debounce from 'lodash/debounce';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ListRenderItem, StyleSheet } from 'react-native';
-import styled from 'styled-components/native';
 import Animated, { useAnimatedRef } from 'react-native-reanimated';
+import styled from 'styled-components/native';
 
 import FloatingControlBar, {
   FloatingControlButtonVariant,
@@ -99,7 +99,7 @@ const CardListScreen = ({ navigation, route }: CardsListScreenProps) => {
           .getScrollResponder()
           .scrollTo({ x: 0, y: 0, animated: true });
       }, 250),
-    [],
+    [flatListRef],
   );
 
   const { searchBarScrollHandler, searchBarAnimatedStyles } = useListSearchBar({

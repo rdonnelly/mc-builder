@@ -332,12 +332,21 @@ const CardDetailScreen = ({ navigation, route }: CardDetailScreenProps) => {
           </FloatingControlBar.FlexButton>
         </FloatingControlBar>
       ) : null}
+      <CardDetailSwipeGuard />
     </Container>
   );
 };
 
 const Container = styled(base.Container)`
   background-color: ${colors.white};
+`;
+
+const CardDetailSwipeGuard = styled.View`
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 16px;
 `;
 
 const CardDetailFlatList = styled.FlatList`

@@ -1,6 +1,7 @@
 import 'react-native-get-random-values';
 
 import { useCallback } from 'react';
+import { Platform } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import styled from 'styled-components/native';
 
@@ -13,6 +14,9 @@ import { selectStoreDeck } from '@store/selectors';
 
 import { base, colors } from '@mc-builder/shared/src/styles';
 
+const isIOS = Platform.OS === 'ios';
+const HEADER_HEIGHT = isIOS ? 44 : 56;
+
 const DeckCloneScreen = ({ navigation, route }: DeckCloneScreenProps) => {
   const code = route.params.code;
 
@@ -21,7 +25,6 @@ const DeckCloneScreen = ({ navigation, route }: DeckCloneScreenProps) => {
   );
 
   const dispatch = useAppDispatch();
-  const insets = useSafeAreaInsets();
 
   const submit = useCallback(
     async (deckName: string) => {
@@ -45,21 +48,32 @@ const DeckCloneScreen = ({ navigation, route }: DeckCloneScreenProps) => {
     }
   }, [navigation]);
 
+  const insets = useSafeAreaInsets();
+
   return (
-    <Container paddingBottom={insets.bottom}>
-      <DeckNameForm
-        name={deck.name}
-        submitLabel={'Clone Deck'}
-        submit={submit}
-        cancel={cancel}
-      />
-    </Container>
+    <KeyboardAvoidingView
+      behavior={isIOS ? 'padding' : undefined}
+      keyboardVerticalOffset={HEADER_HEIGHT}
+    >
+      <Container paddingBottom={insets.bottom}>
+        <DeckNameForm
+          name={deck.name}
+          submitLabel={'Clone Deck'}
+          submit={submit}
+          cancel={cancel}
+        />
+      </Container>
+    </KeyboardAvoidingView>
   );
 };
 
+const KeyboardAvoidingView = styled.KeyboardAvoidingView`
+  flex: 1 1 auto;
+  width: 100%;
+`;
+
 const Container = styled(base.Container)<{ paddingBottom: number }>`
   background-color: ${colors.lightGray};
-  padding-top: 16px;
   padding-bottom: ${(props) => Math.max(props.paddingBottom, 16)}px;
 `;
 

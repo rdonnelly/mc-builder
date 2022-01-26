@@ -265,12 +265,12 @@ const DecksCreateFormScreen = ({
 
 const Container = styled(base.Container)<{ paddingBottom: number }>`
   background-color: ${colors.lightGray};
-  padding-top: 16px;
   padding-bottom: ${(props) => Math.max(props.paddingBottom, 16)}px;
 `;
 
 const Form = styled.ScrollView`
   flex: 1 1 auto;
+  padding-top: 16px;
   width: 100%;
 `;
 

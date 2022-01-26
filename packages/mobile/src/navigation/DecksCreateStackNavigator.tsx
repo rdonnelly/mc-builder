@@ -31,45 +31,47 @@ const Stack = createNativeStackNavigator<DecksCreateStackParamList>();
 const isIOS = Platform.OS === 'ios';
 const HEADER_HEIGHT = isIOS ? 44 : 56;
 
+export default () => {
+  return (
+    <DecksCreateProvider>
+      <KeyboardAvoidingView
+        behavior={isIOS ? 'padding' : undefined}
+        keyboardVerticalOffset={HEADER_HEIGHT}
+      >
+        <Stack.Navigator
+          initialRouteName="DecksCreateForm"
+          screenOptions={{
+            title: 'Create Deck',
+            headerStyle: {
+              backgroundColor: colors.purple,
+            },
+            headerTitleStyle: {
+              fontSize: 20,
+            },
+            headerTintColor: colors.white,
+          }}
+        >
+          <Stack.Screen
+            name="DecksCreateForm"
+            component={DecksCreateFormScreen}
+            options={{
+              title: 'Create Deck',
+            }}
+          />
+          <Stack.Screen
+            name="DecksCreateSelect"
+            component={DecksCreateSelectScreen}
+            getId={({ params }) =>
+              params != null ? `${params.type}` : undefined
+            }
+          />
+        </Stack.Navigator>
+      </KeyboardAvoidingView>
+    </DecksCreateProvider>
+  );
+};
+
 const KeyboardAvoidingView = styled.KeyboardAvoidingView`
   flex: 1 1 auto;
   width: 100%;
 `;
-
-export default () => (
-  <DecksCreateProvider>
-    <KeyboardAvoidingView
-      behavior={isIOS ? 'padding' : undefined}
-      keyboardVerticalOffset={HEADER_HEIGHT}
-    >
-      <Stack.Navigator
-        initialRouteName="DecksCreateForm"
-        screenOptions={{
-          title: 'Create Deck',
-          headerStyle: {
-            backgroundColor: colors.purple,
-          },
-          headerTitleStyle: {
-            fontSize: 20,
-          },
-          headerTintColor: colors.white,
-        }}
-      >
-        <Stack.Screen
-          name="DecksCreateForm"
-          component={DecksCreateFormScreen}
-          options={{
-            title: 'Create Deck',
-          }}
-        />
-        <Stack.Screen
-          name="DecksCreateSelect"
-          component={DecksCreateSelectScreen}
-          getId={({ params }) =>
-            params != null ? `${params.type}` : undefined
-          }
-        />
-      </Stack.Navigator>
-    </KeyboardAvoidingView>
-  </DecksCreateProvider>
-);

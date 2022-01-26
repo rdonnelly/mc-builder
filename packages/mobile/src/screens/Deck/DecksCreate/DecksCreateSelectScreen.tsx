@@ -90,8 +90,6 @@ const DecksCreateSelectScreen = ({
     }
   };
 
-  console.log(deckAspect, items);
-
   const renderItem = ({ item }) => (
     <Row>
       <ListItemPressable onPress={() => handlePressItem(item.code)}>

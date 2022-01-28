@@ -49,11 +49,13 @@ export const getTypes = () =>
       return 0;
     });
 
-export const getType = (code: TypeCode) => {
-  return (
-    getTypes().find((type) => type.code === code) || {
+export const getType = (code: TypeCode, defaultReturn = undefined) => {
+  if (defaultReturn === undefined) {
+    defaultReturn = {
       code,
       name: 'Unknown',
-    }
-  );
+    };
+  }
+
+  return getTypes().find((type) => type.code === code) || defaultReturn;
 };

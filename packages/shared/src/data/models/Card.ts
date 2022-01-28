@@ -103,6 +103,13 @@ export class Card {
     return this.raw;
   }
 
+  get merged(): ICardRaw {
+    return {
+      ...this.root,
+      ...this.raw,
+    };
+  }
+
   get rootCode() {
     return this.root.code;
   }
@@ -368,11 +375,11 @@ export const getCards = memoizeOne(() =>
   cards.map((raw) => new Card(raw)).sort(compareCardCode),
 );
 
-export const getCardsMap = memoizeOne(() =>
+export const getCardsMap = memoizeOne((): { [code: string]: Card } =>
   getCards().reduce((map, card) => {
     map[card.code] = card;
     return map;
-  }, {}),
+  }, {} as { code: Card }),
 );
 
 export const getFilteredCards = memoizeOne(
@@ -521,7 +528,7 @@ export const getEligibleCards = memoizeOne(
         // 4) works with Adam Warlock + no set code
 
         if (
-          !(card.setCode == setCode) &&
+          !(card.setCode === setCode) &&
           !(isInFaction && card.setCode == null) &&
           !(isGamoraEligible && card.setCode == null) &&
           !(isAdamWarlockEligible && card.setCode == null)

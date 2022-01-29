@@ -406,6 +406,8 @@ PODS:
   - RNScreens (3.10.2):
     - React-Core
     - React-RCTImage
+  - RNSqlite2 (3.5.2):
+    - React-Core
   - RNVectorIcons (9.0.0):
     - React-Core
   - Yoga (1.14.0)
@@ -483,6 +485,7 @@ DEPENDENCIES:
   - RNReactNativeHapticFeedback (from `../../../node_modules/react-native-haptic-feedback`)
   - RNReanimated (from `../../../node_modules/react-native-reanimated`)
   - RNScreens (from `../../../node_modules/react-native-screens`)
+  - RNSqlite2 (from `../../../node_modules/react-native-sqlite-2`)
   - RNVectorIcons (from `../../../node_modules/react-native-vector-icons`)
   - Yoga (from `../../../node_modules/react-native/ReactCommon/yoga`)
 
@@ -599,6 +602,8 @@ EXTERNAL SOURCES:
     :path: "../../../node_modules/react-native-reanimated"
   RNScreens:
     :path: "../../../node_modules/react-native-screens"
+  RNSqlite2:
+    :path: "../../../node_modules/react-native-sqlite-2"
   RNVectorIcons:
     :path: "../../../node_modules/react-native-vector-icons"
   Yoga:
@@ -666,6 +671,7 @@ SPEC CHECKSUMS:
   RNReactNativeHapticFeedback: b83bfb4b537bdd78eb4f6ffe63c6884f7b049ead
   RNReanimated: da3860204e5660c0dd66739936732197d359d753
   RNScreens: d6da2b9e29cf523832c2542f47bf1287318b1868
+  RNSqlite2: 8cf96c4a5cc62f95922de1d01c5f68d7fc52333c
   RNVectorIcons: 4143ba35feebab8fdbe6bc43d1e776b393d47ac8
   Yoga: e7dc4e71caba6472ff48ad7d234389b91dadc280
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a

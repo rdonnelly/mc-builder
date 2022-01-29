@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@mc-builder/shared": "1.0.0",
+    "@next/eslint-plugin-next": "^12.0.9",
     "babel-plugin-react-native-web": "^0.17.5",
     "babel-plugin-styled-components": "^2.0.2",
     "js-base64": "^3.6.0",

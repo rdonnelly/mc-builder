@@ -5,7 +5,7 @@ PODS:
   - AppAuth/Core (1.4.0)
   - AppAuth/ExternalUserAgent (1.4.0)
   - boost (1.76.0)
-  - BugsnagReactNative (7.15.1):
+  - BugsnagReactNative (7.16.0):
     - React-Core
   - CocoaAsyncSocket (7.6.5)
   - DoubleConversion (1.1.6)
@@ -284,7 +284,7 @@ PODS:
     - React-Core
   - react-native-appearance (0.3.4):
     - React
-  - react-native-flipper (0.129.0):
+  - react-native-flipper (0.131.1):
     - React-Core
   - react-native-get-random-values (1.7.2):
     - React-Core
@@ -612,7 +612,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   AppAuth: 31bcec809a638d7bd2f86ea8a52bd45f6e81e7c7
   boost: a7c83b31436843459a1961bfd74b96033dc77234
-  BugsnagReactNative: 3396b2be58de26388dbfc780d9ca7f8fcb1f7c6b
+  BugsnagReactNative: eee8e62a0d5b7ee72bba1ffa0eb3353c5d0b43bf
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   DoubleConversion: 831926d9b8bf8166fd87886c4abab286c2422662
   FBLazyVector: e5569e42a1c79ca00521846c223173a57aca1fe1
@@ -644,7 +644,7 @@ SPEC CHECKSUMS:
   React-logger: 933f80c97c633ee8965d609876848148e3fef438
   react-native-app-auth: 30621542aea8bf5a1f95428a7a296ea8984d6127
   react-native-appearance: 0f0e5fc2fcef70e03d48c8fe6b00b9158c2ba8aa
-  react-native-flipper: 9993c1518795f4edc10f918566273f8a821afa6b
+  react-native-flipper: 8d0ada062fbc2c7460cc0d343aded6fc3f9c90dc
   react-native-get-random-values: 30b3f74ca34e30e2e480de48e4add2706a40ac8f
   react-native-safe-area-context: 584dc04881deb49474363f3be89e4ca0e854c057
   react-native-sensitive-info: 400c6e3d27945e15c8cddb5b4b92233c85ee06f8

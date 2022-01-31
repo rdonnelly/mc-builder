@@ -38,7 +38,13 @@ export class Type {
 
 export const getTypes = () =>
   typesRaw
-    .map((typeRaw) => new Type(typeRaw as ITypeRaw))
+    .map((typeRaw) => {
+      const typeSanitized: ITypeRaw = {
+        code: typeRaw.code as TypeCode,
+        name: typeRaw.name,
+      };
+      return new Type(typeSanitized);
+    })
     .sort((a, b) => {
       if (a.code > b.code) {
         return 1;

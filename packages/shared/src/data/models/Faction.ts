@@ -34,7 +34,14 @@ export class Faction {
 
 export const getFactions = () =>
   factionsRaw
-    .map((factionRaw) => new Faction(factionRaw as IFactionRaw))
+    .map((factionRaw) => {
+      const factionSanitized: IFactionRaw = {
+        code: factionRaw.code as FactionCode,
+        name: factionRaw.name,
+        is_primary: factionRaw.is_primary,
+      };
+      return new Faction(factionSanitized);
+    })
     .sort((a, b) => {
       if (factionRank[a.code] > factionRank[b.code]) {
         return 1;

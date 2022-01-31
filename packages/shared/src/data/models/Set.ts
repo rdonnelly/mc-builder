@@ -24,7 +24,14 @@ export class Set {
 
 export const getSets = () =>
   setsRaw
-    .map((setRaw) => new Set(setRaw as ISetRaw))
+    .map((setRaw) => {
+      const setSanitized: ISetRaw = {
+        code: setRaw.code as SetCode,
+        name: setRaw.name,
+        card_set_type_code: setRaw.card_set_type_code,
+      };
+      return new Set(setSanitized);
+    })
     .sort((a, b) => {
       if (a.code > b.code) {
         return 1;

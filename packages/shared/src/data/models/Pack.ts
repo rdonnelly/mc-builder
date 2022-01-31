@@ -47,7 +47,18 @@ export class Pack {
 
 export const getPacks = () =>
   packsRaw
-    .map((packRaw) => new Pack(packRaw as IPackRaw))
+    .map((packRaw) => {
+      const packSanitized: IPackRaw = {
+        cgdb_id: packRaw.cgdb_id,
+        code: packRaw.code as PackCode,
+        date_release: packRaw.date_release,
+        name: packRaw.name,
+        pack_type_code: packRaw.pack_type_code,
+        position: packRaw.position,
+        size: packRaw.size,
+      };
+      return new Pack(packSanitized);
+    })
     .sort((a, b) => {
       if (a.position > b.position) {
         return 1;

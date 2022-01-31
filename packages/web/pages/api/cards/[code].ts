@@ -9,14 +9,9 @@ export default function handler(
 ) {
   const { code } = req.query;
   const card = getCard(code as string);
-  const cardData = {
-    ...card.merged,
-    imageUriSet: card.imageUriSet,
-    shareableUrl: card.shareableUrl,
-  };
 
   if (card != null) {
-    res.status(200).json(cardData);
+    res.status(200).json(card.merged);
   } else {
     res.status(404).end('404 Not Found');
   }

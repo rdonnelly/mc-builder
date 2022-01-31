@@ -10,7 +10,7 @@ export default function handler(
   const cards = getCards();
 
   if (cards != null) {
-    res.status(200).json(cards.map((card) => card.raw));
+    res.status(200).json(cards.map((card) => card.merged));
   } else {
     res.status(404).end('404 Not Found');
   }

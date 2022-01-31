@@ -332,12 +332,6 @@ export class Card {
   }
 
   get imageUriSet() {
-    const cgdbId = this.pack.cgdbId;
-
-    if (cgdbId == null) {
-      return [];
-    }
-
     const cardCode = this.root.code.slice(2).replace(/^0+/, '').toUpperCase();
     let packUrlPart = '';
     if (this.root.pack_code === PackCodes.RON) {

@@ -28,10 +28,6 @@ export class Pack {
     return this.raw.pack_type_code;
   }
 
-  get cgdbId() {
-    return this.raw.cgdb_id;
-  }
-
   get dateRelease() {
     return this.raw.date_release;
   }
@@ -49,7 +45,6 @@ export const getPacks = () =>
   packsRaw
     .map((packRaw) => {
       const packSanitized: IPackRaw = {
-        cgdb_id: packRaw.cgdb_id,
         code: packRaw.code as PackCode,
         date_release: packRaw.date_release,
         name: packRaw.name,

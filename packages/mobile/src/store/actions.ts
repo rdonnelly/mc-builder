@@ -67,7 +67,7 @@ export const setUpNewDeck =
     if (initialDeckCards && initialDeckCards.length) {
       // if we get a full list of cards, use that
       initialDeckCards.forEach((card) => {
-        const cardModel = getCard(card.code);
+        const rawCard = getCard(card.code);
 
         const code = nanoid();
 
@@ -75,7 +75,7 @@ export const setUpNewDeck =
 
         deckCardData.push({
           code,
-          cardCode: cardModel.rootCode,
+          cardCode: rawCard.duplicate_of || rawCard.code,
           quantity: card.quantity,
         });
       });
@@ -84,7 +84,7 @@ export const setUpNewDeck =
       const setCards = getFilteredCards({
         filter: FilterCodes.SET,
         filterCode: deckSet,
-      }).filter((card) => card.factionCode !== FactionCodes.ENCOUNTER);
+      }).filter((card) => card.faction_code !== FactionCodes.ENCOUNTER);
 
       setCards.forEach((card) => {
         const code = nanoid();
@@ -94,7 +94,7 @@ export const setUpNewDeck =
         deckCardData.push({
           code,
           cardCode: card.code,
-          quantity: card.setQuantity,
+          quantity: card.quantity,
         });
       });
     }

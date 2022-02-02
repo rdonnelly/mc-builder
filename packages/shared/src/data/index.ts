@@ -1,9 +1,4 @@
-export {
-  Card as CardModel,
-  getCard,
-  getCards,
-  getFilteredCards,
-} from '../data/models/Card';
+export { Card as CardModel } from '../data/models/Card';
 export { Deck as DeckModel } from '../data/models/Deck';
 export {
   Faction as FactionModel,
@@ -19,6 +14,7 @@ export {
   Set as SetModel,
 } from '../data/models/Set';
 export { getType, getTypes, Type as TypeModel } from '../data/models/Type';
+export { getCard, getCards, getFilteredCards } from '../data/raw/Card';
 export type {
   FactionCode,
   FilterCode,

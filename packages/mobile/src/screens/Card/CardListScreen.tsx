@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
 
 const SEARCH_BAR_HEIGHT = 64;
 
-const getItemLayout = (data: CardModel, index: number) => ({
+const getItemLayout = (_data: CardModel, index: number) => ({
   length: ITEM_HEIGHT,
   offset: ITEM_HEIGHT * index,
   index,
@@ -56,8 +56,10 @@ const CardListScreen = ({ navigation, route }: CardsListScreenProps) => {
 
   const cards =
     searchString || (filter && filterCode)
-      ? getFilteredCards({ searchString, filter, filterCode })
-      : getCards();
+      ? getFilteredCards({ searchString, filter, filterCode }).map(
+          (rawCard) => new CardModel(rawCard),
+        )
+      : getCards().map((rawCard) => new CardModel(rawCard));
 
   let filterName = null;
   if (filter && filterCode) {
@@ -193,6 +195,7 @@ const CardListScreen = ({ navigation, route }: CardsListScreenProps) => {
         </ListHeader>
       </SearchBar>
       <Animated.FlatList
+        // @ts-ignore
         forwardedRef={flatListRef}
         renderItem={renderCard}
         getItemLayout={getItemLayout}

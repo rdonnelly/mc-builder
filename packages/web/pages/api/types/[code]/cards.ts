@@ -1,7 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 import { getType } from '@mc-builder/shared/src/data';
-import { getFilteredCards } from '@mc-builder/shared/src/data/models/Card';
+import {
+  getCardRoot,
+  getFilteredCards,
+} from '@mc-builder/shared/src/data/raw/Card';
 import {
   FilterCodes,
   ICardRaw,
@@ -21,7 +24,15 @@ export default function handler(
       filterCode: code as TypeCode,
     });
 
-    res.status(200).json(cards.map((card) => card.raw));
+    res.status(200).json(
+      cards.map((card) => {
+        const root = getCardRoot(card.code);
+        return {
+          ...root,
+          ...card,
+        };
+      }),
+    );
   } else {
     res.status(404).end('404 Not Found');
   }

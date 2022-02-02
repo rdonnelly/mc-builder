@@ -2,11 +2,8 @@ import Head from 'next/head';
 import styled from 'styled-components/native';
 
 import CardDetail from '@mc-builder/shared/src/components/CardDetail';
-import {
-  Card,
-  getCard,
-  getCards,
-} from '@mc-builder/shared/src/data/models/Card';
+import { Card } from '@mc-builder/shared/src/data/models/Card';
+import { getCard, getCards } from '@mc-builder/shared/src/data/raw/Card';
 import { colors } from '@mc-builder/shared/src/styles';
 
 import Header from '../../components/Header';
@@ -61,7 +58,8 @@ export async function getStaticProps({ params }) {
   // params contains the post `id`.
   // If the route is like /posts/1, then params.id is 1
   const code = params.code;
-  const card = getCard(code);
+  const rawCard = getCard(code);
+  const card = new Card(rawCard);
 
   // Pass post data to the page via props
   return {

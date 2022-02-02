@@ -2,7 +2,6 @@ import { Base64 } from 'js-base64';
 
 import { getPublicDeck } from '../api/deck';
 import {
-  CardModel,
   FactionCode,
   FactionCodes,
   FilterCodes,
@@ -10,6 +9,7 @@ import {
   SetCode,
   TypeCodes,
 } from '../data';
+import { ICardRaw } from '../data/types';
 import { IStoreDeck, IStoreDeckCard } from '../store/types';
 
 export interface IImportDeck {
@@ -183,13 +183,13 @@ export const convertImportToStoreDeckComponents = (
     cardCodes: Object.keys(deckToImport.cards),
   }).filter((card) => {
     if (
-      card.typeCode === TypeCodes.ALTER_EGO ||
-      card.typeCode === TypeCodes.HERO
+      card.type_code === TypeCodes.ALTER_EGO ||
+      card.type_code === TypeCodes.HERO
     ) {
-      setCode = card.setCode;
+      setCode = card.set_code;
     }
 
-    if (card.setCode == null) {
+    if (card.set_code == null) {
       return true;
     }
 
@@ -199,9 +199,9 @@ export const convertImportToStoreDeckComponents = (
   const setCardModels = getFilteredCards({
     filter: FilterCodes.SET,
     filterCode: setCode,
-  }).filter((card) => card.factionCode !== FactionCodes.ENCOUNTER);
+  }).filter((card) => card.faction_code !== FactionCodes.ENCOUNTER);
 
-  deckCardModels.forEach((card: CardModel) => {
+  deckCardModels.forEach((card: ICardRaw) => {
     storeDeckCards.push({
       code: null,
       cardCode: card.code,
@@ -209,11 +209,11 @@ export const convertImportToStoreDeckComponents = (
     });
   });
 
-  setCardModels.forEach((card: CardModel) => {
+  setCardModels.forEach((card: ICardRaw) => {
     storeDeckCards.push({
       code: null,
       cardCode: card.code,
-      quantity: card.setQuantity,
+      quantity: card.quantity,
     });
   });
 

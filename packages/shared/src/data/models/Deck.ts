@@ -4,14 +4,14 @@ import keyBy from 'lodash/keyBy';
 import memoizeOne from 'memoize-one';
 
 import { compareCardFaction } from '../../data/cardUtils';
+import { Card } from '../../data/models/Card';
+import { getFactions } from '../../data/models/Faction';
+import { getSets } from '../../data/models/Set';
 import {
-  Card,
   getCard,
   getEligibleCards,
   getFilteredCards,
-} from '../../data/models/Card';
-import { getFactions } from '../../data/models/Faction';
-import { getSets } from '../../data/models/Set';
+} from '../../data/raw/Card';
 import {
   FactionCode,
   FactionCodes,
@@ -22,6 +22,7 @@ import {
   TypeCodes,
 } from '../../data/types';
 import { IStoreDeck, IStoreDeckCard } from '../../store/types';
+import { CardModel } from '..';
 
 interface IDeckCard {
   card: Card;
@@ -123,15 +124,18 @@ export class Deck {
     const cards = this.cards;
     const cardsObj = keyBy(cards, (card) => card.code);
 
-    return getEligibleCards(this.aspectCodes, this.setCode).map((card) => ({
-      card,
-      code: card.code,
-      name: card.name,
-      factionCode: card.factionCode,
-      setCode: card.setCode,
-      typeCode: card.typeCode,
-      count: cardsObj[card.code] ? cardsObj[card.code].count : null,
-    }));
+    return getEligibleCards(this.aspectCodes, this.setCode).map((rawCard) => {
+      const card = new Card(rawCard);
+      return {
+        card,
+        code: card.code,
+        name: card.name,
+        factionCode: card.factionCode,
+        setCode: card.setCode,
+        typeCode: card.typeCode,
+        count: cardsObj[card.code] ? cardsObj[card.code].count : null,
+      };
+    });
   }
 
   get eligibleCardsSectioned(): IDeckCardSection[] {
@@ -261,7 +265,7 @@ const getCardsForDeck = memoizeOne(
   (storeDeckCards: IStoreDeckCard[]): IDeckCard[] => {
     return storeDeckCards
       .reduce((acc, deckCard) => {
-        const card = getCard(deckCard.cardCode);
+        const card = new Card(getCard(deckCard.cardCode));
 
         if (
           card.factionCode !== FactionCodes.ENCOUNTER &&
@@ -290,7 +294,9 @@ const getExtraCardsForDeck = memoizeOne((setCode: SetCode): IDeckCard[] => {
   const encounterCards = getFilteredCards({
     filter: FilterCodes.SET,
     filterCode: [setCode, `${setCode}_nemesis` as SetCode],
-  }).filter((card) => card.factionCode === FactionCodes.ENCOUNTER);
+  })
+    .filter((card) => card.faction_code === FactionCodes.ENCOUNTER)
+    .map((rawCard) => new CardModel(rawCard));
   extraCards.push(...encounterCards);
 
   // add Doctor Strange invocation cards

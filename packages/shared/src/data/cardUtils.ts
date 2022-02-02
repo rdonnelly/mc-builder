@@ -1,8 +1,8 @@
-import { Card } from '../data/models/Card';
 import { factionRank } from '../data/models/Faction';
 import { typeRank } from '../data/models/Type';
+import { ICardRaw } from '../data/types';
 
-export const compareCardCode = (a: Card, b: Card) => {
+export const compareCardCode = (a: ICardRaw, b: ICardRaw) => {
   if (a.code > b.code) {
     return 1;
   }
@@ -12,11 +12,11 @@ export const compareCardCode = (a: Card, b: Card) => {
   return 0;
 };
 
-export const compareCardCost = (a: Card, b: Card) => {
-  if (b.setCode != null && a.setCode == null) {
+export const compareCardCost = (a: ICardRaw, b: ICardRaw) => {
+  if (b.set_code != null && a.set_code == null) {
     return 1;
   }
-  if (a.setCode != null && b.setCode == null) {
+  if (a.set_code != null && b.set_code == null) {
     return -1;
   }
   if (a.cost > b.cost) {
@@ -40,23 +40,23 @@ export const compareCardCost = (a: Card, b: Card) => {
   return 0;
 };
 
-export const compareCardFaction = (a: Card, b: Card) => {
-  if (b.setCode != null && a.setCode == null) {
+export const compareCardFaction = (a: ICardRaw, b: ICardRaw) => {
+  if (b.set_code != null && a.set_code == null) {
     return 1;
   }
-  if (a.setCode != null && b.setCode == null) {
+  if (a.set_code != null && b.set_code == null) {
     return -1;
   }
-  if (factionRank[a.factionCode] > factionRank[b.factionCode]) {
+  if (factionRank[a.faction_code] > factionRank[b.faction_code]) {
     return 1;
   }
-  if (factionRank[b.factionCode] > factionRank[a.factionCode]) {
+  if (factionRank[b.faction_code] > factionRank[a.faction_code]) {
     return -1;
   }
-  if (typeRank[a.typeCode] > typeRank[b.typeCode]) {
+  if (typeRank[a.type_code] > typeRank[b.type_code]) {
     return 1;
   }
-  if (typeRank[b.typeCode] > typeRank[a.typeCode]) {
+  if (typeRank[b.type_code] > typeRank[a.type_code]) {
     return -1;
   }
   if (a.cost > b.cost) {
@@ -80,7 +80,7 @@ export const compareCardFaction = (a: Card, b: Card) => {
   return 0;
 };
 
-export const compareCardName = (a: Card, b: Card) => {
+export const compareCardName = (a: ICardRaw, b: ICardRaw) => {
   if (a.name > b.name) {
     return 1;
   }
@@ -96,11 +96,11 @@ export const compareCardName = (a: Card, b: Card) => {
   return 0;
 };
 
-export const compareCardType = (a: Card, b: Card) => {
-  if (typeRank[a.typeCode] > typeRank[b.typeCode]) {
+export const compareCardType = (a: ICardRaw, b: ICardRaw) => {
+  if (typeRank[a.type_code] > typeRank[b.type_code]) {
     return 1;
   }
-  if (typeRank[b.typeCode] > typeRank[a.typeCode]) {
+  if (typeRank[b.type_code] > typeRank[a.type_code]) {
     return -1;
   }
   if (a.cost > b.cost) {

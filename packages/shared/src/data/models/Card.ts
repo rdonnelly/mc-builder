@@ -1,89 +1,16 @@
-import isDeepEqual from 'lodash/isEqual';
-import memoizeOne from 'memoize-one';
-
-import {
-  compareCardCode,
-  compareCardCost,
-  compareCardFaction,
-  compareCardName,
-  compareCardType,
-} from '../../data/cardUtils';
 import { getFactions } from '../../data/models/Faction';
 import { getPacks } from '../../data/models/Pack';
 import { getSets } from '../../data/models/Set';
 import { getTypes } from '../../data/models/Type';
-import {
-  CardSortTypes,
-  FactionCode,
-  FactionCodes,
-  FilterCode,
-  FilterCodes,
-  ICardRaw,
-  PackCode,
-  PackCodes,
-  SetCode,
-  SetCodes,
-  TypeCode,
-  TypeCodes,
-} from '../../data/types';
-
-const cards: ICardRaw[] = [].concat(
-  require('marvelsdb-json-data/pack/ant_encounter.json'),
-  require('marvelsdb-json-data/pack/ant.json'),
-  require('marvelsdb-json-data/pack/bkw_encounter.json'),
-  require('marvelsdb-json-data/pack/bkw.json'),
-  require('marvelsdb-json-data/pack/cap_encounter.json'),
-  require('marvelsdb-json-data/pack/cap.json'),
-  require('marvelsdb-json-data/pack/core_encounter.json'),
-  require('marvelsdb-json-data/pack/core.json'),
-  require('marvelsdb-json-data/pack/drax_encounter.json'),
-  require('marvelsdb-json-data/pack/drax.json'),
-  require('marvelsdb-json-data/pack/drs_encounter.json'),
-  require('marvelsdb-json-data/pack/drs.json'),
-  require('marvelsdb-json-data/pack/gam_encounter.json'),
-  require('marvelsdb-json-data/pack/gam.json'),
-  require('marvelsdb-json-data/pack/gmw_encounter.json'),
-  require('marvelsdb-json-data/pack/gmw.json'),
-  require('marvelsdb-json-data/pack/gob_encounter.json'),
-  require('marvelsdb-json-data/pack/hlk_encounter.json'),
-  require('marvelsdb-json-data/pack/hlk.json'),
-  require('marvelsdb-json-data/pack/hood_encounter.json'),
-  require('marvelsdb-json-data/pack/msm_encounter.json'),
-  require('marvelsdb-json-data/pack/msm.json'),
-  require('marvelsdb-json-data/pack/mts_encounter.json'),
-  require('marvelsdb-json-data/pack/mts.json'),
-  require('marvelsdb-json-data/pack/nebu_encounter.json'),
-  require('marvelsdb-json-data/pack/nebu.json'),
-  require('marvelsdb-json-data/pack/qsv_encounter.json'),
-  require('marvelsdb-json-data/pack/qsv.json'),
-  require('marvelsdb-json-data/pack/ron_encounter.json'),
-  require('marvelsdb-json-data/pack/scw_encounter.json'),
-  require('marvelsdb-json-data/pack/scw.json'),
-  require('marvelsdb-json-data/pack/stld_encounter.json'),
-  require('marvelsdb-json-data/pack/stld.json'),
-  require('marvelsdb-json-data/pack/thor_encounter.json'),
-  require('marvelsdb-json-data/pack/thor.json'),
-  require('marvelsdb-json-data/pack/toafk_encounter.json'),
-  require('marvelsdb-json-data/pack/trors_encounter.json'),
-  require('marvelsdb-json-data/pack/trors.json'),
-  require('marvelsdb-json-data/pack/twc_encounter.json'),
-  require('marvelsdb-json-data/pack/valk_encounter.json'),
-  require('marvelsdb-json-data/pack/valk.json'),
-  require('marvelsdb-json-data/pack/vision_encounter.json'),
-  require('marvelsdb-json-data/pack/vision.json'),
-  require('marvelsdb-json-data/pack/vnm_encounter.json'),
-  require('marvelsdb-json-data/pack/vnm.json'),
-  require('marvelsdb-json-data/pack/warm_encounter.json'),
-  require('marvelsdb-json-data/pack/warm.json'),
-  require('marvelsdb-json-data/pack/wsp_encounter.json'),
-  require('marvelsdb-json-data/pack/wsp.json'),
-);
+import { FactionCode, ICardRaw, PackCodes } from '../../data/types';
 
 export class Card {
   raw: ICardRaw;
+  root: ICardRaw;
 
-  constructor(card: ICardRaw) {
+  constructor(card: ICardRaw, root?: ICardRaw) {
     this.raw = card;
+    this.root = root || undefined;
   }
 
   get code() {
@@ -92,15 +19,6 @@ export class Card {
 
   get isDuplicate() {
     return this.raw.duplicate_of != null;
-  }
-
-  get root(): ICardRaw {
-    if (this.isDuplicate) {
-      const duplicateCard = getCard(this.raw.duplicate_of);
-      return duplicateCard.root;
-    }
-
-    return this.raw;
   }
 
   get merged(): ICardRaw {
@@ -119,19 +37,19 @@ export class Card {
   }
 
   get name() {
-    return this.root.name;
+    return this.raw.name;
   }
 
   get subname() {
-    return this.root.subname;
+    return this.raw.subname;
   }
 
   get traits() {
-    return this.root.traits;
+    return this.raw.traits;
   }
 
   get faction() {
-    return getFactions().find((f) => f.code === this.root.faction_code);
+    return getFactions().find((f) => f.code === this.raw.faction_code);
   }
 
   get factionCode() {
@@ -155,7 +73,7 @@ export class Card {
   }
 
   get set() {
-    return getSets().find((s) => s.code === this.root.set_code);
+    return getSets().find((s) => s.code === this.raw.set_code);
   }
 
   get setCode() {
@@ -167,7 +85,7 @@ export class Card {
   }
 
   get type() {
-    return getTypes().find((t) => t.code === this.root.type_code);
+    return getTypes().find((t) => t.code === this.raw.type_code);
   }
 
   get typeCode() {
@@ -179,135 +97,135 @@ export class Card {
   }
 
   get cost() {
-    return this.root.cost;
+    return this.raw.cost;
   }
 
   get flavor() {
-    return this.root.flavor;
+    return this.raw.flavor;
   }
 
   get stage() {
-    return this.root.stage;
+    return this.raw.stage;
   }
 
   get attack() {
-    return this.root.attack;
+    return this.raw.attack;
   }
 
   get attackCost() {
-    return this.root.attack_cost;
+    return this.raw.attack_cost;
   }
 
   get defense() {
-    return this.root.defense;
+    return this.raw.defense;
   }
 
   get handSize() {
-    return this.root.hand_size;
+    return this.raw.hand_size;
   }
 
   get health() {
-    return this.root.health;
+    return this.raw.health;
   }
 
   get isHealthPerHero() {
-    return !!this.root.health_per_hero;
+    return !!this.raw.health_per_hero;
   }
 
   get recover() {
-    return this.root.recover;
+    return this.raw.recover;
   }
 
   get scheme() {
-    return this.root.scheme;
+    return this.raw.scheme;
   }
 
   get threat() {
-    return this.root.threat;
+    return this.raw.threat;
   }
 
   get threatBase() {
-    return this.root.base_threat;
+    return this.raw.base_threat;
   }
 
   get threatBaseIsFixed() {
-    return this.root.base_threat_fixed;
+    return this.raw.base_threat_fixed;
   }
 
   get threatEscalation() {
-    return this.root.escalation_threat;
+    return this.raw.escalation_threat;
   }
 
   get threatEscalationIsFixed() {
-    return this.root.escalation_threat_fixed;
+    return this.raw.escalation_threat_fixed;
   }
 
   get thwart() {
-    return this.root.thwart;
+    return this.raw.thwart;
   }
 
   get thwartCost() {
-    return this.root.thwart_cost;
+    return this.raw.thwart_cost;
   }
 
   get text() {
-    return this.root.text;
+    return this.raw.text;
   }
 
   get backFlavor() {
-    return this.root.back_flavor;
+    return this.raw.back_flavor;
   }
 
   get backText() {
-    return this.root.back_text;
+    return this.raw.back_text;
   }
 
   get attackText() {
-    return this.root.attack_text;
+    return this.raw.attack_text;
   }
 
   get schemeAcceleration() {
-    return this.root.scheme_acceleration;
+    return this.raw.scheme_acceleration;
   }
 
   get schemeCrisis() {
-    return this.root.scheme_crisis;
+    return this.raw.scheme_crisis;
   }
 
   get schemeHazard() {
-    return this.root.scheme_hazard;
+    return this.raw.scheme_hazard;
   }
 
   get schemeText() {
-    return this.root.scheme_text;
+    return this.raw.scheme_text;
   }
 
   get boost() {
-    return this.root.boost;
+    return this.raw.boost;
   }
 
   get boostText() {
-    if (this.root.boost_text == null) {
+    if (this.raw.boost_text == null) {
       return null;
     }
-    return `[special] <b>Boost</b>: ${this.root.boost_text}`;
+    return `[special] <b>Boost</b>: ${this.raw.boost_text}`;
   }
 
   get resources() {
     if (
-      !this.root.resource_energy &&
-      !this.root.resource_mental &&
-      !this.root.resource_physical &&
-      !this.root.resource_wild
+      !this.raw.resource_energy &&
+      !this.raw.resource_mental &&
+      !this.raw.resource_physical &&
+      !this.raw.resource_wild
     ) {
       return null;
     }
 
     return {
-      energy: this.root.resource_energy,
-      mental: this.root.resource_mental,
-      physical: this.root.resource_physical,
-      wild: this.root.resource_wild,
+      energy: this.raw.resource_energy,
+      mental: this.raw.resource_mental,
+      physical: this.raw.resource_physical,
+      wild: this.raw.resource_wild,
     };
   }
 
@@ -324,25 +242,25 @@ export class Card {
   }
 
   get isUnique() {
-    return this.root.is_unique || false;
+    return this.raw.is_unique || false;
   }
 
   get deckLimit() {
-    return this.root.deck_limit || 0;
+    return this.raw.deck_limit || 0;
   }
 
   get imageUriSet() {
-    const cardCode = this.root.code.slice(2).replace(/^0+/, '').toUpperCase();
+    const cardCode = this.raw.code.slice(2).replace(/^0+/, '').toUpperCase();
     let packUrlPart = '';
-    if (this.root.pack_code === PackCodes.RON) {
+    if (this.raw.pack_code === PackCodes.RON) {
       packUrlPart = 'pnp01en';
     } else {
-      const pack = getPacks().find((p) => p.code === this.root.pack_code);
+      const pack = getPacks().find((p) => p.code === this.raw.pack_code);
       const packCode = String(pack.position).padStart(2, '0');
       packUrlPart = `mc${packCode}en`;
     }
 
-    const isDoubleSided = ['main_scheme'].includes(this.root.type_code);
+    const isDoubleSided = ['main_scheme'].includes(this.raw.type_code);
 
     if (isDoubleSided) {
       return [
@@ -364,176 +282,3 @@ export class Card {
     return this.traits ? this.traits.toLowerCase().includes(trait) : false;
   }
 }
-
-export const getCards = memoizeOne(() =>
-  cards.map((raw) => new Card(raw)).sort(compareCardCode),
-);
-
-export const getCardsMap = memoizeOne((): { [code: string]: Card } =>
-  getCards().reduce((map, card) => {
-    map[card.code] = card;
-    return map;
-  }, {} as { code: Card }),
-);
-
-export const getFilteredCards = memoizeOne(
-  ({
-    searchString,
-    filter,
-    filterCode,
-    cardCodes,
-    sortType,
-  }: {
-    searchString?: string;
-    filter?: FilterCode;
-    filterCode?:
-      | FactionCode
-      | FactionCode[]
-      | PackCode
-      | PackCode[]
-      | SetCode
-      | SetCode[]
-      | TypeCode
-      | TypeCode[];
-    cardCodes?: string[];
-    sortType?: CardSortTypes;
-  }) => {
-    let filteredCards = getCards();
-
-    const formattedSearchTerm =
-      searchString != null
-        ? searchString.toLowerCase().replace(/[^A-Za-z0-9]/g, '')
-        : null;
-
-    filteredCards = filteredCards.filter((card) => {
-      if (cardCodes && cardCodes.length && !cardCodes.includes(card.code)) {
-        return false;
-      }
-
-      if (formattedSearchTerm) {
-        const cardName = card.name.toLowerCase().replace(/[^A-Za-z0-9]/g, '');
-        return cardName.includes(formattedSearchTerm);
-      }
-
-      return true;
-    });
-
-    switch (filter) {
-      case FilterCodes.FACTION: {
-        filteredCards = filteredCards.filter((card) =>
-          Array.isArray(filterCode)
-            ? (filterCode as FactionCode[]).includes(card.factionCode)
-            : card.factionCode === filterCode,
-        );
-        break;
-      }
-      case FilterCodes.PACK: {
-        filteredCards = filteredCards.filter((card) =>
-          Array.isArray(filterCode)
-            ? (filterCode as PackCode[]).includes(card.packCode)
-            : card.packCode === filterCode,
-        );
-        break;
-      }
-      case FilterCodes.SET: {
-        filteredCards = filteredCards.filter((card) =>
-          Array.isArray(filterCode)
-            ? (filterCode as SetCode[]).includes(card.setCode)
-            : card.setCode === filterCode,
-        );
-        break;
-      }
-      case FilterCodes.TYPE: {
-        filteredCards = filteredCards.filter((card) =>
-          Array.isArray(filterCode)
-            ? (filterCode as TypeCode[]).includes(card.typeCode)
-            : card.typeCode === filterCode,
-        );
-        break;
-      }
-    }
-
-    let comparator = compareCardCode;
-    if (sortType === CardSortTypes.CODE) {
-      comparator = compareCardCode;
-    } else if (sortType === CardSortTypes.COST) {
-      comparator = compareCardCost;
-    } else if (sortType === CardSortTypes.FACTION) {
-      comparator = compareCardFaction;
-    } else if (sortType === CardSortTypes.NAME) {
-      comparator = compareCardName;
-    } else if (sortType === CardSortTypes.TYPE) {
-      comparator = compareCardType;
-    } else if (filter) {
-      if (filter === FilterCodes.FACTION) {
-        comparator = compareCardType;
-      } else if (filter === FilterCodes.PACK) {
-        comparator = compareCardCode;
-      } else if (filter === FilterCodes.SET) {
-        comparator = compareCardCode;
-      } else if (filter === FilterCodes.TYPE) {
-        comparator = compareCardFaction;
-      }
-    }
-
-    filteredCards = filteredCards.sort(comparator);
-
-    return filteredCards;
-  },
-  isDeepEqual,
-);
-
-export const getEligibleCards = memoizeOne(
-  (factionCodes: FactionCode[], setCode: SetCode) =>
-    getCards()
-      .filter((card) => {
-        if (card.isDuplicate) {
-          return false;
-        }
-
-        // exclude cards that are not an Ally, Event, Resource, Support, or Upgrade
-        if (
-          ![
-            TypeCodes.ALLY,
-            TypeCodes.EVENT,
-            TypeCodes.RESOURCE,
-            TypeCodes.SUPPORT,
-            TypeCodes.UPGRADE,
-          ].includes(card.typeCode as TypeCodes)
-        ) {
-          return false;
-        }
-
-        const isInFaction = [...factionCodes, FactionCodes.BASIC].includes(
-          card.factionCode,
-        );
-
-        const isGamoraEligible =
-          setCode === SetCodes.GAM &&
-          card.typeCode === TypeCodes.EVENT &&
-          (card.hasTrait('attack') || card.hasTrait('thwart'));
-
-        const isAdamWarlockEligible = setCode === SetCodes.WARLOCK;
-
-        // card must match at least one of the following:
-        // 1) has matching set code
-        // 2) in faction + no set code
-        // 3) works with Gamora (attack or thwart event) + no set code
-        // 4) works with Adam Warlock + no set code
-
-        if (
-          !(card.setCode === setCode) &&
-          !(isInFaction && card.setCode == null) &&
-          !(isGamoraEligible && card.setCode == null) &&
-          !(isAdamWarlockEligible && card.setCode == null)
-        ) {
-          return false;
-        }
-
-        return true;
-      })
-      .sort(compareCardFaction),
-  isDeepEqual,
-);
-
-export const getCard = (code: string) => getCardsMap()[code];

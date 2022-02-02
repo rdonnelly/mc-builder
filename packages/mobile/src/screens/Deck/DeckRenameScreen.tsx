@@ -1,6 +1,5 @@
 import 'react-native-get-random-values';
 
-import { useHeaderHeight } from '@react-navigation/elements';
 import { useCallback } from 'react';
 import { Platform } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';

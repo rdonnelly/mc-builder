@@ -67,8 +67,10 @@ const CardDetailScreen = ({ navigation, route }: CardDetailScreenProps) => {
     case 'card': {
       cards =
         searchString || (filter && filterCode)
-          ? getFilteredCards({ searchString, filter, filterCode })
-          : getCards();
+          ? getFilteredCards({ searchString, filter, filterCode }).map(
+              (rawCard) => new CardModel(rawCard),
+            )
+          : getCards().map((rawCard) => new CardModel(rawCard));
       break;
     }
     case 'deck': {

@@ -98,6 +98,7 @@ const DecksCreateSelectScreen = ({
             <ListItemInnerText>{item.name}</ListItemInnerText>
             <ListIconWrapper>
               <ListIcon
+                // @ts-ignore
                 active={item.code === deckSet || deckAspect.includes(item.code)}
               />
             </ListIconWrapper>

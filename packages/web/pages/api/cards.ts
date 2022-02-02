@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-import { getCards } from '@mc-builder/shared/src/data/models/Card';
+import { getCardRoot, getCards } from '@mc-builder/shared/src/data/raw/Card';
 import { ICardRaw } from '@mc-builder/shared/src/data/types';
 
 export default function handler(
@@ -10,7 +10,15 @@ export default function handler(
   const cards = getCards();
 
   if (cards != null) {
-    res.status(200).json(cards.map((card) => card.merged));
+    res.status(200).json(
+      cards.map((card) => {
+        const root = getCardRoot(card.code);
+        return {
+          ...root,
+          ...card,
+        };
+      }),
+    );
   } else {
     res.status(404).end('404 Not Found');
   }

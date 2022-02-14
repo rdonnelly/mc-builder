@@ -16,8 +16,10 @@ import { persistor, store } from '@store';
 
 import { colors, darkTheme, lightTheme } from '@mc-builder/shared/src/styles';
 
-Bugsnag.start();
 enableFreeze(true);
+if (!__DEV__) {
+  Bugsnag.start();
+}
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 declare var global: { HermesInternal: null | {} };

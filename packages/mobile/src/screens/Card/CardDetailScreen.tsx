@@ -70,11 +70,6 @@ const CardDetailScreen = ({ navigation, route }: CardDetailScreenProps) => {
       ? cardsAnnotated[activeCardIndex].count
       : null;
 
-  console.log(
-    'cardsAnnotated[activeCardIndex]',
-    cardsAnnotated[activeCardIndex],
-  );
-
   useEffect(() => {
     switch (type) {
       case 'card': {
@@ -264,29 +259,25 @@ const CardDetailScreen = ({ navigation, route }: CardDetailScreenProps) => {
 
   return (
     <Container>
-      {isFetching ? (
-        <ActivityIndicator color={colors.orange} />
-      ) : (
-        <CardDetailFlatList
-          renderItem={renderItem}
-          data={cards}
-          keyExtractor={(item: CardModel) => `card-detail-screen-${item.code}`}
-          getItemLayout={getItemLayout}
-          as={FlatList}
-          ref={flatListRef}
-          horizontal={true}
-          scrollEnabled={true}
-          pagingEnabled={true}
-          overScrollMode={'never'}
-          initialNumToRender={1}
-          showsVerticalScrollIndicator={false}
-          showsHorizontalScrollIndicator={false}
-          initialScrollIndex={cardIndexRef.current}
-          viewabilityConfig={viewabilityConfig.current}
-          onScroll={handleScroll}
-          onViewableItemsChanged={handleViewableItemsChanged.current}
-        />
-      )}
+      <CardDetailFlatList
+        renderItem={renderItem}
+        data={cards}
+        keyExtractor={(item: CardModel) => `card-detail-screen-${item.code}`}
+        getItemLayout={getItemLayout}
+        as={FlatList}
+        ref={flatListRef}
+        horizontal={true}
+        scrollEnabled={true}
+        pagingEnabled={true}
+        overScrollMode={'never'}
+        initialNumToRender={1}
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
+        initialScrollIndex={cardIndexRef.current}
+        viewabilityConfig={viewabilityConfig.current}
+        onScroll={handleScroll}
+        onViewableItemsChanged={handleViewableItemsChanged.current}
+      />
 
       {route.params.type === 'deckEdit' && deckCode != null ? (
         <FloatingControlBar>

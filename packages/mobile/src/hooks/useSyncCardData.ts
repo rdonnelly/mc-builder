@@ -32,7 +32,6 @@ export function useSyncCardData() {
     const cards = [];
 
     for (const pack of packs) {
-      console.log(`${MCBUILDER_BASE_URI}/api/packs/${pack.code}/cards`);
       const cardsResponse = await fetch(
         `${MCBUILDER_BASE_URI}/api/packs/${pack.code}/cards`,
       );

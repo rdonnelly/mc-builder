@@ -292,7 +292,6 @@ class Database {
     cardCodes?: string[];
     sort?: CardSortTypes;
   }) {
-    console.log('fetchCards');
     const query = squel.select().from('cards');
 
     if (searchString) {
@@ -360,7 +359,6 @@ class Database {
     setCode?: SetCode;
     typeCodes: TypeCode[];
   }) {
-    console.log('fetchCardsComplicated');
     const query = squel.select().from('cards');
 
     const innerCheck = squel.expr();
@@ -388,8 +386,6 @@ class Database {
       .order('cost')
       .order('name')
       .order('code');
-
-    console.log(query.toString());
 
     const queryParams = query.toParam();
     const cards = await this.run(queryParams.text, queryParams.values);

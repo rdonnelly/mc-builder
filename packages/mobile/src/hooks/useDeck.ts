@@ -46,7 +46,9 @@ export function useDeck(code: string) {
       setExtraCards(fetchedDeckExtraCards);
     };
 
-    fetchCards();
+    if (storeDeck && storeDeckCardEntities) {
+      fetchCards();
+    }
   }, [storeDeck, storeDeckCardEntities]);
 
   return { deck, deckCards, extraCards };

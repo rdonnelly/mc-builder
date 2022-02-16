@@ -1,4 +1,5 @@
 import {
+  ActivityIndicator,
   Alert,
   Linking,
   Pressable,
@@ -8,6 +9,7 @@ import {
 import InAppBrowser from 'react-native-inappbrowser-reborn';
 import styled from 'styled-components/native';
 
+import { useSyncCardData } from '@hooks/useSyncCardData';
 import { SettingsScreenProps } from '@navigation/SettingsStackNavigator';
 import { useAppDispatch } from '@store/hooks';
 // import { getDecks } from '@api/deck';
@@ -18,6 +20,7 @@ import { base, colors } from '@mc-builder/shared/src/styles';
 // import { setAuthToken } from '@store/reducers/auth';
 
 const SettingsScreen = ({}: SettingsScreenProps) => {
+  const { isSyncing, sync } = useSyncCardData();
   const dispatch = useAppDispatch();
 
   const clearStore = () => {
@@ -35,6 +38,10 @@ const SettingsScreen = ({}: SettingsScreenProps) => {
         },
       ],
     );
+  };
+
+  const syncCardData = () => {
+    sync();
   };
 
   // const doThing = async () => {
@@ -71,6 +78,18 @@ const SettingsScreen = ({}: SettingsScreenProps) => {
               </>
             )}
           </Pressable>
+        </Information>
+
+        <Information>
+          {isSyncing ? (
+            <ActivityIndicator color={colors.blue} />
+          ) : (
+            <Pressable onPress={syncCardData}>
+              {({ pressed }) => (
+                <LinkText pressed={pressed}>Sync Card Data</LinkText>
+              )}
+            </Pressable>
+          )}
         </Information>
 
         <Information>

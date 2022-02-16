@@ -7,6 +7,11 @@ import styled from 'styled-components/native';
 import DeckDetailHeader from '@mc-builder/shared/src/components/DeckDetail/DeckDetailHeader';
 import DeckDetailList from '@mc-builder/shared/src/components/DeckDetail/DeckDetailList';
 import { DeckModel } from '@mc-builder/shared/src/data';
+import {
+  getCardsForDeck,
+  getDeckDescription,
+  getExtraCardsForDeck,
+} from '@mc-builder/shared/src/data/deckUtils';
 import { IStoreDeck, IStoreDeckCard } from '@mc-builder/shared/src/store/types';
 import { colors } from '@mc-builder/shared/src/styles';
 import {
@@ -31,6 +36,8 @@ const DeckPage = ({
   const router = useRouter();
 
   const deck = new DeckModel(storeDeck, storeDeckCards);
+  const deckCards = getCardsForDeck(storeDeckCards);
+  const extraCards = getExtraCardsForDeck(storeDeck.setCode);
 
   const handlePressItem = (cardCode: string) => {
     router.push(`/cards/${cardCode}`);
@@ -55,8 +62,13 @@ const DeckPage = ({
       </Head>
       <Header color={colors.purple}>Decks</Header>
       <DeckDetailWrapper>
-        <DeckDetailHeader deck={deck} />
-        <DeckDetailList deck={deck} handlePressItem={handlePressItem} />
+        <DeckDetailHeader deck={deck} deckCards={deckCards} />
+        <DeckDetailList
+          deck={deck}
+          deckCards={deckCards}
+          extraCards={extraCards}
+          handlePressItem={handlePressItem}
+        />
       </DeckDetailWrapper>
     </>
   );
@@ -98,13 +110,14 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   }
 
   const deck = new DeckModel(storeDeck, storeDeckCards);
+  const deckCards = getCardsForDeck(storeDeckCards);
 
   return {
     props: {
       storeDeck,
       storeDeckCards,
       meta: {
-        description: deck.description,
+        description: getDeckDescription(deck, deckCards),
         title: deck.name,
         url: getAbsoluteUrl(`/decks/${payload}`),
       },

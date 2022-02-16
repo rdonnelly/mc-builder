@@ -1,14 +1,8 @@
 import { useActionSheet } from '@expo/react-native-action-sheet';
 import throttle from 'lodash/throttle';
+import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import {
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
-import {
+  ActivityIndicator,
   Dimensions,
   findNodeHandle,
   FlatList,
@@ -27,20 +21,14 @@ import FloatingControlBar, {
   FloatingControlButtonVariant,
 } from '@components/FloatingControlBar';
 import { AppContext } from '@context/AppContext';
-import { useDeck, useDeckModifications } from '@hooks';
+import { useDatabaseCards, useDeck, useDeckModifications } from '@hooks';
 import { CardDetailScreenProps } from '@navigation/CardsStackNavigator';
-import { StoreState } from '@store';
-import { useAppSelector } from '@store/hooks';
-import { selectStoreDeckCard } from '@store/selectors';
 import { setClipboard } from '@utils/Clipboard';
 import { shareImageUrl } from '@utils/Share';
 
 import CardDetail from '@mc-builder/shared/src/components/CardDetail';
-import {
-  CardModel,
-  getCards,
-  getFilteredCards,
-} from '@mc-builder/shared/src/data';
+import { CardModel } from '@mc-builder/shared/src/data';
+import { CardSortTypes } from '@mc-builder/shared/src/data/types';
 import { base, colors } from '@mc-builder/shared/src/styles';
 
 const shareCardImage = (uri: string) => {
@@ -54,54 +42,75 @@ const CardDetailScreen = ({ navigation, route }: CardDetailScreenProps) => {
   const { showActionSheetWithOptions } = useActionSheet();
   const actionSheetAnchorRef = useRef(null);
 
+  const cardIndex = (route.params || {}).index;
   const type = (route.params || {}).type;
   const searchString = (route.params || {}).searchString;
   const filter = (route.params || {}).filter;
   const filterCode = (route.params || {}).filterCode;
 
   const deckCode = (route.params || {}).deckCode;
-  const { deckModel } = useDeck(deckCode);
+  const { deck } = useDeck(deckCode);
 
-  let cards: CardModel[];
-  switch (type) {
-    case 'card': {
-      cards =
-        searchString || (filter && filterCode)
-          ? getFilteredCards({ searchString, filter, filterCode }).map(
-              (rawCard) => new CardModel(rawCard),
-            )
-          : getCards().map((rawCard) => new CardModel(rawCard));
-      break;
-    }
-    case 'deck': {
-      cards = deckModel.getCardList();
-      break;
-    }
-    case 'deckEdit': {
-      cards = deckModel.getEligibleCardList();
-      break;
-    }
-  }
-
-  const cardIndex = useMemo(
-    () => cards.findIndex((c) => c.code === route.params.code),
-    [cards, route.params.code],
-  );
   const cardIndexRef = useRef(cardIndex);
   const [activeCardIndex, setActiveCardIndex] = useState(cardIndex);
+
+  const {
+    cardsAnnotated,
+    fetchCards,
+    fetchDeckCards,
+    fetchEligibleDeckCards,
+    isFetching,
+  } = useDatabaseCards();
+
+  const cards = cardsAnnotated.map((cardAnnotated) => cardAnnotated.card);
   const activeCard = cards[activeCardIndex];
 
-  const deckCard = useAppSelector((state: StoreState) =>
-    selectStoreDeckCard(state, deckCode, activeCard?.code),
+  const deckCardCount =
+    cardsAnnotated[activeCardIndex] != null
+      ? cardsAnnotated[activeCardIndex].count
+      : null;
+
+  console.log(
+    'cardsAnnotated[activeCardIndex]',
+    cardsAnnotated[activeCardIndex],
   );
 
-  let deckCardCount = activeCard != null ? 0 : null;
-  if (deckCard != null) {
-    deckCardCount = deckCard.quantity;
-  }
+  useEffect(() => {
+    switch (type) {
+      case 'card': {
+        fetchCards({ searchString, filter, filterCode: [filterCode] });
+        break;
+      }
+      case 'deck': {
+        fetchDeckCards({
+          setCode: deck.setCode,
+          storeDeckCards: deck.rawCards,
+          sort: CardSortTypes.FACTION,
+        });
+        break;
+      }
+      case 'deckEdit': {
+        fetchEligibleDeckCards({
+          factionCodes: deck.aspectCodes,
+          setCode: deck.setCode,
+          storeDeckCards: deck.rawCards,
+        });
+        break;
+      }
+    }
+  }, [
+    type,
+    fetchCards,
+    fetchDeckCards,
+    fetchEligibleDeckCards,
+    searchString,
+    filter,
+    filterCode,
+    deck,
+  ]);
 
   const { increment, incrementIsDisabled, decrement, decrementIsDisabled } =
-    useDeckModifications(deckCode, deckModel?.setCode);
+    useDeckModifications(deckCode, deck?.setCode);
 
   const handleReport = useCallback(async () => {
     const card = cards[cardIndexRef.current];
@@ -255,25 +264,29 @@ const CardDetailScreen = ({ navigation, route }: CardDetailScreenProps) => {
 
   return (
     <Container>
-      <CardDetailFlatList
-        renderItem={renderItem}
-        data={cards}
-        keyExtractor={(item: CardModel) => `card-detail-screen-${item.code}`}
-        getItemLayout={getItemLayout}
-        as={FlatList}
-        ref={flatListRef}
-        horizontal={true}
-        scrollEnabled={true}
-        pagingEnabled={true}
-        overScrollMode={'never'}
-        initialNumToRender={1}
-        showsVerticalScrollIndicator={false}
-        showsHorizontalScrollIndicator={false}
-        initialScrollIndex={cardIndexRef.current}
-        viewabilityConfig={viewabilityConfig.current}
-        onScroll={handleScroll}
-        onViewableItemsChanged={handleViewableItemsChanged.current}
-      />
+      {isFetching ? (
+        <ActivityIndicator color={colors.orange} />
+      ) : (
+        <CardDetailFlatList
+          renderItem={renderItem}
+          data={cards}
+          keyExtractor={(item: CardModel) => `card-detail-screen-${item.code}`}
+          getItemLayout={getItemLayout}
+          as={FlatList}
+          ref={flatListRef}
+          horizontal={true}
+          scrollEnabled={true}
+          pagingEnabled={true}
+          overScrollMode={'never'}
+          initialNumToRender={1}
+          showsVerticalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}
+          initialScrollIndex={cardIndexRef.current}
+          viewabilityConfig={viewabilityConfig.current}
+          onScroll={handleScroll}
+          onViewableItemsChanged={handleViewableItemsChanged.current}
+        />
+      )}
 
       {route.params.type === 'deckEdit' && deckCode != null ? (
         <FloatingControlBar>
@@ -341,6 +354,8 @@ const CardDetailScreen = ({ navigation, route }: CardDetailScreenProps) => {
 
 const Container = styled(base.Container)`
   background-color: ${colors.white};
+  align-items: center;
+  justify-content: center;
 `;
 
 const CardDetailSwipeGuard = styled.View`

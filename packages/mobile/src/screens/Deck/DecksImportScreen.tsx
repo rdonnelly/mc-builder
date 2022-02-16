@@ -5,12 +5,12 @@ import styled from 'styled-components/native';
 import FloatingControlBar, {
   FloatingControlButtonVariant,
 } from '@components/FloatingControlBar';
+import { useDeckImport } from '@hooks/useDeckImport';
 import { DecksImportScreenProps } from '@navigation/DecksStackNavigator';
 import { importDeck } from '@store/actions';
 import { useAppDispatch } from '@store/hooks';
 
 import DeckDetail from '@mc-builder/shared/src/components/DeckDetail';
-import { useDeckImport } from '@mc-builder/shared/src/hooks';
 import { base, colors } from '@mc-builder/shared/src/styles';
 
 const DecksImportFormScreen = ({
@@ -21,7 +21,8 @@ const DecksImportFormScreen = ({
   const insets = useSafeAreaInsets();
 
   const importString = route.params.importString;
-  const { deckToImport } = useDeckImport(importString);
+  const { deckToImport, deckCardsToImport, deckExtraCardsToImport } =
+    useDeckImport(importString);
 
   if (deckToImport === false) {
     Alert.alert(
@@ -65,7 +66,11 @@ const DecksImportFormScreen = ({
 
   return (
     <Container bottom={insets.bottom}>
-      <DeckDetail deck={deckToImport} />
+      <DeckDetail
+        deck={deckToImport}
+        deckCards={deckCardsToImport}
+        extraCards={deckExtraCardsToImport}
+      />
       <FloatingControlBar>
         <FloatingControlBar.FlexButton
           onPress={() => navigation.goBack()}

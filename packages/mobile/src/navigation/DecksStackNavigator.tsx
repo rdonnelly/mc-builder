@@ -29,6 +29,7 @@ export type DecksStackParamList = {
   DeckDetail: { code: string };
   DeckDetailCardDetail: {
     code: string;
+    index: number;
     type: 'card' | 'deck' | 'deckEdit';
     filter?: FilterCode;
     filterCode?: FactionCode | PackCode | SetCode | TypeCode;
@@ -38,6 +39,7 @@ export type DecksStackParamList = {
   DeckEdit: { code: string };
   DeckEditCardDetail: {
     code: string;
+    index: number;
     type: 'card' | 'deck' | 'deckEdit';
     filter?: FilterCode;
     filterCode?: FactionCode | PackCode | SetCode | TypeCode;

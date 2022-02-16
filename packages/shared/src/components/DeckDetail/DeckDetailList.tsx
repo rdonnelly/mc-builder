@@ -4,6 +4,8 @@ import styled from 'styled-components/native';
 
 import CardListItem from '../../components/CardListItem';
 import { CardModel, DeckModel } from '../../data';
+import { getCardSectionsForDeck } from '../../data/deckUtils';
+import { IDeckCard } from '../../data/models/Deck';
 import { colors } from '../../styles';
 
 const isWeb = Platform.OS === 'web';
@@ -16,11 +18,21 @@ const styles = StyleSheet.create({
 
 const DeckDetailList = ({
   deck,
+  deckCards,
+  extraCards,
   handlePressItem,
 }: {
   deck: DeckModel;
-  handlePressItem?: (cardCode: string) => void;
+  deckCards: IDeckCard[];
+  extraCards: IDeckCard[];
+  handlePressItem?: (cardCode: string, index: number) => void;
 }) => {
+  const sectionedCards = getCardSectionsForDeck([...deckCards, ...extraCards], {
+    includeExtra: true,
+    includeEmpty: true,
+    includeIdentity: true,
+  });
+
   const renderSectionHeader = ({ section }) => (
     <SectionHeader>
       <SectionHeaderText>{section.title}</SectionHeaderText>
@@ -34,13 +46,13 @@ const DeckDetailList = ({
       count={card.count || 0}
       deckCode={deck.code}
       showPackInfo={false}
-      onPressItem={handlePressItem}
+      onPressItem={() => handlePressItem(card.code, card.index)}
     />
   );
 
   return (
     <CardList
-      sections={deck.cardsSectioned}
+      sections={sectionedCards}
       renderItem={renderCard}
       renderSectionHeader={renderSectionHeader}
       keyExtractor={(item: CardModel) => item.code}

@@ -28,6 +28,7 @@ export type CardStackParamList = {
   TypesList: undefined;
   CardDetail: {
     code: string;
+    index: number;
     type: 'card' | 'deck' | 'deckEdit';
     filter?: FilterCode;
     filterCode?: FactionCode | PackCode | SetCode | TypeCode;

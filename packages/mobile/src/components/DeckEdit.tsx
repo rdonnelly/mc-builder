@@ -11,11 +11,22 @@ import { DeckEditScreenProps } from '@navigation/DecksStackNavigator';
 
 import { DeckDetailHeader } from '@mc-builder/shared/src/components/DeckDetail';
 import { DeckModel } from '@mc-builder/shared/src/data';
+import { IDeckCard } from '@mc-builder/shared/src/data/models/Deck';
 import { base, colors } from '@mc-builder/shared/src/styles';
 
 type DeckEditNavigationProps = DeckEditScreenProps['navigation'];
 
-const DeckEdit = ({ deck }: { deck: DeckModel }) => {
+const DeckEdit = ({
+  deck,
+  deckCards,
+  eligibleDeckCards,
+  handlePressItem,
+}: {
+  deck: DeckModel;
+  deckCards: IDeckCard[];
+  eligibleDeckCards: IDeckCard[];
+  handlePressItem?: (cardCode: string, index: number) => void;
+}) => {
   const navigation = useNavigation<DeckEditNavigationProps>();
 
   const handlePressDone = () => {
@@ -27,8 +38,12 @@ const DeckEdit = ({ deck }: { deck: DeckModel }) => {
 
   return (
     <Container>
-      <DeckDetailHeader deck={deck} />
-      <DeckEditList deck={deck} />
+      <DeckDetailHeader deck={deck} deckCards={deckCards} />
+      <DeckEditList
+        deck={deck}
+        eligibleDeckCards={eligibleDeckCards}
+        handlePressItem={handlePressItem}
+      />
 
       <FloatingControlBar>
         <FloatingControlBar.FlexButton

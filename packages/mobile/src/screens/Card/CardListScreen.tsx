@@ -8,6 +8,7 @@ import styled from 'styled-components/native';
 import FloatingControlBar, {
   FloatingControlButtonVariant,
 } from '@components/FloatingControlBar';
+import { useDatabaseCards } from '@hooks/useDatabaseCards';
 import { useListSearchBar } from '@hooks/useListSearchBar';
 import { CardsListScreenProps } from '@navigation/CardsStackNavigator';
 
@@ -18,9 +19,7 @@ import {
   CardModel,
   FactionCode,
   FilterCodes,
-  getCards,
   getFaction,
-  getFilteredCards,
   getPack,
   getType,
   PackCode,
@@ -41,7 +40,7 @@ const styles = StyleSheet.create({
 
 const SEARCH_BAR_HEIGHT = 64;
 
-const getItemLayout = (_data: CardModel, index: number) => ({
+const getItemLayout = (_data: any, index: number) => ({
   length: ITEM_HEIGHT,
   offset: ITEM_HEIGHT * index,
   index,
@@ -53,13 +52,6 @@ const CardListScreen = ({ navigation, route }: CardsListScreenProps) => {
   const [searchString, setSearchString] = useState(null);
   const filter = (route.params || {}).filter;
   const filterCode = (route.params || {}).filterCode;
-
-  const cards =
-    searchString || (filter && filterCode)
-      ? getFilteredCards({ searchString, filter, filterCode }).map(
-          (rawCard) => new CardModel(rawCard),
-        )
-      : getCards().map((rawCard) => new CardModel(rawCard));
 
   let filterName = null;
   if (filter && filterCode) {
@@ -82,7 +74,16 @@ const CardListScreen = ({ navigation, route }: CardsListScreenProps) => {
     }
   }, [filterName, navigation]);
 
-  const flatListRef = useAnimatedRef<Animated.FlatList>();
+  const { cardsAnnotated, fetchCards } = useDatabaseCards();
+
+  const cards = cardsAnnotated.map((cardAnnotated) => cardAnnotated.card);
+
+  useEffect(() => {
+    fetchCards({ searchString, filter, filterCode: [filterCode] });
+  }, [fetchCards, searchString, filter, filterCode]);
+
+  // TODO cardsAnnotated type
+  const flatListRef = useAnimatedRef<Animated.FlatList<any>>();
   useScrollToTop(flatListRef);
 
   const searchInputRef = useRef(null);
@@ -140,10 +141,11 @@ const CardListScreen = ({ navigation, route }: CardsListScreenProps) => {
   );
 
   const handlePressItem = useCallback(
-    (code: string) => {
+    (code: string, index: number) => {
       if (navigation) {
         navigation.navigate('CardDetail', {
           code,
+          index,
           type: 'card',
           searchString,
           filter,
@@ -155,8 +157,11 @@ const CardListScreen = ({ navigation, route }: CardsListScreenProps) => {
   );
 
   const renderCard: ListRenderItem<CardModel> = useCallback(
-    ({ item: card }) => (
-      <CardListItem card={card} onPressItem={handlePressItem} />
+    ({ item: card, index }) => (
+      <CardListItem
+        card={card}
+        onPressItem={() => handlePressItem(card.code, index)}
+      />
     ),
     [handlePressItem],
   );

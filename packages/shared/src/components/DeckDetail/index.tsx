@@ -4,19 +4,29 @@ import styled from 'styled-components/native';
 import DeckDetailHeader from '../../components/DeckDetail/DeckDetailHeader';
 import DeckDetailList from '../../components/DeckDetail/DeckDetailList';
 import { DeckModel } from '../../data';
+import { IDeckCard } from '../../data/models/Deck';
 import { base, colors } from '../../styles';
 
 const DeckDetail = ({
   deck,
+  deckCards,
+  extraCards,
   handlePressItem,
 }: {
   deck: DeckModel;
-  handlePressItem?: (cardCode: string) => void;
+  deckCards: IDeckCard[];
+  extraCards: IDeckCard[];
+  handlePressItem?: (cardCode: string, index: number) => void;
 }) => {
   return (
     <Container>
-      <DeckDetailHeader deck={deck} />
-      <DeckDetailList deck={deck} handlePressItem={handlePressItem} />
+      <DeckDetailHeader deck={deck} deckCards={deckCards} />
+      <DeckDetailList
+        deck={deck}
+        deckCards={deckCards}
+        extraCards={extraCards}
+        handlePressItem={handlePressItem}
+      />
     </Container>
   );
 };

@@ -1,26 +1,40 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Image, Pressable, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 
-import { DeckModel } from '../../data';
+import { DeckModel, TypeCodes } from '../../data';
+import { IDeckCard } from '../../data/models/Deck';
 import { colors } from '../../styles';
 
 const DeckHeader = ({
   deck,
+  deckCards,
   onPressIdentity,
 }: {
   deck: DeckModel;
+  deckCards: IDeckCard[];
   onPressIdentity?: (code: string) => void;
 }) => {
+  const deckCardCount = deckCards?.length;
   const deckAspectString = deck.aspects?.length
     ? `${deck.aspectNames.join(', ')} – `
     : '';
-  const deckCardCount = deck.cardCount;
 
   const [imageUris, setImageUris] = useState(null);
 
+  const identityCards = useMemo(
+    () =>
+      deckCards
+        .filter((deckCard) =>
+          [TypeCodes.ALTER_EGO, TypeCodes.HERO].includes(
+            deckCard.typeCode as TypeCodes,
+          ),
+        )
+        .map((card) => card.card),
+    [deckCards],
+  );
+
   useEffect(() => {
-    const identityCards = deck.identityCards;
     const candidateUris = {};
     if (identityCards && identityCards.length) {
       identityCards.forEach((card) => {
@@ -53,7 +67,7 @@ const DeckHeader = ({
         setImageUris(verifiedUris);
       })
       .catch(() => {});
-  }, [deck]);
+  }, [identityCards]);
 
   return (
     <Container>
@@ -78,7 +92,7 @@ const DeckHeader = ({
         <TraitsWrapper>
           <Traits>
             {deck.set.name} – {deckAspectString}
-            {`${deck.cardCount} Card${deckCardCount === 1 ? '' : 's'}`}
+            {`${deckCardCount} Card${deckCardCount === 1 ? '' : 's'}`}
           </Traits>
         </TraitsWrapper>
       </Info>

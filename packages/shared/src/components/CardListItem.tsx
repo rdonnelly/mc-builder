@@ -71,7 +71,7 @@ const CardListItem = ({
   card: CardModel;
   count?: number;
   deckCode?: string;
-  onPressItem?: (code: string) => void;
+  onPressItem?: () => void;
   showEditControls?: boolean;
   showPackInfo?: boolean;
   increment?: (card: CardModel, quantity: number) => void;
@@ -100,7 +100,7 @@ const CardListItem = ({
     <ListItemOuter>
       <ListItemPressable
         disabled={onPressItem == null}
-        onPress={() => onPressItem != null && onPressItem(card.code)}
+        onPress={() => onPressItem != null && onPressItem()}
       >
         {({ pressed }) => (
           <ListItemInner pressed={pressed}>

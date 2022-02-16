@@ -1,16 +1,16 @@
-import { useNavigation } from '@react-navigation/native';
-import { useCallback } from 'react';
 import { SectionList, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 
 import { useDeckModifications } from '@hooks';
-import { DeckEditScreenProps } from '@navigation/DecksStackNavigator';
 
+// import { DeckEditScreenProps } from '@navigation/DecksStackNavigator';
 import CardListItem from '@mc-builder/shared/src/components/CardListItem';
 import { CardModel, DeckModel } from '@mc-builder/shared/src/data';
+import { getCardSectionsForDeck } from '@mc-builder/shared/src/data/deckUtils';
+import { IDeckCard } from '@mc-builder/shared/src/data/models/Deck';
 import { base, colors } from '@mc-builder/shared/src/styles';
 
-type DeckEditNavigationProps = DeckEditScreenProps['navigation'];
+// type DeckEditNavigationProps = DeckEditScreenProps['navigation'];
 
 const styles = StyleSheet.create({
   contentContainerStyle: {
@@ -18,24 +18,21 @@ const styles = StyleSheet.create({
   },
 });
 
-const DeckEditList = ({ deck }: { deck: DeckModel }) => {
-  const navigation = useNavigation<DeckEditNavigationProps>();
+const DeckEditList = ({
+  deck,
+  eligibleDeckCards,
+  handlePressItem,
+}: {
+  deck: DeckModel;
+  eligibleDeckCards: IDeckCard[];
+  handlePressItem?: (cardCode: string, index: number) => void;
+}) => {
+  const sectionedCards = getCardSectionsForDeck(eligibleDeckCards, {
+    includeEmpty: true,
+  });
 
   const { increment, incrementIsDisabled, decrement, decrementIsDisabled } =
     useDeckModifications(deck.code, deck.setCode);
-
-  const handlePressItem = useCallback(
-    (code: string) => {
-      if (navigation) {
-        navigation.navigate('DeckEditCardDetail', {
-          code,
-          type: 'deckEdit',
-          deckCode: deck.code,
-        });
-      }
-    },
-    [navigation, deck.code],
-  );
 
   const renderSectionHeader = ({ section }) => (
     <SectionHeader>
@@ -51,7 +48,7 @@ const DeckEditList = ({ deck }: { deck: DeckModel }) => {
       deckCode={deck.code}
       showPackInfo={false}
       showEditControls={true}
-      onPressItem={handlePressItem}
+      onPressItem={() => handlePressItem(card.code, card.index)}
       increment={increment}
       incrementIsDisabled={incrementIsDisabled}
       decrement={decrement}
@@ -62,7 +59,7 @@ const DeckEditList = ({ deck }: { deck: DeckModel }) => {
   return (
     <Container>
       <CardList
-        sections={deck.eligibleCardsSectioned}
+        sections={sectionedCards}
         renderItem={renderCard}
         renderSectionHeader={renderSectionHeader}
         keyExtractor={(item: CardModel) => item.code}

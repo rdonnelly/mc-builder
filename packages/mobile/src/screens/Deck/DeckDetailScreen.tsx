@@ -15,13 +15,17 @@ import { useAppDispatch } from '@store/hooks';
 import { setClipboard } from '@utils/Clipboard';
 
 import DeckDetail from '@mc-builder/shared/src/components/DeckDetail';
+import {
+  getDeckPrettyText,
+  getDeckShareableUrl,
+} from '@mc-builder/shared/src/data/deckUtils';
 import { base, colors } from '@mc-builder/shared/src/styles';
 
 const DeckDetailScreen = ({ navigation, route }: DeckDetailScreenProps) => {
   const dispatch = useAppDispatch();
 
   const code = route.params.code;
-  const { deckModel } = useDeck(code);
+  const { deck, deckCards, extraCards } = useDeck(code);
 
   const { showActionSheetWithOptions } = useActionSheet();
   const actionSheetAnchorRef = useRef(null);
@@ -93,12 +97,12 @@ const DeckDetailScreen = ({ navigation, route }: DeckDetailScreenProps) => {
 
   const handleCopyPrettyDeck = () => {
     ReactNativeHapticFeedback.trigger('impactLight');
-    setClipboard(deckModel.prettyText);
+    setClipboard(getDeckPrettyText(deck, deckCards));
   };
 
   const handleCopyShareableUrl = () => {
     ReactNativeHapticFeedback.trigger('impactLight');
-    setClipboard(deckModel.shareableUrl);
+    setClipboard(getDeckShareableUrl(deck, deckCards));
   };
 
   const handleDeleteDeck = () => {
@@ -121,10 +125,11 @@ const DeckDetailScreen = ({ navigation, route }: DeckDetailScreenProps) => {
   };
 
   const handlePressItem = useCallback(
-    (cardCode: string) => {
+    (cardCode: string, index: number) => {
       if (navigation) {
         navigation.navigate('DeckDetailCardDetail', {
           code: cardCode,
+          index,
           type: 'deck',
           deckCode: code,
         });
@@ -135,7 +140,12 @@ const DeckDetailScreen = ({ navigation, route }: DeckDetailScreenProps) => {
 
   return (
     <Container>
-      <DeckDetail deck={deckModel} handlePressItem={handlePressItem} />
+      <DeckDetail
+        deck={deck}
+        deckCards={deckCards}
+        extraCards={extraCards}
+        handlePressItem={handlePressItem}
+      />
 
       <FloatingControlBar>
         <FloatingControlBar.FlexButton

@@ -38,10 +38,7 @@ export function useDeck(code: string) {
     [storeDeck, storeDeckCardEntities],
   );
 
-  console.log('woo');
-
   useEffect(() => {
-    console.log('useEffect');
     const fetchCards = async () => {
       const {
         deckCards: fetchedDeckCards,

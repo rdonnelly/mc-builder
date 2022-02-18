@@ -8,7 +8,7 @@ const DeckEditScreen = ({ navigation, route }: DeckEditScreenProps) => {
   useEffect(() => {
     navigation.setOptions({
       headerTitle: 'Edit Deck',
-      headerLeft: () => null,
+      headerLeft: () => false,
     });
   }, [navigation]);
 

@@ -1,6 +1,13 @@
 import { useActionSheet } from '@expo/react-native-action-sheet';
 import throttle from 'lodash/throttle';
-import { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import {
   Dimensions,
   findNodeHandle,
@@ -49,7 +56,7 @@ const CardDetailScreen = ({ navigation, route }: CardDetailScreenProps) => {
   const filterCode = (route.params || {}).filterCode;
 
   const deckCode = (route.params || {}).deckCode;
-  const { deck } = useDeck(deckCode);
+  const { deck, deckCards } = useDeck(deckCode);
 
   const cardIndexRef = useRef(initialCardIndex);
   const [activeCardIndex, setActiveCardIndex] = useState(initialCardIndex);
@@ -60,10 +67,18 @@ const CardDetailScreen = ({ navigation, route }: CardDetailScreenProps) => {
   const cards = cardsAnnotated.map((cardAnnotated) => cardAnnotated.card);
   const activeCard = cards[activeCardIndex];
 
-  const deckCardCount =
-    cardsAnnotated[activeCardIndex] != null
-      ? cardsAnnotated[activeCardIndex].count
-      : null;
+  const deckCardCountByCode = useMemo(() => {
+    const map = {};
+    deckCards.forEach((deckCard) => {
+      map[deckCard.code] = deckCard.count;
+    });
+    return map;
+  }, [deckCards]);
+
+  let deckCardCount = null;
+  if (activeCard != null) {
+    deckCardCount = deckCardCountByCode[activeCard.code] || 0;
+  }
 
   useEffect(() => {
     switch (type) {

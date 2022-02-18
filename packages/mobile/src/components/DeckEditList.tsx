@@ -9,7 +9,6 @@ import { CardModel, DeckModel } from '@mc-builder/shared/src/data';
 import { getCardSectionsForDeck } from '@mc-builder/shared/src/data/deckUtils';
 import { IDeckCard } from '@mc-builder/shared/src/data/models/Deck';
 import { base, colors } from '@mc-builder/shared/src/styles';
-import keyBy from 'lodash/keyBy';
 
 const styles = StyleSheet.create({
   contentContainerStyle: {

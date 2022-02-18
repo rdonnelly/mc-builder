@@ -17,10 +17,16 @@ import {
 import { CardSortTypes } from '@mc-builder/shared/src/data/types';
 import { IStoreDeckCard } from '@mc-builder/shared/src/store/types';
 
-// TODO fix typing for cards annotated
+interface IUseDatabaseCardsState {
+  cardsAnnotated: any[];
+  isFetching: boolean;
+}
+
 export function useDatabaseCards() {
-  const [cardsAnnotated, setCards] = useState([]);
-  const [isFetching, setIsFetching] = useState(false);
+  const [state, setState] = useState<IUseDatabaseCardsState>({
+    cardsAnnotated: [],
+    isFetching: false,
+  });
 
   const fetchCards = useCallback(
     async ({
@@ -34,7 +40,7 @@ export function useDatabaseCards() {
       filterCode?: (FactionCode | PackCode | SetCode | TypeCode)[];
       sort?: CardSortTypes;
     }) => {
-      setIsFetching(true);
+      setState((prevState) => ({ ...prevState, isFetching: true }));
 
       const rawCards = await Database.fetchCards({
         searchString,
@@ -55,8 +61,11 @@ export function useDatabaseCards() {
         };
       });
 
-      setCards(newCards);
-      setIsFetching(false);
+      setState((prevState) => ({
+        ...prevState,
+        cardsAnnotated: newCards,
+        isFetching: false,
+      }));
     },
     [],
   );
@@ -71,7 +80,7 @@ export function useDatabaseCards() {
       storeDeckCards: IStoreDeckCard[];
       sort?: CardSortTypes;
     }) => {
-      setIsFetching(true);
+      setState((prevState) => ({ ...prevState, isFetching: true }));
 
       const { deckCards, deckExtraCards } = await fetchDeckCardsFromDatabase({
         setCode,
@@ -79,8 +88,11 @@ export function useDatabaseCards() {
         sort,
       });
 
-      setCards([].concat(deckCards, deckExtraCards));
-      setIsFetching(false);
+      setState((prevState) => ({
+        ...prevState,
+        cardsAnnotated: [].concat(deckCards, deckExtraCards),
+        isFetching: false,
+      }));
     },
     [],
   );
@@ -89,31 +101,31 @@ export function useDatabaseCards() {
     async ({
       factionCodes,
       setCode,
-      storeDeckCards,
     }: {
       factionCodes: FactionCode[];
       setCode: SetCode;
-      storeDeckCards: IStoreDeckCard[];
     }) => {
-      setIsFetching(true);
+      setState((prevState) => ({ ...prevState, isFetching: true }));
 
       const eligibleDeckCards = await fetchEligibleDeckCardsFromDatabase({
         factionCodes,
         setCode,
-        storeDeckCards,
       });
 
-      setCards(eligibleDeckCards);
-      setIsFetching(false);
+      setState((prevState) => ({
+        ...prevState,
+        cardsAnnotated: eligibleDeckCards,
+        isFetching: false,
+      }));
     },
     [],
   );
 
   return {
-    cardsAnnotated,
+    cardsAnnotated: state.cardsAnnotated,
+    isFetching: state.isFetching,
     fetchCards,
     fetchDeckCards,
     fetchEligibleDeckCards,
-    isFetching,
   };
 }

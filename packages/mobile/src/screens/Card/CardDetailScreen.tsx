@@ -2,7 +2,6 @@ import { useActionSheet } from '@expo/react-native-action-sheet';
 import throttle from 'lodash/throttle';
 import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import {
-  ActivityIndicator,
   Dimensions,
   findNodeHandle,
   FlatList,
@@ -54,13 +53,8 @@ const CardDetailScreen = ({ navigation, route }: CardDetailScreenProps) => {
   const cardIndexRef = useRef(cardIndex);
   const [activeCardIndex, setActiveCardIndex] = useState(cardIndex);
 
-  const {
-    cardsAnnotated,
-    fetchCards,
-    fetchDeckCards,
-    fetchEligibleDeckCards,
-    isFetching,
-  } = useDatabaseCards();
+  const { cardsAnnotated, fetchCards, fetchDeckCards, fetchEligibleDeckCards } =
+    useDatabaseCards();
 
   const cards = cardsAnnotated.map((cardAnnotated) => cardAnnotated.card);
   const activeCard = cards[activeCardIndex];

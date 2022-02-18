@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 import { Platform, SectionList, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 
@@ -27,11 +27,13 @@ const DeckDetailList = ({
   extraCards: IDeckCard[];
   handlePressItem?: (cardCode: string, index: number) => void;
 }) => {
-  const sectionedCards = getCardSectionsForDeck([...deckCards, ...extraCards], {
-    includeExtra: true,
-    includeEmpty: true,
-    includeIdentity: true,
-  });
+  const sectionedCards = useMemo(() => {
+    return getCardSectionsForDeck([...deckCards, ...extraCards], {
+      includeExtra: true,
+      includeEmpty: true,
+      includeIdentity: true,
+    });
+  }, [deckCards, extraCards]);
 
   const renderSectionHeader = ({ section }) => (
     <SectionHeader>

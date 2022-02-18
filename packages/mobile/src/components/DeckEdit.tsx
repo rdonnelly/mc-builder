@@ -41,6 +41,7 @@ const DeckEdit = ({
       <DeckDetailHeader deck={deck} deckCards={deckCards} />
       <DeckEditList
         deck={deck}
+        deckCards={deckCards}
         eligibleDeckCards={eligibleDeckCards}
         handlePressItem={handlePressItem}
       />

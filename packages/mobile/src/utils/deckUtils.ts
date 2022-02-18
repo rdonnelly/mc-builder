@@ -112,19 +112,12 @@ export const fetchDeckCardsFromDatabase = async ({
 };
 
 export const fetchEligibleDeckCardsFromDatabase = async ({
-  storeDeckCards,
   factionCodes,
   setCode,
 }: {
-  storeDeckCards: IStoreDeckCard[];
   factionCodes: FactionCode[];
   setCode: SetCode;
 }) => {
-  const storeDeckCardsByCode = keyBy(
-    storeDeckCards,
-    (storeDeckCard) => storeDeckCard.cardCode,
-  );
-
   if (setCode === SetCodes.WARLOCK) {
     factionCodes = [
       FactionCodes.AGGRESSION,
@@ -187,7 +180,7 @@ export const fetchEligibleDeckCardsFromDatabase = async ({
       factionCode: card.factionCode,
       setCode: card.setCode,
       typeCode: card.typeCode,
-      count: storeDeckCardsByCode[rawCard.code]?.quantity || 0,
+      count: null,
     };
   });
 };

@@ -19,7 +19,6 @@ const DeckEditScreen = ({ navigation, route }: DeckEditScreenProps) => {
 
   useEffect(() => {
     fetchEligibleDeckCards({
-      storeDeckCards: deck.rawCards,
       factionCodes: deck.aspectCodes,
       setCode: deck.setCode,
     });

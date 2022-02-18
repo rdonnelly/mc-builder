@@ -177,7 +177,7 @@ export const getDeckCardCount = (deckCards: IDeckCard[]) => {
       card.typeCode !== TypeCodes.ALTER_EGO &&
       card.typeCode !== TypeCodes.HERO
     ) {
-      count += card.count;
+      return count + card.count;
     }
     return count;
   }, 0);

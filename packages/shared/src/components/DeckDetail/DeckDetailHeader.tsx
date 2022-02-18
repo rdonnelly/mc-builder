@@ -3,6 +3,7 @@ import { Image, Pressable, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 
 import { DeckModel, TypeCodes } from '../../data';
+import { getDeckCardCount } from '../../data/deckUtils';
 import { IDeckCard } from '../../data/models/Deck';
 import { colors } from '../../styles';
 
@@ -15,7 +16,7 @@ const DeckHeader = ({
   deckCards: IDeckCard[];
   onPressIdentity?: (code: string) => void;
 }) => {
-  const deckCardCount = deckCards?.length;
+  const deckCardCount = getDeckCardCount(deckCards);
   const deckAspectString = deck.aspects?.length
     ? `${deck.aspectNames.join(', ')} – `
     : '';
@@ -30,7 +31,8 @@ const DeckHeader = ({
             deckCard.typeCode as TypeCodes,
           ),
         )
-        .map((card) => card.card),
+        .map((card) => card.card)
+        .sort((cardA, cardB) => cardB.typeCode.localeCompare(cardA.typeCode)),
     [deckCards],
   );
 

@@ -6,10 +6,20 @@ import { selectStoreDeck, selectStoreDeckCards } from '@store/selectors';
 import { fetchDeckCardsFromDatabase } from '@utils/deckUtils';
 
 import { DeckModel } from '@mc-builder/shared/src/data';
+import { IDeckCard } from '@mc-builder/shared/src/data/models/Deck';
 import { CardSortTypes } from '@mc-builder/shared/src/data/types';
 
-// TODO should I be using useEffect?
+interface IUseDeckState {
+  deckCards: IDeckCard[];
+  extraCards: IDeckCard[];
+}
+
 export function useDeck(code: string) {
+  const [cards, setCards] = useState<IUseDeckState>({
+    deckCards: [],
+    extraCards: [],
+  });
+
   const storeDeck = useAppSelector((state: StoreState) =>
     code != null ? selectStoreDeck(state, code) : null,
   );
@@ -28,10 +38,10 @@ export function useDeck(code: string) {
     [storeDeck, storeDeckCardEntities],
   );
 
-  const [deckCards, setDeckCards] = useState([]);
-  const [extraCards, setExtraCards] = useState([]);
+  console.log('woo');
 
   useEffect(() => {
+    console.log('useEffect');
     const fetchCards = async () => {
       const {
         deckCards: fetchedDeckCards,
@@ -39,11 +49,13 @@ export function useDeck(code: string) {
       } = await fetchDeckCardsFromDatabase({
         setCode: storeDeck.setCode,
         storeDeckCards: storeDeckCardEntities,
-        sort: CardSortTypes.TYPE,
+        sort: CardSortTypes.FACTION,
       });
 
-      setDeckCards(fetchedDeckCards);
-      setExtraCards(fetchedDeckExtraCards);
+      setCards({
+        deckCards: fetchedDeckCards,
+        extraCards: fetchedDeckExtraCards,
+      });
     };
 
     if (storeDeck && storeDeckCardEntities) {
@@ -51,5 +63,9 @@ export function useDeck(code: string) {
     }
   }, [storeDeck, storeDeckCardEntities]);
 
-  return { deck, deckCards, extraCards };
+  return {
+    deck,
+    deckCards: cards.deckCards,
+    extraCards: cards.extraCards,
+  };
 }

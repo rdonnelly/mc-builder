@@ -1,16 +1,15 @@
+import { useMemo } from 'react';
 import { SectionList, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 
 import { useDeckModifications } from '@hooks';
 
-// import { DeckEditScreenProps } from '@navigation/DecksStackNavigator';
 import CardListItem from '@mc-builder/shared/src/components/CardListItem';
 import { CardModel, DeckModel } from '@mc-builder/shared/src/data';
 import { getCardSectionsForDeck } from '@mc-builder/shared/src/data/deckUtils';
 import { IDeckCard } from '@mc-builder/shared/src/data/models/Deck';
 import { base, colors } from '@mc-builder/shared/src/styles';
-
-// type DeckEditNavigationProps = DeckEditScreenProps['navigation'];
+import keyBy from 'lodash/keyBy';
 
 const styles = StyleSheet.create({
   contentContainerStyle: {
@@ -20,16 +19,28 @@ const styles = StyleSheet.create({
 
 const DeckEditList = ({
   deck,
+  deckCards,
   eligibleDeckCards,
   handlePressItem,
 }: {
   deck: DeckModel;
+  deckCards: IDeckCard[];
   eligibleDeckCards: IDeckCard[];
   handlePressItem?: (cardCode: string, index: number) => void;
 }) => {
-  const sectionedCards = getCardSectionsForDeck(eligibleDeckCards, {
-    includeEmpty: true,
-  });
+  const sectionedCards = useMemo(() => {
+    return getCardSectionsForDeck(eligibleDeckCards, {
+      includeEmpty: true,
+    });
+  }, [eligibleDeckCards]);
+
+  const deckCardCountByCode = useMemo(() => {
+    const map = {};
+    deckCards.forEach((deckCard) => {
+      map[deckCard.code] = deckCard.count;
+    });
+    return map;
+  }, [deckCards]);
 
   const { increment, incrementIsDisabled, decrement, decrementIsDisabled } =
     useDeckModifications(deck.code, deck.setCode);
@@ -44,7 +55,7 @@ const DeckEditList = ({
   const renderCard = ({ item: card }) => (
     <CardListItem
       card={card.card}
-      count={card.count || 0}
+      count={deckCardCountByCode[card.code] || 0}
       deckCode={deck.code}
       showPackInfo={false}
       showEditControls={true}

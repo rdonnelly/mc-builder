@@ -41,7 +41,8 @@ const CardDetailScreen = ({ navigation, route }: CardDetailScreenProps) => {
   const { showActionSheetWithOptions } = useActionSheet();
   const actionSheetAnchorRef = useRef(null);
 
-  const cardIndex = (route.params || {}).index;
+  const initialCardCode = (route.params || {}).code;
+  const initialCardIndex = (route.params || {}).index;
   const type = (route.params || {}).type;
   const searchString = (route.params || {}).searchString;
   const filter = (route.params || {}).filter;
@@ -50,8 +51,8 @@ const CardDetailScreen = ({ navigation, route }: CardDetailScreenProps) => {
   const deckCode = (route.params || {}).deckCode;
   const { deck } = useDeck(deckCode);
 
-  const cardIndexRef = useRef(cardIndex);
-  const [activeCardIndex, setActiveCardIndex] = useState(cardIndex);
+  const cardIndexRef = useRef(initialCardIndex);
+  const [activeCardIndex, setActiveCardIndex] = useState(initialCardIndex);
 
   const { cardsAnnotated, fetchCards, fetchDeckCards, fetchEligibleDeckCards } =
     useDatabaseCards();
@@ -82,7 +83,6 @@ const CardDetailScreen = ({ navigation, route }: CardDetailScreenProps) => {
         fetchEligibleDeckCards({
           factionCodes: deck.aspectCodes,
           setCode: deck.setCode,
-          storeDeckCards: deck.rawCards,
         });
         break;
       }
@@ -221,6 +221,20 @@ const CardDetailScreen = ({ navigation, route }: CardDetailScreenProps) => {
     });
     return () => subscription?.remove();
   }, [scrollToActive]);
+
+  // handle a deep link
+  useEffect(() => {
+    if (cardsAnnotated?.length > 0 && cardIndexRef.current == null) {
+      const newIndex = cardsAnnotated.findIndex(
+        (cardAnnotated) => cardAnnotated.code === initialCardCode,
+      );
+
+      if (newIndex !== -1) {
+        cardIndexRef.current = newIndex;
+        setActiveCardIndex(newIndex);
+      }
+    }
+  }, [initialCardCode, cardsAnnotated]);
 
   const getItemLayout = useCallback(
     (_data: CardModel[], index: number) => ({

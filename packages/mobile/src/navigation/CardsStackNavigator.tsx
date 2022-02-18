@@ -113,6 +113,7 @@ export default () => {
       <Stack.Screen
         name="CardDetail"
         component={CardDetailScreen}
+        initialParams={{ type: 'card' }}
         options={{
           title: '',
         }}

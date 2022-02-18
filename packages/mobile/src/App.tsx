@@ -26,10 +26,6 @@ if (!__DEV__) {
 declare var global: { HermesInternal: null | {} };
 
 export default function AppContainer() {
-  useEffect(() => {
-    setTimeout(() => RNBootSplash.hide({ fade: true }), 500);
-  }, []);
-
   return (
     <AppProvider>
       <AppearanceProvider>
@@ -53,17 +49,17 @@ function App() {
   const config = {
     screens: {
       TabCards: {
-        path: '',
+        path: 'cards',
+        initialRouteName: 'CardsList',
         screens: {
-          CardsList: 'cards',
-          CardDetail: 'cards/:code',
+          CardDetail: ':code',
         },
       },
       TabDecks: {
-        path: '',
+        path: 'decks',
+        initialRouteName: 'DecksList',
         screens: {
-          DecksList: 'decks',
-          DecksImport: 'decks/:importString',
+          DecksImport: ':importString',
         },
       },
     },
@@ -72,59 +68,14 @@ function App() {
   const linking = {
     prefixes: ['https://mcbuilder.app', 'mcbuilder://'],
     config,
-    getStateFromPath: (path, _config) => {
-      const split = path.split('/').filter((s) => s);
-      if (split && split.length === 2) {
-        if (split[0] === 'cards') {
-          // TODO validate card code
-          return {
-            routes: [
-              {
-                name: 'TabCards',
-                params: {
-                  state: {
-                    routes: [
-                      { name: 'CardsList' },
-                      {
-                        name: 'CardDetail',
-                        params: { code: split[1], type: 'card' },
-                      },
-                    ],
-                    index: 0,
-                  },
-                },
-              },
-            ],
-          };
-        }
-        if (split[0] === 'decks') {
-          return {
-            routes: [
-              {
-                name: 'TabDecks',
-                params: {
-                  state: {
-                    routes: [
-                      { name: 'DecksList' },
-                      {
-                        name: 'DecksImport',
-                        params: { importString: split[1] },
-                      },
-                    ],
-                    index: 0,
-                  },
-                },
-              },
-            ],
-          };
-        }
-      }
-    },
   };
 
   return (
     <ThemeProvider theme={appTheme}>
-      <NavigationContainer linking={linking}>
+      <NavigationContainer
+        linking={linking}
+        onReady={() => RNBootSplash.hide({ fade: true })}
+      >
         <StatusBar
           barStyle="light-content"
           translucent={true}

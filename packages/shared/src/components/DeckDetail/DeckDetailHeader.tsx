@@ -94,7 +94,9 @@ const DeckHeader = ({
         <TraitsWrapper>
           <Traits>
             {deck.set.name} – {deckAspectString}
-            {`${deckCardCount} Card${deckCardCount === 1 ? '' : 's'}`}
+            {deckCardCount
+              ? `${deckCardCount} Card${deckCardCount === 1 ? '' : 's'}`
+              : null}
           </Traits>
         </TraitsWrapper>
       </Info>

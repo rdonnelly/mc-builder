@@ -9,8 +9,8 @@ import { parseDeckFromString } from '@mc-builder/shared/src/utils/DeckParser';
 
 export function useDeckImport(importString: string) {
   const [deckToImport, setDeck] = useState<DeckModel | false>(null);
-  const [deckCardsToImport, setDeckCards] = useState<IDeckCard[]>(null);
-  const [deckExtraCardsToImport, setExtraCards] = useState<IDeckCard[]>(null);
+  const [deckCardsToImport, setDeckCards] = useState<IDeckCard[]>([]);
+  const [deckExtraCardsToImport, setExtraCards] = useState<IDeckCard[]>([]);
 
   useEffect(() => {
     parseDeckFromString(importString)
@@ -22,6 +22,7 @@ export function useDeckImport(importString: string) {
 
         const { storeDeck, storeDeckCards } = deckComponents;
         const deck = new DeckModel(storeDeck, storeDeckCards);
+        setDeck(deck);
 
         const fetchCards = async () => {
           const {
@@ -33,7 +34,6 @@ export function useDeckImport(importString: string) {
             sort: CardSortTypes.TYPE,
           });
 
-          setDeck(deck);
           setDeckCards(fetchedDeckCards);
           setExtraCards(fetchedDeckExtraCards);
         };

@@ -14,7 +14,6 @@ import Header from '../../components/Header';
 import getAbsoluteUrl from '../../utils/getAbsoluteUrl';
 
 const CardPage = ({ rawCard, meta }) => {
-  console.log(rawCard);
   const card = new Card(rawCard);
 
   return (

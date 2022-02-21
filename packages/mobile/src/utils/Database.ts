@@ -4,15 +4,12 @@ import SQLite, {
 } from 'react-native-sqlite-storage';
 import squel from 'squel';
 
-import {
-  compareCardFaction,
-  compareCardType,
-} from '@mc-builder/shared/src/data/cardUtils';
+import { factionRank } from '@mc-builder/shared/src/data/models/Faction';
+import { typeRank } from '@mc-builder/shared/src/data/models/Type';
 import {
   CardSortTypes,
   FactionCode,
   FilterCode,
-  FilterCodes,
   IFactionRaw,
   IPackRaw,
   ISetRaw,
@@ -21,8 +18,6 @@ import {
   SetCode,
   TypeCode,
 } from '@mc-builder/shared/src/data/types';
-import { factionRank } from '@mc-builder/shared/src/data/models/Faction';
-import { typeRank } from '@mc-builder/shared/src/data/models/Type';
 
 class Database {
   database: SQLiteDatabase;

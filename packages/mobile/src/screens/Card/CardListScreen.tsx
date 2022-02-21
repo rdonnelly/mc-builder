@@ -25,8 +25,8 @@ import {
   PackCode,
   TypeCode,
 } from '@mc-builder/shared/src/data';
-import { base, colors } from '@mc-builder/shared/src/styles';
 import { CardSortTypes } from '@mc-builder/shared/src/data/types';
+import { base, colors } from '@mc-builder/shared/src/styles';
 
 const styles = StyleSheet.create({
   cardList: {

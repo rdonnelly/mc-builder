@@ -365,8 +365,6 @@ class Database {
       query.order('c.code');
     }
 
-    console.log(query.toString());
-
     const queryParams = query.toParam();
     const cards = await this.run(queryParams.text, queryParams.values);
 

@@ -325,45 +325,47 @@ class Database {
     cardCodes?: string[];
     sort?: CardSortTypes;
   }) {
-    const query = squel.select().from('cards');
+    const query = squel.select().from('cards', 'c').field('c.*');
 
     if (searchString) {
       query.where(
-        'name LIKE ?',
+        'c.name LIKE ?',
         `%${searchString.toLowerCase().replace(/[^A-Za-z0-9]/g, '')}%`,
       );
     }
 
     if (filter && filterCode) {
-      query.where(`${filter}_code IN ?`, filterCode);
+      query.where(`c.${filter}_code IN ?`, filterCode);
     }
 
     if (cardCodes?.length) {
-      query.where(`code IN ?`, cardCodes);
+      query.where(`c.code IN ?`, cardCodes);
     }
 
     if (sort === CardSortTypes.CODE) {
-      query.order('code');
+      query.order('c.code');
     } else if (sort === CardSortTypes.COST) {
-      query.order('set_code').order('cost').order('name').order('code');
+      query.order('c.set_code').order('c.cost').order('c.name').order('c.code');
     } else if (sort === CardSortTypes.FACTION) {
-      query.join('factions', 'f', 'factions.code = cards.code');
-      query.join('types', 't', 'types.code = cards.code');
+      query.join('factions', 'f', 'f.code = c.faction_code');
+      query.join('types', 't', 't.code = c.type_code');
       query
-        .order('set_code')
+        .order('c.set_code')
         .order('f.rank')
         .order('t.rank')
-        .order('cost')
-        .order('name')
-        .order('code');
+        .order('c.cost')
+        .order('c.name')
+        .order('c.code');
     } else if (sort === CardSortTypes.NAME) {
-      query.order('name').order('code');
+      query.order('c.name').order('c.code');
     } else if (sort === CardSortTypes.TYPE) {
-      query.join('types', 't', 'types.code = cards.code');
-      query.order('t.rank').order('cost').order('name').order('code');
+      query.join('types', 't', 't.code = c.type_code');
+      query.order('t.rank').order('c.cost').order('c.name').order('c.code');
     } else {
-      query.order('code');
+      query.order('c.code');
     }
+
+    console.log(query.toString());
 
     const queryParams = query.toParam();
     const cards = await this.run(queryParams.text, queryParams.values);
@@ -380,15 +382,15 @@ class Database {
     setCode?: SetCode;
     typeCodes: TypeCode[];
   }) {
-    const query = squel.select().from('cards');
+    const query = squel.select().from('cards', 'c').field('c.*');
 
     const innerCheck = squel.expr();
     if (factionCodes?.length) {
-      innerCheck.or(`faction_code IN ?`, factionCodes);
+      innerCheck.or(`c.faction_code IN ?`, factionCodes);
     }
 
     if (setCode) {
-      innerCheck.or(`set_code IN ?`, [setCode]);
+      innerCheck.or(`c.set_code IN ?`, [setCode]);
     }
 
     query.where(
@@ -399,16 +401,16 @@ class Database {
         .and(`duplicate_of IS NULL`),
     );
 
-    query.join('factions', 'f', 'factions.code = cards.code');
-    query.join('types', 't', 'types.code = cards.code');
+    query.join('factions', 'f', 'f.code = c.faction_code');
+    query.join('types', 't', 't.code = c.type_code');
 
     query
-      .order('set_code')
+      .order('c.set_code')
       .order('f.rank')
       .order('t.rank')
-      .order('cost')
-      .order('name')
-      .order('code');
+      .order('c.cost')
+      .order('c.name')
+      .order('c.code');
 
     const queryParams = query.toParam();
     const cards = await this.run(queryParams.text, queryParams.values);

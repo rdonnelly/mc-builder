@@ -3,13 +3,18 @@ import styled from 'styled-components/native';
 
 import CardDetail from '@mc-builder/shared/src/components/CardDetail';
 import { Card } from '@mc-builder/shared/src/data/models/Card';
-import { getCard, getCards } from '@mc-builder/shared/src/data/raw/Card';
+import {
+  getCard,
+  getCardRoot,
+  getCards,
+} from '@mc-builder/shared/src/data/raw/Card';
 import { colors } from '@mc-builder/shared/src/styles';
 
 import Header from '../../components/Header';
 import getAbsoluteUrl from '../../utils/getAbsoluteUrl';
 
 const CardPage = ({ rawCard, meta }) => {
+  console.log(rawCard);
   const card = new Card(rawCard);
 
   return (
@@ -59,12 +64,13 @@ export async function getStaticProps({ params }) {
   // If the route is like /posts/1, then params.id is 1
   const code = params.code;
   const rawCard = getCard(code);
-  const card = new Card(rawCard);
+  const rootCard = getCardRoot(code);
+  const card = new Card(rawCard, rootCard);
 
   // Pass post data to the page via props
   return {
     props: {
-      rawCard: card.raw,
+      rawCard: card.merged,
       meta: {
         imageUrl: card.imageUriSet?.length ? card.imageUriSet[0] : '',
         title: card.name,

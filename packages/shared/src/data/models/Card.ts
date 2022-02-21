@@ -29,27 +29,27 @@ export class Card {
   }
 
   get rootCode() {
-    return this.root.code;
+    return this.merged.code;
   }
 
   get cardCode() {
-    return this.raw.code.slice(2).replace(/^0+/, '').toUpperCase();
+    return this.merged.code.slice(2).replace(/^0+/, '').toUpperCase();
   }
 
   get name() {
-    return this.raw.name;
+    return this.merged.name;
   }
 
   get subname() {
-    return this.raw.subname;
+    return this.merged.subname;
   }
 
   get traits() {
-    return this.raw.traits;
+    return this.merged.traits;
   }
 
   get faction() {
-    return getFactions().find((f) => f.code === this.raw.faction_code);
+    return getFactions().find((f) => f.code === this.merged.faction_code);
   }
 
   get factionCode() {
@@ -61,7 +61,7 @@ export class Card {
   }
 
   get pack() {
-    return getPacks().find((p) => p.code === this.raw.pack_code);
+    return getPacks().find((p) => p.code === this.merged.pack_code);
   }
 
   get packCode() {
@@ -73,7 +73,7 @@ export class Card {
   }
 
   get set() {
-    return getSets().find((s) => s.code === this.raw.set_code);
+    return getSets().find((s) => s.code === this.merged.set_code);
   }
 
   get setCode() {
@@ -85,7 +85,7 @@ export class Card {
   }
 
   get type() {
-    return getTypes().find((t) => t.code === this.raw.type_code);
+    return getTypes().find((t) => t.code === this.merged.type_code);
   }
 
   get typeCode() {
@@ -97,174 +97,174 @@ export class Card {
   }
 
   get cost() {
-    return this.raw.cost;
+    return this.merged.cost;
   }
 
   get flavor() {
-    return this.raw.flavor;
+    return this.merged.flavor;
   }
 
   get stage() {
-    return this.raw.stage;
+    return this.merged.stage;
   }
 
   get attack() {
-    return this.raw.attack;
+    return this.merged.attack;
   }
 
   get attackCost() {
-    return this.raw.attack_cost;
+    return this.merged.attack_cost;
   }
 
   get defense() {
-    return this.raw.defense;
+    return this.merged.defense;
   }
 
   get handSize() {
-    return this.raw.hand_size;
+    return this.merged.hand_size;
   }
 
   get health() {
-    return this.raw.health;
+    return this.merged.health;
   }
 
   get isHealthPerHero() {
-    return !!this.raw.health_per_hero;
+    return !!this.merged.health_per_hero;
   }
 
   get recover() {
-    return this.raw.recover;
+    return this.merged.recover;
   }
 
   get scheme() {
-    return this.raw.scheme;
+    return this.merged.scheme;
   }
 
   get threat() {
-    return this.raw.threat;
+    return this.merged.threat;
   }
 
   get threatBase() {
-    return this.raw.base_threat;
+    return this.merged.base_threat;
   }
 
   get threatBaseIsFixed() {
-    return this.raw.base_threat_fixed;
+    return this.merged.base_threat_fixed;
   }
 
   get threatEscalation() {
-    return this.raw.escalation_threat;
+    return this.merged.escalation_threat;
   }
 
   get threatEscalationIsFixed() {
-    return this.raw.escalation_threat_fixed;
+    return this.merged.escalation_threat_fixed;
   }
 
   get thwart() {
-    return this.raw.thwart;
+    return this.merged.thwart;
   }
 
   get thwartCost() {
-    return this.raw.thwart_cost;
+    return this.merged.thwart_cost;
   }
 
   get text() {
-    return this.raw.text;
+    return this.merged.text;
   }
 
   get backFlavor() {
-    return this.raw.back_flavor;
+    return this.merged.back_flavor;
   }
 
   get backText() {
-    return this.raw.back_text;
+    return this.merged.back_text;
   }
 
   get attackText() {
-    return this.raw.attack_text;
+    return this.merged.attack_text;
   }
 
   get schemeAcceleration() {
-    return this.raw.scheme_acceleration;
+    return this.merged.scheme_acceleration;
   }
 
   get schemeAmplify() {
-    return this.raw.scheme_amplify;
+    return this.merged.scheme_amplify;
   }
 
   get schemeCrisis() {
-    return this.raw.scheme_crisis;
+    return this.merged.scheme_crisis;
   }
 
   get schemeHazard() {
-    return this.raw.scheme_hazard;
+    return this.merged.scheme_hazard;
   }
 
   get schemeText() {
-    return this.raw.scheme_text;
+    return this.merged.scheme_text;
   }
 
   get boost() {
-    return this.raw.boost;
+    return this.merged.boost;
   }
 
   get boostText() {
-    if (this.raw.boost_text == null) {
+    if (this.merged.boost_text == null) {
       return null;
     }
-    return `[special] <b>Boost</b>: ${this.raw.boost_text}`;
+    return `[special] <b>Boost</b>: ${this.merged.boost_text}`;
   }
 
   get resources() {
     if (
-      !this.raw.resource_energy &&
-      !this.raw.resource_mental &&
-      !this.raw.resource_physical &&
-      !this.raw.resource_wild
+      !this.merged.resource_energy &&
+      !this.merged.resource_mental &&
+      !this.merged.resource_physical &&
+      !this.merged.resource_wild
     ) {
       return null;
     }
 
     return {
-      energy: this.raw.resource_energy,
-      mental: this.raw.resource_mental,
-      physical: this.raw.resource_physical,
-      wild: this.raw.resource_wild,
+      energy: this.merged.resource_energy,
+      mental: this.merged.resource_mental,
+      physical: this.merged.resource_physical,
+      wild: this.merged.resource_wild,
     };
   }
 
   get setPosition() {
-    return this.raw.set_position;
+    return this.merged.set_position;
   }
 
   get setQuantity() {
-    return this.raw.quantity;
+    return this.merged.quantity;
   }
 
   get packPosition() {
-    return this.raw.position;
+    return this.merged.position;
   }
 
   get isUnique() {
-    return this.raw.is_unique || false;
+    return this.merged.is_unique || false;
   }
 
   get deckLimit() {
-    return this.raw.deck_limit || 0;
+    return this.merged.deck_limit || 0;
   }
 
   get imageUriSet() {
-    const cardCode = this.raw.code.slice(2).replace(/^0+/, '').toUpperCase();
+    const cardCode = this.merged.code.slice(2).replace(/^0+/, '').toUpperCase();
     let packUrlPart = '';
-    if (this.raw.pack_code === PackCodes.RON) {
+    if (this.merged.pack_code === PackCodes.RON) {
       packUrlPart = 'pnp01en';
     } else {
-      const pack = getPacks().find((p) => p.code === this.raw.pack_code);
+      const pack = getPacks().find((p) => p.code === this.merged.pack_code);
       const packCode = String(pack.position).padStart(2, '0');
       packUrlPart = `mc${packCode}en`;
     }
 
-    const isDoubleSided = ['main_scheme'].includes(this.raw.type_code);
+    const isDoubleSided = ['main_scheme'].includes(this.merged.type_code);
 
     if (isDoubleSided) {
       return [

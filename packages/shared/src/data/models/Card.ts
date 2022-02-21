@@ -188,6 +188,10 @@ export class Card {
     return this.raw.scheme_acceleration;
   }
 
+  get schemeAmplify() {
+    return this.raw.scheme_amplify;
+  }
+
   get schemeCrisis() {
     return this.raw.scheme_crisis;
   }

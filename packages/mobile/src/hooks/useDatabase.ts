@@ -120,6 +120,7 @@ export function useDatabase() {
             health: card.health != null ? card.health : null,
             recover: card.recover != null ? card.recover : null,
             scheme_acceleration: card.scheme_acceleration || false,
+            scheme_amplify: card.scheme_amplify || false,
             scheme_crisis: card.scheme_crisis || false,
             scheme_hazard: card.scheme_hazard || false,
             scheme_text: card.scheme_text || null,

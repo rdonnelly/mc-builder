@@ -102,6 +102,7 @@ export interface ICardRaw {
   resource_physical: number;
   resource_wild: number;
   scheme_acceleration?: boolean;
+  scheme_amplify?: boolean;
   scheme_crisis?: boolean;
   scheme_hazard?: boolean;
   scheme_text?: string;

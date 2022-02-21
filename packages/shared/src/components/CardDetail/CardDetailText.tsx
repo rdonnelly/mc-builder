@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 import Html from 'react-native-render-html';
 import styled from 'styled-components/native';
 
@@ -76,6 +76,11 @@ const renderCardSchemeTraits = (card: CardModel) => {
         key={'card-scheme-traits-acceleration'}
       />,
     );
+  }
+
+  // TODO amplify icon
+  if (card.schemeAmplify) {
+    icons.push(<Text>Amplify</Text>);
   }
 
   if (card.schemeCrisis) {

@@ -21,6 +21,8 @@ import {
   SetCode,
   TypeCode,
 } from '@mc-builder/shared/src/data/types';
+import { factionRank } from '@mc-builder/shared/src/data/models/Faction';
+import { typeRank } from '@mc-builder/shared/src/data/models/Type';
 
 class Database {
   database: SQLiteDatabase;
@@ -118,7 +120,8 @@ class Database {
       CREATE TABLE IF NOT EXISTS factions (
         code TEXT PRIMARY KEY,
         name TEXT,
-        is_primary INTEGER
+        is_primary INTEGER,
+        rank INTEGER
       );
     `);
 
@@ -145,7 +148,8 @@ class Database {
     await this.run(`
       CREATE TABLE IF NOT EXISTS types (
         code TEXT PRIMARY KEY,
-        name TEXT
+        name TEXT,
+        rank INTEGER
       );
     `);
 
@@ -287,10 +291,29 @@ class Database {
     types: ITypeRaw[];
     cards: any[]; // TODO do we have an API type?
   }) {
-    await this.insertRows('factions', factions);
+    await this.insertRows(
+      'factions',
+      factions.map((factionRaw) => {
+        return {
+          ...factionRaw,
+          rank: factionRank[factionRaw.code],
+        };
+      }),
+    );
+
+    await this.insertRows(
+      'types',
+      types.map((typeRaw) => {
+        return {
+          ...typeRaw,
+          rank: typeRank[typeRaw.code],
+        };
+      }),
+    );
+
     await this.insertRows('packs', packs);
     await this.insertRows('sets', sets);
-    await this.insertRows('types', types);
+
     await this.insertRows('cards', cards);
   }
 
@@ -324,43 +347,31 @@ class Database {
       query.where(`code IN ?`, cardCodes);
     }
 
-    // TODO sorting is messy
     if (sort === CardSortTypes.CODE) {
       query.order('code');
     } else if (sort === CardSortTypes.COST) {
       query.order('set_code').order('cost').order('name').order('code');
     } else if (sort === CardSortTypes.FACTION) {
+      query.join('factions', 'f', 'factions.code = cards.code');
+      query.join('types', 't', 'types.code = cards.code');
       query
         .order('set_code')
-        .order('faction_code')
-        .order('type_code')
+        .order('f.rank')
+        .order('t.rank')
         .order('cost')
         .order('name')
         .order('code');
     } else if (sort === CardSortTypes.NAME) {
       query.order('name').order('code');
     } else if (sort === CardSortTypes.TYPE) {
-      query.order('type_code').order('cost').order('name').order('code');
-    } else if (filter === FilterCodes.FACTION) {
-      query.order('type_code').order('cost').order('name').order('code');
-    } else if (filter === FilterCodes.PACK) {
-      query.order('code');
-    } else if (filter === FilterCodes.SET) {
-      query.order('code');
-    } else if (filter === FilterCodes.TYPE) {
-      query.order('set_code').order('cost').order('name').order('code');
+      query.join('types', 't', 'types.code = cards.code');
+      query.order('t.rank').order('cost').order('name').order('code');
     } else {
       query.order('code');
     }
 
     const queryParams = query.toParam();
     const cards = await this.run(queryParams.text, queryParams.values);
-
-    if (sort === CardSortTypes.FACTION || filter === FilterCodes.TYPE) {
-      cards.sort(compareCardFaction);
-    } else if (sort === CardSortTypes.TYPE || filter === FilterCodes.FACTION) {
-      cards.sort(compareCardType);
-    }
 
     return cards;
   }
@@ -393,19 +404,19 @@ class Database {
         .and(`duplicate_of IS NULL`),
     );
 
-    // TODO sorting is messy
+    query.join('factions', 'f', 'factions.code = cards.code');
+    query.join('types', 't', 'types.code = cards.code');
+
     query
       .order('set_code')
-      .order('faction_code')
-      .order('type_code')
+      .order('f.rank')
+      .order('t.rank')
       .order('cost')
       .order('name')
       .order('code');
 
     const queryParams = query.toParam();
     const cards = await this.run(queryParams.text, queryParams.values);
-
-    cards.sort(compareCardFaction);
 
     return cards;
   }

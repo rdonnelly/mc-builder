@@ -16,12 +16,14 @@ import {
   SetCode,
   TypeCode,
 } from '@mc-builder/shared/src/data';
+import { CardSortTypes } from '@mc-builder/shared/src/data/types';
 import { colors } from '@mc-builder/shared/src/styles';
 
 export type CardStackParamList = {
   CardsList: {
     filter?: FilterCode;
     filterCode?: FactionCode | PackCode | SetCode | TypeCode;
+    sort?: CardSortTypes;
   };
   FactionsList: undefined;
   PacksList: undefined;
@@ -30,9 +32,10 @@ export type CardStackParamList = {
     code: string;
     index: number;
     type: 'card' | 'deck' | 'deckEdit';
+    searchString?: string;
     filter?: FilterCode;
     filterCode?: FactionCode | PackCode | SetCode | TypeCode;
-    searchString?: string;
+    sort?: CardSortTypes;
     deckCode?: string;
   };
 };

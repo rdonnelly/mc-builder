@@ -26,6 +26,7 @@ import {
   TypeCode,
 } from '@mc-builder/shared/src/data';
 import { base, colors } from '@mc-builder/shared/src/styles';
+import { CardSortTypes } from '@mc-builder/shared/src/data/types';
 
 const styles = StyleSheet.create({
   cardList: {
@@ -54,15 +55,18 @@ const CardListScreen = ({ navigation, route }: CardsListScreenProps) => {
   const filterCode = (route.params || {}).filterCode;
 
   let filterName = null;
+  let sort = null;
   if (filter && filterCode) {
     if (filter === FilterCodes.FACTION) {
       filterName = getFaction(filterCode as FactionCode).name;
+      sort = CardSortTypes.TYPE;
     }
     if (filter === FilterCodes.PACK) {
       filterName = getPack(filterCode as PackCode).name;
     }
     if (filter === FilterCodes.TYPE) {
       filterName = getType(filterCode as TypeCode).name;
+      sort = CardSortTypes.FACTION;
     }
   }
 
@@ -79,8 +83,8 @@ const CardListScreen = ({ navigation, route }: CardsListScreenProps) => {
   const cards = cardsAnnotated.map((cardAnnotated) => cardAnnotated.card);
 
   useEffect(() => {
-    fetchCards({ searchString, filter, filterCode: [filterCode] });
-  }, [fetchCards, searchString, filter, filterCode]);
+    fetchCards({ searchString, filter, filterCode: [filterCode], sort });
+  }, [fetchCards, searchString, filter, filterCode, sort]);
 
   // TODO cardsAnnotated type
   const flatListRef = useAnimatedRef<Animated.FlatList<any>>();
@@ -150,10 +154,11 @@ const CardListScreen = ({ navigation, route }: CardsListScreenProps) => {
           searchString,
           filter,
           filterCode,
+          sort,
         });
       }
     },
-    [navigation, searchString, filter, filterCode],
+    [navigation, searchString, filter, filterCode, sort],
   );
 
   const renderCard: ListRenderItem<CardModel> = useCallback(

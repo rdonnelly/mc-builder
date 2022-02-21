@@ -10,6 +10,7 @@ export const factionRank = {
   leadership: 4,
   protection: 5,
   basic: 6,
+  campaign: 7,
 };
 
 export class Faction {

@@ -54,6 +54,7 @@ const CardDetailScreen = ({ navigation, route }: CardDetailScreenProps) => {
   const searchString = (route.params || {}).searchString;
   const filter = (route.params || {}).filter;
   const filterCode = (route.params || {}).filterCode;
+  const sort = (route.params || {}).sort;
 
   const deckCode = (route.params || {}).deckCode;
   const { deck, deckCards } = useDeck(deckCode);
@@ -83,7 +84,7 @@ const CardDetailScreen = ({ navigation, route }: CardDetailScreenProps) => {
   useEffect(() => {
     switch (type) {
       case 'card': {
-        fetchCards({ searchString, filter, filterCode: [filterCode] });
+        fetchCards({ searchString, filter, filterCode: [filterCode], sort });
         break;
       }
       case 'deck': {
@@ -110,6 +111,7 @@ const CardDetailScreen = ({ navigation, route }: CardDetailScreenProps) => {
     searchString,
     filter,
     filterCode,
+    sort,
     deck,
   ]);
 

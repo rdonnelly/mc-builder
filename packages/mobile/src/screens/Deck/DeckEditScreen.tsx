@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from 'react';
 
 import DeckEdit from '@components/DeckEdit';
-import { useDatabaseCards, useDeck } from '@hooks';
+import { useDatabase, useDeck } from '@hooks';
 import { DeckEditScreenProps } from '@navigation/DecksStackNavigator';
 
 const DeckEditScreen = ({ navigation, route }: DeckEditScreenProps) => {
@@ -15,7 +15,7 @@ const DeckEditScreen = ({ navigation, route }: DeckEditScreenProps) => {
   const code = route.params.code;
   const { deck, deckCards } = useDeck(code);
   const { cardsAnnotated: eligibleDeckCards, fetchEligibleDeckCards } =
-    useDatabaseCards();
+    useDatabase();
 
   useEffect(() => {
     fetchEligibleDeckCards({

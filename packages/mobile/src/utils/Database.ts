@@ -98,6 +98,21 @@ class Database {
     return await this.run(query.text, query.values);
   }
 
+  async check() {
+    const result = await this.run(`
+      SELECT count(*) AS table_count
+      FROM sqlite_master
+      WHERE type='table'
+        AND name IN ('factions', 'packs', 'sets', 'types', 'cards');
+    `);
+
+    if (result?.[0].table_count !== 5) {
+      return false;
+    }
+
+    return true;
+  }
+
   async createTables() {
     await this.run(`
       CREATE TABLE IF NOT EXISTS factions (

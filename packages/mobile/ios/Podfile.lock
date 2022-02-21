@@ -288,6 +288,8 @@ PODS:
     - React-Core
   - react-native-get-random-values (1.7.2):
     - React-Core
+  - react-native-netinfo (8.0.0):
+    - React-Core
   - react-native-safe-area-context (3.3.2):
     - React-Core
   - react-native-sensitive-info (5.5.8):
@@ -460,6 +462,7 @@ DEPENDENCIES:
   - react-native-appearance (from `../../../node_modules/react-native-appearance`)
   - react-native-flipper (from `../../../node_modules/react-native-flipper`)
   - react-native-get-random-values (from `../../../node_modules/react-native-get-random-values`)
+  - "react-native-netinfo (from `../../../node_modules/@react-native-community/netinfo`)"
   - react-native-safe-area-context (from `../../../node_modules/react-native-safe-area-context`)
   - react-native-sensitive-info (from `../../../node_modules/react-native-sensitive-info`)
   - react-native-sqlite-storage (from `../../../node_modules/react-native-sqlite-storage`)
@@ -552,6 +555,8 @@ EXTERNAL SOURCES:
     :path: "../../../node_modules/react-native-flipper"
   react-native-get-random-values:
     :path: "../../../node_modules/react-native-get-random-values"
+  react-native-netinfo:
+    :path: "../../../node_modules/@react-native-community/netinfo"
   react-native-safe-area-context:
     :path: "../../../node_modules/react-native-safe-area-context"
   react-native-sensitive-info:
@@ -646,6 +651,7 @@ SPEC CHECKSUMS:
   react-native-appearance: 0f0e5fc2fcef70e03d48c8fe6b00b9158c2ba8aa
   react-native-flipper: 8d0ada062fbc2c7460cc0d343aded6fc3f9c90dc
   react-native-get-random-values: 30b3f74ca34e30e2e480de48e4add2706a40ac8f
+  react-native-netinfo: ba4ea50d836c60580c59079233c400753fe5bcb6
   react-native-safe-area-context: 584dc04881deb49474363f3be89e4ca0e854c057
   react-native-sensitive-info: 400c6e3d27945e15c8cddb5b4b92233c85ee06f8
   react-native-sqlite-storage: f6d515e1c446d1e6d026aa5352908a25d4de3261

@@ -11,7 +11,9 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { ThemeProvider } from 'styled-components';
 
 import { AppProvider } from '@context/AppContext';
+import { useDatabase } from '@hooks';
 import TabNavigator from '@navigation/TabNavigator';
+import SyncScreen from '@screens/SyncScreen';
 import { persistor, store } from '@store';
 
 import { colors, darkTheme, lightTheme } from '@mc-builder/shared/src/styles';
@@ -70,6 +72,8 @@ function App() {
     config,
   };
 
+  const { checkDatabase, syncCardData, didSync, isSyncing } = useDatabase();
+
   return (
     <ThemeProvider theme={appTheme}>
       <NavigationContainer
@@ -81,7 +85,16 @@ function App() {
           translucent={true}
           backgroundColor={colors.darkGray}
         />
-        <TabNavigator />
+        {didSync ? (
+          <TabNavigator />
+        ) : (
+          <SyncScreen
+            didSync={didSync}
+            isSyncing={isSyncing}
+            check={checkDatabase}
+            sync={syncCardData}
+          />
+        )}
       </NavigationContainer>
     </ThemeProvider>
   );

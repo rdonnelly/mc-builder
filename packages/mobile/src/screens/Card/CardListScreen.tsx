@@ -8,7 +8,7 @@ import styled from 'styled-components/native';
 import FloatingControlBar, {
   FloatingControlButtonVariant,
 } from '@components/FloatingControlBar';
-import { useDatabaseCards } from '@hooks/useDatabaseCards';
+import { useDatabase } from '@hooks/useDatabase';
 import { useListSearchBar } from '@hooks/useListSearchBar';
 import { CardsListScreenProps } from '@navigation/CardsStackNavigator';
 
@@ -74,7 +74,7 @@ const CardListScreen = ({ navigation, route }: CardsListScreenProps) => {
     }
   }, [filterName, navigation]);
 
-  const { cardsAnnotated, fetchCards } = useDatabaseCards();
+  const { cardsAnnotated, fetchCards } = useDatabase();
 
   const cards = cardsAnnotated.map((cardAnnotated) => cardAnnotated.card);
 

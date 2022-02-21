@@ -27,7 +27,7 @@ import FloatingControlBar, {
   FloatingControlButtonVariant,
 } from '@components/FloatingControlBar';
 import { AppContext } from '@context/AppContext';
-import { useDatabaseCards, useDeck, useDeckModifications } from '@hooks';
+import { useDatabase, useDeck, useDeckModifications } from '@hooks';
 import { CardDetailScreenProps } from '@navigation/CardsStackNavigator';
 import { setClipboard } from '@utils/Clipboard';
 import { shareImageUrl } from '@utils/Share';
@@ -62,7 +62,7 @@ const CardDetailScreen = ({ navigation, route }: CardDetailScreenProps) => {
   const [activeCardIndex, setActiveCardIndex] = useState(initialCardIndex);
 
   const { cardsAnnotated, fetchCards, fetchDeckCards, fetchEligibleDeckCards } =
-    useDatabaseCards();
+    useDatabase();
 
   const cards = cardsAnnotated.map((cardAnnotated) => cardAnnotated.card);
   const activeCard = cards[activeCardIndex];

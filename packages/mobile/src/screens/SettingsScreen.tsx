@@ -9,7 +9,7 @@ import {
 import InAppBrowser from 'react-native-inappbrowser-reborn';
 import styled from 'styled-components/native';
 
-import { useSyncCardData } from '@hooks/useSyncCardData';
+import { useDatabase } from '@hooks/useDatabase';
 import { SettingsScreenProps } from '@navigation/SettingsStackNavigator';
 import { useAppDispatch } from '@store/hooks';
 // import { getDecks } from '@api/deck';
@@ -20,7 +20,7 @@ import { base, colors } from '@mc-builder/shared/src/styles';
 // import { setAuthToken } from '@store/reducers/auth';
 
 const SettingsScreen = ({}: SettingsScreenProps) => {
-  const { isSyncing, sync } = useSyncCardData();
+  const { isSyncing, syncCardData } = useDatabase();
   const dispatch = useAppDispatch();
 
   const clearStore = () => {
@@ -40,8 +40,15 @@ const SettingsScreen = ({}: SettingsScreenProps) => {
     );
   };
 
-  const syncCardData = () => {
-    sync();
+  const sync = async () => {
+    const syncDidSucceed = await syncCardData();
+    if (!syncDidSucceed) {
+      Alert.alert(
+        'Could Not Sync Card Data',
+        'Please ensure that you are connected to the internet and try again.',
+        [{ text: 'OK' }],
+      );
+    }
   };
 
   // const doThing = async () => {
@@ -84,7 +91,7 @@ const SettingsScreen = ({}: SettingsScreenProps) => {
           {isSyncing ? (
             <ActivityIndicator color={colors.blue} />
           ) : (
-            <Pressable onPress={syncCardData}>
+            <Pressable onPress={sync}>
               {({ pressed }) => (
                 <LinkText pressed={pressed}>Sync Card Data</LinkText>
               )}

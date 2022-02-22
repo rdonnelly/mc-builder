@@ -373,7 +373,7 @@ class Database {
       query.join('factions', 'f', 'f.code = c.faction_code');
       query.join('types', 't', 't.code = c.type_code');
       query
-        .order('c.set_code')
+        .order('c.set_code', 'ASC NULLS LAST')
         .order('f.rank')
         .order('t.rank')
         .order('c.cost')
@@ -429,7 +429,7 @@ class Database {
     query.join('types', 't', 't.code = c.type_code');
 
     query
-      .order('c.set_code')
+      .order('c.set_code', 'ASC NULLS LAST')
       .order('f.rank')
       .order('t.rank')
       .order('c.cost')

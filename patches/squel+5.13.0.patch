@@ -1,0 +1,13 @@
+diff --git a/node_modules/squel/dist/squel.d.ts b/node_modules/squel/dist/squel.d.ts
+index 5be26b8..e473a15 100644
+--- a/node_modules/squel/dist/squel.d.ts
++++ b/node_modules/squel/dist/squel.d.ts
+@@ -861,7 +861,7 @@ declare namespace squel {
+      *                  Default is `true`.
+      * @param values List of parameter values specified as additional arguments. Default is `[]`.
+      */
+-    order(field: string, direction?: boolean | null, ...values: any[]): this;
++    order(field: string, direction?: string | boolean | null, ...values: any[]): this;
+   }
+ 
+   interface Join {

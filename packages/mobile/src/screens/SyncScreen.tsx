@@ -17,11 +17,14 @@ const SyncScreen = ({
 }) => {
   const [showRetry, setShowRetry] = useState<boolean>(false);
 
-  const performSync = useCallback(() => {
+  const performSync = useCallback(async () => {
     setShowRetry(false);
-    sync()
-      .then(() => check())
-      .catch(() => setShowRetry(true));
+    const syncDidSucceed = await sync();
+    if (syncDidSucceed) {
+      check();
+    } else {
+      setShowRetry(true);
+    }
   }, [check, sync]);
 
   useEffect(() => {
@@ -58,7 +61,7 @@ const SyncScreen = ({
 
   return (
     <Container>
-      {!isSyncing ? (
+      {isSyncing ? (
         <ActivityContainer>
           <ActivityIndicator color={colors.orange} size="large" />
           <ActivityMessage>

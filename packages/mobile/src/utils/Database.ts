@@ -1,3 +1,4 @@
+import Bugsnag from '@bugsnag/react-native';
 import SQLite, {
   Location as SQLiteDatabaseLocation,
   SQLiteDatabase,
@@ -70,18 +71,34 @@ class Database {
     this.database = null;
   }
 
-  async run(sql: string, params = []) {
-    const instance = await this.getInstance();
+  async run({
+    sql,
+    params = [],
+    transaction,
+  }: {
+    sql: string;
+    params?: any[];
+    transaction?: SQLite.Transaction;
+  }) {
+    let instance: SQLiteDatabase | SQLite.Transaction = transaction;
+    if (!transaction) {
+      instance = await this.getInstance();
+    }
+
     const results = await instance.executeSql(sql, params);
 
     if (results == null) {
       return [];
     }
 
-    return results.pop().rows.raw();
+    return (results.pop() as SQLite.ResultSet).rows.raw();
   }
 
-  async insertRows(tableName: string, data: any[]) {
+  async insertRows(
+    tableName: string,
+    data: any[],
+    transaction?: SQLite.Transaction,
+  ) {
     if (
       tableName == null ||
       tableName === '' ||
@@ -92,16 +109,24 @@ class Database {
     }
 
     const query = squel.insert().into(tableName).setFieldsRows(data).toParam();
-    return await this.run(query.text, query.values);
+    return await this.run({
+      sql: query.text,
+      params: query.values,
+      transaction,
+    });
   }
 
   async check() {
-    const result = await this.run(`
+    const sql = `
       SELECT count(*) AS table_count
       FROM sqlite_master
       WHERE type='table'
         AND name IN ('factions', 'packs', 'sets', 'types', 'cards');
-    `);
+    `;
+
+    const result = await this.run({
+      sql,
+    });
 
     if (result?.[0].table_count !== 5) {
       return false;
@@ -110,17 +135,79 @@ class Database {
     return true;
   }
 
-  async createTables() {
-    await this.run(`
+  async init({
+    factions,
+    packs,
+    sets,
+    types,
+    cards,
+  }: {
+    factions: IFactionRaw[];
+    packs: IPackRaw[];
+    sets: ISetRaw[];
+    types: ITypeRaw[];
+    cards: any[]; // TODO do we have an API type?
+  }) {
+    const dropSQL = this.getDropQueries();
+    const initSQL = this.getInitQueries();
+
+    try {
+      this.run({ sql: 'BEGIN TRANSACTION;' });
+
+      for (const sql of dropSQL) {
+        await this.run({ sql });
+      }
+
+      for (const sql of initSQL) {
+        await this.run({ sql });
+      }
+
+      await this.insertRows(
+        'factions',
+        factions.map((factionRaw) => {
+          return {
+            ...factionRaw,
+            rank: factionRank[factionRaw.code],
+          };
+        }),
+      );
+
+      await this.insertRows(
+        'types',
+        types.map((typeRaw) => {
+          return {
+            ...typeRaw,
+            rank: typeRank[typeRaw.code],
+          };
+        }),
+      );
+
+      await this.insertRows('packs', packs);
+      await this.insertRows('sets', sets);
+
+      await this.insertRows('cards', cards);
+
+      this.run({ sql: 'COMMIT;' });
+    } catch (e) {
+      this.run({ sql: 'ROLLBACK;' });
+      if (!__DEV__) {
+        Bugsnag.notify(e);
+      }
+      throw e;
+    }
+  }
+
+  getInitQueries() {
+    const factionsCreateSQL = `
       CREATE TABLE IF NOT EXISTS factions (
         code TEXT PRIMARY KEY,
         name TEXT,
         is_primary INTEGER,
         rank INTEGER
       );
-    `);
+    `;
 
-    await this.run(`
+    const packsCreateSQL = `
       CREATE TABLE IF NOT EXISTS packs (
         code TEXT PRIMARY KEY,
         name TEXT,
@@ -130,25 +217,25 @@ class Database {
         position INTEGER,
         size INTEGER
       );
-    `);
+    `;
 
-    await this.run(`
+    const setsCreateSQL = `
       CREATE TABLE IF NOT EXISTS sets (
         code TEXT PRIMARY KEY,
         name TEXT,
         card_set_type_code INTEGER
       );
-    `);
+    `;
 
-    await this.run(`
+    const typesCreateSQL = `
       CREATE TABLE IF NOT EXISTS types (
         code TEXT PRIMARY KEY,
         name TEXT,
         rank INTEGER
       );
-    `);
+    `;
 
-    await this.run(`
+    const cardsCreateSQL = `
       CREATE TABLE IF NOT EXISTS cards (
         code TEXT PRIMARY KEY,
         duplicate_of TEXT,
@@ -190,6 +277,7 @@ class Database {
         health INTEGER,
         recover INTEGER,
         scheme_acceleration INTEGER,
+        scheme_amplify INTEGER,
         scheme_crisis INTEGER,
         scheme_hazard INTEGER,
         scheme_text TEXT,
@@ -226,90 +314,25 @@ class Database {
 
       CREATE INDEX IF NOT EXISTS cards_type_code
         ON cards(type_code);
-      `);
+    `;
+
+    return [
+      factionsCreateSQL,
+      packsCreateSQL,
+      setsCreateSQL,
+      typesCreateSQL,
+      cardsCreateSQL,
+    ];
   }
 
-  async dropTables() {
-    await this.run(`
-      DROP TABLE IF EXISTS cards;
-    `);
-
-    await this.run(`
-      DROP TABLE IF EXISTS factions;
-    `);
-
-    await this.run(`
-      DROP TABLE IF EXISTS packs;
-    `);
-
-    await this.run(`
-      DROP TABLE IF EXISTS sets;
-    `);
-
-    await this.run(`
-      DROP TABLE IF EXISTS types;
-    `);
-  }
-
-  async truncateTables() {
-    await this.run(`
-      DELETE FROM cards;
-    `);
-
-    await this.run(`
-      DELETE FROM factions;
-    `);
-
-    await this.run(`
-      DELETE FROM packs;
-    `);
-
-    await this.run(`
-      DELETE FROM sets;
-    `);
-
-    await this.run(`
-      DELETE FROM types;
-    `);
-  }
-
-  async populateTables({
-    factions,
-    packs,
-    sets,
-    types,
-    cards,
-  }: {
-    factions: IFactionRaw[];
-    packs: IPackRaw[];
-    sets: ISetRaw[];
-    types: ITypeRaw[];
-    cards: any[]; // TODO do we have an API type?
-  }) {
-    await this.insertRows(
-      'factions',
-      factions.map((factionRaw) => {
-        return {
-          ...factionRaw,
-          rank: factionRank[factionRaw.code],
-        };
-      }),
-    );
-
-    await this.insertRows(
-      'types',
-      types.map((typeRaw) => {
-        return {
-          ...typeRaw,
-          rank: typeRank[typeRaw.code],
-        };
-      }),
-    );
-
-    await this.insertRows('packs', packs);
-    await this.insertRows('sets', sets);
-
-    await this.insertRows('cards', cards);
+  getDropQueries() {
+    return [
+      'DROP TABLE IF EXISTS cards;',
+      'DROP TABLE IF EXISTS factions;',
+      'DROP TABLE IF EXISTS packs;',
+      'DROP TABLE IF EXISTS sets;',
+      'DROP TABLE IF EXISTS types;',
+    ];
   }
 
   async fetchCards({
@@ -366,7 +389,10 @@ class Database {
     }
 
     const queryParams = query.toParam();
-    const cards = await this.run(queryParams.text, queryParams.values);
+    const cards = await this.run({
+      sql: queryParams.text,
+      params: queryParams.values,
+    });
 
     return cards;
   }
@@ -411,7 +437,10 @@ class Database {
       .order('c.code');
 
     const queryParams = query.toParam();
-    const cards = await this.run(queryParams.text, queryParams.values);
+    const cards = await this.run({
+      sql: queryParams.text,
+      params: queryParams.values,
+    });
 
     return cards;
   }

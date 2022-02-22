@@ -159,9 +159,12 @@ export function useDatabase() {
       return 0;
     });
 
-    await Database.dropTables();
-    await Database.createTables();
-    await Database.populateTables({ factions, packs, sets, types, cards });
+    try {
+      await Database.init({ factions, packs, sets, types, cards });
+    } catch (e) {
+      setState((prevState) => ({ ...prevState, isSyncing: false }));
+      return false;
+    }
 
     setState((prevState) => ({ ...prevState, isSyncing: false }));
 

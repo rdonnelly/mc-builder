@@ -84,7 +84,7 @@ function App() {
           translucent={true}
           backgroundColor={colors.darkGray}
         />
-        {didSync ? (
+        {didSync && !isSyncing ? (
           <TabNavigator />
         ) : (
           <SyncScreen

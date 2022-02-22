@@ -1,3 +1,4 @@
+import { CommonActions, useNavigationState } from '@react-navigation/native';
 import {
   ActivityIndicator,
   Alert,
@@ -19,9 +20,12 @@ import { reset } from '@store/reducers/decks';
 import { base, colors } from '@mc-builder/shared/src/styles';
 // import { setAuthToken } from '@store/reducers/auth';
 
-const SettingsScreen = ({}: SettingsScreenProps) => {
+const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
   const { isSyncing, syncCardData } = useDatabase();
   const dispatch = useAppDispatch();
+
+  const nav = useNavigationState((state) => state);
+  console.log(nav);
 
   const clearStore = () => {
     Alert.alert(
@@ -42,7 +46,15 @@ const SettingsScreen = ({}: SettingsScreenProps) => {
 
   const sync = async () => {
     const syncDidSucceed = await syncCardData();
-    if (!syncDidSucceed) {
+
+    if (syncDidSucceed) {
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [{ name: 'TabSettings' }],
+        }),
+      );
+    } else {
       Alert.alert(
         'Could Not Sync Card Data',
         'Please ensure that you are connected to the internet and try again.',

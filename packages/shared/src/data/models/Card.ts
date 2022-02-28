@@ -254,7 +254,7 @@ export class Card {
   }
 
   get imageUriSet() {
-    const cardCode = this.merged.code.slice(2).replace(/^0+/, '').toUpperCase();
+    let cardCode = this.cardCode;
     let packUrlPart = '';
     if (this.merged.pack_code === PackCodes.RON) {
       packUrlPart = 'pnp01en';
@@ -271,6 +271,22 @@ export class Card {
         `https://marvel-champions-cards.s3.us-west-2.amazonaws.com/${packUrlPart}/${cardCode}A.png`,
         `https://marvel-champions-cards.s3.us-west-2.amazonaws.com/${packUrlPart}/${cardCode}B.png`,
       ];
+    }
+
+    // Groot and Rocket Raccoon are have reverse hero/alter-ego in the set
+    switch (this.code) {
+      case '16001a': // Groot
+        cardCode = '1B';
+        break;
+      case '16001b': // Groot
+        cardCode = '1A';
+        break;
+      case '16029a': // Rocket Raccoon
+        cardCode = '29B';
+        break;
+      case '16029b': // Rocket Raccoon
+        cardCode = '29A';
+        break;
     }
 
     return [

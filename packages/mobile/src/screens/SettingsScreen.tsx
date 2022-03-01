@@ -1,4 +1,4 @@
-import { CommonActions, useNavigationState } from '@react-navigation/native';
+import { CommonActions } from '@react-navigation/native';
 import {
   ActivityIndicator,
   Alert,
@@ -24,9 +24,6 @@ const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
   const { isSyncing, syncCardData } = useDatabase();
   const dispatch = useAppDispatch();
 
-  const nav = useNavigationState((state) => state);
-  console.log(nav);
-
   const clearStore = () => {
     Alert.alert(
       'Reset Application Data?',
@@ -37,6 +34,7 @@ const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
           text: 'Reset',
           onPress: () => {
             dispatch(reset());
+            resetNavigation();
           },
           style: 'destructive',
         },
@@ -48,12 +46,7 @@ const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
     const syncDidSucceed = await syncCardData();
 
     if (syncDidSucceed) {
-      navigation.dispatch(
-        CommonActions.reset({
-          index: 0,
-          routes: [{ name: 'TabSettings' }],
-        }),
-      );
+      resetNavigation();
     } else {
       Alert.alert(
         'Could Not Sync Card Data',
@@ -61,6 +54,15 @@ const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
         [{ text: 'OK' }],
       );
     }
+  };
+
+  const resetNavigation = () => {
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [{ name: 'TabSettings' }],
+      }),
+    );
   };
 
   // const doThing = async () => {

@@ -102,23 +102,29 @@ const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
         </Information>
 
         <Information>
-          {isSyncing ? (
-            <ActivityIndicator color={colors.blue} />
-          ) : (
-            <Pressable onPress={sync}>
-              {({ pressed }) => (
-                <LinkText pressed={pressed}>Sync Card Data</LinkText>
-              )}
-            </Pressable>
-          )}
+          <InfoButtonWrapper onPress={sync} disabled={isSyncing}>
+            {({ pressed }) => (
+              <InfoButton pressed={pressed}>
+                {isSyncing ? (
+                  <ActivityIndicator color={colors.white} />
+                ) : (
+                  <InfoButtonText>Sync Card Data</InfoButtonText>
+                )}
+              </InfoButton>
+            )}
+          </InfoButtonWrapper>
         </Information>
 
         <Information>
-          <Pressable onPress={clearStore}>
+          <DestructiveButtonWrapper onPress={clearStore}>
             {({ pressed }) => (
-              <LinkText pressed={pressed}>Reset Application Data</LinkText>
+              <DestructiveButton pressed={pressed}>
+                <DestructiveButtonText>
+                  Reset Application Data
+                </DestructiveButtonText>
+              </DestructiveButton>
             )}
-          </Pressable>
+          </DestructiveButtonWrapper>
         </Information>
       </ScrollView>
     </Container>
@@ -153,6 +159,23 @@ const Container = styled(base.Container)`
   background-color: ${colors.lightGray};
 `;
 
+const InfoButtonWrapper = styled(base.ButtonWrapper)``;
+
+const InfoButton = styled(base.Button)<{ pressed?: boolean }>`
+  background-color: ${(props) =>
+    props.pressed ? colors.blueDark : colors.blue};
+`;
+
+const InfoButtonText = styled(base.ButtonText)<{ pressed?: boolean }>``;
+
+const DestructiveButtonWrapper = styled(base.ButtonWrapper)``;
+
+const DestructiveButton = styled(base.Button)<{ pressed?: boolean }>`
+  background-color: ${(props) => (props.pressed ? colors.redDark : colors.red)};
+`;
+
+const DestructiveButtonText = styled(base.ButtonText)<{ pressed?: boolean }>``;
+
 const Information = styled.View`
   border-top-color: ${colors.lightGrayDark};
   border-top-width: ${StyleSheet.hairlineWidth}px;
@@ -168,6 +191,8 @@ const DisclaimerText = styled.Text`
 
 const LinkText = styled.Text<{ pressed: boolean }>`
   color: ${(props) => (props.pressed ? colors.blueDark : colors.blue)};
+  font-size: ${({ pressed, theme }) =>
+    pressed ? theme.fontSize.subtext : theme.fontSize.regular};
   text-align: center;
 `;
 

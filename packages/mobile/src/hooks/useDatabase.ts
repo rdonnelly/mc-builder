@@ -185,7 +185,7 @@ export function useDatabase() {
       filterCode?: (FactionCode | PackCode | SetCode | TypeCode)[];
       sort?: CardSortTypes;
     }) => {
-      setState((prevState) => ({ ...prevState, isFetching: true }));
+      // setState((prevState) => ({ ...prevState, isFetching: true }));
 
       const rawCards = await Database.fetchCards({
         searchString,
@@ -225,7 +225,7 @@ export function useDatabase() {
       storeDeckCards: IStoreDeckCard[];
       sort?: CardSortTypes;
     }) => {
-      setState((prevState) => ({ ...prevState, isFetching: true }));
+      // setState((prevState) => ({ ...prevState, isFetching: true }));
 
       const { deckCards, deckExtraCards } = await fetchDeckCardsFromDatabase({
         setCode,
@@ -250,7 +250,7 @@ export function useDatabase() {
       factionCodes: FactionCode[];
       setCode: SetCode;
     }) => {
-      setState((prevState) => ({ ...prevState, isFetching: true }));
+      // setState((prevState) => ({ ...prevState, isFetching: true }));
 
       const eligibleDeckCards = await fetchEligibleDeckCardsFromDatabase({
         factionCodes,

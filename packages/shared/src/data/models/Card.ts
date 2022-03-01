@@ -29,7 +29,15 @@ export class Card {
   }
 
   get rootCode() {
-    return this.merged.code;
+    return this?.root?.code || this?.raw?.duplicate_of || this.merged.code;
+  }
+
+  get rootCardCode() {
+    return this.rootCode.slice(2).replace(/^0+/, '').toUpperCase();
+  }
+
+  get rootPackCode() {
+    return this.rootCode.slice(0, 2).toUpperCase();
   }
 
   get cardCode() {
@@ -254,13 +262,12 @@ export class Card {
   }
 
   get imageUriSet() {
-    let cardCode = this.cardCode;
+    let cardCode = this.rootCardCode;
     let packUrlPart = '';
     if (this.merged.pack_code === PackCodes.RON) {
       packUrlPart = 'pnp01en';
     } else {
-      const pack = getPacks().find((p) => p.code === this.merged.pack_code);
-      const packCode = String(pack.position).padStart(2, '0');
+      let packCode = this.rootPackCode;
       packUrlPart = `mc${packCode}en`;
     }
 

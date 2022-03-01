@@ -170,9 +170,9 @@ export const convertImportToStoreDeckComponents = (
   deckToImport: IImportDeck,
 ): { storeDeck: IStoreDeck; storeDeckCards: IStoreDeckCard[] } => {
   // TODO handle the following
-  //      - card outside factions/aspects
-  //      - multiple heros/alter egos
-  //      - too many aspects
+  // - card outside factions/aspects
+  // - multiple heros/alter egos
+  // - too many aspects
   const now = new Date();
   const created = now.getTime() + now.getTimezoneOffset() * 60000;
   let setCode: SetCode = null;

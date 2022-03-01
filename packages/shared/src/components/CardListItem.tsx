@@ -59,6 +59,7 @@ const getResourceIcons = (card: CardModel) => {
 
 const CardListItem = ({
   card,
+  index,
   count,
   onPressItem,
   showEditControls,
@@ -69,9 +70,10 @@ const CardListItem = ({
   decrementIsDisabled,
 }: {
   card: CardModel;
+  index: number;
   count?: number;
   deckCode?: string;
-  onPressItem?: () => void;
+  onPressItem?: (cardCode: string, index: number) => void;
   showEditControls?: boolean;
   showPackInfo?: boolean;
   increment?: (card: CardModel, quantity: number) => void;
@@ -80,14 +82,13 @@ const CardListItem = ({
   decrementIsDisabled?: (card: CardModel, quantity: number) => boolean;
 }) => {
   let infoText = '';
-  const cardStage = card.stage;
 
-  if (card.typeCode === TypeCodes.VILLAIN && cardStage != null) {
-    infoText = `${infoText} · ${card.typeName} · Stage ${cardStage}`;
+  if (card.typeCode === TypeCodes.VILLAIN && card.stage != null) {
+    infoText = ` · ${card.typeName} · Stage ${card.stage}`;
   } else if (card.cost != null) {
-    infoText = `${infoText} · ${card.typeName} · ${card.cost}`;
+    infoText = ` · ${card.typeName} · ${card.cost}`;
   } else {
-    infoText = `${infoText} · ${card.typeName}`;
+    infoText = ` · ${card.typeName}`;
   }
 
   let packText = '';
@@ -100,7 +101,7 @@ const CardListItem = ({
     <ListItemOuter>
       <ListItemPressable
         disabled={onPressItem == null}
-        onPress={() => onPressItem != null && onPressItem()}
+        onPress={() => onPressItem != null && onPressItem(card.code, index)}
       >
         {({ pressed }) => (
           <ListItemInner pressed={pressed}>

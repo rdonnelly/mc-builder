@@ -163,10 +163,7 @@ const CardListScreen = ({ navigation, route }: CardsListScreenProps) => {
 
   const renderCard: ListRenderItem<CardModel> = useCallback(
     ({ item: card, index }) => (
-      <CardListItem
-        card={card}
-        onPressItem={() => handlePressItem(card.code, index)}
-      />
+      <CardListItem card={card} index={index} onPressItem={handlePressItem} />
     ),
     [handlePressItem],
   );

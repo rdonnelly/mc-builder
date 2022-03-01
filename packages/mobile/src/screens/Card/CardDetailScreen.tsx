@@ -88,18 +88,22 @@ const CardDetailScreen = ({ navigation, route }: CardDetailScreenProps) => {
         break;
       }
       case 'deck': {
-        fetchDeckCards({
-          setCode: deck.setCode,
-          storeDeckCards: deck.rawCards,
-          sort: CardSortTypes.FACTION,
-        });
+        if (deck?.setCode && deck?.rawCards) {
+          fetchDeckCards({
+            setCode: deck.setCode,
+            storeDeckCards: deck.rawCards,
+            sort: CardSortTypes.FACTION,
+          });
+        }
         break;
       }
       case 'deckEdit': {
-        fetchEligibleDeckCards({
-          factionCodes: deck.aspectCodes,
-          setCode: deck.setCode,
-        });
+        if (deck?.aspectCodes && deck?.setCode) {
+          fetchEligibleDeckCards({
+            factionCodes: deck.aspectCodes,
+            setCode: deck.setCode,
+          });
+        }
         break;
       }
     }
@@ -112,7 +116,9 @@ const CardDetailScreen = ({ navigation, route }: CardDetailScreenProps) => {
     filter,
     filterCode,
     sort,
-    deck,
+    deck?.rawCards,
+    deck?.aspectCodes,
+    deck?.setCode,
   ]);
 
   const { increment, incrementIsDisabled, decrement, decrementIsDisabled } =

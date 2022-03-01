@@ -45,10 +45,11 @@ const DeckDetailList = ({
   const renderCard = ({ item: card }) => (
     <CardListItem
       card={card.card}
+      index={card.index}
       count={card.count || 0}
       deckCode={deck.code}
       showPackInfo={false}
-      onPressItem={() => handlePressItem(card.code, card.index)}
+      onPressItem={handlePressItem}
     />
   );
 

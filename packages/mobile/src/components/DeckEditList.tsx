@@ -54,11 +54,12 @@ const DeckEditList = ({
   const renderCard = ({ item: card }) => (
     <CardListItem
       card={card.card}
+      index={card.index}
       count={deckCardCountByCode[card.code] || 0}
       deckCode={deck.code}
       showPackInfo={false}
       showEditControls={true}
-      onPressItem={() => handlePressItem(card.code, card.index)}
+      onPressItem={handlePressItem}
       increment={increment}
       incrementIsDisabled={incrementIsDisabled}
       decrement={decrement}

@@ -22,7 +22,7 @@ const DeckEditScreen = ({ navigation, route }: DeckEditScreenProps) => {
       factionCodes: deck.aspectCodes,
       setCode: deck.setCode,
     });
-  }, [fetchEligibleDeckCards, deck]);
+  }, [fetchEligibleDeckCards, deck.aspectCodes, deck.setCode]);
 
   const handlePressItem = useCallback(
     (cardCode: string, index: number) => {

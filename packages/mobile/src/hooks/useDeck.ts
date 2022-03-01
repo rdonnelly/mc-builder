@@ -14,7 +14,7 @@ interface IUseDeckState {
   extraCards: IDeckCard[];
 }
 
-export function useDeck(code: string) {
+export function useDeck(code: string, options?: { skipCardFetch?: boolean }) {
   const [cards, setCards] = useState<IUseDeckState>({
     deckCards: [],
     extraCards: [],
@@ -55,12 +55,15 @@ export function useDeck(code: string) {
       });
     };
 
-    if (storeDeck && storeDeckCardEntities) {
+    if (storeDeck && storeDeckCardEntities && !options?.skipCardFetch) {
       fetchCards();
     }
-  }, [storeDeck, storeDeckCardEntities]);
+  }, [storeDeck, storeDeckCardEntities, options?.skipCardFetch]);
 
   return {
+    storeDeck,
+    storeDeckCardEntities,
+
     deck,
     deckCards: cards.deckCards,
     extraCards: cards.extraCards,

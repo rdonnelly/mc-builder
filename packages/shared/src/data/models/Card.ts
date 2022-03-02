@@ -93,7 +93,7 @@ export class Card {
   }
 
   get set() {
-    return getSets().find((s) => s.code === this.packCode);
+    return getSets().find((s) => s.code === this.setCode);
   }
 
   get setName() {

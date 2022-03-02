@@ -426,9 +426,9 @@ class Database {
     query.where(
       squel
         .expr()
-        .and(`type_code IN ?`, typeCodes)
+        .and(`c.type_code IN ?`, typeCodes)
         .and(innerCheck)
-        .and(`duplicate_of IS NULL`),
+        .and(`c.duplicate_of IS NULL`),
     );
 
     query.join('factions', 'f', 'f.code = c.faction_code');

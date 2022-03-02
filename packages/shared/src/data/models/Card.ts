@@ -2,7 +2,7 @@ import { getFactions } from '../../data/models/Faction';
 import { getPacks } from '../../data/models/Pack';
 import { getSets } from '../../data/models/Set';
 import { getTypes } from '../../data/models/Type';
-import { FactionCode, ICardRaw, PackCodes } from '../../data/types';
+import { ICardRaw, PackCodes } from '../../data/types';
 
 export class Card {
   raw: ICardRaw;
@@ -32,16 +32,12 @@ export class Card {
     return this?.root?.code || this?.raw?.duplicate_of || this.merged.code;
   }
 
-  get rootCardCode() {
-    return this.rootCode.slice(2).replace(/^0+/, '').toUpperCase();
-  }
-
-  get rootPackCode() {
-    return this.rootCode.slice(0, 2).toUpperCase();
-  }
-
   get cardCode() {
     return this.merged.code.slice(2).replace(/^0+/, '').toUpperCase();
+  }
+
+  get rootCardCode() {
+    return this.rootCode.slice(2).replace(/^0+/, '').toUpperCase();
   }
 
   get name() {
@@ -56,48 +52,60 @@ export class Card {
     return this.merged.traits;
   }
 
-  get faction() {
-    return getFactions().find((f) => f.code === this.merged.faction_code);
+  get factionCode() {
+    return this.merged.faction_code;
   }
 
-  get factionCode() {
-    return (this.faction || {}).code as FactionCode;
+  get faction() {
+    return getFactions().find((f) => f.code === this.factionCode);
   }
 
   get factionName() {
     return (this.faction || {}).name;
   }
 
-  get pack() {
-    return getPacks().find((p) => p.code === this.merged.pack_code);
+  get packCode() {
+    return this.merged.pack_code;
   }
 
-  get packCode() {
-    return (this.pack || {}).code;
+  get pack() {
+    return getPacks().find((p) => p.code === this.packCode);
   }
 
   get packName() {
     return (this.pack || {}).name;
   }
 
-  get set() {
-    return getSets().find((s) => s.code === this.merged.set_code);
+  get rootPackCode() {
+    return (
+      this?.root?.pack_code ||
+      this.merged?.root_pack_code ||
+      this.merged?.pack_code
+    );
+  }
+
+  get rootPack() {
+    return getPacks().find((p) => p.code === this.rootPackCode);
   }
 
   get setCode() {
-    return (this.set || {}).code;
+    return this.merged.set_code;
+  }
+
+  get set() {
+    return getSets().find((s) => s.code === this.packCode);
   }
 
   get setName() {
     return (this.set || {}).name;
   }
 
-  get type() {
-    return getTypes().find((t) => t.code === this.merged.type_code);
+  get typeCode() {
+    return this.merged.type_code;
   }
 
-  get typeCode() {
-    return (this.type || {}).code;
+  get type() {
+    return getTypes().find((t) => t.code === this.typeCode);
   }
 
   get typeName() {
@@ -267,7 +275,8 @@ export class Card {
     if (this.merged.pack_code === PackCodes.RON) {
       packUrlPart = 'pnp01en';
     } else {
-      let packCode = this.rootPackCode;
+      const pack = this.rootPack;
+      const packCode = String(pack.position).padStart(2, '0');
       packUrlPart = `mc${packCode}en`;
     }
 

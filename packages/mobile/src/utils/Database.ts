@@ -350,6 +350,9 @@ class Database {
   }) {
     const query = squel.select().from('cards', 'c').field('c.*');
 
+    query.left_join('cards', 'root', 'root.code = c.duplicate_of');
+    query.field('COALESCE(root.pack_code, c.pack_code)', 'root_pack_code');
+
     if (searchString) {
       query.where(
         'c.name LIKE ?',
@@ -407,6 +410,9 @@ class Database {
     typeCodes: TypeCode[];
   }) {
     const query = squel.select().from('cards', 'c').field('c.*');
+
+    query.left_join('cards', 'root', 'root.code = c.duplicate_of');
+    query.field('COALESCE(root.pack_code, c.pack_code)', 'root_pack_code');
 
     const innerCheck = squel.expr();
     if (factionCodes?.length) {

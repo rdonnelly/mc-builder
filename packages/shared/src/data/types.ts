@@ -101,6 +101,7 @@ export interface ICardRaw {
   resource_mental: number;
   resource_physical: number;
   resource_wild: number;
+  root_pack_code?: string;
   scheme_acceleration?: boolean;
   scheme_amplify?: boolean;
   scheme_crisis?: boolean;
@@ -119,3 +120,9 @@ export interface ICardRaw {
   traits: string;
   type_code: TypeCode;
 }
+
+// TODO set up card typing
+// - required fields
+// - break down by card types (villain fields, hero fields, etc.)
+// - union type for all card types
+// - types for data files, database, api, etc.

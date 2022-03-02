@@ -13,8 +13,8 @@ import { colors } from '@mc-builder/shared/src/styles';
 import Header from '../../components/Header';
 import getAbsoluteUrl from '../../utils/getAbsoluteUrl';
 
-const CardPage = ({ rawCard, meta }) => {
-  const card = new Card(rawCard);
+const CardPage = ({ rawCard, rootCard, meta }) => {
+  const card = new Card(rawCard, rootCard);
 
   return (
     <>
@@ -69,7 +69,8 @@ export async function getStaticProps({ params }) {
   // Pass post data to the page via props
   return {
     props: {
-      rawCard: card.merged,
+      rawCard: rawCard,
+      rootCard: rootCard,
       meta: {
         imageUrl: card.imageUriSet?.length ? card.imageUriSet[0] : '',
         title: card.name,

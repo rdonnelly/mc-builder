@@ -356,7 +356,7 @@ class Database {
     if (searchString) {
       query.where(
         'c.name LIKE ?',
-        `%${searchString.toLowerCase().replace(/[^A-Za-z0-9]/g, '')}%`,
+        `%${searchString.toLowerCase().replace(/[^-A-Za-z0-9 ]/g, '')}%`,
       );
     }
 

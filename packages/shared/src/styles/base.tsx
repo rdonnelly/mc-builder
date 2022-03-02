@@ -7,6 +7,7 @@ import colors from '../styles/colors';
 const Container = styled.View`
   align-items: center;
   flex: 1 1 auto;
+  flex-direction: column;
   justify-content: flex-start;
   width: 100%;
 `;

@@ -41,6 +41,7 @@ const CardPage = ({ rawCard, rootCard, meta }) => {
 const CardDetailWrapper = styled.View`
   margin: 0 auto;
   max-width: 768px;
+  padding: 0 8px;
   width: 100%;
 `;
 

@@ -13,7 +13,7 @@ import { base, colors } from '../../styles';
 
 const styles = StyleSheet.create({
   scrollViewContentContainer: {
-    alignItems: 'center',
+    alignItems: 'stretch',
     paddingTop: 16,
     paddingBottom: 72,
   },

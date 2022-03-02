@@ -392,9 +392,11 @@ const CardDetailStats = ({ card }: { card: CardModel }) => {
 };
 
 const CardDetailStatsContainer = styled.View`
+  align-items: flex-start;
+  flex: 1 1 auto;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-evenly;
   margin-horizontal: -8px;
 `;
 
@@ -402,10 +404,10 @@ const Stat = styled.View`
   background-color: ${colors.lightGray};
   border-radius: ${({ theme }) => theme.borderRadius.md};
   flex: 1 1 80px;
-  justify-content: flex-end;
+  justify-content: center;
   margin-bottom: 16px;
   margin-horizontal: 8px;
-  padding: 16px;
+  padding: 8px 16px;
 `;
 
 const StatData = styled.View``;

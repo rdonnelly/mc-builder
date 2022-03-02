@@ -17,6 +17,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   html, body, #__next {
+    background: white;
     font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
       Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
     height: 100%;

@@ -90,6 +90,7 @@ const CardDetailImageContainer = styled.View<{
   width: number;
   pressed: boolean;
 }>`
+  align-self: center;
   height: ${(props) => props.height}px;
   margin-bottom: 16px;
   opacity: ${(props) => (props.pressed ? 0.9 : 1.0)};

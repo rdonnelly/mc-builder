@@ -59,6 +59,7 @@ const CardDetailHeaderContainerTitleText = styled.Text`
   font-size: ${({ theme }) => theme.fontSize.heading};
   font-weight: ${({ theme }) => theme.fontWeight.black};
   margin-bottom: 8px;
+  text-align: center;
 `;
 
 const CardDetailHeaderContainerSubtitle = styled.View``;

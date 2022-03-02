@@ -65,6 +65,8 @@ const fetchMcdbDeckFromUrl = async (
 ): Promise<IImportDeck> => {
   try {
     const { data, meta } = await getPublicDeck(baseUrl, string);
+    console.log('data', data);
+    console.log('meta', meta);
 
     const aspectCodes = [meta.aspect];
     if (meta.aspect2) {
@@ -226,6 +228,7 @@ export const convertImportToStoreDeckComponents = (
       Object.values(FactionCodes).includes(aspect as FactionCodes),
     ),
     deckCardCodes: [],
+    mcdbId: deckToImport?.mcdbId || null,
     created: created,
     updated: created,
   };

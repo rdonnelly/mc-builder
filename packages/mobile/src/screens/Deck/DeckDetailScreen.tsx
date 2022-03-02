@@ -1,7 +1,8 @@
 import { useActionSheet } from '@expo/react-native-action-sheet';
 import { useCallback, useRef } from 'react';
-import { Alert, findNodeHandle, Platform } from 'react-native';
+import { Alert, findNodeHandle, Linking, Platform } from 'react-native';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
+import { InAppBrowser } from 'react-native-inappbrowser-reborn';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
 import styled from 'styled-components/native';
 
@@ -50,18 +51,21 @@ const DeckDetailScreen = ({ navigation, route }: DeckDetailScreenProps) => {
   };
 
   const handleMenuOpen = () => {
+    const options = [
+      'Close',
+      'Copy Formatted Text',
+      'Copy Share URL',
+      ...(deck.mcdbId ? ['Open in MarvelCDB'] : []),
+      'Rename Deck',
+      'Clone Deck',
+      'Delete Deck',
+    ];
+
     ReactNativeHapticFeedback.trigger('impactLight');
     showActionSheetWithOptions(
       {
-        options: [
-          'Close',
-          'Copy Formatted Text',
-          'Copy Share URL',
-          'Rename Deck',
-          'Clone Deck',
-          'Delete Deck',
-        ],
-        destructiveButtonIndex: 5,
+        options,
+        destructiveButtonIndex: 6,
         cancelButtonIndex: 0,
         anchor:
           Platform.OS === 'ios'
@@ -69,24 +73,28 @@ const DeckDetailScreen = ({ navigation, route }: DeckDetailScreenProps) => {
             : null,
       },
       (buttonIndex) => {
-        switch (buttonIndex) {
-          case 1: {
+        switch (options[buttonIndex]) {
+          case 'Copy Formatted Text': {
             handleCopyPrettyDeck();
             break;
           }
-          case 2: {
+          case 'Copy Share URL': {
             handleCopyShareableUrl();
             break;
           }
-          case 3: {
+          case 'Open in MarvelCDB': {
+            handleOpenInMcdb();
+            break;
+          }
+          case 'Rename Deck': {
             handleRenameDeck();
             break;
           }
-          case 4: {
+          case 'Clone Deck': {
             handleCloneDeck();
             break;
           }
-          case 5: {
+          case 'Delete Deck': {
             handleDeleteDeck();
             break;
           }
@@ -103,6 +111,34 @@ const DeckDetailScreen = ({ navigation, route }: DeckDetailScreenProps) => {
   const handleCopyShareableUrl = () => {
     ReactNativeHapticFeedback.trigger('impactLight');
     setClipboard(getDeckShareableUrl(deck, deckCards));
+  };
+
+  const handleOpenInMcdb = async () => {
+    ReactNativeHapticFeedback.trigger('impactLight');
+    const mcdbId = deck.mcdbId;
+    if (mcdbId) {
+      const url = `https://marvelcdb.com/decklist/view/${mcdbId}/public`;
+      try {
+        if (await InAppBrowser.isAvailable()) {
+          await InAppBrowser.open(url, {
+            // iOS Properties
+            dismissButtonStyle: 'done',
+            preferredBarTintColor: colors.white,
+            preferredControlTintColor: colors.blue,
+            readerMode: false,
+            animated: true,
+            modalEnabled: true,
+            enableBarCollapsing: false,
+            // Android Properties
+            showTitle: true,
+          });
+        } else {
+          Linking.openURL(url);
+        }
+      } catch (error) {
+        Linking.openURL(url);
+      }
+    }
   };
 
   const handleDeleteDeck = () => {

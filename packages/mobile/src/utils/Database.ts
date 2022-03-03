@@ -185,7 +185,14 @@ class Database {
       await this.insertRows('packs', packs);
       await this.insertRows('sets', sets);
 
-      await this.insertRows('cards', cards);
+      const numCardPages = Math.ceil(cards.length / 10);
+
+      for (let i = 0; i < numCardPages; i++) {
+        const start = i * 10;
+        const end = i * 10 + 10;
+        const slice = cards.slice(start, end);
+        await this.insertRows('cards', slice);
+      }
 
       this.run({ sql: 'COMMIT;' });
     } catch (e) {

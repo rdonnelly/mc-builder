@@ -49,6 +49,7 @@ export enum PackCodes {
   HOOD = 'hood',
   VALK = 'valk',
   VISION = 'vision',
+  SM = 'sm',
 }
 
 export type PackCode =
@@ -78,7 +79,8 @@ export type PackCode =
   | 'warm'
   | 'hood'
   | 'valk'
-  | 'vision';
+  | 'vision'
+  | 'sm';
 
 export enum SetCodes {
   RHINO = 'rhino',
@@ -218,6 +220,28 @@ export enum SetCodes {
   VALK_NEMESIS = 'valk_nemesis',
   VISION = 'vision',
   VISION_NEMESIS = 'vision_nemesis',
+  GHOST_SPIDER = 'ghost_spider',
+  GHOST_SPIDER_NEMESIS = 'ghost_spider_nemesis',
+  SPIDER_MAN_MORALES = 'spider_man_morales',
+  SPIDER_MAN_MORALES_NEMESIS = 'spider_man_morales_nemesis',
+  SANDMAN = 'sandman',
+  VENOM = 'venom',
+  MYSTERIO = 'mysterio',
+  SINISTER_SIX = 'sinister_six',
+  VENOM_GOBLIN = 'venom_goblin',
+  CITY_IN_CHAOS = 'city_in_chaos',
+  DOWN_TO_EARTH = 'down_to_earth',
+  GOBLIN_GEAR = 'goblin_gear',
+  GUERRILLA_TACTICS = 'guerrilla_tactics',
+  OSBORN_TECH = 'osborn_tech',
+  PERSONAL_NIGHTMARE = 'personal_nightmare',
+  SINISTER_ASSAULT = 'sinister_assault',
+  SYMBIOTIC_STRENGTH = 'symbiotic_strength',
+  WHISPERS_OF_PARANOIA = 'whispers_of_paranoia',
+  BAD_PUBLICITY = 'bad_publicity',
+  COMMUNITY_SERVICE = 'community_service',
+  SNITCHES_GET_STITCHES = 'snitches_get_stitches',
+  SHIELD_TECH = 'shield_tech',
 }
 
 export type SetCode =
@@ -357,7 +381,29 @@ export type SetCode =
   | 'valk'
   | 'valk_nemesis'
   | 'vision'
-  | 'vision_nemesis';
+  | 'vision_nemesis'
+  | 'ghost_spider'
+  | 'ghost_spider_nemesis'
+  | 'spider_man_morales'
+  | 'spider_man_morales_nemesis'
+  | 'sandman'
+  | 'venom'
+  | 'mysterio'
+  | 'sinister_six'
+  | 'venom_goblin'
+  | 'city_in_chaos'
+  | 'down_to_earth'
+  | 'goblin_gear'
+  | 'guerrilla_tactics'
+  | 'osborn_tech'
+  | 'personal_nightmare'
+  | 'sinister_assault'
+  | 'symbiotic_strength'
+  | 'whispers_of_paranoia'
+  | 'bad_publicity'
+  | 'community_service'
+  | 'snitches_get_stitches'
+  | 'shield_tech';
 
 export enum SetTypeCodes {
   VILLAIN = 'villain',

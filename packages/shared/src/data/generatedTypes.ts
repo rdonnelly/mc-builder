@@ -50,6 +50,8 @@ export enum PackCodes {
   VALK = 'valk',
   VISION = 'vision',
   SM = 'sm',
+  NOVA = 'nova',
+  IRONHEART = 'ironheart',
 }
 
 export type PackCode =
@@ -80,7 +82,9 @@ export type PackCode =
   | 'hood'
   | 'valk'
   | 'vision'
-  | 'sm';
+  | 'sm'
+  | 'nova'
+  | 'ironheart';
 
 export enum SetCodes {
   RHINO = 'rhino',
@@ -242,6 +246,12 @@ export enum SetCodes {
   COMMUNITY_SERVICE = 'community_service',
   SNITCHES_GET_STITCHES = 'snitches_get_stitches',
   SHIELD_TECH = 'shield_tech',
+  NOVA = 'nova',
+  NOVA_NEMESIS = 'nova_nemesis',
+  ARMADILLO = 'armadillo',
+  IRONHEART = 'ironheart',
+  IRONHEART_NEMESIS = 'ironheart_nemesis',
+  ZZZAX = 'zzzax',
 }
 
 export type SetCode =
@@ -403,7 +413,13 @@ export type SetCode =
   | 'bad_publicity'
   | 'community_service'
   | 'snitches_get_stitches'
-  | 'shield_tech';
+  | 'shield_tech'
+  | 'nova'
+  | 'nova_nemesis'
+  | 'armadillo'
+  | 'ironheart'
+  | 'ironheart_nemesis'
+  | 'zzzax';
 
 export enum SetTypeCodes {
   VILLAIN = 'villain',

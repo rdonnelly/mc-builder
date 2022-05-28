@@ -6,7 +6,7 @@
     "android": "react-native run-android --no-packager",
     "android:emu": "emulator -avd Pixel_3a_API_29 -netdelay none -netspeed full",
     "android:release": "react-native run-android --variant=release",
-    "ios": "react-native run-ios --simulator='iPhone 12 mini' --no-packager",
+    "ios": "react-native run-ios --simulator='iPhone 13 mini' --no-packager",
     "ipad": "react-native run-ios --simulator='iPad Pro (11-inch) (3rd generation)' --no-packager",
     "start": "react-native start --reset-cache",
     "test": "jest",

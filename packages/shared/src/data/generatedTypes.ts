@@ -52,6 +52,8 @@ export enum PackCodes {
   SM = 'sm',
   NOVA = 'nova',
   IRONHEART = 'ironheart',
+  SPIDERHAM = 'spiderham',
+  SPDR = 'spdr',
 }
 
 export type PackCode =
@@ -84,7 +86,9 @@ export type PackCode =
   | 'vision'
   | 'sm'
   | 'nova'
-  | 'ironheart';
+  | 'ironheart'
+  | 'spiderham'
+  | 'spdr';
 
 export enum SetCodes {
   RHINO = 'rhino',
@@ -252,6 +256,12 @@ export enum SetCodes {
   IRONHEART = 'ironheart',
   IRONHEART_NEMESIS = 'ironheart_nemesis',
   ZZZAX = 'zzzax',
+  SPIDERHAM = 'spiderham',
+  SPIDERHAM_NEMESIS = 'spiderham_nemesis',
+  INHERITORS = 'inheritors',
+  SPDR = 'spdr',
+  SPDR_NEMESIS = 'spdr_nemesis',
+  IRONSPIDER_SINISTER = 'ironspider_sinister',
 }
 
 export type SetCode =
@@ -419,7 +429,13 @@ export type SetCode =
   | 'armadillo'
   | 'ironheart'
   | 'ironheart_nemesis'
-  | 'zzzax';
+  | 'zzzax'
+  | 'spiderham'
+  | 'spiderham_nemesis'
+  | 'inheritors'
+  | 'spdr'
+  | 'spdr_nemesis'
+  | 'ironspider_sinister';
 
 export enum SetTypeCodes {
   VILLAIN = 'villain',

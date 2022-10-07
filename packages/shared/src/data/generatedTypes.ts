@@ -54,6 +54,12 @@ export enum PackCodes {
   IRONHEART = 'ironheart',
   SPIDERHAM = 'spiderham',
   SPDR = 'spdr',
+  MUT_GEN = 'mut_gen',
+  CYCLOPS = 'cyclops',
+  PHOENIX = 'phoenix',
+  MOJO = 'mojo',
+  WOLV = 'wolv',
+  STORM = 'storm',
 }
 
 export type PackCode =
@@ -88,7 +94,13 @@ export type PackCode =
   | 'nova'
   | 'ironheart'
   | 'spiderham'
-  | 'spdr';
+  | 'spdr'
+  | 'mut_gen'
+  | 'cyclops'
+  | 'phoenix'
+  | 'mojo'
+  | 'wolv'
+  | 'storm';
 
 export enum SetCodes {
   RHINO = 'rhino',
@@ -262,6 +274,42 @@ export enum SetCodes {
   SPDR = 'spdr',
   SPDR_NEMESIS = 'spdr_nemesis',
   IRONSPIDER_SINISTER = 'ironspider_sinister',
+  COLOSSUS = 'colossus',
+  COLOSSUS_NEMESIS = 'colossus_nemesis',
+  SHADOWCAT = 'shadowcat',
+  SHADOWCAT_NEMESIS = 'shadowcat_nemesis',
+  SABRETOOTH = 'sabretooth',
+  PROJECT_WIDEAWAKE = 'project_wideawake',
+  MASTER_MOLD = 'master_mold',
+  MANSION_ATTACK = 'mansion_attack',
+  MAGNETO = 'magneto',
+  BROTHERHOOD = 'brotherhood',
+  MYSTIQUE = 'mystique',
+  ZERO_TOLERANCE = 'zero_tolerance',
+  SENTINELS = 'sentinels',
+  ACOLYTES = 'acolytes',
+  FUTURE_PAST = 'future_past',
+  MUT_GEN_CAMPAIGN = 'mut_gen_campaign',
+  BRAWLER = 'brawler',
+  COMMANDER = 'commander',
+  DEFENDER = 'defender',
+  PEACEKEEPER = 'peacekeeper',
+  CYCLOPS = 'cyclops',
+  CYCLOPS_NEMESIS = 'cyclops_nemesis',
+  PHOENIX = 'phoenix',
+  PHOENIX_NEMESIS = 'phoenix_nemesis',
+  MAGOG = 'magog',
+  SPIRAL = 'spiral',
+  MOJO = 'mojo',
+  CRIME = 'crime',
+  FANTASY = 'fantasy',
+  LONGSHOT = 'longshot',
+  WOLVERINE = 'wolverine',
+  WOLVERINE_NEMESIS = 'wolverine_nemesis',
+  DEATHSTRIKE = 'deathstrike',
+  STORM = 'storm',
+  STORM_NEMESIS = 'storm_nemesis',
+  SHADOW_KING = 'shadow_king',
 }
 
 export type SetCode =
@@ -435,7 +483,43 @@ export type SetCode =
   | 'inheritors'
   | 'spdr'
   | 'spdr_nemesis'
-  | 'ironspider_sinister';
+  | 'ironspider_sinister'
+  | 'colossus'
+  | 'colossus_nemesis'
+  | 'shadowcat'
+  | 'shadowcat_nemesis'
+  | 'sabretooth'
+  | 'project_wideawake'
+  | 'master_mold'
+  | 'mansion_attack'
+  | 'magneto'
+  | 'brotherhood'
+  | 'mystique'
+  | 'zero_tolerance'
+  | 'sentinels'
+  | 'acolytes'
+  | 'future_past'
+  | 'mut_gen_campaign'
+  | 'brawler'
+  | 'commander'
+  | 'defender'
+  | 'peacekeeper'
+  | 'cyclops'
+  | 'cyclops_nemesis'
+  | 'phoenix'
+  | 'phoenix_nemesis'
+  | 'magog'
+  | 'spiral'
+  | 'mojo'
+  | 'crime'
+  | 'fantasy'
+  | 'longshot'
+  | 'wolverine'
+  | 'wolverine_nemesis'
+  | 'deathstrike'
+  | 'storm'
+  | 'storm_nemesis'
+  | 'shadow_king';
 
 export enum SetTypeCodes {
   VILLAIN = 'villain',

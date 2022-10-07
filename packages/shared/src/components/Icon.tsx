@@ -3,6 +3,7 @@ import styled from 'styled-components/native';
 export enum IconCode {
   acceleration = 'ACCELERATION',
   boost = 'BOOST',
+  consequential = 'CONSEQUENTIAL',
   cost = 'COST',
   crisis = 'CRISIS',
   energy = 'ENERGY',
@@ -26,6 +27,7 @@ export enum IconCode {
 enum IconCodeString {
   ACCELERATION = 'e901',
   BOOST = 'e906',
+  CONSEQUENTIAL = 'e907',
   COST = 'e907',
   CRISIS = 'e900',
   ENERGY = 'e90a',

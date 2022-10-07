@@ -4,6 +4,7 @@ import { colors } from '../styles';
 const ICON_REPLACEMENTS = Object.freeze({
   acceleration: '<icon code="acceleration"></icon>',
   boost: '<icon code="boost"></icon>',
+  consequential: '<icon code="consequential"></icon>',
   cost: '<icon code="cost"></icon>',
   crisis: '<icon code="crisis"></icon>',
   energy: '<icon code="energy"></icon>',

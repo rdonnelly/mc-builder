@@ -254,6 +254,11 @@ export const getEligibleCards = memoizeOne(
 
         const isAdamWarlockEligible = setCode === SetCodes.WARLOCK;
 
+        const isCyclopsEligible =
+          setCode === SetCodes.CYCLOPS &&
+          card.type_code === TypeCodes.ALLY &&
+          card.traits?.toLowerCase().includes('x-men');
+
         // card must match at least one of the following:
         // 1) has matching set code
         // 2) in faction + no set code
@@ -264,7 +269,8 @@ export const getEligibleCards = memoizeOne(
           !(card.set_code === setCode) &&
           !(isInFaction && card.set_code == null) &&
           !(isGamoraEligible && card.set_code == null) &&
-          !(isAdamWarlockEligible && card.set_code == null)
+          !(isAdamWarlockEligible && card.set_code == null) &&
+          !(isCyclopsEligible && card.set_code == null)
         ) {
           return false;
         }

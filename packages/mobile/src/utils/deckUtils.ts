@@ -118,8 +118,13 @@ export const fetchEligibleDeckCardsFromDatabase = async ({
   factionCodes: FactionCode[];
   setCode: SetCode;
 }) => {
-  if (setCode === SetCodes.WARLOCK) {
-    factionCodes = [
+  let queryFactionCodes = [...factionCodes];
+  if (
+    setCode === SetCodes.CYCLOPS ||
+    setCode === SetCodes.GAM ||
+    setCode === SetCodes.WARLOCK
+  ) {
+    queryFactionCodes = [
       FactionCodes.AGGRESSION,
       FactionCodes.JUSTICE,
       FactionCodes.LEADERSHIP,
@@ -128,7 +133,7 @@ export const fetchEligibleDeckCardsFromDatabase = async ({
   }
 
   const rawCards = await Database.fetchCardsComplicated({
-    factionCodes: [...factionCodes, FactionCodes.BASIC],
+    factionCodes: [...queryFactionCodes, FactionCodes.BASIC],
     setCode,
     typeCodes: [
       TypeCodes.ALLY,
@@ -152,6 +157,11 @@ export const fetchEligibleDeckCardsFromDatabase = async ({
 
     const isAdamWarlockEligible = setCode === SetCodes.WARLOCK;
 
+    const isCyclopsEligible =
+      setCode === SetCodes.CYCLOPS &&
+      card.type_code === TypeCodes.ALLY &&
+      card.traits?.toLowerCase().includes('x-men');
+
     // card must match at least one of the following:
     // 1) has matching set code
     // 2) in faction + no set code
@@ -159,15 +169,16 @@ export const fetchEligibleDeckCardsFromDatabase = async ({
     // 4) works with Adam Warlock + no set code
 
     if (
-      !(card.set_code === setCode) &&
-      !(isInFaction && card.set_code == null) &&
-      !(isGamoraEligible && card.set_code == null) &&
-      !(isAdamWarlockEligible && card.set_code == null)
+      card.set_code === setCode ||
+      (isInFaction && card.set_code == null) ||
+      (isGamoraEligible && card.set_code == null) ||
+      (isAdamWarlockEligible && card.set_code == null) ||
+      (isCyclopsEligible && card.set_code == null)
     ) {
-      return false;
+      return true;
     }
 
-    return true;
+    return false;
   });
 
   return filteredRawCards.map((rawCard) => {

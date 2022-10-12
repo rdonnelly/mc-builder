@@ -11,9 +11,10 @@ const customTagStyles = {
   b: { fontWeight: 'bold' },
   em: {
     // fontFamily: 'Komika Title - Wide',
-    // fontSize: 14,
+    // fontSize: 12,
     fontStyle: 'italic',
     fontWeight: 'bold',
+    textTransform: 'uppercase',
   },
   i: { fontStyle: 'italic', fontWeight: '500' },
   p: { marginTop: 0, marginBottom: 0 },

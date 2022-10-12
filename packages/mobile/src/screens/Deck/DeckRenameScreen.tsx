@@ -1,5 +1,3 @@
-import 'react-native-get-random-values';
-
 import { useCallback } from 'react';
 import { Platform } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';

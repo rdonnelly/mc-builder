@@ -2,7 +2,7 @@ import { getFactions } from '../../data/models/Faction';
 import { getPacks } from '../../data/models/Pack';
 import { getSets } from '../../data/models/Set';
 import { getTypes } from '../../data/models/Type';
-import { ICardRaw, PackCodes } from '../../data/types';
+import { ICardRaw } from '../../data/types';
 
 export class Card {
   raw: ICardRaw;
@@ -274,13 +274,13 @@ export class Card {
 
     if (isDoubleSided) {
       return [
-        `https://cerebrodatastorage.blob.core.windows.net/cerebro-cards/official/${this.code.toUpperCase()}A.jpg`,
-        `https://cerebrodatastorage.blob.core.windows.net/cerebro-cards/official/${this.code.toUpperCase()}B.jpg`,
+        `https://cerebrodatastorage.blob.core.windows.net/cerebro-cards/official/${this.rootCode.toUpperCase()}A.jpg`,
+        `https://cerebrodatastorage.blob.core.windows.net/cerebro-cards/official/${this.rootCode.toUpperCase()}B.jpg`,
       ];
     }
 
     return [
-      `https://cerebrodatastorage.blob.core.windows.net/cerebro-cards/official/${this.code.toUpperCase()}.jpg`,
+      `https://cerebrodatastorage.blob.core.windows.net/cerebro-cards/official/${this.rootCode.toUpperCase()}.jpg`,
     ];
   }
 

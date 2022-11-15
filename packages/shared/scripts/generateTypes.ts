@@ -7,23 +7,42 @@ import typesRaw from 'marvelsdb-json-data/types.json';
 
 const FILE = './src/data/generatedTypes.ts';
 
-fs.writeFileSync(FILE, '// generating types from marvelsdb-json-data\n\n');
+const sortByCode = (a, b) => {
+  const codeA = a.code.toUpperCase();
+  const codeB = b.code.toUpperCase();
+  if (codeA < codeB) {
+    return -1;
+  }
+  if (codeA > codeB) {
+    return 1;
+  }
+
+  return 0;
+};
+
+fs.writeFileSync(
+  FILE,
+  '// generated types from marvelsdb-json-data, do not edit\n\n',
+);
 
 // FACTIONS
 
+const factionsSorted = [...factionsRaw].sort(sortByCode);
 fs.appendFileSync(FILE, 'export enum FactionCodes {\n');
-factionsRaw.forEach((faction) => {
+factionsSorted.forEach((faction) => {
   fs.appendFileSync(
     FILE,
-    `  ${faction.code.toUpperCase()} = '${faction.code}',\n`,
+    `  ${faction.code.toUpperCase().replaceAll(/-/g, '_')} = '${
+      faction.code
+    }',\n`,
   );
 });
 fs.appendFileSync(FILE, '}\n\n');
 
 fs.appendFileSync(FILE, 'export type FactionCode =\n');
-factionsRaw.forEach((faction, i) => {
+factionsSorted.forEach((faction, i) => {
   fs.appendFileSync(FILE, `  | '${faction.code}'`);
-  if (i < factionsRaw.length - 1) {
+  if (i < factionsSorted.length - 1) {
     fs.appendFileSync(FILE, '\n');
   } else {
     fs.appendFileSync(FILE, ';\n\n');
@@ -32,16 +51,20 @@ factionsRaw.forEach((faction, i) => {
 
 // PACKS
 
+const packsSorted = [...packsRaw].sort(sortByCode);
 fs.appendFileSync(FILE, 'export enum PackCodes {\n');
-packsRaw.forEach((pack) => {
-  fs.appendFileSync(FILE, `  ${pack.code.toUpperCase()} = '${pack.code}',\n`);
+packsSorted.forEach((pack) => {
+  fs.appendFileSync(
+    FILE,
+    `  ${pack.code.toUpperCase().replaceAll(/-/g, '_')} = '${pack.code}',\n`,
+  );
 });
 fs.appendFileSync(FILE, '}\n\n');
 
 fs.appendFileSync(FILE, 'export type PackCode =\n');
-packsRaw.forEach((pack, i) => {
+packsSorted.forEach((pack, i) => {
   fs.appendFileSync(FILE, `  | '${pack.code}'`);
-  if (i < packsRaw.length - 1) {
+  if (i < packsSorted.length - 1) {
     fs.appendFileSync(FILE, '\n');
   } else {
     fs.appendFileSync(FILE, ';\n\n');
@@ -50,16 +73,20 @@ packsRaw.forEach((pack, i) => {
 
 // SETS
 
+const setsSorted = [...setsRaw].sort(sortByCode);
 fs.appendFileSync(FILE, 'export enum SetCodes {\n');
-setsRaw.forEach((set) => {
-  fs.appendFileSync(FILE, `  ${set.code.toUpperCase()} = '${set.code}',\n`);
+setsSorted.forEach((set) => {
+  fs.appendFileSync(
+    FILE,
+    `  ${set.code.toUpperCase().replaceAll(/-/g, '_')} = '${set.code}',\n`,
+  );
 });
 fs.appendFileSync(FILE, '}\n\n');
 
 fs.appendFileSync(FILE, 'export type SetCode =\n');
-setsRaw.forEach((set, i) => {
+setsSorted.forEach((set, i) => {
   fs.appendFileSync(FILE, `  | '${set.code}'`);
-  if (i < setsRaw.length - 1) {
+  if (i < setsSorted.length - 1) {
     fs.appendFileSync(FILE, '\n');
   } else {
     fs.appendFileSync(FILE, ';\n\n');
@@ -68,19 +95,22 @@ setsRaw.forEach((set, i) => {
 
 // SET TYPES
 
+const setTypesSorted = [...setTypesRaw].sort(sortByCode);
 fs.appendFileSync(FILE, 'export enum SetTypeCodes {\n');
-setTypesRaw.forEach((setType) => {
+setTypesSorted.forEach((setType) => {
   fs.appendFileSync(
     FILE,
-    `  ${setType.code.toUpperCase()} = '${setType.code}',\n`,
+    `  ${setType.code.toUpperCase().replaceAll(/-/g, '_')} = '${
+      setType.code
+    }',\n`,
   );
 });
 fs.appendFileSync(FILE, '}\n\n');
 
 fs.appendFileSync(FILE, 'export type SetTypeCode =\n');
-setTypesRaw.forEach((setType, i) => {
+setTypesSorted.forEach((setType, i) => {
   fs.appendFileSync(FILE, `  | '${setType.code}'`);
-  if (i < setTypesRaw.length - 1) {
+  if (i < setTypesSorted.length - 1) {
     fs.appendFileSync(FILE, '\n');
   } else {
     fs.appendFileSync(FILE, ';\n\n');
@@ -89,16 +119,22 @@ setTypesRaw.forEach((setType, i) => {
 
 // TYPES
 
+const typesSorted = [...typesRaw].sort(sortByCode);
 fs.appendFileSync(FILE, 'export enum TypeCodes {\n');
-typesRaw.forEach((type) => {
-  fs.appendFileSync(FILE, `  ${type.code.toUpperCase()} = '${type.code}',\n`);
+typesSorted.forEach((type) => {
+  fs.appendFileSync(
+    FILE,
+    `  ${type.code.toUpperCase().replaceAll(/[^A-Z]/g, '')} = '${
+      type.code
+    }',\n`,
+  );
 });
 fs.appendFileSync(FILE, '}\n\n');
 
 fs.appendFileSync(FILE, 'export type TypeCode =\n');
-typesRaw.forEach((type, i) => {
+typesSorted.forEach((type, i) => {
   fs.appendFileSync(FILE, `  | '${type.code}'`);
-  if (i < typesRaw.length - 1) {
+  if (i < typesSorted.length - 1) {
     fs.appendFileSync(FILE, '\n');
   } else {
     fs.appendFileSync(FILE, ';\n');

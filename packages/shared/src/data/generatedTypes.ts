@@ -1,576 +1,588 @@
-// generating types from marvelsdb-json-data
+// generated types from marvelsdb-json-data, do not edit
 
 export enum FactionCodes {
   AGGRESSION = 'aggression',
-  JUSTICE = 'justice',
+  BASIC = 'basic',
+  CAMPAIGN = 'campaign',
   ENCOUNTER = 'encounter',
   HERO = 'hero',
-  BASIC = 'basic',
+  JUSTICE = 'justice',
   LEADERSHIP = 'leadership',
   PROTECTION = 'protection',
-  CAMPAIGN = 'campaign',
 }
 
 export type FactionCode =
   | 'aggression'
-  | 'justice'
+  | 'basic'
+  | 'campaign'
   | 'encounter'
   | 'hero'
-  | 'basic'
+  | 'justice'
   | 'leadership'
-  | 'protection'
-  | 'campaign';
+  | 'protection';
 
 export enum PackCodes {
-  CORE = 'core',
-  GOB = 'gob',
-  CAP = 'cap',
-  MSM = 'msm',
-  TWC = 'twc',
-  THOR = 'thor',
-  BKW = 'bkw',
-  DRS = 'drs',
-  HLK = 'hlk',
-  RON = 'ron',
-  TRORS = 'trors',
-  TOAFK = 'toafk',
   ANT = 'ant',
-  WSP = 'wsp',
-  QSV = 'qsv',
-  SCW = 'scw',
-  GMW = 'gmw',
-  STLD = 'stld',
-  GAM = 'gam',
+  BKW = 'bkw',
+  CAP = 'cap',
+  CORE = 'core',
+  CYCLOPS = 'cyclops',
   DRAX = 'drax',
-  VNM = 'vnm',
-  MTS = 'mts',
-  NEBU = 'nebu',
-  WARM = 'warm',
+  DRS = 'drs',
+  GAM = 'gam',
+  GAMBIT = 'gambit',
+  GMW = 'gmw',
+  GOB = 'gob',
+  HLK = 'hlk',
   HOOD = 'hood',
+  IRONHEART = 'ironheart',
+  MOJO = 'mojo',
+  MSM = 'msm',
+  MTS = 'mts',
+  MUT_GEN = 'mut_gen',
+  NEBU = 'nebu',
+  NOVA = 'nova',
+  PHOENIX = 'phoenix',
+  QSV = 'qsv',
+  RON = 'ron',
+  SCW = 'scw',
+  SM = 'sm',
+  SPDR = 'spdr',
+  SPIDERHAM = 'spiderham',
+  STLD = 'stld',
+  STORM = 'storm',
+  THOR = 'thor',
+  TOAFK = 'toafk',
+  TRORS = 'trors',
+  TWC = 'twc',
   VALK = 'valk',
   VISION = 'vision',
-  SM = 'sm',
-  NOVA = 'nova',
-  IRONHEART = 'ironheart',
-  SPIDERHAM = 'spiderham',
-  SPDR = 'spdr',
-  MUT_GEN = 'mut_gen',
-  CYCLOPS = 'cyclops',
-  PHOENIX = 'phoenix',
-  MOJO = 'mojo',
+  VNM = 'vnm',
+  WARM = 'warm',
   WOLV = 'wolv',
-  STORM = 'storm',
+  WSP = 'wsp',
 }
 
 export type PackCode =
-  | 'core'
-  | 'gob'
-  | 'cap'
-  | 'msm'
-  | 'twc'
-  | 'thor'
-  | 'bkw'
-  | 'drs'
-  | 'hlk'
-  | 'ron'
-  | 'trors'
-  | 'toafk'
   | 'ant'
-  | 'wsp'
-  | 'qsv'
-  | 'scw'
-  | 'gmw'
-  | 'stld'
-  | 'gam'
+  | 'bkw'
+  | 'cap'
+  | 'core'
+  | 'cyclops'
   | 'drax'
-  | 'vnm'
-  | 'mts'
-  | 'nebu'
-  | 'warm'
+  | 'drs'
+  | 'gam'
+  | 'gambit'
+  | 'gmw'
+  | 'gob'
+  | 'hlk'
   | 'hood'
+  | 'ironheart'
+  | 'mojo'
+  | 'msm'
+  | 'mts'
+  | 'mut_gen'
+  | 'nebu'
+  | 'nova'
+  | 'phoenix'
+  | 'qsv'
+  | 'ron'
+  | 'scw'
+  | 'sm'
+  | 'spdr'
+  | 'spiderham'
+  | 'stld'
+  | 'storm'
+  | 'thor'
+  | 'toafk'
+  | 'trors'
+  | 'twc'
   | 'valk'
   | 'vision'
-  | 'sm'
-  | 'nova'
-  | 'ironheart'
-  | 'spiderham'
-  | 'spdr'
-  | 'mut_gen'
-  | 'cyclops'
-  | 'phoenix'
-  | 'mojo'
+  | 'vnm'
+  | 'warm'
   | 'wolv'
-  | 'storm';
+  | 'wsp';
 
 export enum SetCodes {
-  RHINO = 'rhino',
-  KLAW = 'klaw',
-  ULTRON = 'ultron',
-  SHE_HULK_NEMESIS = 'she_hulk_nemesis',
-  IRON_MAN_NEMESIS = 'iron_man_nemesis',
-  SPIDER_MAN_NEMESIS = 'spider_man_nemesis',
-  BLACK_PANTHER_NEMESIS = 'black_panther_nemesis',
-  CAPTAIN_MARVEL_NEMESIS = 'captain_marvel_nemesis',
-  SHE_HULK = 'she_hulk',
-  IRON_MAN = 'iron_man',
-  SPIDER_MAN = 'spider_man',
-  BLACK_PANTHER = 'black_panther',
-  CAPTAIN_MARVEL = 'captain_marvel',
-  BOMB_SCARE = 'bomb_scare',
-  STANDARD = 'standard',
-  EXPERT = 'expert',
-  MASTERS_OF_EVIL = 'masters_of_evil',
-  UNDER_ATTACK = 'under_attack',
-  LEGIONS_OF_HYDRA = 'legions_of_hydra',
-  THE_DOOMSDAY_CHAIR = 'the_doomsday_chair',
-  RISKY_BUSINESS = 'risky_business',
-  MUTAGEN_FORMULA = 'mutagen_formula',
-  GOBLIN_GIMMICKS = 'goblin_gimmicks',
-  RUNNING_INTERFERENCE = 'running_interference',
-  POWER_DRAIN = 'power_drain',
-  A_MESS_OF_THINGS = 'a_mess_of_things',
-  CAPTAIN_AMERICA = 'captain_america',
-  CAPTAIN_AMERICA_NEMESIS = 'captain_america_nemesis',
-  MS_MARVEL = 'ms_marvel',
-  MS_MARVEL_NEMESIS = 'ms_marvel_nemesis',
-  THOR = 'thor',
-  THOR_NEMESIS = 'thor_nemesis',
-  WRECKING_CREW = 'wrecking_crew',
-  PILEDRIVER = 'piledriver',
-  WRECKER = 'wrecker',
-  THUNDERBALL = 'thunderball',
-  BULLDOZER = 'bulldozer',
-  BLACK_WIDOW = 'black_widow',
-  BLACK_WIDOW_NEMESIS = 'black_widow_nemesis',
-  DOCTOR_STRANGE = 'doctor_strange',
-  INVOCATION = 'invocation',
-  DOCTOR_STRANGE_NEMESIS = 'doctor_strange_nemesis',
-  HULK = 'hulk',
-  HULK_NEMESIS = 'hulk_nemesis',
-  KREE_FANATIC = 'kree_fanatic',
-  HAWKEYE = 'hawkeye',
-  HAWKEYE_NEMESIS = 'hawkeye_nemesis',
-  SPIDER_WOMAN = 'spider_woman',
-  SPIDER_WOMAN_NEMESIS = 'spider_woman_nemesis',
-  CROSSBONES = 'crossbones',
-  EXPER_WEAPON = 'exper_weapon',
   ABSORBING_MAN = 'absorbing_man',
-  TASKMASTER = 'taskmaster',
-  ZOLA = 'zola',
-  RED_SKULL = 'red_skull',
-  HYDRA_ASSAULT = 'hydra_assault',
-  WEAP_MASTER = 'weap_master',
-  HYDRA_PATROL = 'hydra_patrol',
-  HYDRA_CAMP = 'hydra_camp',
-  EXPCAMP = 'expcamp',
-  KANG = 'kang',
-  TEMPORAL = 'temporal',
-  EXP_KANG = 'exp_kang',
+  ACOLYTES = 'acolytes',
   ANACHRONAUTS = 'anachronauts',
-  MOT = 'mot',
   ANT = 'ant',
   ANT_NEMESIS = 'ant_nemesis',
-  WSP = 'wsp',
-  WSP_NEMESIS = 'wsp_nemesis',
-  QSV = 'qsv',
-  QSV_NEMESIS = 'qsv_nemesis',
-  SCW = 'scw',
-  SCW_NEMESIS = 'scw_nemesis',
-  GROOT = 'groot',
-  GROOT_NEMESIS = 'groot_nemesis',
-  ROCKET = 'rocket',
-  ROCKET_NEMESIS = 'rocket_nemesis',
-  STLD = 'stld',
-  STLD_NEMESIS = 'stld_nemesis',
-  GAM = 'gam',
-  GAM_NEMESIS = 'gam_nemesis',
-  DRAX = 'drax',
-  DRAX_NEMESIS = 'drax_nemesis',
-  VNM = 'vnm',
-  VNM_NEMESIS = 'vnm_nemesis',
-  THE_MARKET = 'the_market',
-  CHALLENGE = 'challenge',
+  ARMADILLO = 'armadillo',
+  ARMIES_OF_TITAN = 'armies_of_titan',
+  A_MESS_OF_THINGS = 'a_mess_of_things',
   BADOON_HEADHUNTER = 'badoon_headhunter',
+  BAD_PUBLICITY = 'bad_publicity',
+  BAND_OF_BADOON = 'band_of_badoon',
+  BEASTY_BOYS = 'beasty_boys',
+  BLACK_ORDER = 'black_order',
+  BLACK_PANTHER = 'black_panther',
+  BLACK_PANTHER_NEMESIS = 'black_panther_nemesis',
+  BLACK_WIDOW = 'black_widow',
+  BLACK_WIDOW_NEMESIS = 'black_widow_nemesis',
+  BOMB_SCARE = 'bomb_scare',
+  BRAWLER = 'brawler',
+  BROTHERHOOD = 'brotherhood',
   BROTHERHOOD_OF_BADOON = 'brotherhood_of_badoon',
+  BROTHERS_GRIMM = 'brothers_grimm',
+  BULLDOZER = 'bulldozer',
+  CAPTAIN_AMERICA = 'captain_america',
+  CAPTAIN_AMERICA_NEMESIS = 'captain_america_nemesis',
+  CAPTAIN_MARVEL = 'captain_marvel',
+  CAPTAIN_MARVEL_NEMESIS = 'captain_marvel_nemesis',
+  CHALLENGE = 'challenge',
+  CHILDREN_OF_THANOS = 'children_of_thanos',
+  CITY_IN_CHAOS = 'city_in_chaos',
   COLLECTOR1 = 'collector1',
   COLLECTOR2 = 'collector2',
-  NEBULA = 'nebula',
-  RONAN = 'ronan',
-  BAND_OF_BADOON = 'band_of_badoon',
-  GALACTIC_ARTIFACTS = 'galactic_artifacts',
-  KREE_MILITANT = 'kree_militant',
-  MENAGERIE_MEDLEY = 'menagerie_medley',
-  SPACE_PIRATES = 'space_pirates',
-  SHIP_COMMAND = 'ship_command',
-  POWER_STONE = 'power_stone',
-  SPECTRUM = 'spectrum',
-  SPECTRUM_NEMESIS = 'spectrum_nemesis',
-  WARLOCK = 'warlock',
-  WARLOCK_NEMESIS = 'warlock_nemesis',
-  EBONY_MAW = 'ebony_maw',
-  TOWER_DEFENSE = 'tower_defense',
-  THANOS = 'thanos',
-  HELA = 'hela',
-  LOKI = 'loki',
-  BLACK_ORDER = 'black_order',
-  ARMIES_OF_TITAN = 'armies_of_titan',
-  CHILDREN_OF_THANOS = 'children_of_thanos',
-  INFINITY_GAUNTLET = 'infinity_gauntlet',
-  LEGIONS_OF_HEL = 'legions_of_hel',
-  FROST_GIANTS = 'frost_giants',
-  ENCHANTRESS = 'enchantress',
-  MTS_CAMPAIGN = 'mts_campaign',
-  NEBU = 'nebu',
-  NEBU_NEMESIS = 'nebu_nemesis',
-  WARM = 'warm',
-  WARM_NEMESIS = 'warm_nemesis',
-  THE_HOOD = 'the_hood',
-  BEASTY_BOYS = 'beasty_boys',
-  BROTHERS_GRIMM = 'brothers_grimm',
-  CROSSFIRE_CREW = 'crossfire_crew',
-  MISTER_HYDE = 'mister_hyde',
-  RANSACKED_ARMORY = 'ransacked_armory',
-  STATE_OF_EMERGENCY = 'state_of_emergency',
-  STREETS_OF_MAYHEM = 'streets_of_mayhem',
-  SINISTER_SYNDICATE = 'sinister_syndicate',
-  WRECKING_CREW_MODULAR = 'wrecking_crew_modular',
-  STANDARD_II = 'standard_ii',
-  EXPERT_II = 'expert_ii',
-  VALK = 'valk',
-  VALK_NEMESIS = 'valk_nemesis',
-  VISION = 'vision',
-  VISION_NEMESIS = 'vision_nemesis',
-  GHOST_SPIDER = 'ghost_spider',
-  GHOST_SPIDER_NEMESIS = 'ghost_spider_nemesis',
-  SPIDER_MAN_MORALES = 'spider_man_morales',
-  SPIDER_MAN_MORALES_NEMESIS = 'spider_man_morales_nemesis',
-  SANDMAN = 'sandman',
-  VENOM = 'venom',
-  MYSTERIO = 'mysterio',
-  SINISTER_SIX = 'sinister_six',
-  VENOM_GOBLIN = 'venom_goblin',
-  CITY_IN_CHAOS = 'city_in_chaos',
-  DOWN_TO_EARTH = 'down_to_earth',
-  GOBLIN_GEAR = 'goblin_gear',
-  GUERRILLA_TACTICS = 'guerrilla_tactics',
-  OSBORN_TECH = 'osborn_tech',
-  PERSONAL_NIGHTMARE = 'personal_nightmare',
-  SINISTER_ASSAULT = 'sinister_assault',
-  SYMBIOTIC_STRENGTH = 'symbiotic_strength',
-  WHISPERS_OF_PARANOIA = 'whispers_of_paranoia',
-  BAD_PUBLICITY = 'bad_publicity',
-  COMMUNITY_SERVICE = 'community_service',
-  SNITCHES_GET_STITCHES = 'snitches_get_stitches',
-  SHIELD_TECH = 'shield_tech',
-  NOVA = 'nova',
-  NOVA_NEMESIS = 'nova_nemesis',
-  ARMADILLO = 'armadillo',
-  IRONHEART = 'ironheart',
-  IRONHEART_NEMESIS = 'ironheart_nemesis',
-  ZZZAX = 'zzzax',
-  SPIDERHAM = 'spiderham',
-  SPIDERHAM_NEMESIS = 'spiderham_nemesis',
-  INHERITORS = 'inheritors',
-  SPDR = 'spdr',
-  SPDR_NEMESIS = 'spdr_nemesis',
-  IRONSPIDER_SINISTER = 'ironspider_sinister',
   COLOSSUS = 'colossus',
   COLOSSUS_NEMESIS = 'colossus_nemesis',
-  SHADOWCAT = 'shadowcat',
-  SHADOWCAT_NEMESIS = 'shadowcat_nemesis',
-  SABRETOOTH = 'sabretooth',
-  PROJECT_WIDEAWAKE = 'project_wideawake',
-  MASTER_MOLD = 'master_mold',
-  MANSION_ATTACK = 'mansion_attack',
-  MAGNETO = 'magneto',
-  BROTHERHOOD = 'brotherhood',
-  MYSTIQUE = 'mystique',
-  ZERO_TOLERANCE = 'zero_tolerance',
-  SENTINELS = 'sentinels',
-  ACOLYTES = 'acolytes',
-  FUTURE_PAST = 'future_past',
-  MUT_GEN_CAMPAIGN = 'mut_gen_campaign',
-  BRAWLER = 'brawler',
   COMMANDER = 'commander',
-  DEFENDER = 'defender',
-  PEACEKEEPER = 'peacekeeper',
+  COMMUNITY_SERVICE = 'community_service',
+  CRIME = 'crime',
+  CROSSBONES = 'crossbones',
+  CROSSFIRE_CREW = 'crossfire_crew',
   CYCLOPS = 'cyclops',
   CYCLOPS_NEMESIS = 'cyclops_nemesis',
+  DEATHSTRIKE = 'deathstrike',
+  DEFENDER = 'defender',
+  DOCTOR_STRANGE = 'doctor_strange',
+  DOCTOR_STRANGE_NEMESIS = 'doctor_strange_nemesis',
+  DOWN_TO_EARTH = 'down_to_earth',
+  DRAX = 'drax',
+  DRAX_NEMESIS = 'drax_nemesis',
+  EBONY_MAW = 'ebony_maw',
+  ENCHANTRESS = 'enchantress',
+  EXPCAMP = 'expcamp',
+  EXPERT = 'expert',
+  EXPERT_II = 'expert_ii',
+  EXPER_WEAPON = 'exper_weapon',
+  EXP_KANG = 'exp_kang',
+  FANTASY = 'fantasy',
+  FROST_GIANTS = 'frost_giants',
+  FUTURE_PAST = 'future_past',
+  GALACTIC_ARTIFACTS = 'galactic_artifacts',
+  GAM = 'gam',
+  GAM_NEMESIS = 'gam_nemesis',
+  GHOST_SPIDER = 'ghost_spider',
+  GHOST_SPIDER_NEMESIS = 'ghost_spider_nemesis',
+  GOBLIN_GEAR = 'goblin_gear',
+  GOBLIN_GIMMICKS = 'goblin_gimmicks',
+  GROOT = 'groot',
+  GROOT_NEMESIS = 'groot_nemesis',
+  GUERRILLA_TACTICS = 'guerrilla_tactics',
+  HAWKEYE = 'hawkeye',
+  HAWKEYE_NEMESIS = 'hawkeye_nemesis',
+  HELA = 'hela',
+  HORROR = 'horror',
+  HULK = 'hulk',
+  HULK_NEMESIS = 'hulk_nemesis',
+  HYDRA_ASSAULT = 'hydra_assault',
+  HYDRA_CAMP = 'hydra_camp',
+  HYDRA_PATROL = 'hydra_patrol',
+  INFINITY_GAUNTLET = 'infinity_gauntlet',
+  INHERITORS = 'inheritors',
+  INVOCATION = 'invocation',
+  IRONHEART = 'ironheart',
+  IRONHEART_NEMESIS = 'ironheart_nemesis',
+  IRONSPIDER_SINISTER = 'ironspider_sinister',
+  IRON_MAN = 'iron_man',
+  IRON_MAN_NEMESIS = 'iron_man_nemesis',
+  KANG = 'kang',
+  KLAW = 'klaw',
+  KREE_FANATIC = 'kree_fanatic',
+  KREE_MILITANT = 'kree_militant',
+  LEGIONS_OF_HEL = 'legions_of_hel',
+  LEGIONS_OF_HYDRA = 'legions_of_hydra',
+  LOKI = 'loki',
+  LONGSHOT = 'longshot',
+  MAGNETO = 'magneto',
+  MAGOG = 'magog',
+  MANSION_ATTACK = 'mansion_attack',
+  MASTERS_OF_EVIL = 'masters_of_evil',
+  MASTER_MOLD = 'master_mold',
+  MENAGERIE_MEDLEY = 'menagerie_medley',
+  MISTER_HYDE = 'mister_hyde',
+  MOJO = 'mojo',
+  MOT = 'mot',
+  MS_MARVEL = 'ms_marvel',
+  MS_MARVEL_NEMESIS = 'ms_marvel_nemesis',
+  MTS_CAMPAIGN = 'mts_campaign',
+  MUTAGEN_FORMULA = 'mutagen_formula',
+  MUT_GEN_CAMPAIGN = 'mut_gen_campaign',
+  MYSTERIO = 'mysterio',
+  MYSTIQUE = 'mystique',
+  NEBU = 'nebu',
+  NEBULA = 'nebula',
+  NEBU_NEMESIS = 'nebu_nemesis',
+  NOVA = 'nova',
+  NOVA_NEMESIS = 'nova_nemesis',
+  OSBORN_TECH = 'osborn_tech',
+  PEACEKEEPER = 'peacekeeper',
+  PERSONAL_NIGHTMARE = 'personal_nightmare',
   PHOENIX = 'phoenix',
   PHOENIX_NEMESIS = 'phoenix_nemesis',
-  MAGOG = 'magog',
+  PILEDRIVER = 'piledriver',
+  POWER_DRAIN = 'power_drain',
+  POWER_STONE = 'power_stone',
+  PROJECT_WIDEAWAKE = 'project_wideawake',
+  QSV = 'qsv',
+  QSV_NEMESIS = 'qsv_nemesis',
+  RANSACKED_ARMORY = 'ransacked_armory',
+  RED_SKULL = 'red_skull',
+  RHINO = 'rhino',
+  RISKY_BUSINESS = 'risky_business',
+  ROCKET = 'rocket',
+  ROCKET_NEMESIS = 'rocket_nemesis',
+  RONAN = 'ronan',
+  RUNNING_INTERFERENCE = 'running_interference',
+  SABRETOOTH = 'sabretooth',
+  SANDMAN = 'sandman',
+  SCI_FI = 'sci-fi',
+  SCW = 'scw',
+  SCW_NEMESIS = 'scw_nemesis',
+  SENTINELS = 'sentinels',
+  SHADOWCAT = 'shadowcat',
+  SHADOWCAT_NEMESIS = 'shadowcat_nemesis',
+  SHADOW_KING = 'shadow_king',
+  SHE_HULK = 'she_hulk',
+  SHE_HULK_NEMESIS = 'she_hulk_nemesis',
+  SHIELD_TECH = 'shield_tech',
+  SHIP_COMMAND = 'ship_command',
+  SINISTER_ASSAULT = 'sinister_assault',
+  SINISTER_SIX = 'sinister_six',
+  SINISTER_SYNDICATE = 'sinister_syndicate',
+  SITCOM = 'sitcom',
+  SNITCHES_GET_STITCHES = 'snitches_get_stitches',
+  SPACE_PIRATES = 'space_pirates',
+  SPDR = 'spdr',
+  SPDR_NEMESIS = 'spdr_nemesis',
+  SPECTRUM = 'spectrum',
+  SPECTRUM_NEMESIS = 'spectrum_nemesis',
+  SPIDERHAM = 'spiderham',
+  SPIDERHAM_NEMESIS = 'spiderham_nemesis',
+  SPIDER_MAN = 'spider_man',
+  SPIDER_MAN_MORALES = 'spider_man_morales',
+  SPIDER_MAN_MORALES_NEMESIS = 'spider_man_morales_nemesis',
+  SPIDER_MAN_NEMESIS = 'spider_man_nemesis',
+  SPIDER_WOMAN = 'spider_woman',
+  SPIDER_WOMAN_NEMESIS = 'spider_woman_nemesis',
   SPIRAL = 'spiral',
-  MOJO = 'mojo',
-  CRIME = 'crime',
-  FANTASY = 'fantasy',
-  LONGSHOT = 'longshot',
-  WOLVERINE = 'wolverine',
-  WOLVERINE_NEMESIS = 'wolverine_nemesis',
-  DEATHSTRIKE = 'deathstrike',
+  STANDARD = 'standard',
+  STANDARD_II = 'standard_ii',
+  STATE_OF_EMERGENCY = 'state_of_emergency',
+  STLD = 'stld',
+  STLD_NEMESIS = 'stld_nemesis',
   STORM = 'storm',
   STORM_NEMESIS = 'storm_nemesis',
-  SHADOW_KING = 'shadow_king',
+  STREETS_OF_MAYHEM = 'streets_of_mayhem',
+  SYMBIOTIC_STRENGTH = 'symbiotic_strength',
+  TASKMASTER = 'taskmaster',
+  TEMPORAL = 'temporal',
+  THANOS = 'thanos',
+  THE_DOOMSDAY_CHAIR = 'the_doomsday_chair',
+  THE_HOOD = 'the_hood',
+  THE_MARKET = 'the_market',
+  THOR = 'thor',
+  THOR_NEMESIS = 'thor_nemesis',
+  THUNDERBALL = 'thunderball',
+  TOWER_DEFENSE = 'tower_defense',
+  ULTRON = 'ultron',
+  UNDER_ATTACK = 'under_attack',
+  VALK = 'valk',
+  VALK_NEMESIS = 'valk_nemesis',
+  VENOM = 'venom',
+  VENOM_GOBLIN = 'venom_goblin',
+  VISION = 'vision',
+  VISION_NEMESIS = 'vision_nemesis',
+  VNM = 'vnm',
+  VNM_NEMESIS = 'vnm_nemesis',
+  WARLOCK = 'warlock',
+  WARLOCK_NEMESIS = 'warlock_nemesis',
+  WARM = 'warm',
+  WARM_NEMESIS = 'warm_nemesis',
+  WEAP_MASTER = 'weap_master',
+  WEATHER = 'weather',
+  WESTERN = 'western',
+  WHISPERS_OF_PARANOIA = 'whispers_of_paranoia',
+  WOLVERINE = 'wolverine',
+  WOLVERINE_NEMESIS = 'wolverine_nemesis',
+  WRECKER = 'wrecker',
+  WRECKING_CREW = 'wrecking_crew',
+  WRECKING_CREW_MODULAR = 'wrecking_crew_modular',
+  WSP = 'wsp',
+  WSP_NEMESIS = 'wsp_nemesis',
+  ZERO_TOLERANCE = 'zero_tolerance',
+  ZOLA = 'zola',
+  ZZZAX = 'zzzax',
 }
 
 export type SetCode =
-  | 'rhino'
-  | 'klaw'
-  | 'ultron'
-  | 'she_hulk_nemesis'
-  | 'iron_man_nemesis'
-  | 'spider_man_nemesis'
-  | 'black_panther_nemesis'
-  | 'captain_marvel_nemesis'
-  | 'she_hulk'
-  | 'iron_man'
-  | 'spider_man'
-  | 'black_panther'
-  | 'captain_marvel'
-  | 'bomb_scare'
-  | 'standard'
-  | 'expert'
-  | 'masters_of_evil'
-  | 'under_attack'
-  | 'legions_of_hydra'
-  | 'the_doomsday_chair'
-  | 'risky_business'
-  | 'mutagen_formula'
-  | 'goblin_gimmicks'
-  | 'running_interference'
-  | 'power_drain'
-  | 'a_mess_of_things'
-  | 'captain_america'
-  | 'captain_america_nemesis'
-  | 'ms_marvel'
-  | 'ms_marvel_nemesis'
-  | 'thor'
-  | 'thor_nemesis'
-  | 'wrecking_crew'
-  | 'piledriver'
-  | 'wrecker'
-  | 'thunderball'
-  | 'bulldozer'
-  | 'black_widow'
-  | 'black_widow_nemesis'
-  | 'doctor_strange'
-  | 'invocation'
-  | 'doctor_strange_nemesis'
-  | 'hulk'
-  | 'hulk_nemesis'
-  | 'kree_fanatic'
-  | 'hawkeye'
-  | 'hawkeye_nemesis'
-  | 'spider_woman'
-  | 'spider_woman_nemesis'
-  | 'crossbones'
-  | 'exper_weapon'
   | 'absorbing_man'
-  | 'taskmaster'
-  | 'zola'
-  | 'red_skull'
-  | 'hydra_assault'
-  | 'weap_master'
-  | 'hydra_patrol'
-  | 'hydra_camp'
-  | 'expcamp'
-  | 'kang'
-  | 'temporal'
-  | 'exp_kang'
+  | 'acolytes'
   | 'anachronauts'
-  | 'mot'
   | 'ant'
   | 'ant_nemesis'
-  | 'wsp'
-  | 'wsp_nemesis'
-  | 'qsv'
-  | 'qsv_nemesis'
-  | 'scw'
-  | 'scw_nemesis'
-  | 'groot'
-  | 'groot_nemesis'
-  | 'rocket'
-  | 'rocket_nemesis'
-  | 'stld'
-  | 'stld_nemesis'
-  | 'gam'
-  | 'gam_nemesis'
-  | 'drax'
-  | 'drax_nemesis'
-  | 'vnm'
-  | 'vnm_nemesis'
-  | 'the_market'
-  | 'challenge'
+  | 'armadillo'
+  | 'armies_of_titan'
+  | 'a_mess_of_things'
   | 'badoon_headhunter'
+  | 'bad_publicity'
+  | 'band_of_badoon'
+  | 'beasty_boys'
+  | 'black_order'
+  | 'black_panther'
+  | 'black_panther_nemesis'
+  | 'black_widow'
+  | 'black_widow_nemesis'
+  | 'bomb_scare'
+  | 'brawler'
+  | 'brotherhood'
   | 'brotherhood_of_badoon'
+  | 'brothers_grimm'
+  | 'bulldozer'
+  | 'captain_america'
+  | 'captain_america_nemesis'
+  | 'captain_marvel'
+  | 'captain_marvel_nemesis'
+  | 'challenge'
+  | 'children_of_thanos'
+  | 'city_in_chaos'
   | 'collector1'
   | 'collector2'
-  | 'nebula'
-  | 'ronan'
-  | 'band_of_badoon'
-  | 'galactic_artifacts'
-  | 'kree_militant'
-  | 'menagerie_medley'
-  | 'space_pirates'
-  | 'ship_command'
-  | 'power_stone'
-  | 'spectrum'
-  | 'spectrum_nemesis'
-  | 'warlock'
-  | 'warlock_nemesis'
-  | 'ebony_maw'
-  | 'tower_defense'
-  | 'thanos'
-  | 'hela'
-  | 'loki'
-  | 'black_order'
-  | 'armies_of_titan'
-  | 'children_of_thanos'
-  | 'infinity_gauntlet'
-  | 'legions_of_hel'
-  | 'frost_giants'
-  | 'enchantress'
-  | 'mts_campaign'
-  | 'nebu'
-  | 'nebu_nemesis'
-  | 'warm'
-  | 'warm_nemesis'
-  | 'the_hood'
-  | 'beasty_boys'
-  | 'brothers_grimm'
-  | 'crossfire_crew'
-  | 'mister_hyde'
-  | 'ransacked_armory'
-  | 'state_of_emergency'
-  | 'streets_of_mayhem'
-  | 'sinister_syndicate'
-  | 'wrecking_crew_modular'
-  | 'standard_ii'
-  | 'expert_ii'
-  | 'valk'
-  | 'valk_nemesis'
-  | 'vision'
-  | 'vision_nemesis'
-  | 'ghost_spider'
-  | 'ghost_spider_nemesis'
-  | 'spider_man_morales'
-  | 'spider_man_morales_nemesis'
-  | 'sandman'
-  | 'venom'
-  | 'mysterio'
-  | 'sinister_six'
-  | 'venom_goblin'
-  | 'city_in_chaos'
-  | 'down_to_earth'
-  | 'goblin_gear'
-  | 'guerrilla_tactics'
-  | 'osborn_tech'
-  | 'personal_nightmare'
-  | 'sinister_assault'
-  | 'symbiotic_strength'
-  | 'whispers_of_paranoia'
-  | 'bad_publicity'
-  | 'community_service'
-  | 'snitches_get_stitches'
-  | 'shield_tech'
-  | 'nova'
-  | 'nova_nemesis'
-  | 'armadillo'
-  | 'ironheart'
-  | 'ironheart_nemesis'
-  | 'zzzax'
-  | 'spiderham'
-  | 'spiderham_nemesis'
-  | 'inheritors'
-  | 'spdr'
-  | 'spdr_nemesis'
-  | 'ironspider_sinister'
   | 'colossus'
   | 'colossus_nemesis'
-  | 'shadowcat'
-  | 'shadowcat_nemesis'
-  | 'sabretooth'
-  | 'project_wideawake'
-  | 'master_mold'
-  | 'mansion_attack'
-  | 'magneto'
-  | 'brotherhood'
-  | 'mystique'
-  | 'zero_tolerance'
-  | 'sentinels'
-  | 'acolytes'
-  | 'future_past'
-  | 'mut_gen_campaign'
-  | 'brawler'
   | 'commander'
-  | 'defender'
-  | 'peacekeeper'
+  | 'community_service'
+  | 'crime'
+  | 'crossbones'
+  | 'crossfire_crew'
   | 'cyclops'
   | 'cyclops_nemesis'
+  | 'deathstrike'
+  | 'defender'
+  | 'doctor_strange'
+  | 'doctor_strange_nemesis'
+  | 'down_to_earth'
+  | 'drax'
+  | 'drax_nemesis'
+  | 'ebony_maw'
+  | 'enchantress'
+  | 'expcamp'
+  | 'expert'
+  | 'expert_ii'
+  | 'exper_weapon'
+  | 'exp_kang'
+  | 'fantasy'
+  | 'frost_giants'
+  | 'future_past'
+  | 'galactic_artifacts'
+  | 'gam'
+  | 'gam_nemesis'
+  | 'ghost_spider'
+  | 'ghost_spider_nemesis'
+  | 'goblin_gear'
+  | 'goblin_gimmicks'
+  | 'groot'
+  | 'groot_nemesis'
+  | 'guerrilla_tactics'
+  | 'hawkeye'
+  | 'hawkeye_nemesis'
+  | 'hela'
+  | 'horror'
+  | 'hulk'
+  | 'hulk_nemesis'
+  | 'hydra_assault'
+  | 'hydra_camp'
+  | 'hydra_patrol'
+  | 'infinity_gauntlet'
+  | 'inheritors'
+  | 'invocation'
+  | 'ironheart'
+  | 'ironheart_nemesis'
+  | 'ironspider_sinister'
+  | 'iron_man'
+  | 'iron_man_nemesis'
+  | 'kang'
+  | 'klaw'
+  | 'kree_fanatic'
+  | 'kree_militant'
+  | 'legions_of_hel'
+  | 'legions_of_hydra'
+  | 'loki'
+  | 'longshot'
+  | 'magneto'
+  | 'magog'
+  | 'mansion_attack'
+  | 'masters_of_evil'
+  | 'master_mold'
+  | 'menagerie_medley'
+  | 'mister_hyde'
+  | 'mojo'
+  | 'mot'
+  | 'ms_marvel'
+  | 'ms_marvel_nemesis'
+  | 'mts_campaign'
+  | 'mutagen_formula'
+  | 'mut_gen_campaign'
+  | 'mysterio'
+  | 'mystique'
+  | 'nebu'
+  | 'nebula'
+  | 'nebu_nemesis'
+  | 'nova'
+  | 'nova_nemesis'
+  | 'osborn_tech'
+  | 'peacekeeper'
+  | 'personal_nightmare'
   | 'phoenix'
   | 'phoenix_nemesis'
-  | 'magog'
+  | 'piledriver'
+  | 'power_drain'
+  | 'power_stone'
+  | 'project_wideawake'
+  | 'qsv'
+  | 'qsv_nemesis'
+  | 'ransacked_armory'
+  | 'red_skull'
+  | 'rhino'
+  | 'risky_business'
+  | 'rocket'
+  | 'rocket_nemesis'
+  | 'ronan'
+  | 'running_interference'
+  | 'sabretooth'
+  | 'sandman'
+  | 'sci-fi'
+  | 'scw'
+  | 'scw_nemesis'
+  | 'sentinels'
+  | 'shadowcat'
+  | 'shadowcat_nemesis'
+  | 'shadow_king'
+  | 'she_hulk'
+  | 'she_hulk_nemesis'
+  | 'shield_tech'
+  | 'ship_command'
+  | 'sinister_assault'
+  | 'sinister_six'
+  | 'sinister_syndicate'
+  | 'sitcom'
+  | 'snitches_get_stitches'
+  | 'space_pirates'
+  | 'spdr'
+  | 'spdr_nemesis'
+  | 'spectrum'
+  | 'spectrum_nemesis'
+  | 'spiderham'
+  | 'spiderham_nemesis'
+  | 'spider_man'
+  | 'spider_man_morales'
+  | 'spider_man_morales_nemesis'
+  | 'spider_man_nemesis'
+  | 'spider_woman'
+  | 'spider_woman_nemesis'
   | 'spiral'
-  | 'mojo'
-  | 'crime'
-  | 'fantasy'
-  | 'longshot'
-  | 'wolverine'
-  | 'wolverine_nemesis'
-  | 'deathstrike'
+  | 'standard'
+  | 'standard_ii'
+  | 'state_of_emergency'
+  | 'stld'
+  | 'stld_nemesis'
   | 'storm'
   | 'storm_nemesis'
-  | 'shadow_king';
+  | 'streets_of_mayhem'
+  | 'symbiotic_strength'
+  | 'taskmaster'
+  | 'temporal'
+  | 'thanos'
+  | 'the_doomsday_chair'
+  | 'the_hood'
+  | 'the_market'
+  | 'thor'
+  | 'thor_nemesis'
+  | 'thunderball'
+  | 'tower_defense'
+  | 'ultron'
+  | 'under_attack'
+  | 'valk'
+  | 'valk_nemesis'
+  | 'venom'
+  | 'venom_goblin'
+  | 'vision'
+  | 'vision_nemesis'
+  | 'vnm'
+  | 'vnm_nemesis'
+  | 'warlock'
+  | 'warlock_nemesis'
+  | 'warm'
+  | 'warm_nemesis'
+  | 'weap_master'
+  | 'weather'
+  | 'western'
+  | 'whispers_of_paranoia'
+  | 'wolverine'
+  | 'wolverine_nemesis'
+  | 'wrecker'
+  | 'wrecking_crew'
+  | 'wrecking_crew_modular'
+  | 'wsp'
+  | 'wsp_nemesis'
+  | 'zero_tolerance'
+  | 'zola'
+  | 'zzzax';
 
 export enum SetTypeCodes {
-  VILLAIN = 'villain',
-  HERO = 'hero',
-  NEMESIS = 'nemesis',
-  MODULAR = 'modular',
-  STANDARD = 'standard',
   EXPERT = 'expert',
+  HERO = 'hero',
   INVOCATION = 'invocation',
+  MODULAR = 'modular',
+  NEMESIS = 'nemesis',
+  STANDARD = 'standard',
+  VILLAIN = 'villain',
 }
 
 export type SetTypeCode =
-  | 'villain'
-  | 'hero'
-  | 'nemesis'
-  | 'modular'
-  | 'standard'
   | 'expert'
-  | 'invocation';
+  | 'hero'
+  | 'invocation'
+  | 'modular'
+  | 'nemesis'
+  | 'standard'
+  | 'villain';
 
 export enum TypeCodes {
-  MAIN_SCHEME = 'main_scheme',
-  SIDE_SCHEME = 'side_scheme',
-  RESOURCE = 'resource',
-  MINION = 'minion',
-  EVENT = 'event',
-  UPGRADE = 'upgrade',
   ALLY = 'ally',
-  SUPPORT = 'support',
-  HERO = 'hero',
-  ALTER_EGO = 'alter_ego',
-  VILLAIN = 'villain',
+  ALTEREGO = 'alter_ego',
   ATTACHMENT = 'attachment',
-  OBLIGATION = 'obligation',
-  TREACHERY = 'treachery',
   ENVIRONMENT = 'environment',
+  EVENT = 'event',
+  HERO = 'hero',
+  MAINSCHEME = 'main_scheme',
+  MINION = 'minion',
+  OBLIGATION = 'obligation',
+  RESOURCE = 'resource',
+  SIDESCHEME = 'side_scheme',
+  SUPPORT = 'support',
+  TREACHERY = 'treachery',
+  UPGRADE = 'upgrade',
+  VILLAIN = 'villain',
 }
 
 export type TypeCode =
-  | 'main_scheme'
-  | 'side_scheme'
-  | 'resource'
-  | 'minion'
-  | 'event'
-  | 'upgrade'
   | 'ally'
-  | 'support'
-  | 'hero'
   | 'alter_ego'
-  | 'villain'
   | 'attachment'
+  | 'environment'
+  | 'event'
+  | 'hero'
+  | 'main_scheme'
+  | 'minion'
   | 'obligation'
+  | 'resource'
+  | 'side_scheme'
+  | 'support'
   | 'treachery'
-  | 'environment';
+  | 'upgrade'
+  | 'villain';

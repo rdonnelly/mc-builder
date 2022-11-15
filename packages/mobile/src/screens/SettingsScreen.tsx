@@ -91,11 +91,26 @@ const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
         </Information>
 
         <Information>
-          <Pressable onPress={visitWebpage}>
+          <Pressable onPress={() => visitWebpage('https://mcbuilder.app')}>
             {({ pressed }) => (
               <>
                 <LinkText pressed={pressed}>Designed and Developed by</LinkText>
                 <LinkText pressed={pressed}>Ryan Donnelly</LinkText>
+              </>
+            )}
+          </Pressable>
+        </Information>
+
+        <Information>
+          <Pressable
+            onPress={() =>
+              visitWebpage('https://github.com/UnicornSnuggler/Cerebro')
+            }
+          >
+            {({ pressed }) => (
+              <>
+                <LinkText pressed={pressed}>Card Images Sourced From</LinkText>
+                <LinkText pressed={pressed}>Cerebro by Unicorn</LinkText>
               </>
             )}
           </Pressable>
@@ -131,8 +146,7 @@ const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
   );
 };
 
-const visitWebpage = async () => {
-  const url = 'https://rdonnelly.com/mc-deck-builder/';
+const visitWebpage = async (url: string) => {
   try {
     if (await InAppBrowser.isAvailable()) {
       await InAppBrowser.open(url, {

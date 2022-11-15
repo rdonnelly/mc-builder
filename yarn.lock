@@ -2169,7 +2169,7 @@
     "@types/react" "*"
     csstype "^3.0.2"
 
-"@types/styled-components@^5.1.26":
+"@types/styled-components@^5.1.21", "@types/styled-components@^5.1.26":
   version "5.1.26"
   resolved "https://registry.yarnpkg.com/@types/styled-components/-/styled-components-5.1.26.tgz#5627e6812ee96d755028a98dae61d28e57c233af"
   integrity sha512-KuKJ9Z6xb93uJiIyxo/+ksS7yLjS1KzG6iv5i78dhVg/X3u5t1H7juRWqVmodIdz6wGVaIApo1u01kmFRdJHVw==
@@ -5990,7 +5990,7 @@ map-visit@^1.0.0:
 
 "marvelsdb-json-data@https://github.com/rdonnelly/marvelsdb-json-data.git#main":
   version "1.0.0"
-  resolved "https://github.com/rdonnelly/marvelsdb-json-data.git#3945f7d7bd3193823840b6e88acb71b7ff1fbe90"
+  resolved "https://github.com/rdonnelly/marvelsdb-json-data.git#d9e7c4cdbd413098dec41a5c178075f27761cde7"
   dependencies:
     lodash "^4.13.1"
     mkdirp "^0.5.1"

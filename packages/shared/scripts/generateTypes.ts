@@ -124,9 +124,7 @@ fs.appendFileSync(FILE, 'export enum TypeCodes {\n');
 typesSorted.forEach((type) => {
   fs.appendFileSync(
     FILE,
-    `  ${type.code.toUpperCase().replaceAll(/[^A-Z]/g, '')} = '${
-      type.code
-    }',\n`,
+    `  ${type.code.toUpperCase().replaceAll(/-/g, '_')} = '${type.code}',\n`,
   );
 });
 fs.appendFileSync(FILE, '}\n\n');

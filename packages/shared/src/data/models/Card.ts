@@ -270,43 +270,17 @@ export class Card {
   }
 
   get imageUriSet() {
-    let cardCode = this.rootCardCode;
-    let packUrlPart = '';
-    if (this.merged.pack_code === PackCodes.RON) {
-      packUrlPart = 'pnp01en';
-    } else {
-      const pack = this.rootPack;
-      const packCode = String(pack.position).padStart(2, '0');
-      packUrlPart = `mc${packCode}en`;
-    }
-
     const isDoubleSided = ['main_scheme'].includes(this.merged.type_code);
 
     if (isDoubleSided) {
       return [
-        `https://marvel-champions-cards.s3.us-west-2.amazonaws.com/${packUrlPart}/${cardCode}A.png`,
-        `https://marvel-champions-cards.s3.us-west-2.amazonaws.com/${packUrlPart}/${cardCode}B.png`,
+        `https://cerebrodatastorage.blob.core.windows.net/cerebro-cards/official/${this.code}A.jpg`,
+        `https://cerebrodatastorage.blob.core.windows.net/cerebro-cards/official/${this.code}B.jpg`,
       ];
     }
 
-    // Groot and Rocket Raccoon are have reverse hero/alter-ego in the set
-    switch (this.code) {
-      case '16001a': // Groot
-        cardCode = '1B';
-        break;
-      case '16001b': // Groot
-        cardCode = '1A';
-        break;
-      case '16029a': // Rocket Raccoon
-        cardCode = '29B';
-        break;
-      case '16029b': // Rocket Raccoon
-        cardCode = '29A';
-        break;
-    }
-
     return [
-      `https://marvel-champions-cards.s3.us-west-2.amazonaws.com/${packUrlPart}/${cardCode}.png`,
+      `https://cerebrodatastorage.blob.core.windows.net/cerebro-cards/official/${this.code}.jpg`,
     ];
   }
 

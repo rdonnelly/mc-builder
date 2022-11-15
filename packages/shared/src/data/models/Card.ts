@@ -274,13 +274,13 @@ export class Card {
 
     if (isDoubleSided) {
       return [
-        `https://cerebrodatastorage.blob.core.windows.net/cerebro-cards/official/${this.code}A.jpg`,
-        `https://cerebrodatastorage.blob.core.windows.net/cerebro-cards/official/${this.code}B.jpg`,
+        `https://cerebrodatastorage.blob.core.windows.net/cerebro-cards/official/${this.code.toUpperCase()}A.jpg`,
+        `https://cerebrodatastorage.blob.core.windows.net/cerebro-cards/official/${this.code.toUpperCase()}B.jpg`,
       ];
     }
 
     return [
-      `https://cerebrodatastorage.blob.core.windows.net/cerebro-cards/official/${this.code}.jpg`,
+      `https://cerebrodatastorage.blob.core.windows.net/cerebro-cards/official/${this.code.toUpperCase()}.jpg`,
     ];
   }
 

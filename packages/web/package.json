@@ -14,7 +14,6 @@
     "@mc-builder/shared": "1.0.0",
     "babel-plugin-react-native-web": "^0.17.5",
     "babel-plugin-styled-components": "^2.0.7",
-    "js-base64": "^3.6.0",
     "next": "^12.0.9",
     "next-transpile-modules": "^9.0.0",
     "react": "17.0.2",

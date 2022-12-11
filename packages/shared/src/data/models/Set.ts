@@ -45,7 +45,9 @@ export const getSets = () =>
 export const getHeroSets = () =>
   getSets().filter(
     (set) =>
-      set.type === SetTypeCodes.HERO && set.code !== SetTypeCodes.INVOCATION,
+      set.type === SetTypeCodes.HERO &&
+      set.code !== SetTypeCodes.INVOCATION &&
+      set.code !== SetTypeCodes.WEATHER,
   );
 
 export const getSet = (code: SetCode, defaultReturn = undefined) => {

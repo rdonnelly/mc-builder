@@ -541,6 +541,7 @@ export enum SetTypeCodes {
   NEMESIS = 'nemesis',
   STANDARD = 'standard',
   VILLAIN = 'villain',
+  WEATHER = 'weather',
 }
 
 export type SetTypeCode =
@@ -550,7 +551,8 @@ export type SetTypeCode =
   | 'modular'
   | 'nemesis'
   | 'standard'
-  | 'villain';
+  | 'villain'
+  | 'weather';
 
 export enum TypeCodes {
   ALLY = 'ally',

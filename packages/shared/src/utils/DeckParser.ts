@@ -65,8 +65,6 @@ const fetchMcdbDeckFromUrl = async (
 ): Promise<IImportDeck> => {
   try {
     const { data, meta } = await getPublicDeck(baseUrl, string);
-    console.log('data', data);
-    console.log('meta', meta);
 
     const aspectCodes = [meta.aspect];
     if (meta.aspect2) {

@@ -79,6 +79,9 @@ export const fetchDeckCardsFromDatabase = async ({
   if (setCode === SetCodes.DOCTOR_STRANGE) {
     filterCodes.push(SetCodes.INVOCATION);
   }
+  if (setCode === SetCodes.STORM) {
+    filterCodes.push(SetCodes.WEATHER);
+  }
   const rawExtraCards = await Database.fetchCards({
     filter: FilterCodes.SET,
     filterCode: filterCodes,
@@ -89,7 +92,8 @@ export const fetchDeckCardsFromDatabase = async ({
     .filter(
       (rawCard) =>
         rawCard.faction_code === FactionCodes.ENCOUNTER ||
-        rawCard.setCode === SetCodes.INVOCATION,
+        rawCard.set_code === SetCodes.INVOCATION ||
+        rawCard.set_code === SetCodes.WEATHER,
     )
     .map((rawCard) => {
       const card = new CardModel(rawCard);

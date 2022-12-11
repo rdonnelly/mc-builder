@@ -63,6 +63,15 @@ export const getExtraCardsForDeck = memoizeOne(
       extraCards.push(...invocationCards);
     }
 
+    // add Storm weather cards
+    if (setCode === SetCodes.STORM) {
+      const invocationCards = getFilteredCards({
+        filter: FilterCodes.SET,
+        filterCode: SetCodes.WEATHER,
+      });
+      extraCards.push(...invocationCards);
+    }
+
     return extraCards.map((card) => ({
       card,
       code: card.code,
@@ -109,6 +118,12 @@ export const getCardSectionsForDeck = (
       count: null,
       data: [],
     },
+    weather: {
+      code: 'weather',
+      title: 'Weather',
+      count: null,
+      data: [],
+    },
     encounter: {
       code: 'encounter',
       title: 'Encounter',
@@ -133,6 +148,14 @@ export const getCardSectionsForDeck = (
           if (options.includeExtra) {
             sections.invocation.data.push({ ...card, index });
             sections.invocation.count += card.count || 0;
+          }
+          break;
+        }
+        case card.factionCode === FactionCodes.HERO &&
+          card.setCode === SetCodes.WEATHER: {
+          if (options.includeExtra) {
+            sections.weather.data.push({ ...card, index });
+            sections.weather.count += card.count || 0;
           }
           break;
         }

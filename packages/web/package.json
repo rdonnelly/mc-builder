@@ -12,8 +12,6 @@
   },
   "dependencies": {
     "@mc-builder/shared": "1.0.0",
-    "babel-plugin-react-native-web": "^0.17.5",
-    "babel-plugin-styled-components": "^2.0.7",
     "next": "^12.0.9",
     "next-transpile-modules": "^9.0.0",
     "react": "17.0.2",
@@ -30,6 +28,7 @@
     "@types/react-native": "^0.66.1",
     "@types/styled-components": "^5.1.21",
     "@types/styled-components-react-native": "^5.2.0",
-    "babel-plugin-module-resolver": "^4.1.0"
+    "babel-plugin-react-native-web": "^0.17.5",
+    "babel-plugin-styled-components": "^2.0.7"
   }
 }

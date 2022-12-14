@@ -6,8 +6,7 @@ const withTM = require('next-transpile-modules')([
 ]);
 
 module.exports = withTM({
-  // experimental: {
-  //   // ssr and displayName are configured by default
+  // compiler: {
   //   styledComponents: true,
   // },
   webpack: (config) => {

@@ -26,8 +26,18 @@ import {
 } from '@mc-builder/shared/src/data/types';
 import { IStoreDeckCard } from '@mc-builder/shared/src/store/types';
 
+export interface ICardAnnotated {
+  card: CardModel;
+  code: string;
+  name: string;
+  factionCode: FactionCode;
+  setCode: SetCode;
+  typeCode: TypeCode;
+  count?: number;
+}
+
 interface IUseDatabaseState {
-  cardsAnnotated: any[];
+  cardsAnnotated: ICardAnnotated[];
   isFetching: boolean;
   isSyncing: boolean;
   didSync: boolean;
@@ -185,8 +195,6 @@ export function useDatabase() {
       filterCode?: (FactionCode | PackCode | SetCode | TypeCode)[];
       sort?: CardSortTypes;
     }) => {
-      // setState((prevState) => ({ ...prevState, isFetching: true }));
-
       const rawCards = await Database.fetchCards({
         searchString,
         filter,
@@ -225,8 +233,6 @@ export function useDatabase() {
       storeDeckCards: IStoreDeckCard[];
       sort?: CardSortTypes;
     }) => {
-      // setState((prevState) => ({ ...prevState, isFetching: true }));
-
       const { deckCards, deckExtraCards } = await fetchDeckCardsFromDatabase({
         setCode,
         storeDeckCards,
@@ -250,8 +256,6 @@ export function useDatabase() {
       factionCodes: FactionCode[];
       setCode: SetCode;
     }) => {
-      // setState((prevState) => ({ ...prevState, isFetching: true }));
-
       const eligibleDeckCards = await fetchEligibleDeckCardsFromDatabase({
         factionCodes,
         setCode,

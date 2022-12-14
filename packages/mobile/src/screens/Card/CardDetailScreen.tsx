@@ -1,13 +1,6 @@
 import { useActionSheet } from '@expo/react-native-action-sheet';
 import throttle from 'lodash/throttle';
-import {
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import {
   Dimensions,
   findNodeHandle,
@@ -23,11 +16,9 @@ import { InAppBrowser } from 'react-native-inappbrowser-reborn';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
 import styled from 'styled-components/native';
 
-import FloatingControlBar, {
-  FloatingControlButtonVariant,
-} from '@components/FloatingControlBar';
+import CardDetailDeckEditFloatingBar from '@components/CardDetailDeckEditFloatingBar';
 import { AppContext } from '@context/AppContext';
-import { useDatabase, useDeck, useDeckModifications } from '@hooks';
+import { useDatabase, useDeck } from '@hooks';
 import { CardDetailScreenProps } from '@navigation/CardsStackNavigator';
 import { setClipboard } from '@utils/Clipboard';
 import { shareImageUrl } from '@utils/Share';
@@ -43,46 +34,30 @@ const shareCardImage = (uri: string) => {
 };
 
 const CardDetailScreen = ({ navigation, route }: CardDetailScreenProps) => {
+  const {
+    code: initialCardCode,
+    index: initialCardIndex,
+    searchString,
+    filter,
+    filterCode,
+    sort,
+    type: screenType,
+    deckCode,
+  } = route.params;
+
   const { windowWidth } = useContext(AppContext);
 
-  const { showActionSheetWithOptions } = useActionSheet();
+  const flatListRef = useRef<FlatList>(null);
   const actionSheetAnchorRef = useRef(null);
+  const { showActionSheetWithOptions } = useActionSheet();
 
-  const initialCardCode = (route.params || {}).code;
-  const initialCardIndex = (route.params || {}).index;
-  const type = (route.params || {}).type;
-  const searchString = (route.params || {}).searchString;
-  const filter = (route.params || {}).filter;
-  const filterCode = (route.params || {}).filterCode;
-  const sort = (route.params || {}).sort;
-
-  const deckCode = (route.params || {}).deckCode;
   const { deck, deckCards } = useDeck(deckCode);
-
-  const cardIndexRef = useRef(initialCardIndex);
-  const [activeCardIndex, setActiveCardIndex] = useState(initialCardIndex);
 
   const { cardsAnnotated, fetchCards, fetchDeckCards, fetchEligibleDeckCards } =
     useDatabase();
 
-  const cards = cardsAnnotated.map((cardAnnotated) => cardAnnotated.card);
-  const activeCard = cards[activeCardIndex];
-
-  const deckCardCountByCode = useMemo(() => {
-    const map = {};
-    deckCards.forEach((deckCard) => {
-      map[deckCard.code] = deckCard.count;
-    });
-    return map;
-  }, [deckCards]);
-
-  let deckCardCount = null;
-  if (activeCard != null) {
-    deckCardCount = deckCardCountByCode[activeCard.code] || 0;
-  }
-
   useEffect(() => {
-    switch (type) {
+    switch (screenType) {
       case 'card': {
         fetchCards({ searchString, filter, filterCode: [filterCode], sort });
         break;
@@ -108,7 +83,6 @@ const CardDetailScreen = ({ navigation, route }: CardDetailScreenProps) => {
       }
     }
   }, [
-    type,
     fetchCards,
     fetchDeckCards,
     fetchEligibleDeckCards,
@@ -116,16 +90,53 @@ const CardDetailScreen = ({ navigation, route }: CardDetailScreenProps) => {
     filter,
     filterCode,
     sort,
+    screenType,
     deck?.rawCards,
     deck?.aspectCodes,
     deck?.setCode,
   ]);
 
-  const { increment, incrementIsDisabled, decrement, decrementIsDisabled } =
-    useDeckModifications(deckCode, deck?.setCode);
+  const cardIndexRef = useRef(initialCardIndex);
+  const [activeCardIndex, setActiveCardIndex] = useState(initialCardIndex);
+
+  const activeCard = cardsAnnotated[activeCardIndex]?.card;
+
+  const viewabilityConfig = useRef({
+    viewAreaCoveragePercentThreshold: 50,
+  });
+
+  const handleViewableItemsChanged = useRef(({ viewableItems }) => {
+    if (viewableItems.length) {
+      navigation.setOptions({
+        headerTitle: viewableItems[0].item.name,
+      });
+    } else {
+      navigation.setOptions({
+        headerTitle: '',
+      });
+    }
+  });
+
+  useEffect(() => {
+    const subscription = Dimensions.addEventListener(
+      'change',
+      throttle(
+        ({ window }) => {
+          flatListRef?.current?.scrollToOffset({
+            offset: window.width * cardIndexRef.current,
+            animated: false,
+          });
+        },
+        50,
+        { leading: false, trailing: true },
+      ),
+    );
+
+    return () => subscription?.remove();
+  }, []);
 
   const handleReport = useCallback(async () => {
-    const card = cards[cardIndexRef.current];
+    const card = cardsAnnotated[cardIndexRef.current];
     const url = encodeURI(
       `https://github.com/zzorba/marvelsdb-json-data/issues/new?title=Card Data Issue: ${card.name} (${card.code})&body=<!-- What issue do you see with the card data? -->`,
     );
@@ -149,15 +160,15 @@ const CardDetailScreen = ({ navigation, route }: CardDetailScreenProps) => {
     } catch (error) {
       Linking.openURL(url);
     }
-  }, [cards]);
+  }, [cardsAnnotated]);
 
   const handleShareUrl = useCallback(async () => {
     ReactNativeHapticFeedback.trigger('impactLight');
-    const card = cards[cardIndexRef.current];
-    if (card?.shareableUrl) {
-      setClipboard(card?.shareableUrl);
+    const card = cardsAnnotated[cardIndexRef.current];
+    if (card?.card?.shareableUrl) {
+      setClipboard(card?.card?.shareableUrl);
     }
-  }, [cards]);
+  }, [cardsAnnotated]);
 
   const handleMenuOpen = useCallback(() => {
     ReactNativeHapticFeedback.trigger('impactLight');
@@ -203,47 +214,7 @@ const CardDetailScreen = ({ navigation, route }: CardDetailScreenProps) => {
         );
       },
     });
-  }, [navigation, activeCard, handleMenuOpen]);
-
-  const viewabilityConfig = useRef({
-    viewAreaCoveragePercentThreshold: 50,
-  });
-
-  const handleViewableItemsChanged = useRef(({ viewableItems }) => {
-    if (viewableItems.length) {
-      navigation.setOptions({
-        headerTitle: viewableItems[0].item.name,
-      });
-    } else {
-      navigation.setOptions({
-        headerTitle: '',
-      });
-    }
-  });
-
-  const flatListRef = useRef<FlatList>(null);
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const scrollToActive = useCallback(
-    throttle(
-      (currentWindowWidth) => {
-        flatListRef?.current?.scrollToOffset({
-          offset: currentWindowWidth * cardIndexRef.current,
-          animated: false,
-        });
-      },
-      50,
-      { leading: false, trailing: true },
-    ),
-    [],
-  );
-
-  useEffect(() => {
-    const subscription = Dimensions.addEventListener('change', ({ window }) => {
-      scrollToActive(window.width);
-    });
-    return () => subscription?.remove();
-  }, [scrollToActive]);
+  }, [navigation, handleMenuOpen]);
 
   // handle a deep link
   useEffect(() => {
@@ -259,6 +230,21 @@ const CardDetailScreen = ({ navigation, route }: CardDetailScreenProps) => {
     }
   }, [initialCardCode, cardsAnnotated]);
 
+  const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    const newIndex = Math.max(
+      0,
+      Math.round(event.nativeEvent.contentOffset.x / windowWidth),
+    );
+
+    if (cardIndexRef.current !== newIndex) {
+      cardIndexRef.current = newIndex;
+    }
+
+    if (activeCardIndex !== newIndex) {
+      setActiveCardIndex(newIndex);
+    }
+  };
+
   const getItemLayout = useCallback(
     (_data: CardModel[], index: number) => ({
       length: windowWidth,
@@ -271,103 +257,45 @@ const CardDetailScreen = ({ navigation, route }: CardDetailScreenProps) => {
   const renderItem = ({ item: card }) => (
     <CardDetailFlatListItem width={windowWidth}>
       <CardDetail
-        card={card}
+        card={card.card}
         hideTitle={true}
         shareCardImage={shareCardImage}
       />
     </CardDetailFlatListItem>
   );
 
-  const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-    const newIndex = Math.max(
-      0,
-      Math.round(event.nativeEvent.contentOffset.x / windowWidth),
-    );
-
-    cardIndexRef.current = newIndex;
-    setActiveCardIndex(newIndex);
-  };
-
   return (
     <Container>
-      <CardDetailFlatList
-        renderItem={renderItem}
-        data={cards}
-        keyExtractor={(item: CardModel) => `card-detail-screen-${item.code}`}
-        getItemLayout={getItemLayout}
-        as={FlatList}
-        ref={flatListRef}
-        horizontal={true}
-        scrollEnabled={true}
-        pagingEnabled={true}
-        overScrollMode={'never'}
-        initialNumToRender={1}
-        showsVerticalScrollIndicator={false}
-        showsHorizontalScrollIndicator={false}
-        initialScrollIndex={cardIndexRef.current}
-        viewabilityConfig={viewabilityConfig.current}
-        onScroll={handleScroll}
-        onViewableItemsChanged={handleViewableItemsChanged.current}
-      />
+      {activeCard ? (
+        <CardDetailFlatList
+          renderItem={renderItem}
+          data={cardsAnnotated}
+          keyExtractor={(item: CardModel) => `card-detail-screen-${item.code}`}
+          getItemLayout={getItemLayout}
+          as={FlatList}
+          ref={flatListRef}
+          horizontal={true}
+          scrollEnabled={true}
+          pagingEnabled={true}
+          overScrollMode={'never'}
+          initialNumToRender={0}
+          showsVerticalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}
+          initialScrollIndex={cardIndexRef.current}
+          viewabilityConfig={viewabilityConfig.current}
+          onScroll={handleScroll}
+          scrollEventThrottle={100}
+          onViewableItemsChanged={handleViewableItemsChanged.current}
+        />
+      ) : null}
 
-      {route.params.type === 'deckEdit' && deckCode != null ? (
-        <FloatingControlBar>
-          <FloatingControlBar.Text
-            variant={FloatingControlButtonVariant.INVERTED}
-          >
-            {deckCardCount}
-          </FloatingControlBar.Text>
-          <FloatingControlBar.FlexButton
-            onPress={() => increment(activeCard, deckCardCount)}
-            disabled={
-              activeCard == null ||
-              incrementIsDisabled(activeCard, deckCardCount)
-            }
-            variant={
-              activeCard == null ||
-              incrementIsDisabled(activeCard, deckCardCount)
-                ? FloatingControlButtonVariant.DISABLED
-                : FloatingControlButtonVariant.INVERTED_SUCCESS
-            }
-          >
-            <FontAwesomeIcon
-              name="plus"
-              color={
-                activeCard == null ||
-                incrementIsDisabled(activeCard, deckCardCount)
-                  ? colors.grayDark
-                  : colors.green
-              }
-              size={16}
-              solid
-            />
-          </FloatingControlBar.FlexButton>
-          <FloatingControlBar.FlexButton
-            onPress={() => decrement(activeCard, deckCardCount)}
-            disabled={
-              activeCard == null ||
-              decrementIsDisabled(activeCard, deckCardCount)
-            }
-            variant={
-              activeCard == null ||
-              decrementIsDisabled(activeCard, deckCardCount)
-                ? FloatingControlButtonVariant.DISABLED
-                : FloatingControlButtonVariant.INVERTED_DESTRUCTIVE
-            }
-          >
-            <FontAwesomeIcon
-              name="minus"
-              color={
-                activeCard == null ||
-                decrementIsDisabled(activeCard, deckCardCount)
-                  ? colors.grayDark
-                  : colors.red
-              }
-              size={16}
-              solid
-            />
-          </FloatingControlBar.FlexButton>
-        </FloatingControlBar>
+      {screenType === 'deckEdit' && deckCode != null ? (
+        <CardDetailDeckEditFloatingBar
+          activeCard={activeCard}
+          deckCode={deckCode}
+          deckSetCode={deck?.setCode}
+          deckCards={deckCards}
+        />
       ) : null}
       <CardDetailSwipeGuard />
     </Container>

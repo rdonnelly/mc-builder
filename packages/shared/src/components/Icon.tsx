@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import styled from 'styled-components/native';
 
 export enum IconCode {
@@ -76,4 +77,4 @@ const IconText = styled.Text<{ color?: string; size?: number }>`
   font-family: ${({ theme }) => theme.fontFamily.marvelIcons};
 `;
 
-export default Icon;
+export default memo(Icon);

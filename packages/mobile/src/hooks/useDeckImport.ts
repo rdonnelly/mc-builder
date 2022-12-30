@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { fetchDeckCardsFromDatabase } from '@utils/deckUtils';
 
-import { DeckModel } from '@mc-builder/shared/src/data';
+import { Deck as DeckModel } from '@mc-builder/shared/src/data/models/Deck';
 import { IDeckCard } from '@mc-builder/shared/src/data/models/Deck';
 import { CardSortTypes } from '@mc-builder/shared/src/data/types';
 import { parseDeckFromString } from '@mc-builder/shared/src/utils/DeckParser';

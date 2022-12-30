@@ -10,20 +10,18 @@ import {
 
 import Database from '@mc-builder/mobile/src/utils/Database';
 import {
-  CardModel,
   FactionCode,
   FilterCode,
-  PackCode,
-  SetCode,
-  TypeCode,
-} from '@mc-builder/shared/src/data';
-import {
-  CardSortTypes,
   IFactionRaw,
   IPackRaw,
   ISetRaw,
   ITypeRaw,
-} from '@mc-builder/shared/src/data/types';
+  PackCode,
+  SetCode,
+  TypeCode,
+} from '@mc-builder/shared/src/data';
+import { Card as CardModel } from '@mc-builder/shared/src/data/models/Card';
+import { CardSortTypes } from '@mc-builder/shared/src/data/types';
 import { IStoreDeckCard } from '@mc-builder/shared/src/store/types';
 
 export interface ICardAnnotated {

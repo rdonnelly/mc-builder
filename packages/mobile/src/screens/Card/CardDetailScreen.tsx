@@ -24,7 +24,7 @@ import { setClipboard } from '@utils/Clipboard';
 import { shareImageUrl } from '@utils/Share';
 
 import CardDetail from '@mc-builder/shared/src/components/CardDetail';
-import { CardModel } from '@mc-builder/shared/src/data';
+import { Card as CardModel } from '@mc-builder/shared/src/data/models/Card';
 import { CardSortTypes } from '@mc-builder/shared/src/data/types';
 import { base, colors } from '@mc-builder/shared/src/styles';
 

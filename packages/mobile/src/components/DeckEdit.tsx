@@ -10,8 +10,10 @@ import FloatingControlBar, {
 import { DeckEditScreenProps } from '@navigation/DecksStackNavigator';
 
 import DeckDetailHeader from '@mc-builder/shared/src/components/DeckDetail/DeckDetailHeader';
-import { DeckModel } from '@mc-builder/shared/src/data';
-import { IDeckCard } from '@mc-builder/shared/src/data/models/Deck';
+import {
+  Deck as DeckModel,
+  IDeckCard,
+} from '@mc-builder/shared/src/data/models/Deck';
 import { base, colors } from '@mc-builder/shared/src/styles';
 
 type DeckEditNavigationProps = DeckEditScreenProps['navigation'];

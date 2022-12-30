@@ -5,8 +5,9 @@ import styled from 'styled-components/native';
 import { useDeckModifications } from '@hooks';
 
 import CardListItem from '@mc-builder/shared/src/components/CardListItem';
-import { CardModel, DeckModel } from '@mc-builder/shared/src/data';
 import { getCardSectionsForDeck } from '@mc-builder/shared/src/data/deckUtils';
+import { Card as CardModel } from '@mc-builder/shared/src/data/models/Card';
+import { Deck as DeckModel } from '@mc-builder/shared/src/data/models/Deck';
 import { IDeckCard } from '@mc-builder/shared/src/data/models/Deck';
 import { base, colors } from '@mc-builder/shared/src/styles';
 

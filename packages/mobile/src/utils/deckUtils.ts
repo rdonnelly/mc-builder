@@ -2,7 +2,7 @@ import keyBy from 'lodash/keyBy';
 
 import Database from '@utils/Database';
 
-import { CardModel } from '@mc-builder/shared/src/data';
+import { Card as CardModel } from '@mc-builder/shared/src/data/models/Card';
 import {
   CardSortTypes,
   FactionCode,

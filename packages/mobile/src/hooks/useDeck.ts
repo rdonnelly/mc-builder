@@ -5,7 +5,7 @@ import { useAppSelector } from '@store/hooks';
 import { selectStoreDeck, selectStoreDeckCards } from '@store/selectors';
 import { fetchDeckCardsFromDatabase } from '@utils/deckUtils';
 
-import { DeckModel } from '@mc-builder/shared/src/data';
+import { Deck as DeckModel } from '@mc-builder/shared/src/data/models/Deck';
 import { IDeckCard } from '@mc-builder/shared/src/data/models/Deck';
 import { CardSortTypes } from '@mc-builder/shared/src/data/types';
 

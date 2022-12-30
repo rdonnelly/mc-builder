@@ -4,7 +4,8 @@ import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import { addCardToDeck, removeCardFromDeck } from '@store/actions';
 import { useAppDispatch } from '@store/hooks';
 
-import { CardModel, SetCode, SetCodes } from '@mc-builder/shared/src/data';
+import { SetCode, SetCodes } from '@mc-builder/shared/src/data';
+import { Card as CardModel } from '@mc-builder/shared/src/data/models/Card';
 
 export function useDeckModifications(deckCode: string, deckSetCode: SetCode) {
   const dispatch = useAppDispatch();

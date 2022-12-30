@@ -3,7 +3,8 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
 
 import { useDeckModifications } from '@hooks';
 
-import { CardModel, SetCode } from '@mc-builder/shared/src/data';
+import { SetCode } from '@mc-builder/shared/src/data/';
+import { Card as CardModel } from '@mc-builder/shared/src/data/models/Card';
 import { colors } from '@mc-builder/shared/src/styles';
 
 import FloatingControlBar, {

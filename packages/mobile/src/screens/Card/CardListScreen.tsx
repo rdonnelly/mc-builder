@@ -16,7 +16,6 @@ import CardListItem, {
   ITEM_HEIGHT,
 } from '@mc-builder/shared/src/components/CardListItem';
 import {
-  CardModel,
   FactionCode,
   FilterCodes,
   getFaction,
@@ -25,6 +24,7 @@ import {
   PackCode,
   TypeCode,
 } from '@mc-builder/shared/src/data';
+import { Card as CardModel } from '@mc-builder/shared/src/data/models/Card';
 import { CardSortTypes } from '@mc-builder/shared/src/data/types';
 import { base, colors } from '@mc-builder/shared/src/styles';
 

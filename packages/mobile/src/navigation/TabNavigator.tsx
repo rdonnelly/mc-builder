@@ -10,6 +10,33 @@ import SettingsStackNavigator from '@navigation/SettingsStackNavigator';
 
 import { colors } from '@mc-builder/shared/src/styles';
 
+const tabIconStream = ({ focused, size }) => (
+  <FontAwesomeIcon
+    name="stream"
+    color={focused ? colors.orange : colors.gray}
+    size={size}
+    solid
+  />
+);
+
+const tabIconLayerGroup = ({ focused, size }) => (
+  <FontAwesomeIcon
+    name="layer-group"
+    color={focused ? colors.purple : colors.gray}
+    size={size}
+    solid
+  />
+);
+
+const tabIconCog = ({ focused, size }) => (
+  <FontAwesomeIcon
+    name="cog"
+    color={focused ? colors.blue : colors.gray}
+    size={size}
+    solid
+  />
+);
+
 export type TabNavigatorParamList = {
   TabCards: undefined;
   TabDecks: undefined;
@@ -52,14 +79,7 @@ export default () => {
         component={CardsStackNavigator}
         options={{
           title: 'Cards',
-          tabBarIcon: ({ focused, size }) => (
-            <FontAwesomeIcon
-              name="stream"
-              color={focused ? colors.orange : colors.gray}
-              size={size}
-              solid
-            />
-          ),
+          tabBarIcon: tabIconStream,
         }}
       />
       <Tab.Screen
@@ -67,14 +87,7 @@ export default () => {
         component={DecksStackNavigator}
         options={{
           title: 'Decks',
-          tabBarIcon: ({ focused, size }) => (
-            <FontAwesomeIcon
-              name="layer-group"
-              color={focused ? colors.purple : colors.gray}
-              size={size}
-              solid
-            />
-          ),
+          tabBarIcon: tabIconLayerGroup,
         }}
       />
       <Tab.Screen
@@ -82,14 +95,7 @@ export default () => {
         component={SettingsStackNavigator}
         options={{
           title: 'Settings',
-          tabBarIcon: ({ focused, size }) => (
-            <FontAwesomeIcon
-              name="cog"
-              color={focused ? colors.blue : colors.gray}
-              size={size}
-              solid
-            />
-          ),
+          tabBarIcon: tabIconCog,
         }}
       />
     </Tab.Navigator>

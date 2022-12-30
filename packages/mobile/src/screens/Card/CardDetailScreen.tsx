@@ -196,25 +196,27 @@ const CardDetailScreen = ({ navigation, route }: CardDetailScreenProps) => {
     );
   }, [showActionSheetWithOptions, handleReport, handleShareUrl]);
 
+  const headerRight = useCallback(() => {
+    return (
+      <Pressable onPress={() => handleMenuOpen()}>
+        {({ pressed }) => (
+          <FontAwesomeIcon
+            name="ellipsis-h"
+            color={pressed ? colors.whiteTranslucent : colors.white}
+            size={24}
+            ref={actionSheetAnchorRef}
+          />
+        )}
+      </Pressable>
+    );
+  }, [handleMenuOpen]);
+
   useEffect(() => {
     navigation.setOptions({
       headerBackTitleVisible: false,
-      headerRight: () => {
-        return (
-          <Pressable onPress={() => handleMenuOpen()}>
-            {({ pressed }) => (
-              <FontAwesomeIcon
-                name="ellipsis-h"
-                color={pressed ? colors.whiteTranslucent : colors.white}
-                size={24}
-                ref={actionSheetAnchorRef}
-              />
-            )}
-          </Pressable>
-        );
-      },
+      headerRight: headerRight,
     });
-  }, [navigation, handleMenuOpen]);
+  }, [navigation, headerRight]);
 
   // handle a deep link
   useEffect(() => {

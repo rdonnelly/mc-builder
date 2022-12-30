@@ -21,7 +21,7 @@ import { setDeckSort } from '@store/reducers/app';
 import { getClipboard } from '@utils/Clipboard';
 
 import DecksListItem from '@mc-builder/shared/src/components/DeckListItem';
-import { DeckModel } from '@mc-builder/shared/src/data';
+import { Deck as DeckModel } from '@mc-builder/shared/src/data/models/Deck';
 import { AppDeckSortKey } from '@mc-builder/shared/src/store/types';
 import { base, colors } from '@mc-builder/shared/src/styles';
 
@@ -101,34 +101,36 @@ const DecksListScreen = ({ navigation }: DecksListScreenProps) => {
     );
   }, [dispatch, showActionSheetWithOptions]);
 
+  const headerRight = useCallback(() => {
+    let iconName = 'sort-amount-up-alt';
+    if (
+      [AppDeckSortKey.CREATED, AppDeckSortKey.UPDATED].includes(deckSortKey)
+    ) {
+      iconName = 'sort-amount-down';
+    }
+
+    return (
+      <Pressable
+        ref={sortActionSheetAnchorRef}
+        onPress={() => handlePressSort()}
+      >
+        {({ pressed }) => (
+          <FontAwesomeIcon
+            name={iconName}
+            color={pressed ? colors.whiteTranslucent : colors.white}
+            size={24}
+            solid
+          />
+        )}
+      </Pressable>
+    );
+  }, [deckSortKey, handlePressSort]);
+
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerRight: () => {
-        let iconName = 'sort-amount-up-alt';
-        if (
-          [AppDeckSortKey.CREATED, AppDeckSortKey.UPDATED].includes(deckSortKey)
-        ) {
-          iconName = 'sort-amount-down';
-        }
-
-        return (
-          <Pressable
-            ref={sortActionSheetAnchorRef}
-            onPress={() => handlePressSort()}
-          >
-            {({ pressed }) => (
-              <FontAwesomeIcon
-                name={iconName}
-                color={pressed ? colors.whiteTranslucent : colors.white}
-                size={24}
-                solid
-              />
-            )}
-          </Pressable>
-        );
-      },
+      headerRight: headerRight,
     });
-  }, [navigation, deckSortKey, handlePressSort]);
+  }, [navigation, headerRight]);
 
   const handlePressItem = (code: string) => {
     if (navigation) {

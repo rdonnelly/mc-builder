@@ -1,3 +1,5 @@
+/** @type {import('next').NextConfig} */
+
 const withTM = require('next-transpile-modules')([
   '@mc-builder/shared',
   'styled-components/native',
@@ -5,11 +7,11 @@ const withTM = require('next-transpile-modules')([
   'react-native-vector-icons',
 ]);
 
-module.exports = withTM({
+const nextConfig = {
   // compiler: {
   //   styledComponents: true,
   // },
-  webpack: (config) => {
+  webpack: (config, options) => {
     config.resolve.alias = {
       ...(config.resolve.alias || {}),
       'react-native$': 'react-native-web',
@@ -36,4 +38,6 @@ module.exports = withTM({
       },
     ];
   },
-});
+};
+
+module.exports = withTM(nextConfig);

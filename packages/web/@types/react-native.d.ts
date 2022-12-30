@@ -1,5 +1,4 @@
-import React from 'react';
-import * as ReactNative from 'react-native'; // eslint-disable-line @typescript-eslint/no-unused-vars
+import 'react-native';
 
 declare module 'react-native' {
   namespace AppRegistry {
@@ -7,6 +6,11 @@ declare module 'react-native' {
       appKey: string,
       componentProvider: () => React.ComponentType,
     ): void;
-    function getApplication(appKey: string): { getStyleElement: () => string };
+    function getApplication(appKey: string): {
+      getStyleElement: () =>
+        | React.ReactElement[]
+        | React.ReactFragment
+        | JSX.Element;
+    };
   }
 }

@@ -31,7 +31,7 @@ export interface ICardAnnotated {
   factionCode: FactionCode;
   setCode: SetCode;
   typeCode: TypeCode;
-  count?: number;
+  count: number;
 }
 
 interface IUseDatabaseState {
@@ -209,6 +209,7 @@ export function useDatabase() {
           factionCode: rawCard.factionCode,
           setCode: rawCard.setCode,
           typeCode: rawCard.typeCode,
+          count: null,
         };
       });
 

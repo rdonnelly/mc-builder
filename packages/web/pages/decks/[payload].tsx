@@ -6,12 +6,12 @@ import styled from 'styled-components/native';
 
 import DeckDetailHeader from '@mc-builder/shared/src/components/DeckDetail/DeckDetailHeader';
 import DeckDetailList from '@mc-builder/shared/src/components/DeckDetail/DeckDetailList';
-import { DeckModel } from '@mc-builder/shared/src/data';
 import {
   getCardsForDeck,
   getDeckDescription,
   getExtraCardsForDeck,
 } from '@mc-builder/shared/src/data/deckUtils';
+import { Deck as DeckModel } from '@mc-builder/shared/src/data/models/Deck';
 import { IStoreDeck, IStoreDeckCard } from '@mc-builder/shared/src/store/types';
 import { colors } from '@mc-builder/shared/src/styles';
 import {

@@ -1,7 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-import { getPacks } from '@mc-builder/shared/src/data';
-import { IPackRaw } from '@mc-builder/shared/src/data/types';
+import { getPacks, IPackRaw } from '@mc-builder/shared/src/data';
 
 export default async function handler(
   _req: NextApiRequest,

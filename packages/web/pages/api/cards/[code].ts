@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
+import { ICardRaw } from '@mc-builder/shared/src/data/';
 import { getCard, getCardRoot } from '@mc-builder/shared/src/data/raw/Card';
-import { ICardRaw } from '@mc-builder/shared/src/data/types';
 
 export default function handler(
   req: NextApiRequest,

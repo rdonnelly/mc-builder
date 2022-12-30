@@ -1,7 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-import { getSets } from '@mc-builder/shared/src/data';
-import { ISetRaw } from '@mc-builder/shared/src/data/types';
+import { getSets, ISetRaw } from '@mc-builder/shared/src/data';
 
 export default function handler(
   _req: NextApiRequest,

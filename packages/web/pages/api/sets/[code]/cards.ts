@@ -1,15 +1,15 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-import { getSet } from '@mc-builder/shared/src/data';
+import {
+  FilterCodes,
+  getSet,
+  ICardRaw,
+  SetCode,
+} from '@mc-builder/shared/src/data';
 import {
   getCardRoot,
   getFilteredCards,
 } from '@mc-builder/shared/src/data/raw/Card';
-import {
-  FilterCodes,
-  ICardRaw,
-  SetCode,
-} from '@mc-builder/shared/src/data/types';
 
 export default function handler(
   req: NextApiRequest,

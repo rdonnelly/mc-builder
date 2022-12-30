@@ -1,7 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-import { getFactions } from '@mc-builder/shared/src/data';
-import { IFactionRaw } from '@mc-builder/shared/src/data/types';
+import { getFactions, IFactionRaw } from '@mc-builder/shared/src/data';
 
 export default function handler(
   _req: NextApiRequest,

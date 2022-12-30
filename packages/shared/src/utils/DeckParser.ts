@@ -5,10 +5,10 @@ import {
   FactionCode,
   FactionCodes,
   FilterCodes,
-  getFilteredCards,
   SetCode,
   TypeCodes,
 } from '../data';
+import { getFilteredCards } from '../data/raw/Card';
 import { ICardRaw } from '../data/types';
 import { IStoreDeck, IStoreDeckCard } from '../store/types';
 

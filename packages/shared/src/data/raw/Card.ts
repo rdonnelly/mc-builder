@@ -2,14 +2,6 @@ import isDeepEqual from 'lodash/isEqual';
 import memoizeOne from 'memoize-one';
 
 import {
-  compareCardCode,
-  compareCardCost,
-  compareCardFaction,
-  compareCardName,
-  compareCardType,
-} from '../../data/cardUtils';
-import {
-  CardSortTypes,
   FactionCode,
   FactionCodes,
   FilterCode,
@@ -20,7 +12,15 @@ import {
   SetCodes,
   TypeCode,
   TypeCodes,
-} from '../../data/types';
+} from '../../data';
+import {
+  compareCardCode,
+  compareCardCost,
+  compareCardFaction,
+  compareCardName,
+  compareCardType,
+} from '../../data/cardUtils';
+import { CardSortTypes } from '../../data/types';
 
 const cards: ICardRaw[] = [].concat(
   require('marvelsdb-json-data/pack/ant_encounter.json'),

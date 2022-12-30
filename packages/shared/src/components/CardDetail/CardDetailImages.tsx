@@ -3,7 +3,7 @@ import { Image, Platform } from 'react-native';
 import { Pressable } from 'react-native';
 import styled from 'styled-components/native';
 
-import { CardModel } from '../../data';
+import { Card as CardModel } from '../../data/models/Card';
 
 const CardDetailImages = ({
   card,

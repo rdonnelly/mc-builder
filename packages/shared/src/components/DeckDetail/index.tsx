@@ -3,7 +3,7 @@ import styled from 'styled-components/native';
 
 import DeckDetailHeader from '../../components/DeckDetail/DeckDetailHeader';
 import DeckDetailList from '../../components/DeckDetail/DeckDetailList';
-import { DeckModel } from '../../data';
+import { Deck as DeckModel } from '../../data/models/Deck';
 import { IDeckCard } from '../../data/models/Deck';
 import { base, colors } from '../../styles';
 

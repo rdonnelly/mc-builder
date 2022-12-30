@@ -2,7 +2,7 @@ import { memo } from 'react';
 import { Pressable, StyleSheet, Text } from 'react-native';
 import styled from 'styled-components/native';
 
-import { DeckModel } from '../data';
+import { Deck as DeckModel } from '../data/models/Deck';
 import { base, colors } from '../styles';
 
 export const ITEM_HEIGHT = 64;

@@ -3,7 +3,8 @@ import Html from 'react-native-render-html';
 import styled from 'styled-components/native';
 
 import Icon, { IconCode } from '../../components/Icon';
-import { CardModel, FactionCodes } from '../../data';
+import { FactionCodes } from '../../data';
+import { Card as CardModel } from '../../data/models/Card';
 import { colors } from '../../styles';
 import CardParser from '../../utils/CardParser';
 

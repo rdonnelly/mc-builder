@@ -4,7 +4,8 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
 import styled from 'styled-components/native';
 
 import Icon, { IconCode } from '../components/Icon';
-import { CardModel, FactionCodes, TypeCodes } from '../data';
+import { FactionCodes, TypeCodes } from '../data';
+import { Card as CardModel } from '../data/models/Card';
 import { base, colors } from '../styles';
 
 export const ITEM_HEIGHT = 64;

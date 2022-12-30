@@ -8,7 +8,7 @@ import CardDetailImages from '../../components/CardDetail/CardDetailImages';
 import CardDetailPack from '../../components/CardDetail/CardDetailPack';
 import CardDetailStats from '../../components/CardDetail/CardDetailStats';
 import CardDetailText from '../../components/CardDetail/CardDetailText';
-import { CardModel } from '../../data';
+import { Card as CardModel } from '../../data/models/Card';
 import { base, colors } from '../../styles';
 
 const styles = StyleSheet.create({
@@ -28,6 +28,7 @@ const CardDetail = ({
   hideTitle?: boolean;
   shareCardImage?: (uri: string) => void;
 }) => {
+  console.log(card);
   return (
     <CardDetailContainer>
       <ContainerScrollView

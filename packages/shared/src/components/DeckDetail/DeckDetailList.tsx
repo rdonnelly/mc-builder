@@ -3,8 +3,9 @@ import { Platform, SectionList, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 
 import CardListItem from '../../components/CardListItem';
-import { CardModel, DeckModel } from '../../data';
 import { getCardSectionsForDeck } from '../../data/deckUtils';
+import { Card as CardModel } from '../../data/models/Card';
+import { Deck as DeckModel } from '../../data/models/Deck';
 import { IDeckCard } from '../../data/models/Deck';
 import { colors } from '../../styles';
 

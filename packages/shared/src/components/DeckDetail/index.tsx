@@ -37,4 +37,3 @@ const Container = styled(base.Container)`
 `;
 
 export default memo(DeckDetail);
-export { DeckDetailHeader };

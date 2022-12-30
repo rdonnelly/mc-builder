@@ -7,7 +7,7 @@ import { getDeckCardCount } from '../../data/deckUtils';
 import { IDeckCard } from '../../data/models/Deck';
 import { colors } from '../../styles';
 
-const DeckHeader = ({
+const DeckDetailHeader = ({
   deck,
   deckCards,
   onPressIdentity,
@@ -158,4 +158,4 @@ const Traits = styled.Text`
   text-align: center;
 `;
 
-export default DeckHeader;
+export default DeckDetailHeader;

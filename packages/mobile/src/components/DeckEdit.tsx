@@ -9,7 +9,7 @@ import FloatingControlBar, {
 } from '@components/FloatingControlBar';
 import { DeckEditScreenProps } from '@navigation/DecksStackNavigator';
 
-import { DeckDetailHeader } from '@mc-builder/shared/src/components/DeckDetail';
+import DeckDetailHeader from '@mc-builder/shared/src/components/DeckDetail/DeckDetailHeader';
 import { DeckModel } from '@mc-builder/shared/src/data';
 import { IDeckCard } from '@mc-builder/shared/src/data/models/Deck';
 import { base, colors } from '@mc-builder/shared/src/styles';

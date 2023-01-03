@@ -2,7 +2,7 @@ import { getFactions } from '../../data/models/Faction';
 import { getPacks } from '../../data/models/Pack';
 import { getSets } from '../../data/models/Set';
 import { getTypes } from '../../data/models/Type';
-import { ICardRaw } from '../../data/types';
+import { ICardRaw, TypeCodes } from '../../data/types';
 
 export class Card {
   raw: ICardRaw;
@@ -270,7 +270,9 @@ export class Card {
   }
 
   get imageUriSet() {
-    const isDoubleSided = ['main_scheme'].includes(this.merged.type_code);
+    const isDoubleSided = [TypeCodes.MAIN_SCHEME].includes(
+      this.merged.type_code as TypeCodes,
+    );
 
     if (isDoubleSided) {
       return [
@@ -282,6 +284,16 @@ export class Card {
     return [
       `https://cerebrodatastorage.blob.core.windows.net/cerebro-cards/official/${this.rootCode.toUpperCase()}.jpg`,
     ];
+  }
+
+  get imageIsLandscape() {
+    const isLandscape = [TypeCodes.MAIN_SCHEME, TypeCodes.SIDE_SCHEME].includes(
+      this.merged.type_code as TypeCodes,
+    );
+
+    console.log(this.merged.type_code, isLandscape);
+
+    return isLandscape;
   }
 
   get shareableUrl() {

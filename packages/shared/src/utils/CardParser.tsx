@@ -60,7 +60,7 @@ export default {
   },
 
   replaceEmphasis(text: string): string {
-    return text.replace(/\[\[([ -\w]+)\]\]/gi, '<em>$1</em>');
+    return text.replace(/\[\[([ -\.\w]+)\]\]/gi, '<em>$1</em>');
   },
 
   replaceLineBreaks(text: string): string {

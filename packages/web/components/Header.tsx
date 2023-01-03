@@ -20,6 +20,7 @@ const Header = ({
           <a>
             <Image
               resizeMode="contain"
+              defaultSource={{ uri: '/images/mc-icon-76.png' }}
               source={{ uri: '/images/mc-icon-76.png' }}
             />
           </a>

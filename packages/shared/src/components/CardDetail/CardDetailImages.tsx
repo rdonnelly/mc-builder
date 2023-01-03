@@ -34,18 +34,21 @@ const CardDetailImage = ({
   isLandscape: boolean;
 }) => {
   const [isHidden, setHidden] = useState(false);
-  const height = isLandscape ? 300 : 450;
-  const width = isLandscape ? 450 : 300;
+  const containerHeight = isLandscape ? 300 : 450;
+  const containerWidth = isLandscape ? 450 : 300;
 
   return (
     <CardDetailImageContainer
-      height={isHidden ? 0 : height}
-      width={isHidden ? 0 : width}
+      height={isHidden ? 0 : containerHeight}
+      width={isHidden ? 0 : containerWidth}
     >
       <Image
+        alt="Card Image"
         src={imageUri}
         layout="fill"
         objectFit="contain"
+        quality="50"
+        priority
         onError={() => {
           setHidden(true);
         }}
@@ -62,6 +65,7 @@ const CardDetailImageContainer = styled.View<{
   margin-bottom: 16px;
   max-width: 100%;
   padding-horizontal: 0px;
+  position: relative;
 
   height: ${(props) => props.height || 0}px;
   width: ${(props) => props.width || 0}px;

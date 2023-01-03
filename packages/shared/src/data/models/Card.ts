@@ -291,8 +291,6 @@ export class Card {
       this.merged.type_code as TypeCodes,
     );
 
-    console.log(this.merged.type_code, isLandscape);
-
     return isLandscape;
   }
 

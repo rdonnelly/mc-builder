@@ -1,18 +1,12 @@
-import { useEffect, useRef, useState } from 'react';
-import { Image, Platform } from 'react-native';
-import { Pressable } from 'react-native';
+import Image from 'next/image';
+import { useState } from 'react';
 import styled from 'styled-components/native';
 
 import { Card as CardModel } from '../../data/models/Card';
 
-const CardDetailImages = ({
-  card,
-  shareCardImage,
-}: {
-  card: CardModel;
-  shareCardImage?: (uri: string) => void;
-}) => {
+const CardDetailImages = ({ card }: { card: CardModel }) => {
   const imageUriSet = card.imageUriSet;
+  const isLandscape = card.imageIsLandscape;
 
   return imageUriSet && imageUriSet.length ? (
     <>
@@ -20,7 +14,7 @@ const CardDetailImages = ({
         <CardDetailImage
           key={`card_image_${card.code}_${i}`}
           imageUri={imageUri}
-          shareCardImage={shareCardImage}
+          isLandscape={isLandscape}
         />
       ))}
     </>
@@ -29,78 +23,43 @@ const CardDetailImages = ({
 
 const CardDetailImage = ({
   imageUri,
-  shareCardImage,
+  isLandscape,
 }: {
   imageUri: string;
-  shareCardImage?: (uri: string) => void;
+  isLandscape: boolean;
 }) => {
-  const [imageHeight, setImageHeight] = useState(0);
-  const [imageWidth, setImageWidth] = useState(0);
-  const isMounted = useRef(true);
-
-  useEffect(() => {
-    Image.getSize(
-      imageUri,
-      (width, height) => {
-        const newWidth = Math.min(width, 300);
-        const newHeight = (height / width) * newWidth;
-
-        if (isMounted.current) {
-          setImageHeight(newHeight);
-          setImageWidth(newWidth);
-        }
-      },
-      () => {
-        if (isMounted.current) {
-          setImageHeight(null);
-          setImageWidth(null);
-        }
-      },
-    );
-
-    return () => {
-      isMounted.current = false;
-    };
-  }, [imageUri]);
-
-  if (!imageHeight || !imageWidth) {
-    return null;
-  }
+  const [isHidden, setHidden] = useState(false);
+  const height = isLandscape ? 300 : 450;
+  const width = isLandscape ? 450 : 300;
 
   return (
-    <Pressable
-      disabled={Platform.OS !== 'ios'}
-      onLongPress={() => shareCardImage(imageUri)}
+    <CardDetailImageContainer
+      height={isHidden ? 0 : height}
+      width={isHidden ? 0 : width}
     >
-      {({ pressed }) => (
-        <CardDetailImageContainer
-          height={imageHeight}
-          width={imageWidth}
-          pressed={pressed}
-        >
-          <CardImage resizeMode="contain" source={{ uri: `${imageUri}` }} />
-        </CardDetailImageContainer>
-      )}
-    </Pressable>
+      <Image
+        src={imageUri}
+        layout="fill"
+        objectFit="contain"
+        onError={() => {
+          setHidden(true);
+        }}
+      />
+    </CardDetailImageContainer>
   );
 };
 
 const CardDetailImageContainer = styled.View<{
-  height: number;
-  width: number;
-  pressed: boolean;
+  height?: number;
+  width?: number;
 }>`
   align-self: center;
-  height: ${(props) => props.height}px;
   margin-bottom: 16px;
-  opacity: ${(props) => (props.pressed ? 0.9 : 1.0)};
+  max-width: 100%;
   padding-horizontal: 0px;
-  width: ${(props) => `${props.width}px`};
-`;
 
-const CardImage = styled.Image`
-  height: 100%;
-  width: 100%;
+  height: ${(props) => props.height || 0}px;
+  width: ${(props) => props.width || 0}px;
 `;
 
 export default CardDetailImages;

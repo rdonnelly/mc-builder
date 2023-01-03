@@ -43,7 +43,6 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'cerebrodatastorage.blob.core.windows.net',
-        port: '',
         pathname: '/cerebro-cards/official/*.jpg',
       },
     ],

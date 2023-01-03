@@ -28,7 +28,6 @@ const CardDetail = ({
   hideTitle?: boolean;
   shareCardImage?: (uri: string) => void;
 }) => {
-  console.log(card);
   return (
     <CardDetailContainer>
       <ContainerScrollView

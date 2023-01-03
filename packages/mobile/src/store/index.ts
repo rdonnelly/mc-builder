@@ -1,4 +1,4 @@
-import { Action, configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
+import { Action, configureStore } from '@reduxjs/toolkit';
 import {
   FLUSH,
   PAUSE,
@@ -26,13 +26,12 @@ export type AppThunk<ReturnType = void> = ThunkAction<
 const configureApplicationStore = (preloadedState: undefined) => {
   const store = configureStore({
     reducer: reducer,
-    middleware: [
-      ...getDefaultMiddleware({
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware({
         serializableCheck: {
           ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
         },
       }),
-    ],
     preloadedState,
     enhancers: [Reactotron.createEnhancer()],
   });

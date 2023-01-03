@@ -4,7 +4,12 @@ import styled from 'styled-components/native';
 
 import { Card as CardModel } from '../../data/models/Card';
 
-const CardDetailImages = ({ card }: { card: CardModel }) => {
+const CardDetailImages = ({
+  card,
+}: {
+  card: CardModel;
+  shareCardImage?: (uri: string) => void;
+}) => {
   const imageUriSet = card.imageUriSet;
   const isLandscape = card.imageIsLandscape;
 

@@ -39,6 +39,7 @@ const IndexPage = () => {
           <Logo
             resizeMode="contain"
             source={{ uri: '/images/mc-icon-1024.png' }}
+            defaultSource={{ uri: '/images/mc-icon-1024.png' }}
           />
 
           <List>
@@ -74,6 +75,7 @@ const IndexPage = () => {
               <StoreImage
                 resizeMode="contain"
                 source={{ uri: '/images/apple-app-store.png' }}
+                defaultSource={{ uri: '/images/apple-app-store.png' }}
               />
             </StoreLink>
             <StoreLink
@@ -83,6 +85,7 @@ const IndexPage = () => {
               <StoreImage
                 resizeMode="contain"
                 source={{ uri: '/images/google-play-store.png' }}
+                defaultSource={{ uri: '/images/google-play-store.png' }}
               />
             </StoreLink>
           </StoreLinkContainer>

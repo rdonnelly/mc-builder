@@ -38,6 +38,16 @@ const nextConfig = {
       },
     ];
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'cerebrodatastorage.blob.core.windows.net',
+        port: '',
+        pathname: '/cerebro-cards/official/*.jpg',
+      },
+    ],
+  },
 };
 
 module.exports = withTM(nextConfig);

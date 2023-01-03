@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 
-import { CardModel } from '../../data';
+import { Card as CardModel } from '../../data/models/Card';
 import { colors } from '../../styles';
 
 const CardDetailPack = ({ card }: { card: CardModel }) => {

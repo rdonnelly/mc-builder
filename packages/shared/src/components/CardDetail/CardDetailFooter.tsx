@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 
 import Icon, { IconCode } from '../../components/Icon';
-import { CardModel } from '../../data';
+import { Card as CardModel } from '../../data/models/Card';
 import { colors } from '../../styles';
 
 const CardDetailFooter = ({ card }: { card: CardModel }) => {

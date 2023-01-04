@@ -3,7 +3,6 @@ import { ActionSheetProvider } from '@expo/react-native-action-sheet';
 import { NavigationContainer } from '@react-navigation/native';
 import { StatusBar, useColorScheme } from 'react-native';
 import RNBootSplash from 'react-native-bootsplash';
-// import { enableFreeze } from 'react-native-screens';
 import { Provider as ReduxProvider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { ThemeProvider } from 'styled-components';
@@ -19,8 +18,6 @@ import { colors, darkTheme, lightTheme } from '@mc-builder/shared/src/styles';
 if (!__DEV__) {
   Bugsnag.start();
 }
-
-// enableFreeze(true);
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 declare var global: { HermesInternal: null | {} };

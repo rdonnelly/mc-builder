@@ -1,8 +1,7 @@
 import Bugsnag from '@bugsnag/react-native';
 import { ActionSheetProvider } from '@expo/react-native-action-sheet';
 import { NavigationContainer } from '@react-navigation/native';
-import { StatusBar } from 'react-native';
-import { AppearanceProvider, useColorScheme } from 'react-native-appearance';
+import { StatusBar, useColorScheme } from 'react-native';
 import RNBootSplash from 'react-native-bootsplash';
 // import { enableFreeze } from 'react-native-screens';
 import { Provider as ReduxProvider } from 'react-redux';
@@ -29,15 +28,13 @@ declare var global: { HermesInternal: null | {} };
 export default function AppContainer() {
   return (
     <AppProvider>
-      <AppearanceProvider>
-        <ReduxProvider store={store}>
-          <PersistGate persistor={persistor}>
-            <ActionSheetProvider>
-              <App />
-            </ActionSheetProvider>
-          </PersistGate>
-        </ReduxProvider>
-      </AppearanceProvider>
+      <ReduxProvider store={store}>
+        <PersistGate persistor={persistor}>
+          <ActionSheetProvider>
+            <App />
+          </ActionSheetProvider>
+        </PersistGate>
+      </ReduxProvider>
     </AppProvider>
   );
 }

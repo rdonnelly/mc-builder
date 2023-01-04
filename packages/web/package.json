@@ -25,7 +25,7 @@
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^12.3.4",
-    "@types/react-native": "^0.66.1",
+    "@types/react-native": "^0.68.1",
     "@types/styled-components": "^5.1.21",
     "@types/styled-components-react-native": "^5.2.0",
     "babel-plugin-react-native-web": "^0.17.0",

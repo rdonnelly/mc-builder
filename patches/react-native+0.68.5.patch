@@ -1,0 +1,30 @@
+diff --git a/node_modules/react-native/react.gradle b/node_modules/react-native/react.gradle
+index 4f6db40..6865dc6 100644
+--- a/node_modules/react-native/react.gradle
++++ b/node_modules/react-native/react.gradle
+@@ -15,14 +15,14 @@ def detectEntryFile(config) {
+         return System.getenv('ENTRY_FILE')
+     } else if (config.entryFile) {
+         return config.entryFile
+-    } else if ((new File("${projectDir}/../../index.android.js")).exists()) {
++    } else if ((new File("${projectDir}/../../../../index.android.js")).exists()) {
+         return "index.android.js"
+     }
+ 
+     return "index.js";
+ }
+ 
+-def composeSourceMapsPath = config.composeSourceMapsPath ?: "node_modules/react-native/scripts/compose-source-maps.js"
++def composeSourceMapsPath = config.composeSourceMapsPath ?: "../../node_modules/react-native/scripts/compose-source-maps.js"
+ def bundleAssetName = config.bundleAssetName ?: "index.android.bundle"
+ def entryFile = detectEntryFile(config)
+ def bundleCommand = config.bundleCommand ?: "bundle"
+@@ -30,7 +30,7 @@ def reactRoot = file(config.root ?: "../../")
+ def inputExcludes = config.inputExcludes ?: ["android/**", "ios/**"]
+ def bundleConfig = config.bundleConfig ? "${reactRoot}/${config.bundleConfig}" : null ;
+ def enableVmCleanup = config.enableVmCleanup == null ? true : config.enableVmCleanup
+-def hermesCommand = config.hermesCommand ?: "../../node_modules/hermes-engine/%OS-BIN%/hermesc"
++def hermesCommand = config.hermesCommand ?: "../../../../node_modules/hermes-engine/%OS-BIN%/hermesc"
+ 
+ /**
+  * Detects CLI location in a similar fashion to the React Native CLI

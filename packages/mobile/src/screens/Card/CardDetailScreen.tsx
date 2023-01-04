@@ -280,7 +280,10 @@ const CardDetailScreen = ({ navigation, route }: CardDetailScreenProps) => {
           scrollEnabled={true}
           pagingEnabled={true}
           overScrollMode={'never'}
-          initialNumToRender={0}
+          initialNumToRender={1}
+          maxToRenderPerBatch={2}
+          updateCellsBatchingPeriod={100}
+          windowSize={6}
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
           initialScrollIndex={cardIndexRef.current}

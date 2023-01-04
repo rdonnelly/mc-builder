@@ -1,5 +1,5 @@
 diff --git a/node_modules/react-native/react.gradle b/node_modules/react-native/react.gradle
-index 6644639..bbc689c 100644
+index 5831d51..ff4c682 100644
 --- a/node_modules/react-native/react.gradle
 +++ b/node_modules/react-native/react.gradle
 @@ -15,14 +15,14 @@ def detectEntryFile(config) {
@@ -36,24 +36,24 @@ index 6644639..bbc689c 100644
  }
  
  def reactNativeDevServerPort() {
-@@ -108,14 +108,14 @@ def getHermesCommand = {
+@@ -110,14 +110,14 @@ def getHermesCommand = {
      def hermesOverrideDir = System.getenv("REACT_NATIVE_OVERRIDE_HERMES_DIR")
      def builtHermesc = hermesOverrideDir ?
-         new File(hermesOverrideDir, "build/bin/hermesc") :
--        new File(reactRoot, "node_modules/react-native/ReactAndroid/hermes-engine/build/hermes/bin/hermesc")
-+        new File(reactRoot, "../../node_modules/react-native/ReactAndroid/hermes-engine/build/hermes/bin/hermesc")
+         new File(hermesOverrideDir, "build/bin/$hermescBin") :
+-        new File(reactRoot, "node_modules/react-native/ReactAndroid/hermes-engine/build/hermes/bin/$hermescBin")
++        new File(reactRoot, "../../node_modules/react-native/ReactAndroid/hermes-engine/build/hermes/bin/$hermescBin")
  
      if (builtHermesc.exists()) {
          return builtHermesc.getAbsolutePath()
      }
  
      // 3. If the react-native contains a pre-built hermesc, use it.
--    def prebuiltHermesPath = "node_modules/react-native/sdks/hermesc/%OS-BIN%/hermesc"
-+    def prebuiltHermesPath = "../../node_modules/react-native/sdks/hermesc/%OS-BIN%/hermesc"
+-    def prebuiltHermesPath = "node_modules/react-native/sdks/hermesc/%OS-BIN%/$hermescBin"
++    def prebuiltHermesPath = "../../node_modules/react-native/sdks/hermesc/%OS-BIN%/$hermescBin"
          .replaceAll("%OS-BIN%", getHermesOSBin())
          .replace('/' as char, File.separatorChar);
      def prebuiltHermes = new File(reactRoot, prebuiltHermesPath)
-@@ -125,7 +125,7 @@ def getHermesCommand = {
+@@ -127,7 +127,7 @@ def getHermesCommand = {
  
      throw new Exception("Couldn't determine Hermesc location. " +
          "Please set `project.ext.react.hermesCommand` to the path of the hermesc binary file. " +
@@ -62,15 +62,8 @@ index 6644639..bbc689c 100644
  }
  
  // Set enableHermesForVariant to a function to configure per variant,
-diff --git a/node_modules/react-native/scripts/.packager.env b/node_modules/react-native/scripts/.packager.env
-new file mode 100644
-index 0000000..361f5fb
---- /dev/null
-+++ b/node_modules/react-native/scripts/.packager.env
-@@ -0,0 +1 @@
-+export RCT_METRO_PORT=8081
 diff --git a/node_modules/react-native/scripts/react-native-xcode.sh b/node_modules/react-native/scripts/react-native-xcode.sh
-index 6f95a29..2b1759f 100755
+index 7fb2a3d..1484e4b 100755
 --- a/node_modules/react-native/scripts/react-native-xcode.sh
 +++ b/node_modules/react-native/scripts/react-native-xcode.sh
 @@ -60,7 +60,7 @@ esac

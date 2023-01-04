@@ -18,7 +18,7 @@ bumpBuild() {
 }
 
 podInstall() {
-  cd ios && pod install && cd ..
+  cd ios && bundle exec pod install && cd ..
 }
 
 cleanAndroid() {

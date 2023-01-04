@@ -21,13 +21,15 @@ podInstall() {
   cd ios && pod install && cd ..
 }
 
-clean() {
-  xcodebuild -workspace $PWD/ios/MCBuilder.xcworkspace \
-             -scheme MCBuilder \
-             clean
+cleanAndroid() {
   rm -rf $PWD/android/.gradle
   rm -rf $PWD/android/build
   cd $PWD/android && ./gradlew clean && cd ..
+}
+cleanXcode() {
+  xcodebuild -workspace $PWD/ios/MCBuilder.xcworkspace \
+             -scheme MCBuilder \
+             clean
   rm -rf $PWD/ios/build
 }
 
@@ -64,12 +66,12 @@ upload() {
 }
 
 ios() {
-  bumpBuild && podInstall && clean && build && archive && exportArchive && upload $@
+  PRODUCTION=1 bumpBuild && podInstall && cleanXcode && build && archive && exportArchive && upload $@
 }
 
 android() {
   # update versionCode and versionName in android/app/build.gradle
-  clean && cd android && ./gradlew clean && ./gradlew bundleRelease && cd ..
+  PRODUCTION=1 clean && cd android && cleanAndroid && ./gradlew bundleRelease && cd ..
 }
 
 # we must have exactly one task, and maybe some arguments for that task

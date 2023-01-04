@@ -12,7 +12,7 @@
     "dev:android:release": "react-native run-android --variant=release --configuration Release",
     "dev:ios": "scripts/build.sh podInstall && react-native run-ios --simulator='iPhone 13 mini' --no-packager",
     "dev:ios:release": "scripts/build.sh podInstall && react-native run-ios --simulator='iPhone 13 mini' --configuration Release",
-    "build:clean": "scripts/build.sh clean",
+    "build:clean": "scripts/build.sh cleanAndroid && scripts/build.sh cleanXcode",
     "build:android": "scripts/build.sh android",
     "build:ios": "scripts/build.sh ios",
     "build:getVersion": "scripts/build.sh getVersion",
@@ -74,7 +74,7 @@
     "babel-plugin-module-resolver": "^4.1.0",
     "jest": "^26.6.3",
     "metro-react-native-babel-preset": "^0.72.3",
-    "react-native-flipper": "^0.176.1",
+    "react-native-flipper": "^0.163.0",
     "react-test-renderer": "^18.1.0",
     "reactotron-react-native": "^5.0.3",
     "reactotron-redux": "^3.1.3"

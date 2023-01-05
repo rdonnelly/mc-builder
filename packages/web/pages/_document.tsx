@@ -9,8 +9,6 @@ import React from 'react';
 import { AppRegistry } from 'react-native';
 import { ServerStyleSheet } from 'styled-components';
 
-const ANALYTICS_ID = process.env.NEXT_PUBLIC_ANALYTICS_ID;
-
 export default class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
     const sheet = new ServerStyleSheet();
@@ -48,22 +46,7 @@ export default class MyDocument extends Document {
   render() {
     return (
       <Html lang="en">
-        <Head>
-          <script
-            async
-            src={`https://www.googletagmanager.com/gtag/js?id=${ANALYTICS_ID}`}
-          />
-          <script
-            async
-            dangerouslySetInnerHTML={{
-              __html: `window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-
-            gtag('config', '${ANALYTICS_ID}');`,
-            }}
-          />
-        </Head>
+        <Head />
         <body>
           <Main />
           <NextScript />

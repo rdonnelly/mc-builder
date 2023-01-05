@@ -1,6 +1,6 @@
 import Head from 'next/head';
+import Link from 'next/link';
 import { useWindowDimensions } from 'react-native';
-import { Text } from 'react-native-web';
 import styled from 'styled-components/native';
 
 import { base, colors } from '@mc-builder/shared/src/styles';
@@ -57,49 +57,43 @@ const IndexPage = () => {
             <ListItem last={true}>
               <ListItemText>
                 Import decks from{' '}
-                <LinkText
-                  href="https://marvelcdb.com"
-                  hrefAttrs={{ target: '_blank' }}
-                >
+                <Link href="https://marvelcdb.com" target="blank">
                   MarvelCDB
-                </LinkText>
+                </Link>
               </ListItemText>
             </ListItem>
           </List>
 
           <StoreLinkContainer width={width}>
-            <StoreLink
+            <Link
               href="https://apps.apple.com/us/app/mc-builder/id1516561943"
-              hrefAttrs={{ target: '_blank' }}
+              target="_blank"
             >
               <StoreImage
                 resizeMode="contain"
                 source={{ uri: '/images/apple-app-store.png' }}
                 defaultSource={{ uri: '/images/apple-app-store.png' }}
               />
-            </StoreLink>
-            <StoreLink
+            </Link>
+            <Link
               href="https://play.google.com/store/apps/details?id=com.rdonnelly.mcbuilder"
-              hrefAttrs={{ target: '_blank' }}
+              target="_blank"
             >
               <StoreImage
                 resizeMode="contain"
                 source={{ uri: '/images/google-play-store.png' }}
                 defaultSource={{ uri: '/images/google-play-store.png' }}
               />
-            </StoreLink>
+            </Link>
           </StoreLinkContainer>
 
           <Paragraph>
             <ParagraphText center={true}>
               If you would like to stay on the cutting edge and help test the
               app, please{' '}
-              <LinkText
-                href="https://forms.gle/yqpHm3V9t8AKr7v46"
-                hrefAttrs={{ target: '_blank' }}
-              >
+              <Link href="https://forms.gle/yqpHm3V9t8AKr7v46" target="_blank">
                 fill out this form to join the beta!
-              </LinkText>
+              </Link>
             </ParagraphText>
           </Paragraph>
 
@@ -116,12 +110,12 @@ const IndexPage = () => {
 
           <Paragraph>
             <ParagraphText>
-              <LinkText
+              <Link
                 href="https://www.patreon.com/bePatron?u=4950805"
-                hrefAttrs={{ target: '_blank' }}
+                target="_blank"
               >
                 Become a Patron!
-              </LinkText>
+              </Link>
             </ParagraphText>
           </Paragraph>
 
@@ -133,12 +127,12 @@ const IndexPage = () => {
             <ParagraphText>
               I'm interested in any comments, questions, or suggestions you
               have.{' '}
-              <LinkText
+              <Link
                 href="mailto:ryanjdonnelly+mcbuilder@gmail.com"
-                hrefAttrs={{ target: '_blank' }}
+                target="_blank"
               >
                 Send me a message!
-              </LinkText>
+              </Link>
             </ParagraphText>
           </Paragraph>
         </Container>
@@ -185,11 +179,6 @@ const ParagraphText = styled.Text<{ center?: boolean }>`
   text-align: ${({ center }) => (center ? 'center' : 'left')};
 `;
 
-const LinkText = styled(Text)`
-  color: ${colors.blue};
-  text-decoration: underline ${colors.blue};
-`;
-
 const List = styled.View`
   background: ${colors.lightGray};
   border-radius: 6px;
@@ -215,13 +204,6 @@ const StoreLinkContainer = styled.View<{ width: number }>`
   display: flex;
   flex-direction: ${({ width }) => (width >= 786 ? 'row' : 'column')};
   margin-bottom: 24px;
-`;
-
-const StoreLink = styled(Text)`
-  margin-bottom: 8px;
-  @media (min-width: 768px) {
-    margin-bottom: 0px;
-  }
 `;
 
 const StoreImage = styled.Image`

@@ -27,8 +27,7 @@
     "@types/react-native": "^0.70.0",
     "@types/styled-components": "^5.1.21",
     "@types/styled-components-react-native": "^5.2.0",
-    "babel-plugin-react-native-web": "^0.17.0",
-    "babel-plugin-styled-components": "^2.0.7"
+    "babel-plugin-react-native-web": "^0.17.0"
   },
   "resolutions": {
     "react": "18.1.0"

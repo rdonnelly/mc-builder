@@ -1,55 +1,18 @@
 import '../styles/globals.css';
 
+import type { AppProps } from 'next/app';
 import Head from 'next/head';
-import { createGlobalStyle } from 'styled-components';
+import Script from 'next/script';
 import { ThemeProvider } from 'styled-components/native';
 import useDarkMode from 'use-dark-mode';
 
 import { darkTheme, lightTheme } from '@mc-builder/shared/src/styles';
 
-const GlobalStyle = createGlobalStyle`
-  *, *::before, *::after {
-    box-sizing: border-box;
-  }
+import GlobalStyle from '../components/globalstyles';
 
-  * {
-    margin: 0;
-  }
+const ANALYTICS_ID = process.env.NEXT_PUBLIC_ANALYTICS_ID;
 
-  html, body, #__next {
-    background: white;
-    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-      Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-    height: 100%;
-  }
-
-  body {
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  img, picture, video, canvas, svg {
-    display: block;
-    max-width: 100%;
-  }
-
-  input, button, textarea, select {
-    font: inherit;
-  }
-
-  p, h1, h2, h3, h4, h5, h6 {
-    overflow-wrap: break-word;
-  }
-
-  #__next {
-    display: flex;
-    flex-direction: column;
-    isolation: isolate;
-  }
-
-`;
-
-function MyApp({ Component, pageProps }) {
+export default function App({ Component, pageProps }: AppProps) {
   const darkmode = useDarkMode(false);
 
   const theme = darkmode.value ? darkTheme : lightTheme;
@@ -76,9 +39,24 @@ function MyApp({ Component, pageProps }) {
           />
         </Head>
         <Component {...pageProps} />
+        <Script
+          strategy="afterInteractive"
+          src={`https://www.googletagmanager.com/gtag/js?id=${ANALYTICS_ID}`}
+        />
+        <Script
+          id="google-analytics"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+  
+              gtag('config', '${ANALYTICS_ID}');
+            `,
+          }}
+        />
       </ThemeProvider>
     </>
   );
 }
-
-export default MyApp;

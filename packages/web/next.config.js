@@ -1,15 +1,14 @@
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
+  compiler: {
+    styledComponents: true,
+  },
   transpilePackages: [
     '@mc-builder/shared',
     'styled-components/native',
     'react-native-render-html',
-    'react-native-vector-icons',
   ],
-  compiler: {
-    styledComponents: true,
-  },
   webpack: (config, options) => {
     config.resolve.alias = {
       ...(config.resolve.alias || {}),

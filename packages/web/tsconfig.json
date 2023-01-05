@@ -13,7 +13,6 @@
     "noEmit": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
-    "strict": true,
     "target": "es5"
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

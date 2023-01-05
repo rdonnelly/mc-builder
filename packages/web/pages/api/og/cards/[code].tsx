@@ -16,18 +16,13 @@ const fontLatoFetch = fetch(
   new URL('../../../../assets/Lato-Regular.ttf', import.meta.url),
 ).then((res) => res.arrayBuffer());
 
-const fontMarvelIconsFetch = fetch(
-  new URL('../../../../assets/marvel-icons.ttf', import.meta.url),
-).then((res) => res.arrayBuffer());
-
 const fontOswaldFetch = fetch(
   new URL('../../../../assets/Oswald-Bold.ttf', import.meta.url),
 ).then((res) => res.arrayBuffer());
 
 export default async function handler(req: NextRequest) {
-  const [fontLato, fontMarvelIcons, fontOswald] = await Promise.all([
+  const [fontLato, fontOswald] = await Promise.all([
     fontLatoFetch,
-    fontMarvelIconsFetch,
     fontOswaldFetch,
   ]);
 
@@ -85,24 +80,13 @@ export default async function handler(req: NextRequest) {
           <div
             style={{
               fontFamily: 'Oswald',
-              fontSize: 72,
-              fontWeight: 'bold',
-              lineHeight: 1,
-              marginBottom: 8,
-            }}
-          >
-            {card.name}
-          </div>
-          <div
-            style={{
-              fontFamily: 'Oswald',
-              fontSize: 42,
+              fontSize: 80,
               fontWeight: 'bold',
               lineHeight: 1,
               marginBottom: 32,
             }}
           >
-            {card.subname || card.typeName}
+            {card.name}
           </div>
           <div
             style={{
@@ -113,25 +97,32 @@ export default async function handler(req: NextRequest) {
               flexGrow: 1,
               fontFamily: 'Lato',
               fontSize: 32,
-              justifyContent: 'space-between',
               lineHeight: 1.5,
               marginBottom: 32,
               padding: 16,
               width: '100%',
             }}
           >
-            <div>{card.traits}</div>
-            <div style={{ color: colors.grayDark, fontStyle: 'italic' }}>
-              {card.flavor}
+            <div
+              style={{
+                fontFamily: 'Oswald',
+                fontSize: 42,
+                fontWeight: 'bold',
+                lineHeight: 1,
+                marginBottom: 16,
+              }}
+            >
+              {card.subname || card.typeName}
             </div>
+            <div>{card.traits}</div>
           </div>
           <div style={{ display: 'flex', width: '100%' }}>
             <img
-              width="76"
-              height="76"
-              src={getAbsoluteUrl('/images/mc-icon-76.png')}
+              width="96"
+              height="96"
+              src={getAbsoluteUrl('/images/mc-icon-76@2x.png')}
               style={{
-                borderRadius: 38,
+                borderRadius: 48,
                 marginRight: 16,
               }}
             />
@@ -161,8 +152,9 @@ export default async function handler(req: NextRequest) {
             marginLeft: 16,
           }}
         >
-          {card.imageUriSet.map((imageUri) => (
+          {card.imageUriSet.map((imageUri, index) => (
             <img
+              key={index}
               src={imageUri}
               style={{
                 objectFit: 'contain',
@@ -181,12 +173,6 @@ export default async function handler(req: NextRequest) {
         {
           name: 'Lato',
           data: fontLato,
-          weight: 400,
-          style: 'normal',
-        },
-        {
-          name: 'marvel-icons',
-          data: fontMarvelIcons,
           weight: 400,
           style: 'normal',
         },

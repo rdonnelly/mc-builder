@@ -8,7 +8,7 @@ import {
   getCardRoot,
   getCards,
 } from '@mc-builder/shared/src/data/raw/Card';
-import { colors } from '@mc-builder/shared/src/styles';
+import colors from '@mc-builder/shared/src/styles/colors';
 
 import Header from '../../components/Header';
 import getAbsoluteUrl from '../../utils/getAbsoluteUrl';
@@ -28,14 +28,8 @@ const CardPage = ({ rawCard, rootCard, meta }) => {
           content="MC Builder: the premier mobile deck builder and card browser for one of our favorite games"
         />
 
-        <meta
-          name="og:image"
-          content={getAbsoluteUrl(`/api/og/cards/${card.code}`)}
-        />
-        <meta
-          name="og:image:secure_url"
-          content={getAbsoluteUrl(`/api/og/cards/${card.code}`)}
-        />
+        <meta name="og:image" content={meta.ogImageUrl} />
+        <meta name="og:image:secure_url" content={meta.ogImageUrl} />
       </Head>
 
       <Header color={colors.orange}>Cards</Header>
@@ -72,9 +66,9 @@ export async function getStaticProps({ params }) {
       rawCard: rawCard,
       rootCard: rootCard,
       meta: {
-        imageUrl: card.imageUriSet?.length ? card.imageUriSet[0] : '',
         title: card.name,
         url: getAbsoluteUrl(`/cards/${code}`),
+        ogImageUrl: getAbsoluteUrl(`/api/og/cards/${code}`),
       },
     },
   };

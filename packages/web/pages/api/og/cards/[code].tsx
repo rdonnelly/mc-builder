@@ -4,8 +4,8 @@ import { NextRequest } from 'next/server';
 
 import { Card } from '@mc-builder/shared/src/data/models/Card';
 import { getCard, getCardRoot } from '@mc-builder/shared/src/data/raw/Card';
+import colors from '@mc-builder/shared/src/styles/colors';
 
-// import { colors } from '@mc-builder/shared/src/styles';
 import getAbsoluteUrl from '../../../../utils/getAbsoluteUrl';
 
 export const config = {
@@ -64,8 +64,8 @@ export default async function handler(req: NextRequest) {
     (
       <div
         style={{
-          background: 'blue',
-          color: 'blue',
+          background: colors.lightGray,
+          color: colors.darkGray,
           display: 'flex',
           height: '100%',
           padding: 32,
@@ -106,7 +106,7 @@ export default async function handler(req: NextRequest) {
           </div>
           <div
             style={{
-              background: 'blue',
+              background: colors.white,
               borderRadius: 16,
               display: 'flex',
               flexDirection: 'column',
@@ -121,7 +121,7 @@ export default async function handler(req: NextRequest) {
             }}
           >
             <div>{card.traits}</div>
-            <div style={{ color: 'blue', fontStyle: 'italic' }}>
+            <div style={{ color: colors.grayDark, fontStyle: 'italic' }}>
               {card.flavor}
             </div>
           </div>

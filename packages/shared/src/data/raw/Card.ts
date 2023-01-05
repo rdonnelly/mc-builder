@@ -108,7 +108,7 @@ export const getCardRoot = (code: string) => {
   const cardsMap = getCardsMap();
   const raw = cardsMap[code];
 
-  if (raw.duplicate_of && raw.duplicate_of in cardsMap) {
+  if (raw?.duplicate_of && raw?.duplicate_of in cardsMap) {
     return getCardsMap()[raw.duplicate_of];
   }
 

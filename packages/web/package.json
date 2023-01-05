@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@mc-builder/shared": "1.0.0",
+    "@vercel/og": "^0.0.21",
     "next": "^13.1.0",
     "react": "18.1.0",
     "react-dom": "18.1.0",

@@ -27,9 +27,17 @@ const CardPage = ({ rawCard, rootCard, meta }) => {
           property="og:description"
           content="MC Builder: the premier mobile deck builder and card browser for one of our favorite games"
         />
-        <meta property="og:image" content={meta.imageUrl} />
-        <meta property="og:image:secure_url" content={meta.imageUrl} />
+
+        <meta
+          name="og:image"
+          content={getAbsoluteUrl(`/api/og/cards/${card.code}`)}
+        />
+        <meta
+          name="og:image:secure_url"
+          content={getAbsoluteUrl(`/api/og/cards/${card.code}`)}
+        />
       </Head>
+
       <Header color={colors.orange}>Cards</Header>
       <CardDetailWrapper>
         <CardDetail card={card} />

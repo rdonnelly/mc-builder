@@ -12,6 +12,7 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "sourceMap": true,
+    "strict": false,
     "target": "ESNext",
     "plugins": [
       {

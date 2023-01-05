@@ -15,7 +15,7 @@
     "dev:android": "yarn workspace @mc-builder/mobile dev:android",
     "dev:ios": "yarn workspace @mc-builder/mobile dev:ios",
     "dev:web": "yarn workspace @mc-builder/web dev",
-    "serve:web": "yarn workspace @mc-builder/web serve",
+    "serve:web": "yarn workspace @mc-builder/web start",
     "serve:mobile": "yarn workspace @mc-builder/mobile start",
     "lint": "yarn workspaces run lint",
     "postinstall": "patch-package && yarn workspace @mc-builder/shared generateTypes",
@@ -47,6 +47,6 @@
   },
   "resolutions": {
     "@babel/core": "^7.20.2",
-    "@types/react": "^17.0.0"
+    "@types/react": "^18.0.0"
   }
 }

@@ -1,20 +1,21 @@
 /** @type {import('next').NextConfig} */
 
-const withTM = require('next-transpile-modules')([
-  '@mc-builder/shared',
-  'styled-components/native',
-  'react-native-render-html',
-  'react-native-vector-icons',
-]);
-
 const nextConfig = {
-  // compiler: {
-  //   styledComponents: true,
-  // },
+  transpilePackages: [
+    '@mc-builder/shared',
+    'styled-components/native',
+    'react-native-render-html',
+    'react-native-vector-icons',
+  ],
+  compiler: {
+    styledComponents: true,
+  },
   webpack: (config, options) => {
     config.resolve.alias = {
       ...(config.resolve.alias || {}),
       'react-native$': 'react-native-web',
+      'react-native-vector-icons/FontAwesome5Pro':
+        'react-native-vector-icons/dist/FontAwesome5Pro',
     };
     config.resolve.extensions = [
       '.web.js',
@@ -23,6 +24,7 @@ const nextConfig = {
       '.web.tsx',
       ...config.resolve.extensions,
     ];
+
     return config;
   },
   async headers() {
@@ -49,4 +51,4 @@ const nextConfig = {
   },
 };
 
-module.exports = withTM(nextConfig);
+module.exports = nextConfig;

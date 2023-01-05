@@ -17,13 +17,11 @@ const Header = ({
     <Container color={color}>
       <Control>
         <Link href="/">
-          <a>
-            <Image
-              resizeMode="contain"
-              defaultSource={{ uri: '/images/mc-icon-76.png' }}
-              source={{ uri: '/images/mc-icon-76.png' }}
-            />
-          </a>
+          <Image
+            resizeMode="contain"
+            defaultSource={{ uri: '/images/mc-icon-76.png' }}
+            source={{ uri: '/images/mc-icon-76.png' }}
+          />
         </Link>
       </Control>
       <Title>

@@ -45,8 +45,8 @@ const CardDetailImage = ({
       <Image
         alt="Card Image"
         src={imageUri}
-        layout="fill"
-        objectFit="contain"
+        fill
+        style={{ objectFit: 'contain' }}
         quality="50"
         priority
         onError={() => {

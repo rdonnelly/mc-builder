@@ -2,11 +2,11 @@ import { Base64 } from 'js-base64';
 import memoizeOne from 'memoize-one';
 
 import { IStoreDeckCard } from '../store/types';
-import { compareCardFaction } from './cardUtils';
+import { compareCardFaction, getFilteredCards } from './cardUtils';
 import { Card } from './models/Card';
 import { Deck as DeckModel } from './models/Deck';
 import { IDeckCard, IDeckCardSection, IDeckCardSections } from './models/Deck';
-import { getCard, getFilteredCards } from './raw/Card';
+import { getCard } from './raw/Card';
 import {
   FactionCodes,
   FilterCodes,

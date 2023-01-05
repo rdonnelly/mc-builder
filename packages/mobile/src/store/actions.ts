@@ -19,12 +19,10 @@ import {
   FilterCodes,
   SetCode,
 } from '@mc-builder/shared/src/data';
+import { getFilteredCards } from '@mc-builder/shared/src/data/cardUtils';
 import { Card as CardModel } from '@mc-builder/shared/src/data/models/Card';
 import { Deck as DeckModel } from '@mc-builder/shared/src/data/models/Deck';
-import {
-  getCard,
-  getFilteredCards,
-} from '@mc-builder/shared/src/data/raw/Card';
+import { getCard } from '@mc-builder/shared/src/data/raw/Card';
 import { IStoreDeckCard } from '@mc-builder/shared/src/store/types';
 
 export const importDeck =

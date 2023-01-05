@@ -8,7 +8,7 @@ import {
   SetCode,
   TypeCodes,
 } from '../data';
-import { getFilteredCards } from '../data/raw/Card';
+import { getFilteredCards } from '../data/cardUtils';
 import { ICardRaw } from '../data/types';
 import { IStoreDeck, IStoreDeckCard } from '../store/types';
 

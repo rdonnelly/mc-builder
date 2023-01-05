@@ -6,10 +6,8 @@ import {
   ICardRaw,
   PackCode,
 } from '@mc-builder/shared/src/data';
-import {
-  getCardRoot,
-  getFilteredCards,
-} from '@mc-builder/shared/src/data/raw/Card';
+import { getFilteredCards } from '@mc-builder/shared/src/data/cardUtils';
+import { getCardRoot } from '@mc-builder/shared/src/data/raw/Card';
 
 export default function handler(
   req: NextApiRequest,

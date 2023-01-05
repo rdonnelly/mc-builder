@@ -17,84 +17,93 @@ enum FloatingControlButtonVariant {
   DISABLED = 'disabled',
 }
 
+interface IFloatingControlBar {
+  children: React.ReactNode;
+  onPress: () => void;
+  disabled: boolean;
+  variant: FloatingControlButtonVariant;
+}
+
 const FloatingControlBar = (props) => {
   return (
     <FloatingControlBarContainer>{props.children}</FloatingControlBarContainer>
   );
 };
 
-FloatingControlBar.EvenButton = forwardRef<
-  any,
-  { onPress: any; disabled: boolean; variant: FloatingControlButtonVariant }
->((props, ref) => {
-  return (
-    <FloatingControlPressableEven
-      onPress={props.onPress}
-      disabled={props.disabled}
-    >
-      {({ pressed }) => (
-        <FloatingControlBarText
-          pressed={pressed}
-          variant={props.variant}
-          wrapped={true}
-          ref={ref}
-        >
-          {props.children}
-        </FloatingControlBarText>
-      )}
-    </FloatingControlPressableEven>
-  );
-}) as any;
+FloatingControlBar.EvenButton = forwardRef<any, IFloatingControlBar>(
+  (props, ref) => {
+    return (
+      <FloatingControlPressableEven
+        onPress={props.onPress}
+        disabled={props.disabled}
+      >
+        {({ pressed }) => (
+          <FloatingControlBarText
+            pressed={pressed}
+            variant={props.variant}
+            wrapped={true}
+            ref={ref}
+          >
+            {props.children}
+          </FloatingControlBarText>
+        )}
+      </FloatingControlPressableEven>
+    );
+  },
+) as any;
 
-FloatingControlBar.FlexButton = forwardRef<
-  any,
-  { onPress: any; disabled: boolean; variant: FloatingControlButtonVariant }
->((props, ref) => {
-  return (
-    <FloatingControlPressableFlex
-      onPress={props.onPress}
-      disabled={props.disabled}
-    >
-      {({ pressed }) => (
-        <FloatingControlBarText
-          pressed={pressed}
-          variant={props.variant}
-          wrapped={true}
-          ref={ref}
-        >
-          {props.children}
-        </FloatingControlBarText>
-      )}
-    </FloatingControlPressableFlex>
-  );
-}) as any;
+FloatingControlBar.FlexButton = forwardRef<any, IFloatingControlBar>(
+  (props, ref) => {
+    return (
+      <FloatingControlPressableFlex
+        onPress={props.onPress}
+        disabled={props.disabled}
+      >
+        {({ pressed }) => (
+          <FloatingControlBarText
+            pressed={pressed}
+            variant={props.variant}
+            wrapped={true}
+            ref={ref}
+          >
+            {props.children}
+          </FloatingControlBarText>
+        )}
+      </FloatingControlPressableFlex>
+    );
+  },
+) as any;
 
-FloatingControlBar.InlineButton = forwardRef<
-  any,
-  { onPress: any; disabled: boolean; variant: FloatingControlButtonVariant }
->((props, ref) => {
-  return (
-    <FloatingControlPressableInline
-      onPress={props.onPress}
-      disabled={props.disabled}
-    >
-      {({ pressed }) => (
-        <FloatingControlBarText
-          pressed={pressed}
-          variant={props.variant}
-          wrapped={true}
-          ref={ref}
-        >
-          {props.children}
-        </FloatingControlBarText>
-      )}
-    </FloatingControlPressableInline>
-  );
-}) as any;
+FloatingControlBar.InlineButton = forwardRef<any, IFloatingControlBar>(
+  (props, ref) => {
+    return (
+      <FloatingControlPressableInline
+        onPress={props.onPress}
+        disabled={props.disabled}
+      >
+        {({ pressed }) => (
+          <FloatingControlBarText
+            pressed={pressed}
+            variant={props.variant}
+            wrapped={true}
+            ref={ref}
+          >
+            {props.children}
+          </FloatingControlBarText>
+        )}
+      </FloatingControlPressableInline>
+    );
+  },
+) as any;
 
 const FloatingControlBarText = forwardRef<
   any,
-  { pressed: boolean; variant: FloatingControlButtonVariant; wrapped?: boolean }
+  {
+    pressed: boolean;
+    variant: FloatingControlButtonVariant;
+    wrapped?: boolean;
+    children: React.ReactNode;
+  }
 >((props, ref) => (
   <FloatingControlView
     pressed={props.pressed}

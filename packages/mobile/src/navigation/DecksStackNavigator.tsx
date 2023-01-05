@@ -159,7 +159,9 @@ export default () => {
           title: '',
         }}
         getId={({ params }) =>
-          params != null ? `${params.code}-${params.type}` : undefined
+          params != null && 'code' in params && 'type' in params
+            ? `${params.code}-${params.type}`
+            : undefined
         }
       />
       <Stack.Screen
@@ -177,7 +179,9 @@ export default () => {
           title: '',
         }}
         getId={({ params }) =>
-          params != null ? `${params.code}-${params.type}` : undefined
+          params != null && 'code' in params && 'type' in params
+            ? `${params.code}-${params.type}`
+            : undefined
         }
       />
       <Stack.Screen

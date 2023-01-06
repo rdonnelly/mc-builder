@@ -298,6 +298,10 @@ export class Card {
     return `https://mcbuilder.app/cards/${this.code}`;
   }
 
+  get meta() {
+    return this.raw.meta;
+  }
+
   hasTrait(trait: string) {
     return this.traits ? this.traits.toLowerCase().includes(trait) : false;
   }

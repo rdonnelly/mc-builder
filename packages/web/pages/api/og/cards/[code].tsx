@@ -122,6 +122,7 @@ export default async function handler(req: NextRequest) {
               height="96"
               src={getAbsoluteUrl('/images/mc-icon-76@2x.png')}
               style={{
+                border: `4px solid ${colors.white}`,
                 borderRadius: 48,
                 marginRight: 16,
               }}

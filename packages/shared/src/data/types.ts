@@ -119,6 +119,7 @@ export interface ICardRaw {
   thwart?: number;
   traits: string;
   type_code: TypeCode;
+  meta: any;
 }
 
 // TODO set up card typing

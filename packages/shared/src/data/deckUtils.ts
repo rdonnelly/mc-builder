@@ -305,3 +305,19 @@ export const getDeckIsLegal = (_deck: DeckModel, deckCards: IDeckCard[]) => {
   const deckCardCount = getDeckCardCount(deckCards);
   return deckCardCount >= 40 && deckCardCount <= 50;
 };
+
+export const getDeckHero = (deck: DeckModel, deckCards: IDeckCard[]) => {
+  let check = TypeCodes.HERO;
+
+  if ([SetCodes.WOLVERINE].includes(deck.setCode as SetCodes)) {
+    check = TypeCodes.ALTER_EGO;
+  }
+
+  const heroCard = deckCards.find((card) => card.typeCode === check);
+  return heroCard?.card;
+};
+
+export const getDeckMeta = (deckCards: IDeckCard[]) => {
+  const metaCard = deckCards.find((card) => 'meta' in card.card.raw);
+  return metaCard?.card.meta;
+};

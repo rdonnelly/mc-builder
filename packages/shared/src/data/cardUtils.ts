@@ -1,4 +1,4 @@
-import isDeepEqual from 'lodash/isEqual';
+import { compareUnsorted as isDeepEqual } from 'js-deep-equals';
 import memoizeOne from 'memoize-one';
 
 import {

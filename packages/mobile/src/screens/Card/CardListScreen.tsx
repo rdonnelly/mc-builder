@@ -12,6 +12,7 @@ import { useDatabase } from '@hooks/useDatabase';
 import { useListSearchBar } from '@hooks/useListSearchBar';
 import { CardsListScreenProps } from '@navigation/CardsStackNavigator';
 
+import base from '@mc-builder/shared/src/components/base';
 import CardListItem, {
   ITEM_HEIGHT,
 } from '@mc-builder/shared/src/components/CardListItem';
@@ -26,7 +27,7 @@ import {
 } from '@mc-builder/shared/src/data';
 import { Card as CardModel } from '@mc-builder/shared/src/data/models/Card';
 import { CardSortTypes } from '@mc-builder/shared/src/data/types';
-import { base, colors } from '@mc-builder/shared/src/styles';
+import { colors } from '@mc-builder/shared/src/styles';
 
 const styles = StyleSheet.create({
   cardList: {

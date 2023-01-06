@@ -14,8 +14,9 @@ import { DecksCreateScreenProps } from '@navigation/DecksStackNavigator';
 import { setUpNewDeck } from '@store/actions';
 import { useAppDispatch } from '@store/hooks';
 
+import base from '@mc-builder/shared/src/components/base';
 import { getFaction, getSet, SetCodes } from '@mc-builder/shared/src/data';
-import { base, colors } from '@mc-builder/shared/src/styles';
+import { colors } from '@mc-builder/shared/src/styles';
 
 interface DecksCreateFormErrors {
   fields: {

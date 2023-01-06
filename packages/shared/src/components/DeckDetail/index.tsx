@@ -5,7 +5,8 @@ import DeckDetailHeader from '../../components/DeckDetail/DeckDetailHeader';
 import DeckDetailList from '../../components/DeckDetail/DeckDetailList';
 import { Deck as DeckModel } from '../../data/models/Deck';
 import { IDeckCard } from '../../data/models/Deck';
-import { base, colors } from '../../styles';
+import { colors } from '../../styles';
+import base from '../base';
 
 const DeckDetail = ({
   deck,

@@ -9,12 +9,13 @@ import FloatingControlBar, {
 } from '@components/FloatingControlBar';
 import { DeckEditScreenProps } from '@navigation/DecksStackNavigator';
 
+import base from '@mc-builder/shared/src/components/base';
 import DeckDetailHeader from '@mc-builder/shared/src/components/DeckDetail/DeckDetailHeader';
 import {
   Deck as DeckModel,
   IDeckCard,
 } from '@mc-builder/shared/src/data/models/Deck';
-import { base, colors } from '@mc-builder/shared/src/styles';
+import { colors } from '@mc-builder/shared/src/styles';
 
 type DeckEditNavigationProps = DeckEditScreenProps['navigation'];
 

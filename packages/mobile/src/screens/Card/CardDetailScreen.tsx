@@ -23,10 +23,11 @@ import { CardDetailScreenProps } from '@navigation/CardsStackNavigator';
 import { setClipboard } from '@utils/Clipboard';
 import { shareImageUrl } from '@utils/Share';
 
+import base from '@mc-builder/shared/src/components/base';
 import CardDetail from '@mc-builder/shared/src/components/CardDetail';
 import { Card as CardModel } from '@mc-builder/shared/src/data/models/Card';
 import { CardSortTypes } from '@mc-builder/shared/src/data/types';
-import { base, colors } from '@mc-builder/shared/src/styles';
+import { colors } from '@mc-builder/shared/src/styles';
 
 const shareCardImage = (uri: string) => {
   ReactNativeHapticFeedback.trigger('impactHeavy');

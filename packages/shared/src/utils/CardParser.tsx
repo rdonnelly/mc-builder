@@ -1,6 +1,3 @@
-import Icon, { IconCode } from '../components/Icon';
-import { colors } from '../styles';
-
 const ICON_REPLACEMENTS = Object.freeze({
   acceleration: '<icon code="acceleration"></icon>',
   boost: '<icon code="boost"></icon>',
@@ -24,27 +21,6 @@ export default {
     const formattedText = text.replace(/(<([^>]+)>)/gim, '');
 
     return formattedText;
-  },
-
-  iconRenderer(
-    htmlAttributes: { code: IconCode },
-    _children,
-    _convertedCSSStyles,
-    passProps,
-  ) {
-    const { code } = htmlAttributes;
-
-    if (IconCode[code] == null) {
-      return code;
-    }
-
-    return (
-      <Icon
-        code={IconCode[code]}
-        key={`parser-icon-${passProps.key}`}
-        color={colors.primary}
-      />
-    );
   },
 
   replaceIconPlaceholders(text: string): string {

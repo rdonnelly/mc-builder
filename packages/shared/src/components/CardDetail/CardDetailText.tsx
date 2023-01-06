@@ -2,7 +2,7 @@ import { StyleSheet, Text } from 'react-native';
 import Html from 'react-native-render-html';
 import styled from 'styled-components/native';
 
-import Icon, { IconCode } from '../../components/Icon';
+import Icon, { IconCode, iconRenderer } from '../../components/Icon';
 import { FactionCodes } from '../../data';
 import { Card as CardModel } from '../../data/models/Card';
 import { colors } from '../../styles';
@@ -33,7 +33,7 @@ const renderCardText = (card: CardModel, key: string, isFlavor = false) => {
   text = CardParser.replaceIconPlaceholders(text);
 
   const customRenderers = {
-    icon: { renderer: CardParser.iconRenderer, wrapper: 'Text' as const },
+    icon: { renderer: iconRenderer, wrapper: 'Text' as const },
   };
 
   return (

@@ -10,7 +10,8 @@ import { cloneDeck } from '@store/actions';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
 import { selectStoreDeck } from '@store/selectors';
 
-import { base, colors } from '@mc-builder/shared/src/styles';
+import base from '@mc-builder/shared/src/components/base';
+import { colors } from '@mc-builder/shared/src/styles';
 
 const isIOS = Platform.OS === 'ios';
 const HEADER_HEIGHT = isIOS ? 44 : 56;

@@ -15,12 +15,13 @@ import { deleteDeck } from '@store/actions';
 import { useAppDispatch } from '@store/hooks';
 import { setClipboard } from '@utils/Clipboard';
 
+import base from '@mc-builder/shared/src/components/base';
 import DeckDetail from '@mc-builder/shared/src/components/DeckDetail';
 import {
   getDeckPrettyText,
   getDeckShareableUrl,
 } from '@mc-builder/shared/src/data/deckUtils';
-import { base, colors } from '@mc-builder/shared/src/styles';
+import { colors } from '@mc-builder/shared/src/styles';
 
 const DeckDetailScreen = ({ navigation, route }: DeckDetailScreenProps) => {
   const dispatch = useAppDispatch();

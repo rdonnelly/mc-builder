@@ -2,7 +2,8 @@ import Link from 'next/link';
 import React from 'react';
 import styled from 'styled-components/native';
 
-import { base, colors } from '@mc-builder/shared/src/styles';
+import base from '@mc-builder/shared/src/components/base';
+import { colors } from '@mc-builder/shared/src/styles';
 
 const Header = ({
   children,

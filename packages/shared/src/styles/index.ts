@@ -1,3 +1,2 @@
-export { default as base } from '../styles/base';
-export { default as colors } from '../styles/colors';
-export { darkTheme, lightTheme } from '../styles/theme';
+export { default as colors } from './colors';
+export { darkTheme, lightTheme } from './theme';

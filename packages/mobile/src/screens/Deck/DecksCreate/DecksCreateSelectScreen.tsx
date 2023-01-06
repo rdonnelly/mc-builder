@@ -6,6 +6,7 @@ import styled from 'styled-components/native';
 import { DecksCreateContext } from '@context/DecksCreateContext';
 import { DecksCreateSelectScreenProps } from '@navigation/DecksCreateStackNavigator';
 
+import base from '@mc-builder/shared/src/components/base';
 import {
   FactionCode,
   FactionModel,
@@ -15,7 +16,7 @@ import {
   SetCodes,
   SetModel,
 } from '@mc-builder/shared/src/data';
-import { base, colors } from '@mc-builder/shared/src/styles';
+import { colors } from '@mc-builder/shared/src/styles';
 
 const ITEM_HEIGHT = 48;
 

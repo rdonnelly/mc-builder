@@ -20,10 +20,11 @@ import { useAppDispatch, useAppSelector } from '@store/hooks';
 import { setDeckSort } from '@store/reducers/app';
 import { getClipboard } from '@utils/Clipboard';
 
+import base from '@mc-builder/shared/src/components/base';
 import DecksListItem from '@mc-builder/shared/src/components/DeckListItem';
 import { Deck as DeckModel } from '@mc-builder/shared/src/data/models/Deck';
 import { AppDeckSortKey } from '@mc-builder/shared/src/store/types';
-import { base, colors } from '@mc-builder/shared/src/styles';
+import { colors } from '@mc-builder/shared/src/styles';
 
 const styles = StyleSheet.create({
   contentContainerStyle: {

@@ -1,6 +1,8 @@
 import { memo } from 'react';
 import styled from 'styled-components/native';
 
+import colors from '../styles/colors';
+
 export enum IconCode {
   acceleration = 'ACCELERATION',
   boost = 'BOOST',
@@ -76,5 +78,26 @@ const IconText = styled.Text<{ color?: string; size?: number }>`
 
   font-family: ${({ theme }) => theme.fontFamily.marvelIcons};
 `;
+
+export const iconRenderer = (
+  htmlAttributes: { code: IconCode },
+  _children,
+  _convertedCSSStyles,
+  passProps,
+) => {
+  const { code } = htmlAttributes;
+
+  if (IconCode[code] == null) {
+    return code;
+  }
+
+  return (
+    <Icon
+      code={IconCode[code]}
+      key={`parser-icon-${passProps.key}`}
+      color={colors.primary}
+    />
+  );
+};
 
 export default memo(Icon);

@@ -10,8 +10,9 @@ import { DecksImportScreenProps } from '@navigation/DecksStackNavigator';
 import { importDeck } from '@store/actions';
 import { useAppDispatch } from '@store/hooks';
 
+import base from '@mc-builder/shared/src/components/base';
 import DeckDetail from '@mc-builder/shared/src/components/DeckDetail';
-import { base, colors } from '@mc-builder/shared/src/styles';
+import { colors } from '@mc-builder/shared/src/styles';
 
 const DecksImportFormScreen = ({
   navigation,

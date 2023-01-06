@@ -17,7 +17,8 @@ import { useAppDispatch } from '@store/hooks';
 import { reset } from '@store/reducers/decks';
 
 // import { authorizeUser } from '@api/auth';
-import { base, colors } from '@mc-builder/shared/src/styles';
+import base from '@mc-builder/shared/src/components/base';
+import { colors } from '@mc-builder/shared/src/styles';
 // import { setAuthToken } from '@store/reducers/auth';
 
 const SettingsScreen = ({ navigation }: SettingsScreenProps) => {

@@ -1,7 +1,8 @@
 import styled from 'styled-components/native';
 
 import { Card as CardModel } from '../../data/models/Card';
-import { base, colors } from '../../styles';
+import { colors } from '../../styles';
+import base from '../base';
 
 const CardDetailHeader = ({
   card,

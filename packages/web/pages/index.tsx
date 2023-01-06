@@ -3,7 +3,8 @@ import Link from 'next/link';
 import { useWindowDimensions } from 'react-native';
 import styled from 'styled-components/native';
 
-import { base, colors } from '@mc-builder/shared/src/styles';
+import base from '@mc-builder/shared/src/components/base';
+import { colors } from '@mc-builder/shared/src/styles';
 
 import Header from '../components/Header';
 import getAbsoluteUrl from '../utils/getAbsoluteUrl';

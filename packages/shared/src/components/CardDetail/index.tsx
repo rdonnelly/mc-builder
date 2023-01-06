@@ -9,7 +9,8 @@ import CardDetailPack from '../../components/CardDetail/CardDetailPack';
 import CardDetailStats from '../../components/CardDetail/CardDetailStats';
 import CardDetailText from '../../components/CardDetail/CardDetailText';
 import { Card as CardModel } from '../../data/models/Card';
-import { base, colors } from '../../styles';
+import { colors } from '../../styles';
+import base from '../base';
 
 const styles = StyleSheet.create({
   scrollViewContentContainer: {

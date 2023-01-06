@@ -75,8 +75,8 @@ const DeckDetailWrapper = styled.View`
   width: 100%;
 `;
 
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const payload = params.payload as string;
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+  const payload = query.payload as string;
 
   let decoded: string = payload;
   let importDeck: IImportDeck | false = null;

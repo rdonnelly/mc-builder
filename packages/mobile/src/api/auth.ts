@@ -2,8 +2,6 @@
 import { MCDB_BASE_URI, MCDB_CLIENT_ID, MCDB_CLIENT_SECRET } from '@env';
 import { authorize } from 'react-native-app-auth';
 
-// import { store } from '@store';
-
 const authorizeUser = async () => {
   const config = {
     serviceConfiguration: {
@@ -28,4 +26,28 @@ const authorizeUser = async () => {
 //   return state.auth.mcdb.accessToken;
 // };
 
-export { authorizeUser /*, getAccessToken */ };
+// GET /api/oauth2/decks
+// const getDecks = async () => {
+//   const accessToken = await getAccessToken();
+//
+//   const uri = `${MCDB_BASE_URI}/api/oauth2/decks?access_token=${accessToken}`;
+//
+//   const headers = new Headers();
+//   headers.append('cache-control', 'no-cache');
+//   headers.append('pragma', 'no-cache');
+//
+//   const response = await fetch(uri, {
+//     method: 'GET',
+//     headers,
+//   });
+//   const data = await response.json();
+//
+//   return data;
+// };
+
+// GET /api/oauth2/deck/load/{id}
+// POST /api/oauth2/deck/new
+// PUT /api/oauth2/deck/publish/{id}
+// PUT /api/oauth2/deck/save/{id}
+
+export { authorizeUser /*, getAccessToken */ /*, getDecks*/ };

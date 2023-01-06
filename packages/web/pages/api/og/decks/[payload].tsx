@@ -80,7 +80,7 @@ export default async function handler(req: NextRequest) {
   const meta = getDeckMeta(deckCards);
   let backgroundImage = '';
   if (meta?.colors?.length === 4) {
-    backgroundImage = `linear-gradient(100deg, ${meta.colors[0]} 57.5%, ${meta.colors[2]} 58%, ${meta.colors[2]} 59%, ${meta.colors[1]} 59.5%, ${meta.colors[1]} 100%)`;
+    backgroundImage = `linear-gradient(100deg, ${meta.colors[0]} 56%, ${meta.colors[1]} 60%, ${meta.colors[2]} 100%)`;
   }
 
   const heroCard = getDeckHero(deck, deckCards);
@@ -99,7 +99,7 @@ export default async function handler(req: NextRequest) {
           color: colors.darkGray,
           display: 'flex',
           height: '100%',
-          padding: '32px 64px',
+          padding: 32,
           position: 'relative',
           width: '100%',
         }}
@@ -110,7 +110,7 @@ export default async function handler(req: NextRequest) {
             flex: 1,
             flexDirection: 'column',
             height: '100%',
-            marginRight: 32,
+            marginRight: 16,
           }}
         >
           <div
@@ -121,7 +121,7 @@ export default async function handler(req: NextRequest) {
               flexDirection: 'column',
               flexGrow: 1,
               fontFamily: 'Lato',
-              fontSize: 32,
+              fontSize: 40,
               justifyContent: 'space-between',
               lineHeight: 1.5,
               marginBottom: 32,
@@ -191,7 +191,7 @@ export default async function handler(req: NextRequest) {
             display: 'flex',
             flexDirection: 'column',
             height: '100%',
-            marginLeft: 32,
+            marginLeft: 16,
           }}
         >
           {heroCard.imageUriSet.map((imageUri, index) => (

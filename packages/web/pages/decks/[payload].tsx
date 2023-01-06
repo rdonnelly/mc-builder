@@ -51,14 +51,8 @@ const DeckPage = ({
         <meta property="og:type" content="website" />
         <meta property="og:title" content={meta.title} />
         <meta property="og:description" content={meta.description} />
-        <meta
-          property="og:image"
-          content={getAbsoluteUrl('/images/mc-icon-1024.png')}
-        />
-        <meta
-          property="og:image:secure_url"
-          content={getAbsoluteUrl('/images/mc-icon-1024.png')}
-        />
+        <meta property="og:image" content={meta.ogImageUrl} />
+        <meta property="og:image:secure_url" content={meta.ogImageUrl} />
       </Head>
       <Header color={colors.purple}>Decks</Header>
       <DeckDetailWrapper>
@@ -120,6 +114,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
         description: getDeckDescription(deck, deckCards),
         title: deck.name,
         url: getAbsoluteUrl(`/decks/${payload}`),
+        ogImageUrl: getAbsoluteUrl(`/api/og/decks/${payload}`),
       },
     },
   };

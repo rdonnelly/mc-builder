@@ -2,11 +2,18 @@ import {
   BottomTabScreenProps,
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
+import { NavigatorScreenParams } from '@react-navigation/native';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
 
-import CardsStackNavigator from '@navigation/CardsStackNavigator';
-import DecksStackNavigator from '@navigation/DecksStackNavigator';
-import SettingsStackNavigator from '@navigation/SettingsStackNavigator';
+import CardsStackNavigator, {
+  CardsStackParamList,
+} from '@navigation/CardsStackNavigator';
+import DecksStackNavigator, {
+  DecksStackParamList,
+} from '@navigation/DecksStackNavigator';
+import SettingsStackNavigator, {
+  SettingsStackParamList,
+} from '@navigation/SettingsStackNavigator';
 
 import { colors } from '@mc-builder/shared/src/styles';
 
@@ -38,9 +45,9 @@ const tabIconCog = ({ focused, size }) => (
 );
 
 export type TabNavigatorParamList = {
-  TabCards: undefined;
-  TabDecks: undefined;
-  TabSettings: undefined;
+  TabCards: NavigatorScreenParams<CardsStackParamList>;
+  TabDecks: NavigatorScreenParams<DecksStackParamList>;
+  TabSettings: NavigatorScreenParams<SettingsStackParamList>;
 };
 
 export type TabCardsScreenProps = BottomTabScreenProps<

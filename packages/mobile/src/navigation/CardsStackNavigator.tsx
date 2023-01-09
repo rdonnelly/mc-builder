@@ -19,7 +19,7 @@ import {
 import { CardSortTypes } from '@mc-builder/shared/src/data/types';
 import { colors } from '@mc-builder/shared/src/styles';
 
-export type CardStackParamList = {
+export type CardsStackParamList = {
   CardsList: {
     filter?: FilterCode;
     filterCode?: FactionCode | PackCode | SetCode | TypeCode;
@@ -41,31 +41,31 @@ export type CardStackParamList = {
 };
 
 export type CardsListScreenProps = NativeStackScreenProps<
-  CardStackParamList,
+  CardsStackParamList,
   'CardsList'
 >;
 
 export type FactionsListScreenProps = NativeStackScreenProps<
-  CardStackParamList,
+  CardsStackParamList,
   'FactionsList'
 >;
 
 export type PacksListScreenProps = NativeStackScreenProps<
-  CardStackParamList,
+  CardsStackParamList,
   'PacksList'
 >;
 
 export type TypesListScreenProps = NativeStackScreenProps<
-  CardStackParamList,
+  CardsStackParamList,
   'TypesList'
 >;
 
 export type CardDetailScreenProps = NativeStackScreenProps<
-  CardStackParamList,
+  CardsStackParamList,
   'CardDetail'
 >;
 
-const Stack = createNativeStackNavigator<CardStackParamList>();
+const Stack = createNativeStackNavigator<CardsStackParamList>();
 
 export default () => {
   return (

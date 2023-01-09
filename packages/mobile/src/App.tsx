@@ -1,6 +1,6 @@
 import Bugsnag from '@bugsnag/react-native';
 import { ActionSheetProvider } from '@expo/react-native-action-sheet';
-import { NavigationContainer } from '@react-navigation/native';
+import { LinkingOptions, NavigationContainer } from '@react-navigation/native';
 import { StatusBar, useColorScheme } from 'react-native';
 import RNBootSplash from 'react-native-bootsplash';
 import { Provider as ReduxProvider } from 'react-redux';
@@ -9,7 +9,7 @@ import { ThemeProvider } from 'styled-components';
 
 import { AppProvider } from '@context/AppContext';
 import { useDatabase } from '@hooks';
-import TabNavigator from '@navigation/TabNavigator';
+import TabNavigator, { TabNavigatorParamList } from '@navigation/TabNavigator';
 import SyncScreen from '@screens/SyncScreen';
 import { persistor, store } from '@store';
 
@@ -41,28 +41,26 @@ function App() {
 
   const appTheme = colorScheme === 'dark' ? darkTheme : lightTheme;
 
-  const config = {
-    screens: {
-      TabCards: {
-        path: 'cards',
-        initialRouteName: 'CardsList',
-        screens: {
-          CardDetail: ':code',
+  const linking: LinkingOptions<TabNavigatorParamList> = {
+    prefixes: ['https://mcbuilder.app', 'mcbuilder://'],
+    config: {
+      screens: {
+        TabCards: {
+          path: 'cards',
+          initialRouteName: 'CardsList',
+          screens: {
+            CardDetail: ':code',
+          },
         },
-      },
-      TabDecks: {
-        path: 'decks',
-        initialRouteName: 'DecksList',
-        screens: {
-          DecksImport: ':importString',
+        TabDecks: {
+          path: 'decks',
+          initialRouteName: 'DecksList',
+          screens: {
+            DecksImport: ':importString',
+          },
         },
       },
     },
-  };
-
-  const linking = {
-    prefixes: ['https://mcbuilder.app', 'mcbuilder://'],
-    config,
   };
 
   const { checkDatabase, syncCardData, didSync, isSyncing } = useDatabase();

@@ -12,6 +12,10 @@
                   {
                     "/": "/decks/*",
                     "comment": "Matches any URL whose path starts with /decks/"
+                  },
+                  {
+                    "/": "/settings/*",
+                    "comment": "Matches any URL whose path starts with /decks/"
                   }
                 ]
             },
@@ -22,6 +26,10 @@
             {
                 "appID": "EZ4AQB6GC7.com.rdonnelly.mcdb",
                 "paths": ["/decks/*"]
+            },
+            {
+                "appID": "EZ4AQB6GC7.com.rdonnelly.mcdb",
+                "paths": ["/settings/*"]
             }
         ]
     },

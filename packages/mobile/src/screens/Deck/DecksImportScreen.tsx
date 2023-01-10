@@ -21,7 +21,7 @@ const DecksImportFormScreen = ({
   const dispatch = useAppDispatch();
   const insets = useSafeAreaInsets();
 
-  const importString = route.params.importString;
+  const importString = route.params.payload;
   const { deckToImport, deckCardsToImport, deckExtraCardsToImport } =
     useDeckImport(importString);
 

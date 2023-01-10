@@ -1,6 +1,10 @@
 import Bugsnag from '@bugsnag/react-native';
 import { ActionSheetProvider } from '@expo/react-native-action-sheet';
-import { LinkingOptions, NavigationContainer } from '@react-navigation/native';
+import {
+  getStateFromPath,
+  LinkingOptions,
+  NavigationContainer,
+} from '@react-navigation/native';
 import { StatusBar, useColorScheme } from 'react-native';
 import RNBootSplash from 'react-native-bootsplash';
 import { Provider as ReduxProvider } from 'react-redux';
@@ -46,20 +50,72 @@ function App() {
     config: {
       screens: {
         TabCards: {
-          path: 'cards',
           initialRouteName: 'CardsList',
           screens: {
-            CardDetail: ':code',
+            CardDetail: {
+              path: 'cards/:code?',
+              exact: true,
+            },
           },
         },
         TabDecks: {
-          path: 'decks',
           initialRouteName: 'DecksList',
           screens: {
-            DecksImport: ':importString',
+            DecksImport: {
+              path: 'decks/:payload?',
+              exact: true,
+            },
+          },
+        },
+        TabSettings: {
+          path: 'settings',
+          initialRouteName: 'Settings',
+          screens: {
+            Settings: '',
           },
         },
       },
+    },
+    getStateFromPath(path, config) {
+      let updatedPath = path;
+
+      // convert /decks/view to /decks
+      if (path.startsWith('/decks/view')) {
+        updatedPath = path.replace(/^\/decks\/view/i, '/decks');
+      }
+
+      let state = getStateFromPath<TabNavigatorParamList>(updatedPath, config);
+
+      // make sure CardDetailScreen has a default type=card param
+      if (
+        state.routes[0].name === 'TabCards' &&
+        state.routes[0].state.routes[0].name === 'CardsList' &&
+        state.routes[0].state.routes[1].name === 'CardDetail'
+      ) {
+        state = {
+          ...state,
+          routes: [
+            {
+              ...state.routes[0],
+              state: {
+                ...state.routes[0].state,
+                routes: [
+                  state.routes[0].state.routes[0],
+                  {
+                    ...state.routes[0].state.routes[1],
+                    params: {
+                      ...state.routes[0].state.routes[1].params,
+                      type: 'card',
+                    },
+                  },
+                ],
+              },
+            },
+          ],
+        };
+      }
+
+      return state;
     },
   };
 

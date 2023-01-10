@@ -25,7 +25,7 @@ import { colors } from '@mc-builder/shared/src/styles';
 export type DecksStackParamList = {
   DecksList: undefined;
   DecksCreate: undefined;
-  DecksImport: { importString: string };
+  DecksImport: { payload: string };
   DeckDetail: { code: string };
   DeckDetailCardDetail: {
     code: string;

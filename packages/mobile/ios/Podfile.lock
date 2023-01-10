@@ -311,7 +311,7 @@ PODS:
   - react-native-app-auth (6.4.3):
     - AppAuth (= 1.4.0)
     - React-Core
-  - react-native-flipper (0.176.1):
+  - react-native-flipper (0.163.0):
     - React-Core
   - react-native-get-random-values (1.8.0):
     - React-Core
@@ -701,7 +701,7 @@ SPEC CHECKSUMS:
   React-jsinspector: 60769e5a0a6d4b32294a2456077f59d0266f9a8b
   React-logger: 1623c216abaa88974afce404dc8f479406bbc3a0
   react-native-app-auth: fd1eaa667c0bc014199456d14a6440cb74de814e
-  react-native-flipper: 7e4b1c3fe1a2eecbe7304e5ff6b89231b3ec61dc
+  react-native-flipper: 2d552a8178d839ef378220101fb7f0cd5b2a8003
   react-native-get-random-values: a6ea6a8a65dc93e96e24a11105b1a9c8cfe1d72a
   react-native-netinfo: 2517ad504b3d303e90d7a431b0fcaef76d207983
   react-native-render-html: 012780b92993ab33b3ae0240b90e585d00c70808

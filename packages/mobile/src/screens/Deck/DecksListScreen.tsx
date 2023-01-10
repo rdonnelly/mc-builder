@@ -165,7 +165,7 @@ const DecksListScreen = ({ navigation }: DecksListScreenProps) => {
 
   const handleImportDeck = async () => {
     const clipboardContent = await getClipboard();
-    navigation.navigate('DecksImport', { importString: clipboardContent });
+    navigation.navigate('DecksImport', { payload: clipboardContent });
   };
 
   const renderCard: ListRenderItem<DeckModel> = ({ item: deck }) => (

@@ -31,14 +31,20 @@ const CardPage = ({ rawCard, rootCard, meta }) => {
         <meta name="og:image" content={meta.ogImageUrl} />
         <meta name="og:image:secure_url" content={meta.ogImageUrl} />
       </Head>
-
       <Header color={colors.orange}>Cards</Header>
-      <CardDetailWrapper>
-        <CardDetail card={card} />
-      </CardDetailWrapper>
+      <ScrollView>
+        <CardDetailWrapper>
+          <CardDetail card={card} />
+        </CardDetailWrapper>
+      </ScrollView>
     </>
   );
 };
+
+const ScrollView = styled.ScrollView`
+  flex: 1;
+  width: 100%;
+`;
 
 const CardDetailWrapper = styled.View`
   margin: 0 auto;

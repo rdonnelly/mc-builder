@@ -55,18 +55,25 @@ const DeckPage = ({
         <meta property="og:image:secure_url" content={meta.ogImageUrl} />
       </Head>
       <Header color={colors.purple}>Decks</Header>
-      <DeckDetailWrapper>
-        <DeckDetailHeader deck={deck} deckCards={deckCards} />
-        <DeckDetailList
-          deck={deck}
-          deckCards={deckCards}
-          extraCards={extraCards}
-          handlePressItem={handlePressItem}
-        />
-      </DeckDetailWrapper>
+      <ScrollView>
+        <DeckDetailWrapper>
+          <DeckDetailHeader deck={deck} deckCards={deckCards} />
+          <DeckDetailList
+            deck={deck}
+            deckCards={deckCards}
+            extraCards={extraCards}
+            handlePressItem={handlePressItem}
+          />
+        </DeckDetailWrapper>
+      </ScrollView>
     </>
   );
 };
+
+const ScrollView = styled.ScrollView`
+  flex: 1;
+  width: 100%;
+`;
 
 const DeckDetailWrapper = styled.View`
   background: ${colors.lightGray};

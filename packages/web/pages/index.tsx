@@ -58,7 +58,7 @@ const IndexPage = () => {
             <ListItem last={true}>
               <ListItemText>
                 Import decks from{' '}
-                <Link href="https://marvelcdb.com" target="blank">
+                <Link href="https://marvelcdb.com" target="_blank">
                   MarvelCDB
                 </Link>
               </ListItemText>
@@ -143,6 +143,7 @@ const IndexPage = () => {
 };
 
 const ScrollView = styled.ScrollView`
+  flex: 1;
   width: 100%;
 `;
 

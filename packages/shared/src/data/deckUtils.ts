@@ -294,9 +294,7 @@ export const getDeckShareableUrl = (
     },
   });
 
-  // TODO update to payload
-  // return `https://mcbuilder.app/decks/view?payload=${Base64.encodeURI(json)}`;
-  return `https://mcbuilder.app/decks/${Base64.encodeURI(json)}`;
+  return `https://mcbuilder.app/decks/view?deck=${Base64.encodeURI(json)}`;
 };
 
 export const getDeckIsLegal = (_deck: DeckModel, deckCards: IDeckCard[]) => {

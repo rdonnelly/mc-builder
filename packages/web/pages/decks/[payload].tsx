@@ -75,16 +75,23 @@ const DeckDetailWrapper = styled.View`
   width: 100%;
 `;
 
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const payload = params.payload as string;
+export const getServerSideProps: GetServerSideProps = async ({
+  params,
+  query,
+}) => {
+  let payload = params.payload;
 
-  let decoded: string = payload;
+  if (payload === 'view') {
+    payload = query.deck;
+  }
+
+  let decoded = Array.isArray(payload) ? payload.at(0) : payload;
   let importDeck: IImportDeck | false = null;
   let storeDeck: IStoreDeck = null;
   let storeDeckCards: IStoreDeckCard[] = null;
 
-  if (Base64.isValid(payload)) {
-    decoded = Base64.decode(payload);
+  if (Base64.isValid(decoded)) {
+    decoded = Base64.decode(decoded);
   }
 
   if (isDeckJson(decoded)) {
@@ -113,7 +120,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
       meta: {
         description: getDeckDescription(deck, deckCards),
         title: deck.name,
-        url: getAbsoluteUrl(`/decks/view?payload=${payload}`),
+        url: getAbsoluteUrl(`/decks/view?deck=${payload}`),
         ogImageUrl: getAbsoluteUrl(`/api/og/decks/${payload}`),
       },
     },

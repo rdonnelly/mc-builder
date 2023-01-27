@@ -33,7 +33,7 @@ const DeckPage = () => {
     }
 
     if (encoded != null) {
-      router.push(`/decks/view?payload=${encoded}`);
+      router.push(`/decks/view?deck=${encoded}`);
     }
   };
 

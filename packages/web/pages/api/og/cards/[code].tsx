@@ -2,6 +2,7 @@
 import { ImageResponse } from '@vercel/og';
 import { NextRequest } from 'next/server';
 
+// import qrcode from 'yaqrcode';
 import { Card } from '@mc-builder/shared/src/data/models/Card';
 import { getCard, getCardRoot } from '@mc-builder/shared/src/data/raw/Card';
 import colors from '@mc-builder/shared/src/styles/colors';
@@ -16,13 +17,18 @@ const fontLatoFetch = fetch(
   new URL('../../../../assets/Lato-Regular.ttf', import.meta.url),
 ).then((res) => res.arrayBuffer());
 
+const fontLatoItalicFetch = fetch(
+  new URL('../../../../assets/Lato-Italic.ttf', import.meta.url),
+).then((res) => res.arrayBuffer());
+
 const fontOswaldFetch = fetch(
   new URL('../../../../assets/Oswald-Bold.ttf', import.meta.url),
 ).then((res) => res.arrayBuffer());
 
 export default async function handler(req: NextRequest) {
-  const [fontLato, fontOswald] = await Promise.all([
+  const [fontLato, fontLatoItalic, fontOswald] = await Promise.all([
     fontLatoFetch,
+    fontLatoItalicFetch,
     fontOswaldFetch,
   ]);
 
@@ -43,24 +49,28 @@ export default async function handler(req: NextRequest) {
 
   let factionOrSetText = '';
   if (card.setName != null) {
-    factionOrSetText = card.setName;
     if (card.setPosition != null) {
+      factionOrSetText = ` | ${card.setName} `;
       const setNumbers = [];
       for (let i = 0, j = card.setQuantity; i < j; i++) {
         setNumbers.push(`#${card.setPosition + i}`);
       }
-      factionOrSetText += ` (${setNumbers.join(', ')})`;
+      factionOrSetText += setNumbers.join(', ');
     }
   } else {
-    factionOrSetText = card.factionName;
+    factionOrSetText = ` | ${card.factionName}`;
   }
+
+  // const linkQrData = qrcode(getAbsoluteUrl(`/cards/${code}`), {
+  //   size: 96,
+  // });
 
   return new ImageResponse(
     (
       <div
         style={{
-          background: colors.lightGray,
-          color: colors.darkGray,
+          backgroundColor: colors.darkGrayDark,
+          color: colors.lightGray,
           display: 'flex',
           height: '100%',
           padding: 32,
@@ -79,24 +89,15 @@ export default async function handler(req: NextRequest) {
         >
           <div
             style={{
-              fontFamily: 'Oswald',
-              fontSize: 80,
-              fontWeight: 'bold',
-              lineHeight: 1,
-              marginBottom: 32,
-            }}
-          >
-            {card.name}
-          </div>
-          <div
-            style={{
               background: colors.white,
               borderRadius: 16,
+              color: colors.darkGray,
               display: 'flex',
               flexDirection: 'column',
               flexGrow: 1,
               fontFamily: 'Lato',
-              fontSize: 32,
+              fontSize: 40,
+              justifyContent: 'space-between',
               lineHeight: 1.5,
               marginBottom: 32,
               padding: 16,
@@ -105,16 +106,30 @@ export default async function handler(req: NextRequest) {
           >
             <div
               style={{
-                fontFamily: 'Oswald',
-                fontSize: 42,
-                fontWeight: 'bold',
-                lineHeight: 1,
-                marginBottom: 16,
+                display: 'flex',
+                flexDirection: 'column',
               }}
             >
-              {card.subname || card.typeName}
+              <div
+                style={{
+                  fontFamily: 'Oswald',
+                  fontSize: 80,
+                  fontWeight: 'bold',
+                  lineHeight: 1,
+                }}
+              >
+                {card.name}
+              </div>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                }}
+              >
+                <div>{`${card.subname || card.typeName}.`}</div>
+                <div>{card.traits}</div>
+              </div>
             </div>
-            <div>{card.traits}</div>
           </div>
           <div style={{ display: 'flex', width: '100%' }}>
             <img
@@ -127,6 +142,16 @@ export default async function handler(req: NextRequest) {
                 marginRight: 16,
               }}
             />
+            {/* <img
+              width="96"
+              height="96"
+              src={linkQrData}
+              style={{
+                border: `4px solid ${colors.white}`,
+                borderRadius: 48,
+                marginRight: 16,
+              }}
+            /> */}
             <div
               style={{
                 alignItems: 'center',
@@ -137,7 +162,7 @@ export default async function handler(req: NextRequest) {
                 height: '100%',
               }}
             >
-              {`${card.pack.name} #${card.packPosition} | ${factionOrSetText}`}
+              {`${card.pack.name} #${card.packPosition}${factionOrSetText}`}
             </div>
           </div>
         </div>
@@ -146,7 +171,6 @@ export default async function handler(req: NextRequest) {
             alignItems: 'center',
             borderRadius: 16,
             display: 'flex',
-            flex: 1,
             flexDirection: 'column',
             height: '100%',
             justifyContent: 'space-between',
@@ -157,10 +181,10 @@ export default async function handler(req: NextRequest) {
             <img
               key={index}
               src={imageUri}
+              height={card.imageIsLandscape ? 275 : 566}
               style={{
-                objectFit: 'contain',
-                maxHeight: card.imageIsLandscape ? 275 : 566,
-                maxWidth: 566,
+                border: '4px solid white',
+                borderRadius: 16,
               }}
             />
           ))}
@@ -176,6 +200,12 @@ export default async function handler(req: NextRequest) {
           data: fontLato,
           weight: 400,
           style: 'normal',
+        },
+        {
+          name: 'Lato',
+          data: fontLatoItalic,
+          weight: 400,
+          style: 'italic',
         },
         {
           name: 'Oswald',

@@ -3,6 +3,7 @@ import { ImageResponse } from '@vercel/og';
 import { Base64 } from 'js-base64';
 import { NextRequest } from 'next/server';
 
+// import qrcode from 'yaqrcode';
 import {
   getCardsForDeck,
   getDeckCardCount,
@@ -53,8 +54,8 @@ export default async function handler(req: NextRequest) {
   let storeDeck: IStoreDeck = null;
   let storeDeckCards: IStoreDeckCard[] = null;
 
-  if (Base64.isValid(payload)) {
-    decoded = Base64.decode(payload);
+  if (Base64.isValid(decoded)) {
+    decoded = Base64.decode(decoded);
   }
 
   if (isDeckJson(decoded)) {
@@ -90,13 +91,17 @@ export default async function handler(req: NextRequest) {
     color: colors.factions[aspectCode],
   }));
 
+  // const linkQrData = qrcode(getAbsoluteUrl(`/decks/view?deck=${payload}`), {
+  //   size: 96,
+  // });
+
   return new ImageResponse(
     (
       <div
         style={{
-          backgroundColor: colors.lightGray,
+          backgroundColor: colors.darkGrayDark,
           backgroundImage: backgroundImage,
-          color: colors.darkGray,
+          color: colors.lightGray,
           display: 'flex',
           height: '100%',
           padding: 32,
@@ -117,6 +122,7 @@ export default async function handler(req: NextRequest) {
             style={{
               background: colors.white,
               borderRadius: 16,
+              color: colors.darkGray,
               display: 'flex',
               flexDirection: 'column',
               flexGrow: 1,
@@ -145,7 +151,7 @@ export default async function handler(req: NextRequest) {
               >
                 {deck.setName}
               </div>
-              <div style={{ display: 'flex' }}>
+              <div style={{ display: 'flex', flexDirection: 'column' }}>
                 {aspects.map((aspect, index) => (
                   <div
                     key={index}
@@ -183,28 +189,37 @@ export default async function handler(req: NextRequest) {
                 marginRight: 16,
               }}
             />
+            {/* <img
+              width="96"
+              height="96"
+              src={linkQrData}
+              style={{
+                border: `4px solid ${colors.white}`,
+                borderRadius: 48,
+                marginRight: 16,
+              }}
+            /> */}
           </div>
         </div>
         <div
           style={{
             alignItems: 'center',
+            borderRadius: 16,
             display: 'flex',
             flexDirection: 'column',
             height: '100%',
+            justifyContent: 'space-between',
             marginLeft: 16,
           }}
         >
-          {heroCard.imageUriSet.map((imageUri, index) => (
-            <img
-              key={index}
-              src={imageUri}
-              height="566"
-              style={{
-                border: '4px solid white',
-                borderRadius: 8,
-              }}
-            />
-          ))}
+          <img
+            src={heroCard.imageUriSet.at(0)}
+            height="566"
+            style={{
+              border: '4px solid white',
+              borderRadius: 16,
+            }}
+          />
         </div>
       </div>
     ),

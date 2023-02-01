@@ -17,6 +17,11 @@ const getPublicDeck = async (baseUrl: string, dbUrl: string) => {
       method: 'GET',
       headers,
     });
+
+    if (!response.ok) {
+      throw new Error('Bad fetch response');
+    }
+
     const data = await response.json();
     const meta = JSON.parse(data.meta);
 

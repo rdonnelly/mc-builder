@@ -2,7 +2,6 @@
 import { ImageResponse } from '@vercel/og';
 import { NextRequest } from 'next/server';
 
-// import qrcode from 'yaqrcode';
 import { Card } from '@mc-builder/shared/src/data/models/Card';
 import { getCard, getCardRoot } from '@mc-builder/shared/src/data/raw/Card';
 import colors from '@mc-builder/shared/src/styles/colors';
@@ -60,10 +59,6 @@ export default async function handler(req: NextRequest) {
   } else {
     factionOrSetText = ` | ${card.factionName}`;
   }
-
-  // const linkQrData = qrcode(getAbsoluteUrl(`/cards/${code}`), {
-  //   size: 96,
-  // });
 
   return new ImageResponse(
     (
@@ -142,16 +137,6 @@ export default async function handler(req: NextRequest) {
                 marginRight: 16,
               }}
             />
-            {/* <img
-              width="96"
-              height="96"
-              src={linkQrData}
-              style={{
-                border: `4px solid ${colors.white}`,
-                borderRadius: 48,
-                marginRight: 16,
-              }}
-            /> */}
             <div
               style={{
                 alignItems: 'center',

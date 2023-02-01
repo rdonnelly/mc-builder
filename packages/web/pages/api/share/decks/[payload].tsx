@@ -2,10 +2,10 @@
 import { ImageResponse } from '@vercel/og';
 import { Base64 } from 'js-base64';
 import { NextRequest } from 'next/server';
+import qrcode from 'yaqrcode';
 
 import {
   getCardsForDeck,
-  getDeckCardCount,
   getDeckHero,
   getDeckMeta,
 } from '@mc-builder/shared/src/data/deckUtils';
@@ -90,6 +90,10 @@ export default async function handler(req: NextRequest) {
     color: colors.factions[aspectCode],
   }));
 
+  const linkQrData = qrcode(getAbsoluteUrl(`/decks/view?deck=${payload}`), {
+    size: 328,
+  });
+
   return new ImageResponse(
     (
       <div
@@ -98,119 +102,143 @@ export default async function handler(req: NextRequest) {
           backgroundImage: backgroundImage,
           color: colors.lightGray,
           display: 'flex',
+          flexDirection: 'column',
           height: '100%',
-          padding: 32,
           position: 'relative',
           width: '100%',
         }}
       >
         <div
           style={{
+            alignItems: 'center',
             display: 'flex',
             flex: 1,
             flexDirection: 'column',
-            height: '100%',
-            marginRight: 16,
+            padding: 16,
+            width: '100%',
           }}
         >
           <div
             style={{
+              display: 'flex',
+              justifyContent: 'center',
+              marginBottom: 16,
+              width: '100%',
+            }}
+          >
+            <div
+              style={{
+                backgroundImage: `url(${heroCard.imageUriSet.at(0)})`,
+                backgroundPosition: '-50px -40px',
+                backgroundRepeat: 'no-repeat',
+                backgroundSize: '237 343',
+                border: '4px solid white',
+                borderRadius: 50,
+                height: 100,
+                width: 100,
+              }}
+            />
+          </div>
+          <div
+            style={{
+              alignItems: 'center',
               background: colors.white,
               borderRadius: 16,
               color: colors.darkGray,
               display: 'flex',
+              flex: 1,
               flexDirection: 'column',
-              flexGrow: 1,
-              fontFamily: 'Lato',
-              fontSize: 40,
               justifyContent: 'space-between',
-              lineHeight: 1.5,
-              marginBottom: 32,
+              lineHeight: 1,
+              marginBottom: 16,
               padding: 16,
               width: '100%',
             }}
           >
             <div
               style={{
-                display: 'flex',
-                flexDirection: 'column',
+                fontFamily: 'Oswald',
+                fontSize: 36,
+                fontWeight: 'bold',
+                maxHeight: 96,
+                overflow: 'hidden',
+                textAlign: 'center',
               }}
             >
-              <div
-                style={{
-                  fontFamily: 'Oswald',
-                  fontSize: 80,
-                  fontWeight: 'bold',
-                  lineHeight: 1,
-                }}
-              >
-                {deck.setName}
-              </div>
-              <div style={{ display: 'flex', flexDirection: 'column' }}>
-                {aspects.map((aspect, index) => (
-                  <div
-                    key={index}
-                    style={{ color: aspect.color, marginRight: 8 }}
-                  >
-                    {aspect.name}
-                  </div>
-                ))}
-                <div style={{ color: colors.grayDark, display: 'flex' }}>
-                  {getDeckCardCount(deckCards)} Cards
-                </div>
-              </div>
+              Channeling That Solo Aggression Wooooooo!
             </div>
-
             <div
               style={{
                 color: colors.grayDark,
-                fontFamily: 'Lato',
-                fontSize: 36,
                 fontStyle: 'italic',
-                fontWeight: 400,
+                textAlign: 'center',
               }}
             >
-              {deck.name}
+              {deck.setName}
             </div>
           </div>
-          <div style={{ display: 'flex', width: '100%' }}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              width: '100%',
+            }}
+          >
             <img
-              width="96"
-              height="96"
-              src={getAbsoluteUrl('/images/mc-icon-76@2x.png')}
+              width="60"
+              height="60"
+              src={getAbsoluteUrl('/images/mc-icon-60@2x.png')}
               style={{
-                border: `4px solid ${colors.white}`,
-                borderRadius: 48,
-                marginRight: 16,
+                border: `3px solid ${colors.white}`,
+                borderRadius: 30,
+                marginRight: 8,
               }}
             />
+            <div
+              style={{
+                display: 'flex',
+                flex: 1,
+                flexWrap: 'wrap',
+                fontFamily: 'Oswald',
+                fontSize: 16,
+                fontWeight: 'bold',
+                gap: 4,
+                justifyContent: 'flex-end',
+              }}
+            >
+              {aspects.map((aspect, index) => (
+                <div
+                  key={index}
+                  style={{
+                    backgroundColor: aspect.color,
+                    borderRadius: 16,
+                    padding: '4px 8px',
+                  }}
+                >
+                  {aspect.name}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
         <div
           style={{
             alignItems: 'center',
-            borderRadius: 16,
             display: 'flex',
             flexDirection: 'column',
-            height: '100%',
-            justifyContent: 'space-between',
-            marginLeft: 16,
+            justifyContent: 'center',
+            paddingBottom: 16,
+            width: '100%',
           }}
         >
-          <img
-            src={heroCard.imageUriSet.at(0)}
-            height="566"
-            style={{
-              border: '4px solid white',
-              borderRadius: 16,
-            }}
-          />
+          <img src={linkQrData} height="328" width="328" style={{}} />
         </div>
       </div>
     ),
     {
-      width: 1200,
-      height: 630,
+      width: 360,
+      height: 720,
       fonts: [
         {
           name: 'Lato',

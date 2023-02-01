@@ -48,6 +48,7 @@
   },
   "resolutions": {
     "@babel/core": "^7.20.2",
-    "@types/react": "^18.0.0"
+    "@types/react": "^18.0.0",
+    "satori": "^0.1.2"
   }
 }

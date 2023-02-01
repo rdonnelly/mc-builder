@@ -1,6 +1,9 @@
 import Head from 'next/head';
 import styled from 'styled-components/native';
 
+import Header from '@components/Header';
+import getAbsoluteUrl from '@utils/getAbsoluteUrl';
+
 import CardDetail from '@mc-builder/shared/src/components/CardDetail';
 import { Card } from '@mc-builder/shared/src/data/models/Card';
 import {
@@ -9,9 +12,6 @@ import {
   getCards,
 } from '@mc-builder/shared/src/data/raw/Card';
 import colors from '@mc-builder/shared/src/styles/colors';
-
-import Header from '../../components/Header';
-import getAbsoluteUrl from '../../utils/getAbsoluteUrl';
 
 const CardPage = ({ rawCard, rootCard, meta }) => {
   const card = new Card(rawCard, rootCard);

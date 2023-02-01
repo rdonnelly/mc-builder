@@ -4,6 +4,8 @@ import { Base64 } from 'js-base64';
 import { NextRequest } from 'next/server';
 import qrcode from 'yaqrcode';
 
+import getAbsoluteUrl from '@utils/getAbsoluteUrl';
+
 import {
   getCardsForDeck,
   getDeckHero,
@@ -19,8 +21,6 @@ import {
   isDeckJson,
   parseDeckJson,
 } from '@mc-builder/shared/src/utils/DeckParser';
-
-import getAbsoluteUrl from '../../../../utils/getAbsoluteUrl';
 
 export const config = {
   runtime: 'edge',

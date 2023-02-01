@@ -3,6 +3,8 @@ import { ImageResponse } from '@vercel/og';
 import { Base64 } from 'js-base64';
 import { NextRequest } from 'next/server';
 
+import getAbsoluteUrl from '@utils/getAbsoluteUrl';
+
 import {
   getCardsForDeck,
   getDeckCardCount,
@@ -19,8 +21,6 @@ import {
   isDeckJson,
   parseDeckJson,
 } from '@mc-builder/shared/src/utils/DeckParser';
-
-import getAbsoluteUrl from '../../../../utils/getAbsoluteUrl';
 
 export const config = {
   runtime: 'edge',

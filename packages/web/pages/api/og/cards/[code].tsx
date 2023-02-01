@@ -2,11 +2,11 @@
 import { ImageResponse } from '@vercel/og';
 import { NextRequest } from 'next/server';
 
+import getAbsoluteUrl from '@utils/getAbsoluteUrl';
+
 import { Card } from '@mc-builder/shared/src/data/models/Card';
 import { getCard, getCardRoot } from '@mc-builder/shared/src/data/raw/Card';
 import colors from '@mc-builder/shared/src/styles/colors';
-
-import getAbsoluteUrl from '../../../../utils/getAbsoluteUrl';
 
 export const config = {
   runtime: 'edge',

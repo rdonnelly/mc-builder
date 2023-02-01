@@ -3,9 +3,9 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
-import { colors } from '@mc-builder/shared/src/styles';
+import Header from '@components/Header';
 
-import Header from '../../components/Header';
+import { colors } from '@mc-builder/shared/src/styles';
 
 const DeckPage = () => {
   const router = useRouter();

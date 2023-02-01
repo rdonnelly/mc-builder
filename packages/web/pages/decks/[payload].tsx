@@ -4,6 +4,9 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import styled from 'styled-components/native';
 
+import Header from '@components/Header';
+import getAbsoluteUrl from '@utils/getAbsoluteUrl';
+
 import DeckDetailHeader from '@mc-builder/shared/src/components/DeckDetail/DeckDetailHeader';
 import DeckDetailList from '@mc-builder/shared/src/components/DeckDetail/DeckDetailList';
 import {
@@ -20,9 +23,6 @@ import {
   isDeckJson,
   parseDeckJson,
 } from '@mc-builder/shared/src/utils/DeckParser';
-
-import Header from '../../components/Header';
-import getAbsoluteUrl from '../../utils/getAbsoluteUrl';
 
 const DeckPage = ({
   storeDeck,

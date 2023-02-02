@@ -165,7 +165,7 @@ export default async function handler(req: NextRequest) {
                 textAlign: 'center',
               }}
             >
-              Channeling That Solo Aggression Wooooooo!
+              {deck.name}
             </div>
             <div
               style={{

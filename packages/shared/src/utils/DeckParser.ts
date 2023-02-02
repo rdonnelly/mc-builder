@@ -23,31 +23,35 @@ export interface IImportDeck {
   };
 }
 
+const DECK_URL_REGEX = /^https:\/\/mcbuilder.app\/decks\/(view\?deck=)?/gi;
+
 export const parseDeckFromString = async (
   string: string,
   baseUrl: string = 'https://marvelcdb.com',
-): Promise<
-  { storeDeck: IStoreDeck; storeDeckCards: IStoreDeckCard[] } | false
-> => {
+) => {
   let importDeck: IImportDeck;
 
+  // https://marvelcdb.com/decklist/view/<id>/<name>
   if (isMcdbUrl(string, baseUrl)) {
     importDeck = await fetchMcdbDeckFromUrl(string, baseUrl);
   }
 
-  if (isDeckPayload(string)) {
+  // base64 encoded json string
+  if (!importDeck) {
     importDeck = parseDeckPayload(string);
   }
 
-  if (isDeckJson(string)) {
+  // json string
+  if (!importDeck) {
     importDeck = parseDeckJson(string);
   }
 
+  // convert the deck to look like a deck from the store
   if (importDeck != null) {
     return convertImportToStoreDeckComponents(importDeck);
   }
 
-  return false;
+  return null;
 };
 
 const isMcdbUrl = (
@@ -64,55 +68,17 @@ const fetchMcdbDeckFromUrl = async (
   baseUrl: string = 'https://marvelcdb.com',
 ): Promise<IImportDeck> => {
   try {
-    const { data, meta } = await getPublicDeck(baseUrl, string);
-
-    const aspectCodes = [meta.aspect];
-    if (meta.aspect2) {
-      aspectCodes.push(meta.aspect2);
-    }
-
-    return {
-      name: data.name,
-      aspects: aspectCodes,
-      version: 0,
-      mcdbId: data.id,
-      cards: { ...data.slots, [data.investigator_code]: 1 },
-    };
+    return await getPublicDeck(baseUrl, string);
   } catch (e) {
     return null;
   }
-};
-
-export const isDeckJson = (string: string): boolean => {
-  let deck: IImportDeck;
-
-  try {
-    string = string.replace(/^https:\/\/mcbuilder.app\/decks\//gi, '');
-    deck = JSON.parse(string);
-  } catch (e) {
-    return false;
-  }
-
-  if (
-    typeof deck.name !== 'string' ||
-    !Array.isArray(deck.aspects) ||
-    deck.aspects.length === 0 ||
-    typeof deck.version !== 'number' ||
-    typeof deck.code !== 'string' ||
-    deck.cards == null ||
-    typeof deck.cards !== 'object'
-  ) {
-    return false;
-  }
-
-  return true;
 };
 
 export const parseDeckJson = (string: string): IImportDeck => {
   let deck: IImportDeck;
 
   try {
-    string = string.replace(/^https:\/\/mcbuilder.app\/decks\//gi, '');
+    string = string.replace(DECK_URL_REGEX, '');
     deck = JSON.parse(string);
   } catch (e) {
     return null;
@@ -121,7 +87,8 @@ export const parseDeckJson = (string: string): IImportDeck => {
   if (
     typeof deck.name !== 'string' ||
     !Array.isArray(deck.aspects) ||
-    deck.aspects.length === 0 ||
+    deck.aspects.length < 1 ||
+    deck.aspects.length > 2 ||
     typeof deck.version !== 'number' ||
     typeof deck.code !== 'string' ||
     deck.cards == null ||
@@ -130,6 +97,7 @@ export const parseDeckJson = (string: string): IImportDeck => {
     return null;
   }
 
+  // support for old deck format
   if (Array.isArray(deck.cards)) {
     try {
       deck.cards = deck.cards.reduce((map, c) => {
@@ -144,20 +112,10 @@ export const parseDeckJson = (string: string): IImportDeck => {
   return deck;
 };
 
-export const isDeckPayload = (string: string): boolean => {
-  string = string.replace(/^https:\/\/mcbuilder.app\/decks\//gi, '');
-  if (Base64.isValid(string)) {
-    const decoded = Base64.decode(string);
-    return isDeckJson(decoded);
-  }
-
-  return false;
-};
-
 export const parseDeckPayload = (string: string): IImportDeck => {
   let deck: IImportDeck;
 
-  string = string.replace(/^https:\/\/mcbuilder.app\/decks\//gi, '');
+  string = string.replace(DECK_URL_REGEX, '');
   if (Base64.isValid(string)) {
     const decoded = Base64.decode(string);
     deck = parseDeckJson(decoded);
@@ -172,12 +130,12 @@ export const convertImportToStoreDeckComponents = (
   // TODO handle the following
   // - card outside factions/aspects
   // - multiple heros/alter egos
-  // - too many aspects
   const now = new Date();
   const created = now.getTime() + now.getTimezoneOffset() * 60000;
   let setCode: SetCode = null;
 
   const storeDeckCards: IStoreDeckCard[] = [];
+  const deckCardCodes: string[] = [];
 
   const deckCardModels = getFilteredCards({
     cardCodes: Object.keys(deckToImport.cards),
@@ -207,6 +165,7 @@ export const convertImportToStoreDeckComponents = (
       cardCode: card.code,
       quantity: deckToImport.cards[card.code],
     });
+    deckCardCodes.push(card.code);
   });
 
   setCardModels.forEach((card: ICardRaw) => {
@@ -215,6 +174,7 @@ export const convertImportToStoreDeckComponents = (
       cardCode: card.code,
       quantity: card.quantity,
     });
+    deckCardCodes.push(card.code);
   });
 
   const storeDeck: IStoreDeck = {
@@ -225,7 +185,7 @@ export const convertImportToStoreDeckComponents = (
     aspectCodes: deckToImport.aspects.filter((aspect: string) =>
       Object.values(FactionCodes).includes(aspect as FactionCodes),
     ),
-    deckCardCodes: [],
+    deckCardCodes: deckCardCodes,
     mcdbId: deckToImport?.mcdbId || null,
     created: created,
     updated: created,

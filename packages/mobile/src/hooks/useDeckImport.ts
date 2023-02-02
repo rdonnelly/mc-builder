@@ -14,13 +14,18 @@ export function useDeckImport(importString: string) {
 
   useEffect(() => {
     parseDeckFromString(importString)
-      .then((deckComponents) => {
-        if (deckComponents === false) {
+      .then((parseResult) => {
+        if (
+          !parseResult ||
+          !parseResult.storeDeck ||
+          !parseResult.storeDeckCards
+        ) {
           setDeck(false);
           return false;
         }
 
-        const { storeDeck, storeDeckCards } = deckComponents;
+        const { storeDeck, storeDeckCards } = parseResult;
+
         const deck = new DeckModel(storeDeck, storeDeckCards);
         setDeck(deck);
 

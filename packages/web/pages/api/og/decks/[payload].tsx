@@ -1,6 +1,5 @@
 /* eslint-disable react-native/no-inline-styles, @next/next/no-img-element */
 import { ImageResponse } from '@vercel/og';
-import { Base64 } from 'js-base64';
 import { NextRequest } from 'next/server';
 
 import getAbsoluteUrl from '@utils/getAbsoluteUrl';
@@ -13,14 +12,8 @@ import {
 } from '@mc-builder/shared/src/data/deckUtils';
 import { Deck as DeckModel } from '@mc-builder/shared/src/data/models/Deck';
 import { getFaction } from '@mc-builder/shared/src/data/models/Faction';
-import { IStoreDeck, IStoreDeckCard } from '@mc-builder/shared/src/store/types';
 import colors from '@mc-builder/shared/src/styles/colors';
-import {
-  convertImportToStoreDeckComponents,
-  IImportDeck,
-  isDeckJson,
-  parseDeckJson,
-} from '@mc-builder/shared/src/utils/DeckParser';
+import { parseDeckFromString } from '@mc-builder/shared/src/utils/DeckParser';
 
 export const config = {
   runtime: 'edge',
@@ -48,31 +41,16 @@ export default async function handler(req: NextRequest) {
   const { searchParams } = req.nextUrl;
   const payload = searchParams.get('payload');
 
-  let decoded: string = payload;
-  let importDeck: IImportDeck | false = null;
-  let storeDeck: IStoreDeck = null;
-  let storeDeckCards: IStoreDeckCard[] = null;
+  const parseResult = await parseDeckFromString(payload);
 
-  if (Base64.isValid(decoded)) {
-    decoded = Base64.decode(decoded);
-  }
-
-  if (isDeckJson(decoded)) {
-    importDeck = parseDeckJson(decoded);
-  }
-
-  if (importDeck) {
-    const storeDeckComponents = convertImportToStoreDeckComponents(importDeck);
-    storeDeck = storeDeckComponents.storeDeck;
-    storeDeckCards = storeDeckComponents.storeDeckCards;
-  }
-
-  if (!storeDeck || !storeDeckCards) {
+  if (!parseResult || !parseResult.storeDeck || !parseResult.storeDeckCards) {
     return new ImageResponse(<>404 Not Found</>, {
       width: 1200,
       height: 630,
     });
   }
+
+  const { storeDeck, storeDeckCards } = parseResult;
 
   const deck = new DeckModel(storeDeck, storeDeckCards);
   const deckCards = getCardsForDeck(storeDeckCards);

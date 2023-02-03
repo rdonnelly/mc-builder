@@ -1,27 +1,23 @@
+import { z } from 'zod';
+
 import { FactionCode } from '../data';
 
-export interface IMcdbPublicDeckResponse {
-  id: number;
-  investigator_code: string;
-  meta: string;
-  name: string;
-  slots: {
-    [code: string]: number;
-  };
-  // date_creation: string;
-  // date_update: string;
-  // description_md: string;
-  // ignoreDeckLimitSlots: null,
-  // investigator_name: string;
-  // tags: string,
-  // user_id: number;
-  // version: string,
-}
+const McdbPublicDeckResponse = z.object({
+  id: z.number(),
+  investigator_code: z.string(),
+  meta: z.string(),
+  name: z.string(),
+  slots: z.record(z.string(), z.number()),
+});
 
-export interface IMcdbPublicDeckResponseMeta {
-  aspect: string;
-  aspect2?: string;
-}
+type McdbPublicDeckResponse = z.infer<typeof McdbPublicDeckResponse>;
+
+const McdbPublicDeckResponseMeta = z.object({
+  aspect: z.string(),
+  aspect2: z.string().optional(),
+});
+
+type McdbPublicDeckResponseMeta = z.infer<typeof McdbPublicDeckResponseMeta>;
 
 // GET /api/public/deck/{deck_id}
 const getPublicDeck = async (baseUrl: string, dbUrl: string) => {
@@ -47,8 +43,11 @@ const getPublicDeck = async (baseUrl: string, dbUrl: string) => {
       throw new Error('Bad fetch response');
     }
 
-    const data: IMcdbPublicDeckResponse = await response.json();
-    const meta: IMcdbPublicDeckResponseMeta = JSON.parse(data.meta);
+    let data: McdbPublicDeckResponse = await response.json();
+    data = McdbPublicDeckResponse.parse(data);
+
+    let meta: McdbPublicDeckResponseMeta = JSON.parse(data.meta);
+    meta = McdbPublicDeckResponseMeta.parse(meta);
 
     const aspectCodes = [meta.aspect];
     if (meta.aspect2) {

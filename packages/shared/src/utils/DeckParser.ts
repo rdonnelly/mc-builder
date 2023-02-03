@@ -1,27 +1,30 @@
 import { Base64 } from 'js-base64';
+import { z } from 'zod';
 
 import { getPublicDeck } from '../api/deck';
-import {
-  FactionCode,
-  FactionCodes,
-  FilterCodes,
-  SetCode,
-  TypeCodes,
-} from '../data';
+import { FactionCodes, FilterCodes, SetCode, TypeCodes } from '../data';
 import { getFilteredCards } from '../data/cardUtils';
 import { ICardRaw } from '../data/types';
 import { IStoreDeck, IStoreDeckCard } from '../store/types';
 
-export interface IImportDeck {
-  name: string;
-  aspects: FactionCode[];
-  version: number;
-  code?: string;
-  mcdbId?: number;
-  cards: {
-    [key: string]: number;
-  };
-}
+const ImportDeck = z.object({
+  name: z.string(),
+  aspects: z.array(z.nativeEnum(FactionCodes)).min(1).max(2),
+  version: z.number(),
+  code: z.string().optional(),
+  mcdbId: z.number().optional(),
+  cards: z.union([
+    z.record(z.string(), z.number()),
+    z.array(
+      z.object({
+        code: z.string(),
+        quantity: z.number(),
+      }),
+    ),
+  ]),
+});
+
+export type ImportDeck = z.infer<typeof ImportDeck>;
 
 const DECK_URL_REGEX = /^https:\/\/mcbuilder.app\/decks\/(view\?deck=)?/gi;
 
@@ -29,7 +32,7 @@ export const parseDeckFromString = async (
   string: string,
   baseUrl: string = 'https://marvelcdb.com',
 ) => {
-  let importDeck: IImportDeck;
+  let importDeck;
 
   // https://marvelcdb.com/decklist/view/<id>/<name>
   if (isMcdbUrl(string, baseUrl)) {
@@ -57,7 +60,7 @@ export const parseDeckFromString = async (
 const isMcdbUrl = (
   string: string,
   baseUrl: string = 'https://marvelcdb.com',
-): boolean => {
+) => {
   const mcdbUrlRegex = new RegExp(`^${baseUrl}/decklist/view/(\\d+)/`, 'gi');
 
   return mcdbUrlRegex.test(string);
@@ -66,7 +69,7 @@ const isMcdbUrl = (
 const fetchMcdbDeckFromUrl = async (
   string: string,
   baseUrl: string = 'https://marvelcdb.com',
-): Promise<IImportDeck> => {
+) => {
   try {
     return await getPublicDeck(baseUrl, string);
   } catch (e) {
@@ -74,26 +77,14 @@ const fetchMcdbDeckFromUrl = async (
   }
 };
 
-export const parseDeckJson = (string: string): IImportDeck => {
-  let deck: IImportDeck;
+export const parseDeckJson = (string: string) => {
+  let deck;
 
   try {
     string = string.replace(DECK_URL_REGEX, '');
     deck = JSON.parse(string);
+    deck = ImportDeck.parse(deck);
   } catch (e) {
-    return null;
-  }
-
-  if (
-    typeof deck.name !== 'string' ||
-    !Array.isArray(deck.aspects) ||
-    deck.aspects.length < 1 ||
-    deck.aspects.length > 2 ||
-    typeof deck.version !== 'number' ||
-    typeof deck.code !== 'string' ||
-    deck.cards == null ||
-    typeof deck.cards !== 'object'
-  ) {
     return null;
   }
 
@@ -101,9 +92,11 @@ export const parseDeckJson = (string: string): IImportDeck => {
   if (Array.isArray(deck.cards)) {
     try {
       deck.cards = deck.cards.reduce((map, c) => {
-        map[c.code] = c.quantity;
-        return map;
-      }, {});
+        return {
+          ...map,
+          [c.code]: c.quantity,
+        };
+      }, {} as { [code: string]: number });
     } catch (e) {
       return null;
     }
@@ -112,8 +105,8 @@ export const parseDeckJson = (string: string): IImportDeck => {
   return deck;
 };
 
-export const parseDeckPayload = (string: string): IImportDeck => {
-  let deck: IImportDeck;
+export const parseDeckPayload = (string: string) => {
+  let deck = null;
 
   string = string.replace(DECK_URL_REGEX, '');
   if (Base64.isValid(string)) {
@@ -125,8 +118,8 @@ export const parseDeckPayload = (string: string): IImportDeck => {
 };
 
 export const convertImportToStoreDeckComponents = (
-  deckToImport: IImportDeck,
-): { storeDeck: IStoreDeck; storeDeckCards: IStoreDeckCard[] } => {
+  deckToImport: ImportDeck,
+) => {
   // TODO handle the following
   // - card outside factions/aspects
   // - multiple heros/alter egos

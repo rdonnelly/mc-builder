@@ -6,7 +6,7 @@ import { ICardRaw, TypeCodes } from '../../data/types';
 
 export class Card {
   raw: ICardRaw;
-  root: ICardRaw;
+  root: ICardRaw | undefined;
 
   constructor(card: ICardRaw, root?: ICardRaw) {
     this.raw = card;

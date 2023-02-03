@@ -1,37 +1,44 @@
-const turquoise = '#1abc9c';
-const turquoiseDark = '#16a085';
+export const turquoise = '#1abc9c';
+export const turquoiseDark = '#16a085';
 
-const green = 'rgba(46, 204, 113, 1.0)';
-const greenDark = 'rgba(39, 174, 96, 1.0)';
+export const green = 'rgba(46, 204, 113, 1.0)';
+export const greenDark = 'rgba(39, 174, 96, 1.0)';
 
-const blue = 'rgba(52, 152, 219, 1.0)';
-const blueDark = 'rgba(41, 128, 185, 1.0)';
+export const blue = 'rgba(52, 152, 219, 1.0)';
+export const blueDark = 'rgba(41, 128, 185, 1.0)';
 
-const purple = 'rgba(155, 89, 182, 1.0)';
-const purpleDark = 'rgba(142, 68, 173, 1.0)';
+export const purple = 'rgba(155, 89, 182, 1.0)';
+export const purpleDark = 'rgba(142, 68, 173, 1.0)';
 
-const yellow = 'rgba(241, 196, 15, 1.0)';
-const yellowDark = 'rgba(243, 156, 18, 1.0)';
+export const yellow = 'rgba(241, 196, 15, 1.0)';
+export const yellowDark = 'rgba(243, 156, 18, 1.0)';
 
-const orange = 'rgba(230, 126, 34, 1.0)';
-const orangeDark = 'rgba(211, 84, 0, 1.0)';
+export const orange = 'rgba(230, 126, 34, 1.0)';
+export const orangeDark = 'rgba(211, 84, 0, 1.0)';
 
-const red = 'rgba(231, 76, 60, 1.0)';
-const redDark = 'rgba(192, 57, 43, 1.0)';
+export const red = 'rgba(231, 76, 60, 1.0)';
+export const redDark = 'rgba(192, 57, 43, 1.0)';
 
-const lightGray = 'rgba(236, 240, 241, 1.0)';
-const lightGrayDark = 'rgba(189, 195, 199, 1.0)';
+export const lightGray = 'rgba(236, 240, 241, 1.0)';
+export const lightGrayDark = 'rgba(189, 195, 199, 1.0)';
 
-const gray = 'rgba(149, 165, 166, 1.0)';
-const grayDark = 'rgba(127, 140, 141, 1.0)';
+export const gray = 'rgba(149, 165, 166, 1.0)';
+export const grayDark = 'rgba(127, 140, 141, 1.0)';
 
-const darkGray = 'rgba(52, 73, 94, 1.0)';
-const darkGrayDark = 'rgba(44, 62, 80, 1.0)';
+export const darkGray = 'rgba(52, 73, 94, 1.0)';
+export const darkGrayDark = 'rgba(44, 62, 80, 1.0)';
 
-const white = '#ffffff';
-const whiteTranslucent = 'rgba(255, 255, 255, 0.5)';
+export const white = '#ffffff';
+export const whiteTranslucent = 'rgba(255, 255, 255, 0.5)';
 
-const factions = {
+export const cards = {
+  blue,
+  red,
+  yellow,
+  gray: grayDark,
+};
+
+export const factions = {
   aggression: red,
   aggressionDark: redDark,
   basic: gray,
@@ -44,7 +51,7 @@ const factions = {
   protectionDark: greenDark,
 };
 
-const icons = {
+export const icons = {
   energy: '#f6be33',
   energyBackground: '#f6be33',
   energyTint: '#86671b',
@@ -58,6 +65,12 @@ const icons = {
   wildBackground: '#247034',
   wildTint: '#45bc5c',
 };
+
+export const primary = darkGray;
+export const subdued = grayDark;
+
+export const brand = orange;
+export const brandDark = orangeDark;
 
 export default {
   turquoise,
@@ -98,12 +111,6 @@ export default {
 
   brand: orange,
   brandDark: orangeDark,
-
-  // card colors
-  cardBlue: blue,
-  cardRed: red,
-  cardYellow: yellow,
-  cardGray: grayDark,
 
   // factions
   factions,

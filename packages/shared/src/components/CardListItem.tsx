@@ -3,59 +3,23 @@ import { Pressable, StyleSheet, Text } from 'react-native';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
 import styled from 'styled-components/native';
 
-import Icon, { IconCode } from '../components/Icon';
-import { FactionCodes, TypeCodes } from '../data';
+import getResourceIcons from './CardResourceIcons';
+import { TypeCodes } from '../data';
 import { Card as CardModel } from '../data/models/Card';
 import { colors } from '../styles';
+import { getCardColor } from '../styles/utils';
 import base from './base';
 
 export const ITEM_HEIGHT = 64;
 
 const getFactionOrSetText = (card: CardModel) => {
   const text = card.setName != null ? card.setName : card.factionName;
-  const color =
-    card.setName == null
-      ? colors.factions[`${card.factionCode}Dark`]
-      : card.typeCode === TypeCodes.VILLAIN
-      ? colors.purple
-      : card.factionCode === FactionCodes.ENCOUNTER
-      ? colors.orange
-      : colors.grayDark;
+  const color = getCardColor(card);
 
   return (
     <CardDetailsInfoFactionOrSet color={color}>
       {text}
     </CardDetailsInfoFactionOrSet>
-  );
-};
-
-const getResourceIcons = (card: CardModel) => {
-  const resources = card.resources;
-  if (resources == null) {
-    return null;
-  }
-
-  return Object.keys(resources).reduce(
-    (icons, resourceKey) => {
-      if (!resources[resourceKey]) {
-        return icons;
-      }
-
-      icons.push(
-        ...Array(resources[resourceKey])
-          .fill('')
-          .map((_val, i) => (
-            <Icon
-              code={IconCode[resourceKey]}
-              color={colors.icons[resourceKey]}
-              key={`resource_icon_${resourceKey}_${i}`}
-            />
-          )),
-      );
-
-      return icons;
-    },
-    [<Text key={'resource_icon_separator'}> · </Text>],
   );
 };
 
@@ -93,8 +57,16 @@ const CardListItem = ({
     infoText = ` · ${card.typeName}`;
   }
 
-  let packText = '';
+  const resourceIcons = (
+    <>
+      {card.resources != null ? (
+        <Text key={'resource_icon_separator'}> · </Text>
+      ) : null}
+      {getResourceIcons(card)}
+    </>
+  );
 
+  let packText = '';
   if (showPackInfo) {
     packText = ` · ${card.packCode.toUpperCase()} · ${card.cardCode}`;
   }
@@ -122,7 +94,7 @@ const CardListItem = ({
                 <CardDetailsInfoText numberOfLines={1}>
                   {getFactionOrSetText(card)}
                   {infoText}
-                  {getResourceIcons(card)}
+                  {resourceIcons}
                   {packText}
                 </CardDetailsInfoText>
               </CardDetailsInfo>

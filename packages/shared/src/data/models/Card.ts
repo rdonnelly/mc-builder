@@ -302,6 +302,24 @@ export class Card {
     return this.raw.meta;
   }
 
+  get factionSetText() {
+    let factionOrSetText = '';
+    if (card.setName != null) {
+      factionOrSetText = card.setName;
+      if (card.setPosition != null) {
+        const setNumbers = [];
+        for (let i = 0, j = card.setQuantity; i < j; i++) {
+          setNumbers.push(`#${card.setPosition + i}`);
+        }
+        factionOrSetText += ` (${setNumbers.join(', ')})`;
+      }
+    } else {
+      factionOrSetText = card.factionName;
+    }
+
+    return factionOrSetText;
+  }
+
   hasTrait(trait: string) {
     return this.traits ? this.traits.toLowerCase().includes(trait) : false;
   }

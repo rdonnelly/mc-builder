@@ -3,57 +3,16 @@ import styled from 'styled-components/native';
 import Icon, { IconCode } from '../../components/Icon';
 import { Card as CardModel } from '../../data/models/Card';
 import { colors } from '../../styles';
+import { getFactionColor } from '../../styles/utils';
+import getResourceIcons from '../CardResourceIcons';
 
 const CardDetailFooter = ({ card }: { card: CardModel }) => {
-  let factionOrSetText = '';
-  if (card.setName != null) {
-    factionOrSetText = card.setName;
-    if (card.setPosition != null) {
-      const setNumbers = [];
-      for (let i = 0, j = card.setQuantity; i < j; i++) {
-        setNumbers.push(`#${card.setPosition + i}`);
-      }
-      factionOrSetText += ` (${setNumbers.join(', ')})`;
-    }
-  } else {
-    factionOrSetText = card.factionName;
-  }
-
-  card.setName != null ? card.setName : card.factionName;
-  const factionColor =
-    card.setName == null ? colors.factions[`${card.factionCode}Dark`] : null;
-
-  const resources = card.resources;
-  const resourceIcons =
-    resources == null
-      ? null
-      : Object.keys(resources).reduce((icons, resourceKey) => {
-          if (!resources[resourceKey]) {
-            return icons;
-          }
-
-          icons.push(
-            ...Array(resources[resourceKey])
-              .fill('')
-              .map((_val, i) => (
-                <CardDetailFooterContainerResourceWrapper
-                  color={colors.icons[`${resourceKey}Background`]}
-                  key={`resource_icon_${resourceKey}_${i}`}
-                >
-                  <Icon
-                    code={IconCode[resourceKey]}
-                    color={colors.icons[`${resourceKey}Tint`]}
-                  />
-                </CardDetailFooterContainerResourceWrapper>
-              )),
-          );
-
-          return icons;
-        }, []);
+  const factionColor = getFactionColor(card);
+  const resourceIcons = getResourceIcons(card);
 
   return (
     <CardDetailFooterContainer>
-      {resources != null ? (
+      {resourceIcons != null ? (
         <CardDetailFooterContainerResource>
           {resourceIcons}
         </CardDetailFooterContainerResource>
@@ -75,7 +34,7 @@ const CardDetailFooter = ({ card }: { card: CardModel }) => {
       )}
       <CardDetailFooterContainerSet>
         <CardDetailFooterContainerSetText color={factionColor}>
-          {factionOrSetText}
+          {card.factionSetText}
         </CardDetailFooterContainerSetText>
       </CardDetailFooterContainerSet>
     </CardDetailFooterContainer>

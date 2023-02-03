@@ -46,19 +46,8 @@ export default async function handler(req: NextRequest) {
 
   const card = new Card(rawCard, rawRoot);
 
-  let factionOrSetText = '';
-  if (card.setName != null) {
-    if (card.setPosition != null) {
-      factionOrSetText = ` | ${card.setName} `;
-      const setNumbers = [];
-      for (let i = 0, j = card.setQuantity; i < j; i++) {
-        setNumbers.push(`#${card.setPosition + i}`);
-      }
-      factionOrSetText += setNumbers.join(', ');
-    }
-  } else {
-    factionOrSetText = ` | ${card.factionName}`;
-  }
+  const factionSetText =
+    card.pack.name !== card.factionSetText ? ` | ${card.factionSetText}` : '';
 
   return new ImageResponse(
     (
@@ -147,7 +136,7 @@ export default async function handler(req: NextRequest) {
                 height: '100%',
               }}
             >
-              {`${card.pack.name} #${card.packPosition}${factionOrSetText}`}
+              {`${card.pack.name} #${card.packPosition}${factionSetText}`}
             </div>
           </div>
         </div>

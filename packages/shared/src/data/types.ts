@@ -1,17 +1,13 @@
+import { z } from 'zod';
+
 import {
-  FactionCode,
-  PackCode,
-  SetCode,
-  TypeCode,
+  FactionCodes,
+  PackCodes,
+  SetCodes,
+  SetTypeCodes,
+  TypeCodes,
 } from '../data/generatedTypes';
 
-export type {
-  FactionCode,
-  PackCode,
-  SetCode,
-  SetTypeCode,
-  TypeCode,
-} from '../data/generatedTypes';
 export {
   FactionCodes,
   PackCodes,
@@ -20,6 +16,21 @@ export {
   TypeCodes,
 } from '../data/generatedTypes';
 
+const FactionCodesEnum = z.nativeEnum(FactionCodes);
+export type FactionCode = z.infer<typeof FactionCodesEnum>;
+
+const PackCodesEnum = z.nativeEnum(PackCodes);
+export type PackCode = z.infer<typeof PackCodesEnum>;
+
+const SetCodesEnum = z.nativeEnum(SetCodes);
+export type SetCode = z.infer<typeof SetCodesEnum>;
+
+const SetTypeCodesEnum = z.nativeEnum(SetTypeCodes);
+export type SetTypeCode = z.infer<typeof SetTypeCodesEnum>;
+
+const TypeCodesEnum = z.nativeEnum(TypeCodes);
+export type TypeCode = z.infer<typeof TypeCodesEnum>;
+
 export enum FilterCodes {
   FACTION = 'faction',
   PACK = 'pack',
@@ -27,7 +38,8 @@ export enum FilterCodes {
   TYPE = 'type',
 }
 
-export type FilterCode = 'faction' | 'pack' | 'set' | 'type';
+const FilterCodesEnum = z.nativeEnum(FilterCodes);
+export type FilterCode = z.infer<typeof FilterCodesEnum>;
 
 export enum CardSortTypes {
   CODE = 'code',

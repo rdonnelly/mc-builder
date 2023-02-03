@@ -7,7 +7,7 @@ import typesRaw from 'marvelsdb-json-data/types.json';
 
 const FILE = './src/data/generatedTypes.ts';
 
-const sortByCode = (a, b) => {
+const sortByCode = (a: { code: string }, b: { code: string }) => {
   const codeA = a.code.toUpperCase();
   const codeB = b.code.toUpperCase();
   if (codeA < codeB) {
@@ -39,16 +39,6 @@ factionsSorted.forEach((faction) => {
 });
 fs.appendFileSync(FILE, '}\n\n');
 
-fs.appendFileSync(FILE, 'export type FactionCode =\n');
-factionsSorted.forEach((faction, i) => {
-  fs.appendFileSync(FILE, `  | '${faction.code}'`);
-  if (i < factionsSorted.length - 1) {
-    fs.appendFileSync(FILE, '\n');
-  } else {
-    fs.appendFileSync(FILE, ';\n\n');
-  }
-});
-
 // PACKS
 
 const packsSorted = [...packsRaw].sort(sortByCode);
@@ -61,16 +51,6 @@ packsSorted.forEach((pack) => {
 });
 fs.appendFileSync(FILE, '}\n\n');
 
-fs.appendFileSync(FILE, 'export type PackCode =\n');
-packsSorted.forEach((pack, i) => {
-  fs.appendFileSync(FILE, `  | '${pack.code}'`);
-  if (i < packsSorted.length - 1) {
-    fs.appendFileSync(FILE, '\n');
-  } else {
-    fs.appendFileSync(FILE, ';\n\n');
-  }
-});
-
 // SETS
 
 const setsSorted = [...setsRaw].sort(sortByCode);
@@ -82,16 +62,6 @@ setsSorted.forEach((set) => {
   );
 });
 fs.appendFileSync(FILE, '}\n\n');
-
-fs.appendFileSync(FILE, 'export type SetCode =\n');
-setsSorted.forEach((set, i) => {
-  fs.appendFileSync(FILE, `  | '${set.code}'`);
-  if (i < setsSorted.length - 1) {
-    fs.appendFileSync(FILE, '\n');
-  } else {
-    fs.appendFileSync(FILE, ';\n\n');
-  }
-});
 
 // SET TYPES
 
@@ -107,16 +77,6 @@ setTypesSorted.forEach((setType) => {
 });
 fs.appendFileSync(FILE, '}\n\n');
 
-fs.appendFileSync(FILE, 'export type SetTypeCode =\n');
-setTypesSorted.forEach((setType, i) => {
-  fs.appendFileSync(FILE, `  | '${setType.code}'`);
-  if (i < setTypesSorted.length - 1) {
-    fs.appendFileSync(FILE, '\n');
-  } else {
-    fs.appendFileSync(FILE, ';\n\n');
-  }
-});
-
 // TYPES
 
 const typesSorted = [...typesRaw].sort(sortByCode);
@@ -127,14 +87,4 @@ typesSorted.forEach((type) => {
     `  ${type.code.toUpperCase().replaceAll(/-/g, '_')} = '${type.code}',\n`,
   );
 });
-fs.appendFileSync(FILE, '}\n\n');
-
-fs.appendFileSync(FILE, 'export type TypeCode =\n');
-typesSorted.forEach((type, i) => {
-  fs.appendFileSync(FILE, `  | '${type.code}'`);
-  if (i < typesSorted.length - 1) {
-    fs.appendFileSync(FILE, '\n');
-  } else {
-    fs.appendFileSync(FILE, ';\n');
-  }
-});
+fs.appendFileSync(FILE, '}\n');

@@ -27,7 +27,8 @@
     "marvelsdb-json-data": "https://github.com/rdonnelly/marvelsdb-json-data.git#main",
     "memoize-one": "^6.0.0",
     "nanoid": "^4.0.0",
-    "yaqrcode": "^0.2.1"
+    "yaqrcode": "^0.2.1",
+    "zod": "^3.20.2"
   },
   "devDependencies": {
     "@react-native-community/eslint-config": "^3.2.0",

@@ -14,7 +14,7 @@ export default function handler(
   res: NextApiResponse<ICardRaw[]>,
 ) {
   const { code } = req.query;
-  const set = getSet(code as SetCode, null);
+  const set = getSet(code as SetCode);
 
   if (set != null) {
     const cards = getFilteredCards({

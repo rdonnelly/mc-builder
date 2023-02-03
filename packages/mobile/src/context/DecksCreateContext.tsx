@@ -37,7 +37,7 @@ const DecksCreateProvider = (props) => {
   };
 
   const updateDeckAspect = (newDeckAspect: FactionCode[]) => {
-    const set = getSet(deckSet, false);
+    const set = getSet(deckSet);
     const oldFaction = getFaction(deckAspect[0], false);
 
     const shouldUpdateName =

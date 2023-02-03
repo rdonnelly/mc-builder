@@ -41,7 +41,7 @@ const DecksCreateFormScreen = ({
   const dispatch = useAppDispatch();
   const insets = useSafeAreaInsets();
 
-  const set = getSet(deckSet, false);
+  const set = getSet(deckSet);
   const factionNames = deckAspect.map((aspect) => {
     const faction = getFaction(aspect, false);
     return faction.name;
@@ -151,7 +151,7 @@ const DecksCreateFormScreen = ({
                 hasError={errors.showErrors && errors.fields.hero != null}
                 pressed={pressed}
               >
-                <LinkRowText active={set}>
+                <LinkRowText active={!!set}>
                   {set ? set.name : 'Select a Hero'}
                 </LinkRowText>
                 <LinkRowChevronWrapper>

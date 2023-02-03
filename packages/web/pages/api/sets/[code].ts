@@ -7,7 +7,7 @@ export default function handler(
   res: NextApiResponse<ISetRaw>,
 ) {
   const { code } = req.query;
-  const set = getSet(code as SetCode, null);
+  const set = getSet(code as SetCode);
 
   if (set != null) {
     res.status(200).json(set.raw);

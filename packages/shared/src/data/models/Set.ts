@@ -1,6 +1,6 @@
 import setsRaw from 'marvelsdb-json-data/sets.json';
 
-import { ISetRaw, SetCode, SetTypeCodes } from '../../data';
+import { ISetRaw, SetCode, SetCodes, SetTypeCodes } from '../../data';
 
 export class Set {
   raw: ISetRaw;
@@ -47,8 +47,8 @@ export const getHeroSets = () =>
     .filter(
       (set) =>
         set.type === SetTypeCodes.HERO &&
-        set.code !== SetTypeCodes.INVOCATION &&
-        set.code !== SetTypeCodes.WEATHER,
+        set.code !== SetCodes.INVOCATION &&
+        set.code !== SetCodes.WEATHER,
     )
     .sort((a, b) => {
       if (a.name > b.name) {
@@ -60,14 +60,6 @@ export const getHeroSets = () =>
       return 0;
     });
 
-export const getSet = (code: SetCode, defaultReturn = undefined) => {
-  if (defaultReturn === undefined) {
-    defaultReturn = {
-      code,
-      name: 'Unknown',
-      isPrimary: false,
-    };
-  }
-
-  return getSets().find((set) => set.code === code) || defaultReturn;
+export const getSet = (code: SetCode) => {
+  return getSets().find((set) => set.code === code);
 };

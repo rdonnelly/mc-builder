@@ -1,21 +1,26 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 import {
-  FactionCode,
+  FactionCodesParser,
+  FactionRaw,
   getFaction,
-  IFactionRaw,
 } from '@mc-builder/shared/src/data';
 
 export default function handler(
   req: NextApiRequest,
-  res: NextApiResponse<IFactionRaw>,
+  res: NextApiResponse<FactionRaw>,
 ) {
-  const { code } = req.query;
-  const aspect = getFaction(code as FactionCode, null);
+  try {
+    const { code } = req.query;
+    const parsedCode = FactionCodesParser.parse(code);
+    const faction = getFaction(parsedCode);
 
-  if (aspect != null) {
-    res.status(200).json(aspect.raw);
-  } else {
+    if (faction == null) {
+      throw new Error('Faction Not Found');
+    }
+
+    res.status(200).json(faction.raw);
+  } catch (e) {
     res.status(404).end('404 Not Found');
   }
 }

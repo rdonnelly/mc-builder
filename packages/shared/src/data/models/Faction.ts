@@ -1,6 +1,6 @@
 import factionsRaw from 'marvelsdb-json-data/factions.json';
 
-import { FactionCode, FactionCodes, IFactionRaw } from '../../data';
+import { FactionCode, FactionCodes, FactionRaw } from '../../data';
 
 export const factionRank = {
   hero: 0,
@@ -14,9 +14,9 @@ export const factionRank = {
 };
 
 export class Faction {
-  raw: IFactionRaw;
+  raw: FactionRaw;
 
-  constructor(faction: IFactionRaw) {
+  constructor(faction: FactionRaw) {
     this.raw = faction;
   }
 
@@ -36,7 +36,7 @@ export class Faction {
 export const getFactions = () =>
   factionsRaw
     .map((factionRaw) => {
-      const factionSanitized: IFactionRaw = {
+      const factionSanitized: FactionRaw = {
         code: factionRaw.code as FactionCode,
         name: factionRaw.name,
         is_primary: factionRaw.is_primary,

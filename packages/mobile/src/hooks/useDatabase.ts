@@ -11,14 +11,14 @@ import {
 import Database from '@mc-builder/mobile/src/utils/Database';
 import {
   FactionCode,
+  FactionRaw,
   FilterCode,
-  IFactionRaw,
-  IPackRaw,
-  ISetRaw,
-  ITypeRaw,
   PackCode,
+  PackRaw,
   SetCode,
+  SetRaw,
   TypeCode,
+  TypeRaw,
 } from '@mc-builder/shared/src/data';
 import { Card as CardModel } from '@mc-builder/shared/src/data/models/Card';
 import { CardSortTypes } from '@mc-builder/shared/src/data/types';
@@ -72,10 +72,10 @@ export function useDatabase() {
         fetch(`${MCBUILDER_BASE_URI}/api/types`),
       ]);
 
-    const factions: IFactionRaw[] = await factionsResponse.json();
-    const packs: IPackRaw[] = await packsResponse.json();
-    const sets: ISetRaw[] = await setsResponse.json();
-    const types: ITypeRaw[] = await typesResponse.json();
+    const factions: FactionRaw[] = await factionsResponse.json();
+    const packs: PackRaw[] = await packsResponse.json();
+    const sets: SetRaw[] = await setsResponse.json();
+    const types: TypeRaw[] = await typesResponse.json();
 
     const cards = [];
 

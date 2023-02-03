@@ -7,14 +7,14 @@ import squel from 'squel';
 
 import {
   FactionCode,
+  FactionRaw,
   FilterCode,
-  IFactionRaw,
-  IPackRaw,
-  ISetRaw,
-  ITypeRaw,
   PackCode,
+  PackRaw,
   SetCode,
+  SetRaw,
   TypeCode,
+  TypeRaw,
 } from '@mc-builder/shared/src/data';
 import { factionRank } from '@mc-builder/shared/src/data/models/Faction';
 import { typeRank } from '@mc-builder/shared/src/data/models/Type';
@@ -142,10 +142,10 @@ class Database {
     types,
     cards,
   }: {
-    factions: IFactionRaw[];
-    packs: IPackRaw[];
-    sets: ISetRaw[];
-    types: ITypeRaw[];
+    factions: FactionRaw[];
+    packs: PackRaw[];
+    sets: SetRaw[];
+    types: TypeRaw[];
     cards: any[]; // TODO do we have an API type?
   }) {
     const dropSQL = this.getDropQueries();

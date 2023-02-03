@@ -16,20 +16,20 @@ export {
   TypeCodes,
 } from '../data/generatedTypes';
 
-const FactionCodesEnum = z.nativeEnum(FactionCodes);
-export type FactionCode = z.infer<typeof FactionCodesEnum>;
+export const FactionCodesParser = z.nativeEnum(FactionCodes);
+export type FactionCode = z.infer<typeof FactionCodesParser>;
 
-const PackCodesEnum = z.nativeEnum(PackCodes);
-export type PackCode = z.infer<typeof PackCodesEnum>;
+export const PackCodesParser = z.nativeEnum(PackCodes);
+export type PackCode = z.infer<typeof PackCodesParser>;
 
-const SetCodesEnum = z.nativeEnum(SetCodes);
-export type SetCode = z.infer<typeof SetCodesEnum>;
+export const SetCodesParser = z.nativeEnum(SetCodes);
+export type SetCode = z.infer<typeof SetCodesParser>;
 
-const SetTypeCodesEnum = z.nativeEnum(SetTypeCodes);
-export type SetTypeCode = z.infer<typeof SetTypeCodesEnum>;
+export const SetTypeCodesParser = z.nativeEnum(SetTypeCodes);
+export type SetTypeCode = z.infer<typeof SetTypeCodesParser>;
 
-const TypeCodesEnum = z.nativeEnum(TypeCodes);
-export type TypeCode = z.infer<typeof TypeCodesEnum>;
+export const TypeCodesParser = z.nativeEnum(TypeCodes);
+export type TypeCode = z.infer<typeof TypeCodesParser>;
 
 export enum FilterCodes {
   FACTION = 'faction',
@@ -38,8 +38,8 @@ export enum FilterCodes {
   TYPE = 'type',
 }
 
-const FilterCodesEnum = z.nativeEnum(FilterCodes);
-export type FilterCode = z.infer<typeof FilterCodesEnum>;
+const FilterCodesParser = z.nativeEnum(FilterCodes);
+export type FilterCode = z.infer<typeof FilterCodesParser>;
 
 export enum CardSortTypes {
   CODE = 'code',
@@ -49,32 +49,42 @@ export enum CardSortTypes {
   TYPE = 'type',
 }
 
-export interface IFactionRaw {
-  code: FactionCode;
-  name: string;
-  is_primary: boolean;
-}
+const BaseObject = z.object({
+  code: z.string(),
+  name: z.string(),
+});
 
-export interface IPackRaw {
-  cgdb_id?: number;
-  code: PackCode;
-  date_release: string;
-  name: string;
-  pack_type_code: string;
-  position: number;
-  size: number;
-}
+export const FactionRawParser = BaseObject.extend({
+  code: FactionCodesParser,
+  is_primary: z.boolean(),
+});
+export type FactionRaw = z.infer<typeof FactionRawParser>;
 
-export interface ISetRaw {
-  code: SetCode;
-  name: string;
-  card_set_type_code: string;
-}
+export const PackRawParser = BaseObject.extend({
+  code: PackCodesParser,
+  cgdb_id: z.number().optional(),
+  date_release: z.string(),
+  pack_type_code: z.string(),
+  position: z.number(),
+  size: z.number(),
+});
+export type PackRaw = z.infer<typeof PackRawParser>;
 
-export interface ITypeRaw {
-  code: TypeCode;
-  name: string;
-}
+export const SetRawParser = BaseObject.extend({
+  code: SetCodesParser,
+  card_set_type_code: SetTypeCodesParser,
+});
+export type SetRaw = z.infer<typeof SetRawParser>;
+
+export const SetTypeRawParser = BaseObject.extend({
+  code: SetTypeCodesParser,
+});
+export type SetTypeRaw = z.infer<typeof SetTypeRawParser>;
+
+export const TypeRawParser = BaseObject.extend({
+  code: TypeCodesParser,
+});
+export type TypeRaw = z.infer<typeof TypeRawParser>;
 
 export interface ICardRaw {
   attack_cost?: number;

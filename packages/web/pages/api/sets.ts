@@ -1,10 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-import { getSets, ISetRaw } from '@mc-builder/shared/src/data';
+import { getSets, SetRaw } from '@mc-builder/shared/src/data';
 
 export default function handler(
   _req: NextApiRequest,
-  res: NextApiResponse<ISetRaw[]>,
+  res: NextApiResponse<SetRaw[]>,
 ) {
   const sets = getSets();
 

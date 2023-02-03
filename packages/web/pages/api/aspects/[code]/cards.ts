@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 import {
-  FactionCode,
+  FactionCodesParser,
   FilterCodes,
   getFaction,
   ICardRaw,
@@ -13,13 +13,18 @@ export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<ICardRaw[]>,
 ) {
-  const { code } = req.query;
-  const aspect = getFaction(code as FactionCode, null);
+  try {
+    const { code } = req.query;
+    const parsedCode = FactionCodesParser.parse(code);
+    const faction = getFaction(parsedCode);
 
-  if (aspect != null) {
+    if (faction == null) {
+      throw new Error('Faction Not Found');
+    }
+
     const cards = getFilteredCards({
       filter: FilterCodes.FACTION,
-      filterCode: code as FactionCode,
+      filterCode: parsedCode,
     });
 
     res.status(200).json(
@@ -31,7 +36,7 @@ export default function handler(
         };
       }),
     );
-  } else {
+  } catch (e) {
     res.status(404).end('404 Not Found');
   }
 }

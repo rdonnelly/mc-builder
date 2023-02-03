@@ -1,6 +1,6 @@
 import typesRaw from 'marvelsdb-json-data/types.json';
 
-import { ITypeRaw, TypeCode } from '../../data';
+import { TypeCode, TypeRaw } from '../../data';
 
 export const typeRank = {
   hero: 0,
@@ -21,9 +21,9 @@ export const typeRank = {
 };
 
 export class Type {
-  raw: ITypeRaw;
+  raw: TypeRaw;
 
-  constructor(type: ITypeRaw) {
+  constructor(type: TypeRaw) {
     this.raw = type;
   }
 
@@ -39,7 +39,7 @@ export class Type {
 export const getTypes = () =>
   typesRaw
     .map((typeRaw) => {
-      const typeSanitized: ITypeRaw = {
+      const typeSanitized: TypeRaw = {
         code: typeRaw.code as TypeCode,
         name: typeRaw.name,
       };
@@ -55,13 +55,6 @@ export const getTypes = () =>
       return 0;
     });
 
-export const getType = (code: TypeCode, defaultReturn = undefined) => {
-  if (defaultReturn === undefined) {
-    defaultReturn = {
-      code,
-      name: 'Unknown',
-    };
-  }
-
-  return getTypes().find((type) => type.code === code) || defaultReturn;
+export const getType = (code: TypeCode) => {
+  return getTypes().find((type) => type.code === code);
 };

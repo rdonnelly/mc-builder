@@ -1,11 +1,17 @@
 import setsRaw from 'marvelsdb-json-data/sets.json';
 
-import { ISetRaw, SetCode, SetCodes, SetTypeCodes } from '../../data';
+import {
+  SetCode,
+  SetCodes,
+  SetRaw,
+  SetTypeCode,
+  SetTypeCodes,
+} from '../../data';
 
 export class Set {
-  raw: ISetRaw;
+  raw: SetRaw;
 
-  constructor(set: ISetRaw) {
+  constructor(set: SetRaw) {
     this.raw = set;
   }
 
@@ -25,10 +31,10 @@ export class Set {
 export const getSets = () =>
   setsRaw
     .map((setRaw) => {
-      const setSanitized: ISetRaw = {
+      const setSanitized: SetRaw = {
         code: setRaw.code as SetCode,
         name: setRaw.name,
-        card_set_type_code: setRaw.card_set_type_code,
+        card_set_type_code: setRaw.card_set_type_code as SetTypeCode,
       };
       return new Set(setSanitized);
     })

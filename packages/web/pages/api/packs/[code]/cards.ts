@@ -4,7 +4,7 @@ import {
   FilterCodes,
   getPack,
   ICardRaw,
-  PackCode,
+  PackCodesParser,
 } from '@mc-builder/shared/src/data';
 import { getFilteredCards } from '@mc-builder/shared/src/data/cardUtils';
 import { getCardRoot } from '@mc-builder/shared/src/data/raw/Card';
@@ -13,13 +13,18 @@ export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<ICardRaw[]>,
 ) {
-  const { code } = req.query;
-  const pack = getPack(code as PackCode, null);
+  try {
+    const { code } = req.query;
+    const parsedCode = PackCodesParser.parse(code);
+    const pack = getPack(parsedCode);
 
-  if (pack != null) {
+    if (pack == null) {
+      throw new Error('Pack Not Found');
+    }
+
     const cards = getFilteredCards({
       filter: FilterCodes.PACK,
-      filterCode: code as PackCode,
+      filterCode: parsedCode,
     });
 
     res.status(200).json(
@@ -31,7 +36,7 @@ export default function handler(
         };
       }),
     );
-  } else {
+  } catch (e) {
     res.status(404).end('404 Not Found');
   }
 }

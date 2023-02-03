@@ -1,12 +1,12 @@
 import packsRaw from 'marvelsdb-json-data/packs.json';
 import packTypesRaw from 'marvelsdb-json-data/packtypes.json';
 
-import { IPackRaw, PackCode } from '../../data';
+import { PackCode, PackRaw } from '../../data';
 
 export class Pack {
-  raw: IPackRaw;
+  raw: PackRaw;
 
-  constructor(pack: IPackRaw) {
+  constructor(pack: PackRaw) {
     this.raw = pack;
   }
 
@@ -44,7 +44,7 @@ export class Pack {
 export const getPacks = () =>
   packsRaw
     .map((packRaw) => {
-      const packSanitized: IPackRaw = {
+      const packSanitized: PackRaw = {
         code: packRaw.code as PackCode,
         date_release: packRaw.date_release,
         name: packRaw.name,

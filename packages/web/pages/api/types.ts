@@ -1,10 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-import { getTypes, ITypeRaw } from '@mc-builder/shared/src/data';
+import { getTypes, TypeRaw } from '@mc-builder/shared/src/data';
 
 export default function handler(
   _req: NextApiRequest,
-  res: NextApiResponse<ITypeRaw[]>,
+  res: NextApiResponse<TypeRaw[]>,
 ) {
   const types = getTypes();
 

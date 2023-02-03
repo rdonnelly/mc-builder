@@ -14,22 +14,28 @@ export {
 export { getType, getTypes, Type as TypeModel } from '../data/models/Type';
 export type {
   FactionCode,
+  FactionRaw,
   FilterCode,
   ICardRaw,
-  IFactionRaw,
-  IPackRaw,
-  ISetRaw,
-  ITypeRaw,
   PackCode,
+  PackRaw,
   SetCode,
+  SetRaw,
   SetTypeCode,
+  SetTypeRaw,
   TypeCode,
+  TypeRaw,
 } from '../data/types';
 export {
   FactionCodes,
+  FactionCodesParser,
   FilterCodes,
   PackCodes,
+  PackCodesParser,
   SetCodes,
+  SetCodesParser,
   SetTypeCodes,
+  SetTypeCodesParser,
   TypeCodes,
+  TypeCodesParser,
 } from '../data/types';

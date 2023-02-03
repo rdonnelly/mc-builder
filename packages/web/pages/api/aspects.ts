@@ -1,10 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-import { getFactions, IFactionRaw } from '@mc-builder/shared/src/data';
+import { FactionRaw, getFactions } from '@mc-builder/shared/src/data';
 
 export default function handler(
   _req: NextApiRequest,
-  res: NextApiResponse<IFactionRaw[]>,
+  res: NextApiResponse<FactionRaw[]>,
 ) {
   const aspects = getFactions();
 

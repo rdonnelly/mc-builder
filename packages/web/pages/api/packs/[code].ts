@@ -1,17 +1,22 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-import { getPack, IPackRaw, PackCode } from '@mc-builder/shared/src/data';
+import { getPack, PackCodesParser, PackRaw } from '@mc-builder/shared/src/data';
 
 export default function handler(
   req: NextApiRequest,
-  res: NextApiResponse<IPackRaw>,
+  res: NextApiResponse<PackRaw>,
 ) {
-  const { code } = req.query;
-  const pack = getPack(code as PackCode, null);
+  try {
+    const { code } = req.query;
+    const parsedCode = PackCodesParser.parse(code);
+    const pack = getPack(parsedCode);
 
-  if (pack != null) {
+    if (pack == null) {
+      throw new Error('Pack Not Found');
+    }
+
     res.status(200).json(pack.raw);
-  } else {
+  } catch (e) {
     res.status(404).end('404 Not Found');
   }
 }

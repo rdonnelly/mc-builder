@@ -4,17 +4,16 @@ import Icon, { IconCode } from '../../components/Icon';
 import { Card as CardModel } from '../../data/models/Card';
 import { colors } from '../../styles';
 import { getFactionColor } from '../../styles/utils';
-import getResourceIcons from '../CardResourceIcons';
+import CardResourceIcons from '../CardResourceIcons';
 
 const CardDetailFooter = ({ card }: { card: CardModel }) => {
   const factionColor = getFactionColor(card);
-  const resourceIcons = getResourceIcons(card);
 
   return (
     <CardDetailFooterContainer>
-      {resourceIcons != null ? (
+      {card.resources != null ? (
         <CardDetailFooterContainerResource>
-          {resourceIcons}
+          <CardResourceIcons card={card} wrapped={true} />
         </CardDetailFooterContainerResource>
       ) : null}
       {card.boost == null && card.boostText == null ? null : (
@@ -55,15 +54,6 @@ const CardDetailFooterContainer = styled.View`
 
 const CardDetailFooterContainerResource = styled.View`
   flex-direction: row;
-`;
-
-const CardDetailFooterContainerResourceWrapper = styled.View<{
-  color: string;
-}>`
-  background-color: ${(props) => (props.color ? props.color : colors.darkGray)};
-  border-radius: ${({ theme }) => theme.borderRadius.md};
-  margin-right: 4px;
-  padding: 4px;
 `;
 
 const CardDetailFooterContainerSet = styled.View`

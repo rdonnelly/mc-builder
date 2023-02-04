@@ -1,3 +1,4 @@
+import type { ThunkAction } from '@reduxjs/toolkit';
 import { Action, configureStore } from '@reduxjs/toolkit';
 import {
   FLUSH,
@@ -8,7 +9,6 @@ import {
   REGISTER,
   REHYDRATE,
 } from 'redux-persist';
-import { ThunkAction } from 'redux-thunk';
 
 import reducer from '@store/reducers';
 

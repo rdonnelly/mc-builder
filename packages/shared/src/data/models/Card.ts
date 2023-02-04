@@ -304,17 +304,17 @@ export class Card {
 
   get factionSetText() {
     let factionOrSetText = '';
-    if (card.setName != null) {
-      factionOrSetText = card.setName;
-      if (card.setPosition != null) {
+    if (this.setName != null) {
+      factionOrSetText = this.setName;
+      if (this.setPosition != null) {
         const setNumbers = [];
-        for (let i = 0, j = card.setQuantity; i < j; i++) {
-          setNumbers.push(`#${card.setPosition + i}`);
+        for (let i = 0, j = this.setQuantity; i < j; i++) {
+          setNumbers.push(`#${this.setPosition + i}`);
         }
         factionOrSetText += ` (${setNumbers.join(', ')})`;
       }
     } else {
-      factionOrSetText = card.factionName;
+      factionOrSetText = this.factionName;
     }
 
     return factionOrSetText;

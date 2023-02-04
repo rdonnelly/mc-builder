@@ -3,12 +3,12 @@ import { Pressable, StyleSheet, Text } from 'react-native';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
 import styled from 'styled-components/native';
 
-import getResourceIcons from './CardResourceIcons';
 import { TypeCodes } from '../data';
 import { Card as CardModel } from '../data/models/Card';
 import { colors } from '../styles';
 import { getCardColor } from '../styles/utils';
 import base from './base';
+import CardResourceIcons from './CardResourceIcons';
 
 export const ITEM_HEIGHT = 64;
 
@@ -62,7 +62,7 @@ const CardListItem = ({
       {card.resources != null ? (
         <Text key={'resource_icon_separator'}> · </Text>
       ) : null}
-      {getResourceIcons(card)}
+      <CardResourceIcons card={card} />
     </>
   );
 

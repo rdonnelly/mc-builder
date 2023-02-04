@@ -25,26 +25,27 @@ const CardResourceIcons = ({
       ...Array(resources[resourceKey])
         .fill('')
         .map((_val, i) => {
-          const icon = (
-            <Icon
-              code={IconCode[resourceKey]}
-              color={colors.icons[resourceKey]}
-              key={`resource_icon_${resourceKey}_${i}`}
-            />
-          );
-
           if (wrapped) {
             return (
               <Wrapper
                 key={`resource_icon_wrapper_${resourceKey}_${i}`}
                 color={colors.icons[`${resourceKey}Background`]}
               >
-                {icon}
+                <Icon
+                  code={IconCode[resourceKey]}
+                  color={colors.icons[`${resourceKey}Tint`]}
+                />
               </Wrapper>
             );
           }
 
-          return icon;
+          return (
+            <Icon
+              code={IconCode[resourceKey]}
+              color={colors.icons[resourceKey]}
+              key={`resource_icon_${resourceKey}_${i}`}
+            />
+          );
         }),
     );
 

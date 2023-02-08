@@ -26,6 +26,7 @@ cleanAndroid() {
   rm -rf $PWD/android/build
   cd $PWD/android && ./gradlew clean && cd ..
 }
+
 cleanXcode() {
   xcodebuild -workspace $PWD/ios/MCBuilder.xcworkspace \
              -scheme MCBuilder \
@@ -71,7 +72,7 @@ ios() {
 
 android() {
   # update versionCode and versionName in android/app/build.gradle
-  PRODUCTION=1 clean && cd android && cleanAndroid && ./gradlew bundleRelease && cd ..
+  PRODUCTION=1 cleanAndroid && cd android && ./gradlew bundleRelease && cd ..
 }
 
 # we must have exactly one task, and maybe some arguments for that task

@@ -1,4 +1,3 @@
-// @ts-ignore
 import { MCBUILDER_BASE_URI } from '@env';
 import NetInfo from '@react-native-community/netinfo';
 import { useCallback, useState } from 'react';

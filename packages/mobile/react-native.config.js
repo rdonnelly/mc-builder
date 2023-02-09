@@ -1,7 +1,9 @@
 module.exports = {
   assets: ['./assets/fonts'],
   project: {
-    ios: {},
+    ios: {
+      sourceDir: 'ios',
+    },
     android: {},
   },
   reactNativePath: '../../node_modules/react-native',

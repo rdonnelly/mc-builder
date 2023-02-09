@@ -7,5 +7,6 @@
     }
   },
   "include": ["__tests__", "*.js", "**/*.js", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
+  "typeRoots": ["./types"],
 }

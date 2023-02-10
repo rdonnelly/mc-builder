@@ -27,7 +27,7 @@ submit() {
 }
 
 push() {
-  build && submit
+  npx eas-cli build --platform all --auto-submit
 }
 
 # we must have exactly one task, and maybe some arguments for that task

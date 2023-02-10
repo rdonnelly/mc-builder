@@ -23,12 +23,20 @@
       }
     },
     "production": {
-      "ios": {
-        "resourceClass": "m1-medium"
-      }
+      "ios": {}
     }
   },
   "submit": {
-    "production": {}
+    "production": {
+      "android": {
+        "track": "internal"
+      },
+      "ios": {
+        "appleId": "ryanjdonnelly@gmail.com",
+        "ascAppId": "1516561943",
+        "appleTeamId": "EZ4AQB6GC7",
+        "appName": "MC Builder"
+      }
+    }
   }
 }

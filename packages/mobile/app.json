@@ -1,9 +1,0 @@
-{
-  "name": "MCBuilder",
-  "displayName": "MCBuilder",
-  "extra": {
-    "eas": {
-      "projectId": "5afa9763-910d-4535-ad42-54064da4fedd"
-    }
-  }
-}

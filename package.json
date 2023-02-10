@@ -8,18 +8,17 @@
     ]
   },
   "scripts": {
-    "build:android": "yarn workspace @mc-builder/mobile build:android",
-    "build:ios": "yarn workspace @mc-builder/mobile build:ios",
-    "build:web": "yarn workspace @mc-builder/web build",
-    "build:clean": "yarn workspace @mc-builder/mobile build:clean",
+    "lint": "yarn workspaces run lint",
+    "ts": "yarn workspaces run ts",
+    "postinstall": "patch-package && yarn workspace @mc-builder/shared generateTypes",
     "dev:android": "yarn workspace @mc-builder/mobile dev:android",
     "dev:ios": "yarn workspace @mc-builder/mobile dev:ios",
     "dev:web": "yarn workspace @mc-builder/web dev",
-    "serve:web": "yarn workspace @mc-builder/web start",
+    "build:mobile": "yarn workspace @mc-builder/mobile build:push",
+    "build:web": "yarn workspace @mc-builder/web build && yarn workspace @mc-builder/web start",
     "serve:mobile": "yarn workspace @mc-builder/mobile start",
-    "lint": "yarn workspaces run lint",
-    "postinstall": "patch-package && yarn workspace @mc-builder/shared generateTypes",
-    "ts": "yarn workspaces run ts"
+    "serve:web": "yarn workspace @mc-builder/web start",
+    "clean": "yarn workspace @mc-builder/mobile clean && yarn workspace @mc-builder/web clean"
   },
   "dependencies": {
     "js-base64": "^3.7.4",

@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "generateTypes": "ts-node scripts/generateTypes.ts",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "ts": "tsc --noEmit --project tsconfig.json"
+    "ts": "tsc --noEmit --project tsconfig.json",
+    "generateTypes": "ts-node scripts/generateTypes.ts"
   }
 }

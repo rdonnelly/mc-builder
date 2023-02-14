@@ -2,7 +2,7 @@ import 'react-native-gesture-handler';
 
 import { AppRegistry } from 'react-native';
 
-import { name as appName } from './app.config';
+import { name as appName } from './app';
 import App from './src/App';
 
 if (__DEV__) {

@@ -20,7 +20,7 @@ import { colors } from '@mc-builder/shared/src/styles';
 const tabIconStream = ({ focused, size }) => (
   <FontAwesomeIcon
     name="stream"
-    color={focused ? colors.orange : colors.gray}
+    color={focused ? colors.orange600 : colors.slate400}
     size={size}
     solid
   />
@@ -29,7 +29,7 @@ const tabIconStream = ({ focused, size }) => (
 const tabIconLayerGroup = ({ focused, size }) => (
   <FontAwesomeIcon
     name="layer-group"
-    color={focused ? colors.purple : colors.gray}
+    color={focused ? colors.violet600 : colors.slate400}
     size={size}
     solid
   />
@@ -38,7 +38,7 @@ const tabIconLayerGroup = ({ focused, size }) => (
 const tabIconCog = ({ focused, size }) => (
   <FontAwesomeIcon
     name="cog"
-    color={focused ? colors.blue : colors.gray}
+    color={focused ? colors.sky500 : colors.slate400}
     size={size}
     solid
   />
@@ -73,11 +73,11 @@ export default () => {
       initialRouteName="TabCards"
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: colors.darkGray,
-        tabBarInactiveTintColor: colors.gray,
-        tabBarInactiveBackgroundColor: colors.lightGray,
+        tabBarActiveTintColor: colors.slate600,
+        tabBarInactiveTintColor: colors.slate400,
+        tabBarInactiveBackgroundColor: colors.slate100,
         tabBarStyle: {
-          backgroundColor: colors.lightGray,
+          backgroundColor: colors.slate100,
         },
       }}
     >

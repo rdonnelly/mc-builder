@@ -31,7 +31,7 @@ const CardPage = ({ rawCard, rootCard, meta }) => {
         <meta name="og:image" content={meta.ogImageUrl} />
         <meta name="og:image:secure_url" content={meta.ogImageUrl} />
       </Head>
-      <Header color={colors.orange}>Cards</Header>
+      <Header color={colors.orange600}>Cards</Header>
       <ScrollView>
         <CardDetailWrapper>
           <CardDetail card={card} />

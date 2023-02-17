@@ -154,24 +154,24 @@ const FloatingControlView = styled(base.Button)<{
   background-color: ${(props) => {
     switch (props.variant) {
       case FloatingControlButtonVariant.DISABLED:
-        return colors.lightGrayDark;
+        return colors.slate300;
       case FloatingControlButtonVariant.INVERTED:
       case FloatingControlButtonVariant.INVERTED_SUCCESS:
       case FloatingControlButtonVariant.INVERTED_DESTRUCTIVE:
         return colors.white;
       case FloatingControlButtonVariant.ORANGE:
-        return props.pressed ? colors.orangeDark : colors.orange;
+        return props.pressed ? colors.orange700 : colors.orange600;
       case FloatingControlButtonVariant.PURPLE:
-        return props.pressed ? colors.purpleDark : colors.purple;
+        return props.pressed ? colors.violet700 : colors.violet600;
       case FloatingControlButtonVariant.SUBDUED:
-        return props.pressed ? colors.grayDark : colors.gray;
+        return props.pressed ? colors.slate500 : colors.slate400;
       case FloatingControlButtonVariant.SUCCESS:
-        return props.pressed ? colors.greenDark : colors.green;
+        return props.pressed ? colors.green500 : colors.green400;
       case FloatingControlButtonVariant.DESTRUCTIVE:
-        return props.pressed ? colors.redDark : colors.red;
+        return props.pressed ? colors.red600 : colors.red500;
       case FloatingControlButtonVariant.PRIMARY:
       default:
-        return props.pressed ? colors.darkGrayDark : colors.darkGray;
+        return props.pressed ? colors.slate700 : colors.slate600;
     }
   }};
   margin-horizontal: ${(props) => (props.wrapped ? '0' : '4px')};
@@ -184,13 +184,13 @@ const FloatingControlText = styled(base.ButtonText)<{
   color: ${(props) => {
     switch (props.variant) {
       case FloatingControlButtonVariant.DISABLED:
-        return colors.gray;
+        return colors.slate400;
       case FloatingControlButtonVariant.INVERTED:
-        return colors.darkGray;
+        return colors.slate600;
       case FloatingControlButtonVariant.INVERTED_SUCCESS:
-        return props.pressed ? colors.greenDark : colors.green;
+        return props.pressed ? colors.green500 : colors.green400;
       case FloatingControlButtonVariant.INVERTED_DESTRUCTIVE:
-        return props.pressed ? colors.redDark : colors.red;
+        return props.pressed ? colors.red600 : colors.red500;
       case FloatingControlButtonVariant.ORANGE:
       case FloatingControlButtonVariant.PURPLE:
       case FloatingControlButtonVariant.SUBDUED:

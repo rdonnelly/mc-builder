@@ -72,7 +72,7 @@ const KeyboardAvoidingView = styled.KeyboardAvoidingView`
 `;
 
 const Container = styled(base.Container)<{ paddingBottom: number }>`
-  background-color: ${colors.lightGray};
+  background-color: ${colors.slate100};
   padding-bottom: ${(props) => Math.max(props.paddingBottom, 16)}px;
 `;
 

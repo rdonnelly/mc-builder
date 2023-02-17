@@ -34,7 +34,7 @@ const IndexPage = () => {
           content={getAbsoluteUrl('/images/mc-icon-1024.png')}
         />
       </Head>
-      <Header color={colors.blue}>MC Builder</Header>
+      <Header color={colors.sky500}>MC Builder</Header>
       <ScrollView>
         <Container>
           <Logo
@@ -182,7 +182,7 @@ const ParagraphText = styled.Text<{ center?: boolean }>`
 `;
 
 const List = styled.View`
-  background: ${colors.lightGray};
+  background: ${colors.slate100};
   border-radius: 6px;
   margin-bottom: 24px;
   max-width: 584px;
@@ -192,7 +192,7 @@ const List = styled.View`
 
 const ListItem = styled.View<{ last?: boolean }>`
   border-bottom-width: ${({ last }) => (last ? 0 : '1px')};
-  border-bottom-color: ${colors.lightGrayDark};
+  border-bottom-color: ${colors.slate500};
   padding-vertical: 16px;
 `;
 

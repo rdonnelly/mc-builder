@@ -125,7 +125,7 @@ const DeckDetailScreen = ({ navigation, route }: DeckDetailScreenProps) => {
             // iOS Properties
             dismissButtonStyle: 'done',
             preferredBarTintColor: colors.white,
-            preferredControlTintColor: colors.blue,
+            preferredControlTintColor: colors.sky500,
             readerMode: false,
             animated: true,
             modalEnabled: true,

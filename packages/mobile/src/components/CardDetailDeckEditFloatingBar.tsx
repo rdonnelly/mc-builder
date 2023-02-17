@@ -58,8 +58,8 @@ const CardDetailDeckEditFloatingBar = ({
           name="plus"
           color={
             activeCard == null || incrementIsDisabled(activeCard, deckCardCount)
-              ? colors.grayDark
-              : colors.green
+              ? colors.slate500
+              : colors.green400
           }
           size={16}
           solid
@@ -80,8 +80,8 @@ const CardDetailDeckEditFloatingBar = ({
           name="minus"
           color={
             activeCard == null || decrementIsDisabled(activeCard, deckCardCount)
-              ? colors.grayDark
-              : colors.red
+              ? colors.slate500
+              : colors.red500
           }
           size={16}
           solid

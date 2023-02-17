@@ -42,7 +42,7 @@ const DeckPage = () => {
       <Head>
         <title>{`Decks | MC Builder`}</title>
       </Head>
-      <Header color={colors.purple}>Decks</Header>
+      <Header color={colors.violet600}>Decks</Header>
       <form onSubmit={handleSubmit}>
         <input
           name="payload"

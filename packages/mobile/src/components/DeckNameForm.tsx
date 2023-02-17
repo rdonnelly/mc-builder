@@ -44,7 +44,7 @@ const DecksCreateFormScreen = ({
               clearButtonMode={'always'}
               editable={true}
               placeholder={'Deck Name'}
-              placeholderTextColor={colors.gray}
+              placeholderTextColor={colors.slate400}
               returnKeyType={'done'}
               ref={inputRef}
               value={deckName}
@@ -77,7 +77,7 @@ const DecksCreateFormScreen = ({
 };
 
 const Container = styled(base.Container)`
-  background-color: ${colors.lightGray};
+  background-color: ${colors.slate100};
 `;
 
 const Form = styled.ScrollView`
@@ -97,7 +97,7 @@ const ControlLabel = styled.View`
 `;
 
 const ControlLabelText = styled.Text`
-  color: ${colors.grayDark};
+  color: ${colors.slate500};
   font-size: ${({ theme }) => theme.fontSize.label};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;
@@ -124,7 +124,7 @@ const AddButtonWrapper = styled(base.ButtonWrapper)`
 
 const AddButton = styled(base.Button)<{ pressed?: boolean }>`
   background-color: ${(props) =>
-    props.pressed ? colors.greenDark : colors.green};
+    props.pressed ? colors.green500 : colors.green400};
 `;
 
 const AddButtonText = styled(base.ButtonText)<{ pressed?: boolean }>``;
@@ -136,7 +136,7 @@ const CancelButtonWrapper = styled(base.ButtonWrapper)`
 
 const CancelButton = styled(base.Button)<{ pressed?: boolean }>`
   background-color: ${(props) =>
-    props.pressed ? colors.grayDark : colors.gray};
+    props.pressed ? colors.slate500 : colors.slate400};
 `;
 
 const CancelButtonText = styled(base.ButtonText)<{ pressed?: boolean }>``;

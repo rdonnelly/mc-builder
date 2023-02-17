@@ -63,9 +63,9 @@ export default async function handler(req: NextRequest) {
     (
       <div
         style={{
-          backgroundColor: colors.darkGrayDark,
+          backgroundColor: colors.slate700,
           backgroundImage: backgroundImage,
-          color: colors.lightGray,
+          color: colors.slate100,
           display: 'flex',
           height: '100%',
           padding: 32,
@@ -86,7 +86,7 @@ export default async function handler(req: NextRequest) {
             style={{
               background: colors.white,
               borderRadius: 16,
-              color: colors.darkGray,
+              color: colors.slate600,
               display: 'flex',
               flexDirection: 'column',
               flexGrow: 1,
@@ -124,7 +124,7 @@ export default async function handler(req: NextRequest) {
                     {aspect.name}
                   </div>
                 ))}
-                <div style={{ color: colors.grayDark, display: 'flex' }}>
+                <div style={{ color: colors.slate500, display: 'flex' }}>
                   {rawDeckData.deckCardCount} Cards
                 </div>
               </div>
@@ -132,7 +132,7 @@ export default async function handler(req: NextRequest) {
 
             <div
               style={{
-                color: colors.grayDark,
+                color: colors.slate500,
                 fontFamily: 'Lato',
                 fontSize: 36,
                 fontStyle: 'italic',

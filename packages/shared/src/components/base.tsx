@@ -16,7 +16,7 @@ const ButtonWrapper = styled(Pressable)``;
 
 const Button = styled(View)<{ pressed?: boolean }>`
   align-items: center;
-  background-color: ${colors.brand};
+  background-color: ${colors.slate600};
   border-radius: ${({ theme }) => theme.borderRadius.md};
   flex-direction: row;
   justify-content: center;
@@ -45,7 +45,7 @@ const ListHeader = styled.View`
   flex-direction: row;
   justify-content: center;
   padding: 8px;
-  border-bottom-color: ${colors.lightGrayDark};
+  border-bottom-color: ${colors.slate500};
   border-bottom-width: ${StyleSheet.hairlineWidth}px;
 `;
 
@@ -57,7 +57,7 @@ const ListFooter = styled.View`
 `;
 
 const ListFooterText = styled.Text`
-  color: ${colors.gray};
+  color: ${colors.slate400};
   margin-bottom: 16px;
   text-align: center;
 `;
@@ -73,7 +73,7 @@ const ListChevron = ({
 }) => (
   <FontAwesomeIcon
     name={'chevron-right'}
-    color={isActive ? colors.darkGray : colors.lightGrayDark}
+    color={isActive ? colors.slate600 : colors.slate500}
     size={size ? size : 16}
   />
 );
@@ -91,7 +91,7 @@ const ListIcon = ({
 }) => (
   <FontAwesomeIcon
     name={name}
-    color={color ? color : colors.darkGray}
+    color={color ? color : colors.slate600}
     size={size ? size : 16}
     solid={solid ? solid : false}
   />
@@ -101,7 +101,7 @@ const BaseTextInput = styled(TextInput)`
   background-color: ${colors.white};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   border-width: 0;
-  color: ${colors.darkGray};
+  color: ${colors.slate600};
   font-size: ${({ theme }) => theme.fontSize.input};
   line-height: 24px;
   padding: 12px;

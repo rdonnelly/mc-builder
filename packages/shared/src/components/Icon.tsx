@@ -93,7 +93,7 @@ export const iconRenderer = (
     <Icon
       code={IconCode[code]}
       key={`parser-icon-${passProps.key}`}
-      color={colors.primary}
+      color={colors.text.primary}
     />
   );
 };

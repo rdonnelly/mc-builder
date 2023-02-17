@@ -64,7 +64,7 @@ const SyncScreen = ({
     <Container>
       {isSyncing ? (
         <ActivityContainer>
-          <ActivityIndicator color={colors.orange} size="large" />
+          <ActivityIndicator color={colors.orange600} size="large" />
           <ActivityMessage>
             <ActivityMessageText>Syncing Data...</ActivityMessageText>
           </ActivityMessage>
@@ -75,7 +75,7 @@ const SyncScreen = ({
 };
 
 const Container = styled(base.Container)`
-  background-color: ${colors.lightGray};
+  background-color: ${colors.slate100};
   flex-direction: row;
   justify-content: center;
 `;
@@ -93,7 +93,7 @@ const ActivityMessage = styled.View`
 `;
 
 const ActivityMessageText = styled.Text`
-  color: ${colors.darkGray};
+  color: ${({ theme }) => theme.fontColor.primary};
   font-size: ${({ theme }) => theme.fontSize.label};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;
@@ -106,14 +106,14 @@ const RetryContainer = styled.View`
 `;
 
 const RetryHeader = styled.Text`
-  color: ${colors.darkGray};
+  color: ${({ theme }) => theme.fontColor.primary};
   font-size: ${({ theme }) => theme.fontSize.heading};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
   margin-bottom: 8px;
 `;
 
 const RetryMessage = styled.Text`
-  color: ${colors.grayDark};
+  color: ${({ theme }) => theme.fontColor.primary};
   font-size: ${({ theme }) => theme.fontSize.label};
   margin-bottom: 16px;
 `;
@@ -122,7 +122,7 @@ const RetryButtonWrapper = styled(base.ButtonWrapper)``;
 
 const RetryButton = styled(base.Button)<{ pressed?: boolean }>`
   background-color: ${(props) =>
-    props.pressed ? colors.greenDark : colors.green};
+    props.pressed ? colors.green500 : colors.green400};
 `;
 
 const RetryButtonText = styled(base.ButtonText)<{ pressed?: boolean }>``;

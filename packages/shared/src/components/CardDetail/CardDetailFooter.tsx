@@ -19,12 +19,12 @@ const CardDetailFooter = ({ card }: { card: CardModel }) => {
       {card.boost == null && card.boostText == null ? null : (
         <CardDetailFooterContainerBoost>
           {card.boostText ? (
-            <Icon code={IconCode.special} color={colors.darkGray} size={16} />
+            <Icon code={IconCode.special} color={colors.slate600} size={16} />
           ) : null}
           {[...Array(card.boost || 0).keys()].map((i) => (
             <Icon
               code={IconCode.boost}
-              color={colors.darkGray}
+              color={colors.slate600}
               size={16}
               key={`icon-${i}`}
             />
@@ -42,7 +42,7 @@ const CardDetailFooter = ({ card }: { card: CardModel }) => {
 
 const CardDetailFooterContainer = styled.View`
   align-items: center;
-  background-color: ${colors.lightGray};
+  background-color: ${colors.slate100};
   border-radius: ${({ theme }) => theme.borderRadius.md};
   flex-direction: row;
   justify-content: space-between;
@@ -63,7 +63,7 @@ const CardDetailFooterContainerSet = styled.View`
 const CardDetailFooterContainerSetText = styled.Text<{
   color: string;
 }>`
-  color: ${(props) => (props.color ? props.color : colors.darkGray)};
+  color: ${(props) => (props.color ? props.color : colors.slate600)};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;
 

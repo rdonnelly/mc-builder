@@ -24,7 +24,7 @@ export default () => (
     screenOptions={{
       title: 'Settings',
       headerStyle: {
-        backgroundColor: colors.blue,
+        backgroundColor: colors.sky500,
       },
       headerTitleStyle: {
         fontSize: 20,

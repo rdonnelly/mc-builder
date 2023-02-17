@@ -68,9 +68,9 @@ export default async function handler(req: NextRequest) {
     (
       <div
         style={{
-          backgroundColor: colors.darkGrayDark,
+          backgroundColor: colors.slate700,
           backgroundImage: backgroundImage,
-          color: colors.lightGray,
+          color: colors.slate100,
           display: 'flex',
           flexDirection: 'column',
           height: '100%',
@@ -114,7 +114,7 @@ export default async function handler(req: NextRequest) {
               alignItems: 'center',
               background: colors.white,
               borderRadius: 16,
-              color: colors.darkGray,
+              color: colors.slate600,
               display: 'flex',
               flex: 1,
               flexDirection: 'column',
@@ -139,7 +139,7 @@ export default async function handler(req: NextRequest) {
             </div>
             <div
               style={{
-                color: colors.grayDark,
+                color: colors.slate500,
                 fontStyle: 'italic',
                 textAlign: 'center',
               }}

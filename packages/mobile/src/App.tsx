@@ -141,7 +141,7 @@ function App() {
         <StatusBar
           barStyle="light-content"
           translucent={true}
-          backgroundColor={colors.darkGray}
+          backgroundColor={colors.slate600}
         />
         {didSync && !isSyncing ? (
           <TabNavigator />

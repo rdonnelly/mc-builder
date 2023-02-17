@@ -74,7 +74,7 @@ export default () => {
       screenOptions={{
         title: 'Cards',
         headerStyle: {
-          backgroundColor: colors.orange,
+          backgroundColor: colors.orange600,
         },
         headerTitleStyle: {
           fontSize: 20,

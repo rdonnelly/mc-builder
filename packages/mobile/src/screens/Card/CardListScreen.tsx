@@ -187,7 +187,7 @@ const CardListScreen = ({ navigation, route }: CardsListScreenProps) => {
                 autoCorrect={false}
                 clearButtonMode={'always'}
                 placeholder={'Search'}
-                placeholderTextColor={colors.gray}
+                placeholderTextColor={colors.slate400}
                 ref={searchInputRef}
                 returnKeyType={'search'}
                 onSubmitEditing={handleSearch}
@@ -254,7 +254,7 @@ const SearchBar = styled(Animated.View)`
 `;
 
 const ListHeader = styled(base.ListHeader)`
-  background-color: ${colors.lightGrayDark};
+  background-color: ${colors.slate500};
 `;
 
 const ListHeaderInput = styled(base.TextInput)`

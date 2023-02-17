@@ -60,7 +60,7 @@ export default CardResourceIcons;
 const Wrapper = styled.View<{
   color: string;
 }>`
-  background-color: ${(props) => (props.color ? props.color : colors.darkGray)};
+  background-color: ${(props) => (props.color ? props.color : colors.slate600)};
   border-radius: ${({ theme }) => theme.borderRadius.md};
   margin-right: 4px;
   padding: 4px;

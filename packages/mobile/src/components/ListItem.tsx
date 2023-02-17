@@ -37,8 +37,8 @@ const ListItem = ({ item, handlePressItem }: ListItemProps) => {
 };
 
 const Container = styled(base.Container)`
-  background-color: ${colors.lightGray};
-  border-bottom-color: ${colors.lightGrayDark};
+  background-color: ${colors.slate100};
+  border-bottom-color: ${colors.slate300};
   border-bottom-width: ${StyleSheet.hairlineWidth}px;
   flex-direction: column;
   height: ${ITEM_HEIGHT}px;
@@ -63,13 +63,13 @@ const ListItemInner = styled.View<{ pressed: boolean }>`
 const ListItemInnerText = styled.View``;
 
 const ListItemInnerTextTitle = styled.Text`
-  color: ${colors.darkGray};
+  color: ${({ theme }) => theme.fontColor.primary};
   font-size: ${({ theme }) => theme.fontSize.list};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;
 
 const ListItemInnerTextSubtitle = styled.Text`
-  color: ${colors.gray};
+  color: ${({ theme }) => theme.fontColor.subdued};
   font-size: ${({ theme }) => theme.fontSize.subtext};
 `;
 

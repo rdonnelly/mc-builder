@@ -92,8 +92,8 @@ const CardList = styled(SectionList)`
 `;
 
 const SectionHeader = styled.View`
-  background-color: ${colors.darkGray};
-  border-bottom-color: ${colors.lightGrayDark};
+  background-color: ${colors.slate600};
+  border-bottom-color: ${colors.slate500};
   border-bottom-width: ${StyleSheet.hairlineWidth}px;
   flex-direction: row;
   justify-content: space-between;
@@ -102,7 +102,7 @@ const SectionHeader = styled.View`
 `;
 
 const SectionHeaderText = styled.Text`
-  color: ${colors.lightGray};
+  color: ${colors.slate100};
   font-weight: ${({ theme }) => theme.fontWeight.black};
   text-transform: uppercase;
 `;

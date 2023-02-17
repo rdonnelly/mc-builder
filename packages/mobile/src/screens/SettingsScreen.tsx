@@ -154,7 +154,7 @@ const visitWebpage = async (url: string) => {
         // iOS Properties
         dismissButtonStyle: 'done',
         preferredBarTintColor: colors.white,
-        preferredControlTintColor: colors.blue,
+        preferredControlTintColor: colors.sky500,
         readerMode: false,
         animated: true,
         modalEnabled: true,
@@ -171,14 +171,14 @@ const visitWebpage = async (url: string) => {
 };
 
 const Container = styled(base.Container)`
-  background-color: ${colors.lightGray};
+  background-color: ${colors.slate100};
 `;
 
 const InfoButtonWrapper = styled(base.ButtonWrapper)``;
 
 const InfoButton = styled(base.Button)<{ pressed?: boolean }>`
   background-color: ${(props) =>
-    props.pressed ? colors.blueDark : colors.blue};
+    props.pressed ? colors.sky600 : colors.sky500};
 `;
 
 const InfoButtonText = styled(base.ButtonText)<{ pressed?: boolean }>``;
@@ -186,13 +186,14 @@ const InfoButtonText = styled(base.ButtonText)<{ pressed?: boolean }>``;
 const DestructiveButtonWrapper = styled(base.ButtonWrapper)``;
 
 const DestructiveButton = styled(base.Button)<{ pressed?: boolean }>`
-  background-color: ${(props) => (props.pressed ? colors.redDark : colors.red)};
+  background-color: ${(props) =>
+    props.pressed ? colors.red600 : colors.red500};
 `;
 
 const DestructiveButtonText = styled(base.ButtonText)<{ pressed?: boolean }>``;
 
 const Information = styled.View`
-  border-top-color: ${colors.lightGrayDark};
+  border-top-color: ${colors.slate500};
   border-top-width: ${StyleSheet.hairlineWidth}px;
   margin-bottom: 24px;
   padding-horizontal: 16px;
@@ -200,12 +201,12 @@ const Information = styled.View`
 `;
 
 const DisclaimerText = styled.Text`
-  color: ${colors.gray};
+  color: ${({ theme }) => theme.fontColor.subdued};
   text-align: center;
 `;
 
 const LinkText = styled.Text<{ pressed: boolean }>`
-  color: ${(props) => (props.pressed ? colors.blueDark : colors.blue)};
+  color: ${(props) => (props.pressed ? colors.sky600 : colors.sky500)};
   font-size: ${({ pressed, theme }) =>
     pressed ? theme.fontSize.subtext : theme.fontSize.regular};
   text-align: center;

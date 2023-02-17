@@ -126,8 +126,8 @@ const Container = styled(base.Container)<{ paddingBottom: number }>`
 const FlatList = styled(base.FlatList)``;
 
 const Row = styled(base.Container)`
-  background-color: ${colors.lightGray};
-  border-bottom-color: ${colors.lightGrayDark};
+  background-color: ${colors.slate100};
+  border-bottom-color: ${colors.slate300};
   border-bottom-width: ${StyleSheet.hairlineWidth}px;
   flex-direction: column;
   height: ${ITEM_HEIGHT}px;
@@ -149,7 +149,7 @@ const ListItemInner = styled.View<{ pressed: boolean }>`
 `;
 
 const ListItemInnerText = styled.Text`
-  color: ${colors.darkGray};
+  color: ${({ theme }) => theme.fontColor.primary};
   font-size: ${({ theme }) => theme.fontSize.list};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;
@@ -159,7 +159,7 @@ const ListIconWrapper = styled.View``;
 const ListIcon = ({ active }) => (
   <base.ListIcon
     name={active ? 'check-circle' : 'circle'}
-    color={active ? colors.green : colors.gray}
+    color={active ? colors.green400 : colors.slate400}
     size={20}
     solid={active}
   />

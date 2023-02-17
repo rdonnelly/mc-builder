@@ -35,7 +35,7 @@ const DeckDetail = ({
 };
 
 const Container = styled(base.Container)`
-  background-color: ${colors.lightGray};
+  background-color: ${colors.slate100};
   flex-direction: column;
 `;
 

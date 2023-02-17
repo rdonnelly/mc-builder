@@ -111,7 +111,7 @@ export default () => {
       initialRouteName="DecksList"
       screenOptions={{
         headerStyle: {
-          backgroundColor: colors.purple,
+          backgroundColor: colors.violet600,
         },
         headerTitleStyle: {
           fontSize: 20,

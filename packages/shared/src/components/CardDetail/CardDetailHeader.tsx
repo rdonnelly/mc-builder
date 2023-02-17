@@ -46,7 +46,7 @@ const CardDetailHeader = ({
 };
 
 const CardDetailHeaderContainer = styled(base.Container)`
-  background-color: ${colors.lightGray};
+  background-color: ${colors.slate100};
   border-radius: ${({ theme }) => theme.borderRadius.md};
   margin-bottom: 16px;
   padding-horizontal: 16px;
@@ -56,7 +56,7 @@ const CardDetailHeaderContainer = styled(base.Container)`
 const CardDetailHeaderContainerTitle = styled.View``;
 
 const CardDetailHeaderContainerTitleText = styled.Text`
-  color: ${colors.darkGray};
+  color: ${({ theme }) => theme.fontColor.primary};
   font-size: ${({ theme }) => theme.fontSize.heading};
   font-weight: ${({ theme }) => theme.fontWeight.black};
   margin-bottom: 8px;
@@ -66,7 +66,7 @@ const CardDetailHeaderContainerTitleText = styled.Text`
 const CardDetailHeaderContainerSubtitle = styled.View``;
 
 const CardDetailHeaderContainerSubtitleText = styled.Text`
-  color: ${colors.darkGray};
+  color: ${({ theme }) => theme.fontColor.primary};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;
 
@@ -75,12 +75,12 @@ const CardDetailHeaderContainerTypes = styled.View`
 `;
 
 const CardDetailHeaderContainerTypesText = styled.Text`
-  color: ${colors.darkGray};
+  color: ${({ theme }) => theme.fontColor.primary};
   font-size: ${({ theme }) => theme.fontSize.list};
 `;
 
 const CardDetailHeaderContainerTypesTextBold = styled.Text`
-  color: ${colors.darkGray};
+  color: ${({ theme }) => theme.fontColor.primary};
   font-size: ${({ theme }) => theme.fontSize.list};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;

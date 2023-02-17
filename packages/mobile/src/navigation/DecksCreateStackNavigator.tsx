@@ -43,7 +43,7 @@ export default () => {
           screenOptions={{
             title: 'Create Deck',
             headerStyle: {
-              backgroundColor: colors.purple,
+              backgroundColor: colors.violet600,
             },
             headerTitleStyle: {
               fontSize: 20,

@@ -117,10 +117,10 @@ const CardListItem = ({
                         name="plus"
                         color={
                           incrementIsDisabled(card, count)
-                            ? colors.lightGrayDark
+                            ? colors.slate500
                             : cardControlPressed
-                            ? colors.greenDark
-                            : colors.green
+                            ? colors.green500
+                            : colors.green400
                         }
                         size={16}
                         solid
@@ -142,10 +142,10 @@ const CardListItem = ({
                         name="minus"
                         color={
                           decrementIsDisabled(card, count)
-                            ? colors.lightGrayDark
+                            ? colors.slate500
                             : cardControlPressed
-                            ? colors.redDark
-                            : colors.red
+                            ? colors.red600
+                            : colors.red500
                         }
                         size={16}
                         solid
@@ -168,8 +168,8 @@ const CardListItem = ({
 };
 
 const ListItemOuter = styled.View`
-  background-color: ${colors.lightGray};
-  border-bottom-color: ${colors.lightGrayDark};
+  background-color: ${colors.slate100};
+  border-bottom-color: ${colors.slate500};
   border-bottom-width: ${StyleSheet.hairlineWidth}px;
   height: ${ITEM_HEIGHT}px;
   justify-content: center;
@@ -199,9 +199,9 @@ const ListItemInner = styled.View<{ pressed: boolean }>`
 const CardCount = styled.View<{ active?: boolean }>`
   align-items: center;
   background-color: ${(props) =>
-    props.active ? colors.white : colors.lightGray};
+    props.active ? colors.white : colors.slate100};
   border: ${StyleSheet.hairlineWidth}px solid
-    ${(props) => (props.active ? colors.lightGrayDark : colors.lightGrayDark)};
+    ${(props) => (props.active ? colors.slate500 : colors.slate500)};
   border-radius: ${({ theme }) => theme.borderRadius.md};
   height: 36px;
   justify-content: center;
@@ -210,7 +210,7 @@ const CardCount = styled.View<{ active?: boolean }>`
 `;
 
 const CardCountText = styled.Text<{ active?: boolean }>`
-  color: ${(props) => (props.active ? colors.blue : colors.lightGrayDark)};
+  color: ${(props) => (props.active ? colors.sky500 : colors.slate500)};
   font-size: ${({ theme }) => theme.fontSize.label};
   font-weight: ${({ theme }) => theme.fontWeight.black};
 `;
@@ -228,7 +228,7 @@ const CardDetailsName = styled.View`
 `;
 
 const CardDetailsNameText = styled.Text`
-  color: ${colors.darkGray};
+  color: ${({ theme }) => theme.fontColor.primary};
   font-size: ${({ theme }) => theme.fontSize.list};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;
@@ -238,14 +238,14 @@ const CardDetailsInfo = styled.View`
 `;
 
 const CardDetailsInfoText = styled.Text`
-  color: ${colors.grayDark};
+  color: ${colors.slate500};
   font-size: ${({ theme }) => theme.fontSize.subtext};
 `;
 
 const CardDetailsInfoFactionOrSet = styled.Text<{
   color?: string;
 }>`
-  color: ${(props) => (props.color ? props.color : colors.grayDark)};
+  color: ${(props) => (props.color ? props.color : colors.slate500)};
   font-size: ${({ theme }) => theme.fontSize.subtext};
 `;
 
@@ -259,8 +259,8 @@ const CardCountButton = styled.Pressable<{
 }>`
   align-items: center;
   background-color: ${(props) =>
-    props.active ? colors.white : colors.lightGray};
-  border: ${StyleSheet.hairlineWidth}px solid ${colors.lightGrayDark};
+    props.active ? colors.white : colors.slate100};
+  border: ${StyleSheet.hairlineWidth}px solid ${colors.slate500};
   justify-content: center;
   height: 36px;
   width: 36px;
@@ -271,7 +271,7 @@ const CardCountButtonBackground = styled.View<{
 }>`
   align-items: center;
   background-color: ${(props) =>
-    props.active ? colors.lightGray : 'transparent'};
+    props.active ? colors.slate100 : 'transparent'};
   flex: 1 1 auto;
   height: 100%;
   justify-content: center;
@@ -289,7 +289,8 @@ const CardCountIncrementButton = styled(CardCountButton)<{
 const CardCountIncrementButtonBackground = styled(CardCountButtonBackground)<{
   active: boolean;
 }>`
-  background-color: ${(props) => (props.active ? colors.green : 'transparent')};
+  background-color: ${(props) =>
+    props.active ? colors.green400 : 'transparent'};
   border-top-left-radius: ${({ theme }) => theme.borderRadius.sm};
   border-bottom-left-radius: ${({ theme }) => theme.borderRadius.sm};
 `;
@@ -304,7 +305,8 @@ const CardCountDecrementButton = styled(CardCountButton)<{
 const CardCountDecrementButtonBackground = styled(CardCountButtonBackground)<{
   active: boolean;
 }>`
-  background-color: ${(props) => (props.active ? colors.red : 'transparent')};
+  background-color: ${(props) =>
+    props.active ? colors.red500 : 'transparent'};
   border-top-right-radius: ${({ theme }) => theme.borderRadius.sm};
   border-bottom-right-radius: ${({ theme }) => theme.borderRadius.sm};
 `;

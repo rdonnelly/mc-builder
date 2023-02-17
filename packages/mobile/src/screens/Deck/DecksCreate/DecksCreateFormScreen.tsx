@@ -164,7 +164,7 @@ const DecksCreateFormScreen = ({
             <ControlMessage>
               <FontAwesomeIcon
                 name="exclamation-circle"
-                color={colors.red}
+                color={colors.red500}
                 size={16}
                 solid
               />
@@ -204,7 +204,7 @@ const DecksCreateFormScreen = ({
             <ControlMessage>
               <FontAwesomeIcon
                 name="exclamation-circle"
-                color={colors.red}
+                color={colors.red500}
                 size={16}
                 solid
               />
@@ -223,7 +223,7 @@ const DecksCreateFormScreen = ({
               clearButtonMode={'always'}
               editable={true}
               placeholder={'Enter Deck Name'}
-              placeholderTextColor={colors.grayDark}
+              placeholderTextColor={colors.slate500}
               returnKeyType={'done'}
               value={deckName}
               onChangeText={(value) => setDeckName(value)}
@@ -234,7 +234,7 @@ const DecksCreateFormScreen = ({
             <ControlMessage>
               <FontAwesomeIcon
                 name="exclamation-circle"
-                color={colors.red}
+                color={colors.red500}
                 size={16}
                 solid
               />
@@ -265,7 +265,7 @@ const DecksCreateFormScreen = ({
 };
 
 const Container = styled(base.Container)<{ paddingBottom: number }>`
-  background-color: ${colors.lightGray};
+  background-color: ${colors.slate100};
   padding-bottom: ${(props) => Math.max(props.paddingBottom, 16)}px;
 `;
 
@@ -286,7 +286,7 @@ const ControlLabel = styled.View`
 `;
 
 const ControlLabelText = styled.Text`
-  color: ${colors.darkGray};
+  color: ${({ theme }) => theme.fontColor.primary};
   font-size: ${({ theme }) => theme.fontSize.label};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;
@@ -299,7 +299,7 @@ const ControlMessage = styled.View`
 `;
 
 const ControlMessageText = styled.Text`
-  color: ${colors.red};
+  color: ${colors.red500};
   font-size: ${({ theme }) => theme.fontSize.label};
   font-weight: 500;
   margin-left: 4px;
@@ -312,7 +312,7 @@ const Control = styled.View`
 `;
 
 const TextInput = styled(base.TextInput)<{ hasError?: boolean }>`
-  border-color: ${(props) => (props.hasError ? colors.red : 'transparent')};
+  border-color: ${(props) => (props.hasError ? colors.red500 : 'transparent')};
   border-width: 2px;
   width: 100%;
 `;
@@ -329,7 +329,7 @@ const LinkRowInner = styled.View<{
   align-items: center;
   background-color: ${(props) =>
     props.disabled ? colors.whiteTranslucent : colors.white};
-  border-color: ${(props) => (props.hasError ? colors.red : 'transparent')};
+  border-color: ${(props) => (props.hasError ? colors.red500 : 'transparent')};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   border-width: 2px;
   flex-direction: row;
@@ -339,7 +339,7 @@ const LinkRowInner = styled.View<{
 `;
 
 const LinkRowText = styled.Text<{ active: boolean }>`
-  color: ${(props) => (props.active ? colors.darkGray : colors.grayDark)};
+  color: ${(props) => (props.active ? colors.slate600 : colors.slate500)};
   font-size: ${({ theme }) => theme.fontSize.input};
 `;
 
@@ -359,7 +359,7 @@ const AddButtonWrapper = styled(base.ButtonWrapper)`
 
 const AddButton = styled(base.Button)<{ pressed?: boolean }>`
   background-color: ${(props) =>
-    props.pressed ? colors.greenDark : colors.green};
+    props.pressed ? colors.green500 : colors.green400};
 `;
 
 const AddButtonText = styled(base.ButtonText)<{ pressed?: boolean }>``;
@@ -371,7 +371,7 @@ const CancelButtonWrapper = styled(base.ButtonWrapper)`
 
 const CancelButton = styled(base.Button)<{ pressed?: boolean }>`
   background-color: ${(props) =>
-    props.pressed ? colors.grayDark : colors.gray};
+    props.pressed ? colors.slate500 : colors.slate400};
 `;
 
 const CancelButtonText = styled(base.ButtonText)<{ pressed?: boolean }>``;

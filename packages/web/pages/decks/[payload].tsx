@@ -48,7 +48,7 @@ const DeckPage = ({
         <meta property="og:image" content={meta.ogImageUrl} />
         <meta property="og:image:secure_url" content={meta.ogImageUrl} />
       </Head>
-      <Header color={colors.purple}>Decks</Header>
+      <Header color={colors.violet600}>Decks</Header>
       <ScrollView>
         <DeckDetailWrapper>
           <DeckDetailHeader deck={deck} deckCards={deckCards} />
@@ -70,7 +70,7 @@ const ScrollView = styled.ScrollView`
 `;
 
 const DeckDetailWrapper = styled.View`
-  background: ${colors.lightGray};
+  background: ${colors.slate100};
   margin: 0 auto;
   max-width: 768px;
   width: 100%;

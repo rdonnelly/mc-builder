@@ -48,8 +48,8 @@ export default async function handler(req: NextRequest) {
     (
       <div
         style={{
-          backgroundColor: colors.darkGrayDark,
-          color: colors.lightGray,
+          backgroundColor: colors.slate700,
+          color: colors.slate100,
           display: 'flex',
           height: '100%',
           padding: 32,
@@ -70,7 +70,7 @@ export default async function handler(req: NextRequest) {
             style={{
               background: colors.white,
               borderRadius: 16,
-              color: colors.darkGray,
+              color: colors.slate600,
               display: 'flex',
               flexDirection: 'column',
               flexGrow: 1,

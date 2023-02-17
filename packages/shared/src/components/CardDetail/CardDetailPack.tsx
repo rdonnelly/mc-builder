@@ -1,7 +1,6 @@
 import styled from 'styled-components/native';
 
 import { Card as CardModel } from '../../data/models/Card';
-import { colors } from '../../styles';
 
 const CardDetailPack = ({ card }: { card: CardModel }) => {
   return (
@@ -19,7 +18,7 @@ const CardDetailPackContainer = styled.View`
 `;
 
 const CardDetailPackContainerText = styled.Text`
-  color: ${colors.darkGray};
+  color: ${({ theme }) => theme.fontColor.primary};
   font-style: italic;
 `;
 

@@ -43,7 +43,7 @@ const renderCardText = (card: CardModel, key: string, isFlavor = false) => {
         baseFontStyle={
           isFlavor
             ? {
-                color: colors.subdued,
+                color: colors.text.subdued,
                 fontSize: 14,
                 fontStyle: 'italic',
                 fontWeight: '600',
@@ -51,7 +51,7 @@ const renderCardText = (card: CardModel, key: string, isFlavor = false) => {
                 textAlign: 'center',
               }
             : {
-                color: colors.primary,
+                color: colors.text.primary,
                 fontSize: 17,
                 fontWeight: '500',
                 letterSpacing: -0.408,
@@ -73,7 +73,7 @@ const renderCardSchemeTraits = (card: CardModel) => {
     icons.push(
       <Icon
         code={IconCode.crisis}
-        color={colors.darkGray}
+        color={colors.slate600}
         size={40}
         key={'card-scheme-traits-crisis'}
       />,
@@ -84,7 +84,7 @@ const renderCardSchemeTraits = (card: CardModel) => {
     icons.push(
       <Icon
         code={IconCode.acceleration}
-        color={colors.darkGray}
+        color={colors.slate600}
         size={40}
         key={'card-scheme-traits-acceleration'}
       />,
@@ -100,7 +100,7 @@ const renderCardSchemeTraits = (card: CardModel) => {
     icons.push(
       <Icon
         code={IconCode.hazard}
-        color={colors.darkGray}
+        color={colors.slate600}
         size={40}
         key={'card-scheme-traits-hazard'}
       />,
@@ -163,7 +163,7 @@ const CardDetailText = ({ card }: { card: CardModel }) => {
 };
 
 const CardDetailTextContainer = styled.View`
-  background-color: ${colors.lightGray};
+  background-color: ${colors.slate100};
   border-radius: ${({ theme }) => theme.borderRadius.md};
   flex: 1 1 auto;
   margin-bottom: 16px;
@@ -183,7 +183,7 @@ const CardDetailTextContainerTraitsText = styled.Text`
 `;
 
 const CardDetailTextContainerDivider = styled.View`
-  background-color: ${colors.lightGrayDark};
+  background-color: ${colors.slate500};
   height: ${StyleSheet.hairlineWidth}px;
   margin-horizontal: 32px;
   margin-bottom: 16px;

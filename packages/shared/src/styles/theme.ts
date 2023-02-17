@@ -1,11 +1,17 @@
 import { DefaultTheme } from 'styled-components/native';
 
+import colors from './colors';
+
 declare module 'styled-components/native' {
   export interface DefaultTheme {
     borderRadius: {
       sm: string;
       md: string;
       lg: string;
+    };
+    fontColor: {
+      primary: string;
+      subdued: string;
     };
     fontFamily: {
       marvelIcons: string;
@@ -33,6 +39,11 @@ const base = {
     md: '4px',
     lg: '8px',
   },
+  // TODO push into "text" key
+  fontColor: {
+    primary: colors.text.primary,
+    subdued: colors.text.subdued,
+  },
   fontFamily: {
     marvelIcons: 'marvel-icons',
   },
@@ -52,8 +63,8 @@ const base = {
 
 export const lightTheme: DefaultTheme = {
   ...base,
-};
+} as const;
 
 export const darkTheme: DefaultTheme = {
   ...base,
-};
+} as const;

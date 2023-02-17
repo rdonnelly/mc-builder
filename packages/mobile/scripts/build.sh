@@ -19,15 +19,15 @@ cleanXcode() {
 }
 
 build() {
-  npx eas-cli build --platform all
+  npx eas-cli@latest build --platform all
 }
 
 submit() {
-  npx eas-cli submit --platform all
+  npx eas-cli@latest submit --platform all
 }
 
 push() {
-  npx eas-cli build --platform all --auto-submit
+  npx eas-cli@latest build --platform all --auto-submit
 }
 
 # we must have exactly one task, and maybe some arguments for that task

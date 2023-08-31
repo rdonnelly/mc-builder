@@ -1,7 +1,8 @@
 // https://tailwindcss.com/docs/customizing-colors
 const colors = {
-  black: '#000',
-  white: '#fff',
+  black: '#000000',
+  white: '#ffffff',
+
   slate50: '#f8fafc',
   slate100: '#f1f5f9',
   slate200: '#e2e8f0',
@@ -13,6 +14,7 @@ const colors = {
   slate800: '#1e293b',
   slate900: '#0f172a',
   slate950: '#020617',
+
   gray50: '#f9fafb',
   gray100: '#f3f4f6',
   gray200: '#e5e7eb',
@@ -24,6 +26,7 @@ const colors = {
   gray800: '#1f2937',
   gray900: '#111827',
   gray950: '#030712',
+
   zinc50: '#fafafa',
   zinc100: '#f4f4f5',
   zinc200: '#e4e4e7',
@@ -35,6 +38,7 @@ const colors = {
   zinc800: '#27272a',
   zinc900: '#18181b',
   zinc950: '#09090b',
+
   neutral50: '#fafafa',
   neutral100: '#f5f5f5',
   neutral200: '#e5e5e5',
@@ -46,6 +50,7 @@ const colors = {
   neutral800: '#262626',
   neutral900: '#171717',
   neutral950: '#0a0a0a',
+
   stone50: '#fafaf9',
   stone100: '#f5f5f4',
   stone200: '#e7e5e4',
@@ -57,6 +62,7 @@ const colors = {
   stone800: '#292524',
   stone900: '#1c1917',
   stone950: '#0c0a09',
+
   red50: '#fef2f2',
   red100: '#fee2e2',
   red200: '#fecaca',
@@ -68,6 +74,7 @@ const colors = {
   red800: '#991b1b',
   red900: '#7f1d1d',
   red950: '#450a0a',
+
   orange50: '#fff7ed',
   orange100: '#ffedd5',
   orange200: '#fed7aa',
@@ -79,6 +86,7 @@ const colors = {
   orange800: '#9a3412',
   orange900: '#7c2d12',
   orange950: '#431407',
+
   amber50: '#fffbeb',
   amber100: '#fef3c7',
   amber200: '#fde68a',
@@ -90,6 +98,7 @@ const colors = {
   amber800: '#92400e',
   amber900: '#78350f',
   amber950: '#451a03',
+
   yellow50: '#fefce8',
   yellow100: '#fef9c3',
   yellow200: '#fef08a',
@@ -101,6 +110,7 @@ const colors = {
   yellow800: '#854d0e',
   yellow900: '#713f12',
   yellow950: '#422006',
+
   lime50: '#f7fee7',
   lime100: '#ecfccb',
   lime200: '#d9f99d',
@@ -112,6 +122,7 @@ const colors = {
   lime800: '#3f6212',
   lime900: '#365314',
   lime950: '#1a2e05',
+
   green50: '#f0fdf4',
   green100: '#dcfce7',
   green200: '#bbf7d0',
@@ -123,6 +134,7 @@ const colors = {
   green800: '#166534',
   green900: '#14532d',
   green950: '#052e16',
+
   emerald50: '#ecfdf5',
   emerald100: '#d1fae5',
   emerald200: '#a7f3d0',
@@ -134,6 +146,7 @@ const colors = {
   emerald800: '#065f46',
   emerald900: '#064e3b',
   emerald950: '#022c22',
+
   teal50: '#f0fdfa',
   teal100: '#ccfbf1',
   teal200: '#99f6e4',
@@ -145,6 +158,7 @@ const colors = {
   teal800: '#115e59',
   teal900: '#134e4a',
   teal950: '#042f2e',
+
   cyan50: '#ecfeff',
   cyan100: '#cffafe',
   cyan200: '#a5f3fc',
@@ -156,6 +170,7 @@ const colors = {
   cyan800: '#155e75',
   cyan900: '#164e63',
   cyan950: '#083344',
+
   sky50: '#f0f9ff',
   sky100: '#e0f2fe',
   sky200: '#bae6fd',
@@ -167,6 +182,7 @@ const colors = {
   sky800: '#075985',
   sky900: '#0c4a6e',
   sky950: '#082f49',
+
   blue50: '#eff6ff',
   blue100: '#dbeafe',
   blue200: '#bfdbfe',
@@ -178,6 +194,7 @@ const colors = {
   blue800: '#1e40af',
   blue900: '#1e3a8a',
   blue950: '#172554',
+
   indigo50: '#eef2ff',
   indigo100: '#e0e7ff',
   indigo200: '#c7d2fe',
@@ -189,6 +206,7 @@ const colors = {
   indigo800: '#3730a3',
   indigo900: '#312e81',
   indigo950: '#1e1b4b',
+
   violet50: '#f5f3ff',
   violet100: '#ede9fe',
   violet200: '#ddd6fe',
@@ -200,6 +218,7 @@ const colors = {
   violet800: '#5b21b6',
   violet900: '#4c1d95',
   violet950: '#2e1065',
+
   purple50: '#faf5ff',
   purple100: '#f3e8ff',
   purple200: '#e9d5ff',
@@ -211,6 +230,7 @@ const colors = {
   purple800: '#6b21a8',
   purple900: '#581c87',
   purple950: '#3b0764',
+
   fuchsia50: '#fdf4ff',
   fuchsia100: '#fae8ff',
   fuchsia200: '#f5d0fe',
@@ -222,6 +242,7 @@ const colors = {
   fuchsia800: '#86198f',
   fuchsia900: '#701a75',
   fuchsia950: '#4a044e',
+
   pink50: '#fdf2f8',
   pink100: '#fce7f3',
   pink200: '#fbcfe8',
@@ -233,6 +254,7 @@ const colors = {
   pink800: '#9d174d',
   pink900: '#831843',
   pink950: '#500724',
+
   rose50: '#fff1f2',
   rose100: '#ffe4e6',
   rose200: '#fecdd3',
@@ -291,6 +313,8 @@ const text = {
   subdued: colors.slate500,
 };
 
+export type Color = (typeof colors)[keyof typeof colors];
+
 export default {
   ...colors,
 
@@ -307,4 +331,4 @@ export default {
 
   // text
   text,
-};
+} as const;

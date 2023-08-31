@@ -1,7 +1,6 @@
 import styled from 'styled-components/native';
 
 import { Card as CardModel } from '../../data/models/Card';
-import { colors } from '../../styles';
 import base from '../base';
 
 const CardDetailHeader = ({
@@ -46,7 +45,7 @@ const CardDetailHeader = ({
 };
 
 const CardDetailHeaderContainer = styled(base.Container)`
-  background-color: ${colors.slate100};
+  background-color: ${({ theme }) => theme.color.app.layer100};
   border-radius: ${({ theme }) => theme.borderRadius.md};
   margin-bottom: 16px;
   padding-horizontal: 16px;
@@ -56,7 +55,7 @@ const CardDetailHeaderContainer = styled(base.Container)`
 const CardDetailHeaderContainerTitle = styled.View``;
 
 const CardDetailHeaderContainerTitleText = styled.Text`
-  color: ${({ theme }) => theme.fontColor.primary};
+  color: ${({ theme }) => theme.color.typography.primary};
   font-size: ${({ theme }) => theme.fontSize.heading};
   font-weight: ${({ theme }) => theme.fontWeight.black};
   margin-bottom: 8px;
@@ -66,7 +65,7 @@ const CardDetailHeaderContainerTitleText = styled.Text`
 const CardDetailHeaderContainerSubtitle = styled.View``;
 
 const CardDetailHeaderContainerSubtitleText = styled.Text`
-  color: ${({ theme }) => theme.fontColor.primary};
+  color: ${({ theme }) => theme.color.typography.primary};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;
 
@@ -75,12 +74,12 @@ const CardDetailHeaderContainerTypes = styled.View`
 `;
 
 const CardDetailHeaderContainerTypesText = styled.Text`
-  color: ${({ theme }) => theme.fontColor.primary};
+  color: ${({ theme }) => theme.color.typography.primary};
   font-size: ${({ theme }) => theme.fontSize.list};
 `;
 
 const CardDetailHeaderContainerTypesTextBold = styled.Text`
-  color: ${({ theme }) => theme.fontColor.primary};
+  color: ${({ theme }) => theme.color.typography.primary};
   font-size: ${({ theme }) => theme.fontSize.list};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;

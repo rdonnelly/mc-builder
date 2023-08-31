@@ -92,7 +92,7 @@ const DecksCreateSelectScreen = ({
   };
 
   const renderItem = ({ item }) => (
-    <Row>
+    <ListItemOuter>
       <ListItemPressable onPress={() => handlePressItem(item.code)}>
         {({ pressed }) => (
           <ListItemInner pressed={pressed}>
@@ -105,7 +105,7 @@ const DecksCreateSelectScreen = ({
           </ListItemInner>
         )}
       </ListItemPressable>
-    </Row>
+    </ListItemOuter>
   );
 
   return (
@@ -125,9 +125,9 @@ const Container = styled(base.Container)<{ paddingBottom: number }>`
 
 const FlatList = styled(base.FlatList)``;
 
-const Row = styled(base.Container)`
-  background-color: ${colors.slate100};
-  border-bottom-color: ${colors.slate300};
+const ListItemOuter = styled(base.Container)`
+  background-color: ${({ theme }) => theme.color.list.background};
+  border-bottom-color: ${({ theme }) => theme.color.list.border};
   border-bottom-width: ${StyleSheet.hairlineWidth}px;
   flex-direction: column;
   height: ${ITEM_HEIGHT}px;
@@ -149,7 +149,7 @@ const ListItemInner = styled.View<{ pressed: boolean }>`
 `;
 
 const ListItemInnerText = styled.Text`
-  color: ${({ theme }) => theme.fontColor.primary};
+  color: ${({ theme }) => theme.color.typography.primary};
   font-size: ${({ theme }) => theme.fontSize.list};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;

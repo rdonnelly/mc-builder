@@ -401,7 +401,7 @@ const CardDetailStatsContainer = styled.View`
 `;
 
 const Stat = styled.View`
-  background-color: ${colors.slate100};
+  background-color: ${({ theme }) => theme.color.app.layer100};
   border-radius: ${({ theme }) => theme.borderRadius.md};
   flex: 1 1 80px;
   justify-content: center;
@@ -413,7 +413,7 @@ const Stat = styled.View`
 const StatData = styled.View``;
 
 const StatDataText = styled.Text`
-  color: ${({ theme }) => theme.fontColor.primary};
+  color: ${({ theme }) => theme.color.typography.primary};
   font-size: ${({ theme }) => theme.fontSize.heading};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;
@@ -421,7 +421,7 @@ const StatDataText = styled.Text`
 const StatHeader = styled.View``;
 
 const StatHeaderText = styled.Text`
-  color: ${({ theme }) => theme.fontColor.subdued};
+  color: ${({ theme }) => theme.color.typography.subdued};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;
 

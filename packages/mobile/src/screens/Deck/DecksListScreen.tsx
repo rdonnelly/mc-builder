@@ -234,7 +234,9 @@ const DecksListScreen = ({ navigation }: DecksListScreenProps) => {
   );
 };
 
-const Container = styled(base.Container)``;
+const Container = styled(base.Container)`
+  background-color: ${({ theme }) => theme.color.app.background};
+`;
 
 const FlatList = styled(base.FlatList)``;
 

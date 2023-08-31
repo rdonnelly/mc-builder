@@ -3,7 +3,6 @@ import { Pressable } from 'react-native';
 import styled from 'styled-components/native';
 
 import base from '@mc-builder/shared/src/components/base';
-import { colors } from '@mc-builder/shared/src/styles';
 
 enum FloatingControlButtonVariant {
   ORANGE = 'orange',
@@ -151,27 +150,49 @@ const FloatingControlView = styled(base.Button)<{
   variant?: FloatingControlButtonVariant;
   wrapped?: boolean;
 }>`
-  background-color: ${(props) => {
-    switch (props.variant) {
+  background-color: ${({ pressed, theme, variant }) => {
+    switch (variant) {
       case FloatingControlButtonVariant.DISABLED:
-        return colors.slate300;
+        return pressed
+          ? theme.color.button.disabled.backgroundActive
+          : theme.color.button.disabled.background;
       case FloatingControlButtonVariant.INVERTED:
+        return pressed
+          ? theme.color.button.primary.color
+          : theme.color.button.primary.color;
       case FloatingControlButtonVariant.INVERTED_SUCCESS:
+        return pressed
+          ? theme.color.button.success.color
+          : theme.color.button.success.color;
       case FloatingControlButtonVariant.INVERTED_DESTRUCTIVE:
-        return colors.white;
+        return pressed
+          ? theme.color.button.destructive.color
+          : theme.color.button.destructive.color;
       case FloatingControlButtonVariant.ORANGE:
-        return props.pressed ? colors.orange700 : colors.orange600;
+        return pressed
+          ? theme.color.button.orange.background
+          : theme.color.button.orange.background;
       case FloatingControlButtonVariant.PURPLE:
-        return props.pressed ? colors.violet700 : colors.violet600;
+        return pressed
+          ? theme.color.button.purple.background
+          : theme.color.button.purple.background;
       case FloatingControlButtonVariant.SUBDUED:
-        return props.pressed ? colors.slate500 : colors.slate400;
+        return pressed
+          ? theme.color.button.subdued.backgroundActive
+          : theme.color.button.subdued.background;
       case FloatingControlButtonVariant.SUCCESS:
-        return props.pressed ? colors.green500 : colors.green400;
+        return pressed
+          ? theme.color.button.success.backgroundActive
+          : theme.color.button.success.background;
       case FloatingControlButtonVariant.DESTRUCTIVE:
-        return props.pressed ? colors.red600 : colors.red500;
+        return pressed
+          ? theme.color.button.destructive.backgroundActive
+          : theme.color.button.destructive.background;
       case FloatingControlButtonVariant.PRIMARY:
       default:
-        return props.pressed ? colors.slate700 : colors.slate600;
+        return pressed
+          ? theme.color.button.primary.backgroundActive
+          : theme.color.button.primary.background;
     }
   }};
   margin-horizontal: ${(props) => (props.wrapped ? '0' : '4px')};
@@ -181,16 +202,22 @@ const FloatingControlText = styled(base.ButtonText)<{
   pressed?: boolean;
   variant?: FloatingControlButtonVariant;
 }>`
-  color: ${(props) => {
-    switch (props.variant) {
+  color: ${({ pressed, theme, variant }) => {
+    switch (variant) {
       case FloatingControlButtonVariant.DISABLED:
-        return colors.slate400;
+        return theme.color.button.disabled.color;
       case FloatingControlButtonVariant.INVERTED:
-        return colors.slate600;
+        return pressed
+          ? theme.color.button.primary.backgroundActive
+          : theme.color.button.primary.background;
       case FloatingControlButtonVariant.INVERTED_SUCCESS:
-        return props.pressed ? colors.green500 : colors.green400;
+        return pressed
+          ? theme.color.button.success.backgroundActive
+          : theme.color.button.success.background;
       case FloatingControlButtonVariant.INVERTED_DESTRUCTIVE:
-        return props.pressed ? colors.red600 : colors.red500;
+        return pressed
+          ? theme.color.button.destructive.backgroundActive
+          : theme.color.button.destructive.background;
       case FloatingControlButtonVariant.ORANGE:
       case FloatingControlButtonVariant.PURPLE:
       case FloatingControlButtonVariant.SUBDUED:
@@ -198,7 +225,9 @@ const FloatingControlText = styled(base.ButtonText)<{
       case FloatingControlButtonVariant.DESTRUCTIVE:
       case FloatingControlButtonVariant.PRIMARY:
       default:
-        return colors.white;
+        return pressed
+          ? theme.color.button.primary.color
+          : theme.color.button.primary.color;
     }
   }};
 `;

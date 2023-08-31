@@ -18,7 +18,7 @@ const CardDetailPackContainer = styled.View`
 `;
 
 const CardDetailPackContainerText = styled.Text`
-  color: ${({ theme }) => theme.fontColor.primary};
+  color: ${({ theme }) => theme.color.typography.primary};
   font-style: italic;
 `;
 

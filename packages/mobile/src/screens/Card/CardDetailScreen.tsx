@@ -309,7 +309,7 @@ const CardDetailScreen = ({ navigation, route }: CardDetailScreenProps) => {
 };
 
 const Container = styled(base.Container)`
-  background-color: ${colors.white};
+  background-color: ${({ theme }) => theme.color.app.background};
   align-items: center;
   justify-content: center;
 `;
@@ -323,7 +323,7 @@ const CardDetailSwipeGuard = styled.View`
 `;
 
 const CardDetailFlatList = styled.FlatList`
-  background-color: ${colors.white};
+  background-color: ${({ theme }) => theme.color.app.background};
   flex: 1 1 auto;
   height: 100%;
   width: 100%;

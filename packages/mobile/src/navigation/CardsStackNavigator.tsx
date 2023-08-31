@@ -2,6 +2,7 @@ import {
   createNativeStackNavigator,
   NativeStackScreenProps,
 } from '@react-navigation/native-stack';
+import { useTheme } from 'styled-components/native';
 
 import CardDetailScreen from '@screens/Card/CardDetailScreen';
 import CardListScreen from '@screens/Card/CardListScreen';
@@ -17,7 +18,6 @@ import {
   TypeCode,
 } from '@mc-builder/shared/src/data';
 import { CardSortTypes } from '@mc-builder/shared/src/data/types';
-import { colors } from '@mc-builder/shared/src/styles';
 
 export type CardsStackParamList = {
   CardsList: {
@@ -68,18 +68,20 @@ export type CardDetailScreenProps = NativeStackScreenProps<
 const Stack = createNativeStackNavigator<CardsStackParamList>();
 
 export default () => {
+  const theme = useTheme();
+
   return (
     <Stack.Navigator
       initialRouteName="CardsList"
       screenOptions={{
         title: 'Cards',
         headerStyle: {
-          backgroundColor: colors.orange600,
+          backgroundColor: theme.color.app.brand.cards,
         },
         headerTitleStyle: {
           fontSize: 20,
         },
-        headerTintColor: colors.white,
+        headerTintColor: theme.color.app.tint,
       }}
     >
       <Stack.Screen

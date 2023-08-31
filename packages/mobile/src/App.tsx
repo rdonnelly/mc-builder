@@ -1,6 +1,8 @@
 import Bugsnag from '@bugsnag/react-native';
 import { ActionSheetProvider } from '@expo/react-native-action-sheet';
 import {
+  DarkTheme,
+  DefaultTheme,
   getStateFromPath,
   LinkingOptions,
   NavigationContainer,
@@ -18,7 +20,7 @@ import TabNavigator, { TabNavigatorParamList } from '@navigation/TabNavigator';
 import SyncScreen from '@screens/SyncScreen';
 import { persistor, store } from '@store';
 
-import { colors, darkTheme, lightTheme } from '@mc-builder/shared/src/styles';
+import { darkTheme, lightTheme } from '@mc-builder/shared/src/styles';
 
 if (!__DEV__) {
   Bugsnag.start();
@@ -47,6 +49,16 @@ function App() {
   const colorScheme = useColorScheme();
 
   const appTheme = colorScheme === 'dark' ? darkTheme : lightTheme;
+
+  // const navigationTheme = colorScheme === 'dark' ? DarkTheme : DefaultTheme;
+  // todo need to override each light and dark theme
+  const navigationTheme = {
+    ...(colorScheme === 'dark' ? DarkTheme : DefaultTheme),
+    colors: {
+      ...(colorScheme === 'dark' ? DarkTheme : DefaultTheme).colors,
+      ...appTheme.color.navigation,
+    },
+  };
 
   const linking: LinkingOptions<TabNavigatorParamList> = {
     prefixes: ['https://mcbuilder.app', 'mcbuilder://'],
@@ -137,11 +149,12 @@ function App() {
       <NavigationContainer
         linking={linking}
         onReady={() => RNBootSplash.hide({ fade: true })}
+        theme={navigationTheme}
       >
         <StatusBar
           barStyle="light-content"
           translucent={true}
-          backgroundColor={colors.slate600}
+          backgroundColor={appTheme.color.app.status}
         />
         {didSync && !isSyncing ? (
           <TabNavigator />

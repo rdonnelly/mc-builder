@@ -3,7 +3,6 @@ import { Pressable, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 
 import base from '@mc-builder/shared/src/components/base';
-import { colors } from '@mc-builder/shared/src/styles';
 
 export const ITEM_HEIGHT = 64;
 
@@ -37,8 +36,8 @@ const ListItem = ({ item, handlePressItem }: ListItemProps) => {
 };
 
 const Container = styled(base.Container)`
-  background-color: ${colors.slate100};
-  border-bottom-color: ${colors.slate300};
+  background-color: ${({ theme }) => theme.color.list.background};
+  border-bottom-color: ${({ theme }) => theme.color.list.border};
   border-bottom-width: ${StyleSheet.hairlineWidth}px;
   flex-direction: column;
   height: ${ITEM_HEIGHT}px;
@@ -63,13 +62,13 @@ const ListItemInner = styled.View<{ pressed: boolean }>`
 const ListItemInnerText = styled.View``;
 
 const ListItemInnerTextTitle = styled.Text`
-  color: ${({ theme }) => theme.fontColor.primary};
+  color: ${({ theme }) => theme.color.typography.primary};
   font-size: ${({ theme }) => theme.fontSize.list};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;
 
 const ListItemInnerTextSubtitle = styled.Text`
-  color: ${({ theme }) => theme.fontColor.subdued};
+  color: ${({ theme }) => theme.color.typography.subdued};
   font-size: ${({ theme }) => theme.fontSize.subtext};
 `;
 

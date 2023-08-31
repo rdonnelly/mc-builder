@@ -4,6 +4,7 @@ import {
 } from '@react-navigation/bottom-tabs';
 import { NavigatorScreenParams } from '@react-navigation/native';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
+import { useTheme } from 'styled-components/native';
 
 import CardsStackNavigator, {
   CardsStackParamList,
@@ -15,34 +16,52 @@ import SettingsStackNavigator, {
   SettingsStackParamList,
 } from '@navigation/SettingsStackNavigator';
 
-import { colors } from '@mc-builder/shared/src/styles';
+const TabIconStream = ({ focused, size }) => {
+  const theme = useTheme();
 
-const tabIconStream = ({ focused, size }) => (
-  <FontAwesomeIcon
-    name="stream"
-    color={focused ? colors.orange600 : colors.slate400}
-    size={size}
-    solid
-  />
-);
+  return (
+    <FontAwesomeIcon
+      name="stream"
+      color={
+        focused ? theme.color.tabs.tint.cards : theme.color.tabs.tint.inactive
+      }
+      size={size}
+      solid
+    />
+  );
+};
 
-const tabIconLayerGroup = ({ focused, size }) => (
-  <FontAwesomeIcon
-    name="layer-group"
-    color={focused ? colors.violet600 : colors.slate400}
-    size={size}
-    solid
-  />
-);
+const TabIconLayerGroup = ({ focused, size }) => {
+  const theme = useTheme();
 
-const tabIconCog = ({ focused, size }) => (
-  <FontAwesomeIcon
-    name="cog"
-    color={focused ? colors.sky500 : colors.slate400}
-    size={size}
-    solid
-  />
-);
+  return (
+    <FontAwesomeIcon
+      name="layer-group"
+      color={
+        focused ? theme.color.tabs.tint.decks : theme.color.tabs.tint.inactive
+      }
+      size={size}
+      solid
+    />
+  );
+};
+
+const TabIconCog = ({ focused, size }) => {
+  const theme = useTheme();
+
+  return (
+    <FontAwesomeIcon
+      name="cog"
+      color={
+        focused
+          ? theme.color.tabs.tint.settings
+          : theme.color.tabs.tint.inactive
+      }
+      size={size}
+      solid
+    />
+  );
+};
 
 export type TabNavigatorParamList = {
   TabCards: NavigatorScreenParams<CardsStackParamList>;
@@ -68,16 +87,18 @@ export type TabSettingsScreenProps = BottomTabScreenProps<
 const Tab = createBottomTabNavigator<TabNavigatorParamList>();
 
 export default () => {
+  const theme = useTheme();
+
   return (
     <Tab.Navigator
       initialRouteName="TabCards"
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: colors.slate600,
-        tabBarInactiveTintColor: colors.slate400,
-        tabBarInactiveBackgroundColor: colors.slate100,
+        tabBarActiveTintColor: theme.color.tabs.tint.default,
+        tabBarInactiveTintColor: theme.color.tabs.tint.default,
+        tabBarInactiveBackgroundColor: theme.color.tabs.background,
         tabBarStyle: {
-          backgroundColor: colors.slate100,
+          backgroundColor: theme.color.tabs.background,
         },
       }}
     >
@@ -86,7 +107,7 @@ export default () => {
         component={CardsStackNavigator}
         options={{
           title: 'Cards',
-          tabBarIcon: tabIconStream,
+          tabBarIcon: TabIconStream,
         }}
       />
       <Tab.Screen
@@ -94,7 +115,7 @@ export default () => {
         component={DecksStackNavigator}
         options={{
           title: 'Decks',
-          tabBarIcon: tabIconLayerGroup,
+          tabBarIcon: TabIconLayerGroup,
         }}
       />
       <Tab.Screen
@@ -102,7 +123,7 @@ export default () => {
         component={SettingsStackNavigator}
         options={{
           title: 'Settings',
-          tabBarIcon: tabIconCog,
+          tabBarIcon: TabIconCog,
         }}
       />
     </Tab.Navigator>

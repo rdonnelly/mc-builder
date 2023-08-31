@@ -5,7 +5,6 @@ import DeckDetailHeader from '../../components/DeckDetail/DeckDetailHeader';
 import DeckDetailList from '../../components/DeckDetail/DeckDetailList';
 import { Deck as DeckModel } from '../../data/models/Deck';
 import { IDeckCard } from '../../data/models/Deck';
-import { colors } from '../../styles';
 import base from '../base';
 
 type DeckDetailProps = {
@@ -35,7 +34,7 @@ const DeckDetail = ({
 };
 
 const Container = styled(base.Container)`
-  background-color: ${colors.slate100};
+  background-color: ${({ theme }) => theme.color.app.background};
   flex-direction: column;
 `;
 

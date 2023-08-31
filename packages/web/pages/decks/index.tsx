@@ -2,10 +2,9 @@ import { Base64 } from 'js-base64';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { useTheme } from 'styled-components/native';
 
 import Header from '@components/Header';
-
-import { colors } from '@mc-builder/shared/src/styles';
 
 const DeckPage = () => {
   const router = useRouter();
@@ -37,12 +36,14 @@ const DeckPage = () => {
     }
   };
 
+  const theme = useTheme();
+
   return (
     <>
       <Head>
         <title>{`Decks | MC Builder`}</title>
       </Head>
-      <Header color={colors.violet600}>Decks</Header>
+      <Header color={theme.color.app.brand.decks}>Decks</Header>
       <form onSubmit={handleSubmit}>
         <input
           name="payload"

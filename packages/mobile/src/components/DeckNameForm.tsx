@@ -77,7 +77,7 @@ const DecksCreateFormScreen = ({
 };
 
 const Container = styled(base.Container)`
-  background-color: ${colors.slate100};
+  background-color: ${({ theme }) => theme.color.app.background};
 `;
 
 const Form = styled.ScrollView`
@@ -97,7 +97,7 @@ const ControlLabel = styled.View`
 `;
 
 const ControlLabelText = styled.Text`
-  color: ${colors.slate500};
+  color: ${({ theme }) => theme.color.typography.primary};
   font-size: ${({ theme }) => theme.fontSize.label};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;
@@ -123,8 +123,10 @@ const AddButtonWrapper = styled(base.ButtonWrapper)`
 `;
 
 const AddButton = styled(base.Button)<{ pressed?: boolean }>`
-  background-color: ${(props) =>
-    props.pressed ? colors.green500 : colors.green400};
+  background-color: ${({ pressed, theme }) =>
+    pressed
+      ? theme.color.button.success.backgroundActive
+      : theme.color.button.success.background};
 `;
 
 const AddButtonText = styled(base.ButtonText)<{ pressed?: boolean }>``;
@@ -135,8 +137,10 @@ const CancelButtonWrapper = styled(base.ButtonWrapper)`
 `;
 
 const CancelButton = styled(base.Button)<{ pressed?: boolean }>`
-  background-color: ${(props) =>
-    props.pressed ? colors.slate500 : colors.slate400};
+  background-color: ${({ pressed, theme }) =>
+    pressed
+      ? theme.color.button.subdued.backgroundActive
+      : theme.color.button.subdued.background};
 `;
 
 const CancelButtonText = styled(base.ButtonText)<{ pressed?: boolean }>``;

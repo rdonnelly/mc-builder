@@ -1,8 +1,6 @@
 import { FlatList, Pressable, StyleSheet, TextInput, View } from 'react-native';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
-import styled from 'styled-components/native';
-
-import colors from '../styles/colors';
+import styled, { useTheme } from 'styled-components/native';
 
 const Container = styled.View`
   align-items: center;
@@ -16,7 +14,7 @@ const ButtonWrapper = styled(Pressable)``;
 
 const Button = styled(View)<{ pressed?: boolean }>`
   align-items: center;
-  background-color: ${colors.slate600};
+  background-color: ${({ theme }) => theme.color.button.primary.background};
   border-radius: ${({ theme }) => theme.borderRadius.md};
   flex-direction: row;
   justify-content: center;
@@ -27,7 +25,7 @@ const Button = styled(View)<{ pressed?: boolean }>`
 `;
 
 const ButtonText = styled.Text<{ pressed?: boolean }>`
-  color: ${colors.white};
+  color: ${({ theme }) => theme.color.button.primary.color};
   font-size: ${({ theme }) => theme.fontSize.label};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
   line-height: 24px;
@@ -35,18 +33,19 @@ const ButtonText = styled.Text<{ pressed?: boolean }>`
 `;
 
 const BaseFlatList = styled(FlatList)`
-  background-color: ${colors.white};
+  background-color: ${({ theme }) => theme.color.app.background};
   flex: 1 1 auto;
   width: 100%;
 `;
 
 const ListHeader = styled.View`
   align-items: center;
+  background-color: ${({ theme }) => theme.color.list.header.background};
+  border-bottom-color: ${({ theme }) => theme.color.list.header.border};
+  border-bottom-width: ${StyleSheet.hairlineWidth}px;
   flex-direction: row;
   justify-content: center;
   padding: 8px;
-  border-bottom-color: ${colors.slate500};
-  border-bottom-width: ${StyleSheet.hairlineWidth}px;
 `;
 
 const ListFooter = styled.View`
@@ -57,7 +56,7 @@ const ListFooter = styled.View`
 `;
 
 const ListFooterText = styled.Text`
-  color: ${colors.slate400};
+  color: ${({ theme }) => theme.color.typography.subdued};
   margin-bottom: 16px;
   text-align: center;
 `;
@@ -70,13 +69,17 @@ const ListChevron = ({
 }: {
   isActive?: boolean;
   size?: number;
-}) => (
-  <FontAwesomeIcon
-    name={'chevron-right'}
-    color={isActive ? colors.slate600 : colors.slate500}
-    size={size ? size : 16}
-  />
-);
+}) => {
+  const theme = useTheme();
+
+  return (
+    <FontAwesomeIcon
+      name={'chevron-right'}
+      color={isActive ? theme.color.list.iconActive : theme.color.list.icon}
+      size={size ? size : 16}
+    />
+  );
+};
 
 const ListIcon = ({
   name,
@@ -88,20 +91,24 @@ const ListIcon = ({
   color?: string;
   size?: number;
   solid?: boolean;
-}) => (
-  <FontAwesomeIcon
-    name={name}
-    color={color ? color : colors.slate600}
-    size={size ? size : 16}
-    solid={solid ? solid : false}
-  />
-);
+}) => {
+  const theme = useTheme();
+
+  return (
+    <FontAwesomeIcon
+      name={name}
+      color={color ? color : theme.color.list.icon}
+      size={size ? size : 16}
+      solid={solid ? solid : false}
+    />
+  );
+};
 
 const BaseTextInput = styled(TextInput)`
-  background-color: ${colors.white};
+  background-color: ${({ theme }) => theme.color.input.background};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   border-width: 0;
-  color: ${colors.slate600};
+  color: ${({ theme }) => theme.color.input.color};
   font-size: ${({ theme }) => theme.fontSize.input};
   line-height: 24px;
   padding: 12px;

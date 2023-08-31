@@ -1,17 +1,18 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { useWindowDimensions } from 'react-native';
-import styled from 'styled-components/native';
+import styled, { useTheme } from 'styled-components/native';
 
 import Header from '@components/Header';
 import getAbsoluteUrl from '@utils/getAbsoluteUrl';
 
 import base from '@mc-builder/shared/src/components/base';
-import { colors } from '@mc-builder/shared/src/styles';
 
 const IndexPage = () => {
   // TODO fix window width
   const { width } = useWindowDimensions();
+
+  const theme = useTheme();
 
   return (
     <>
@@ -34,7 +35,7 @@ const IndexPage = () => {
           content={getAbsoluteUrl('/images/mc-icon-1024.png')}
         />
       </Head>
-      <Header color={colors.sky500}>MC Builder</Header>
+      <Header color={theme.color.app.brand.settings}>MC Builder</Header>
       <ScrollView>
         <Container>
           <Logo
@@ -182,7 +183,7 @@ const ParagraphText = styled.Text<{ center?: boolean }>`
 `;
 
 const List = styled.View`
-  background: ${colors.slate100};
+  background: ${({ theme }) => theme.color.list.background};
   border-radius: 6px;
   margin-bottom: 24px;
   max-width: 584px;
@@ -192,7 +193,7 @@ const List = styled.View`
 
 const ListItem = styled.View<{ last?: boolean }>`
   border-bottom-width: ${({ last }) => (last ? 0 : '1px')};
-  border-bottom-color: ${colors.slate500};
+  border-bottom-color: ${({ theme }) => theme.color.list.border};
   padding-vertical: 16px;
 `;
 

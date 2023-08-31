@@ -2,6 +2,7 @@ import { Card as CardModel } from '../data/models/Card';
 import { FactionCodes, TypeCodes } from '../data/types';
 import colors from './colors';
 
+// TODO fix for theme
 export const getCardColor = (card: CardModel) => {
   const factionColorString =
     `${card.factionCode}Dark` as keyof typeof colors.factions;

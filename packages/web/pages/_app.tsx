@@ -15,12 +15,12 @@ const ANALYTICS_ID = process.env.NEXT_PUBLIC_ANALYTICS_ID;
 export default function App({ Component, pageProps }: AppProps) {
   const darkmode = useDarkMode(false);
 
-  const theme = darkmode.value ? darkTheme : lightTheme;
+  const appTheme = darkmode.value ? darkTheme : lightTheme;
 
   return (
     <>
       <GlobalStyle />
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={appTheme}>
         <Head>
           <title>MC Builder</title>
           <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -51,7 +51,7 @@ export default function App({ Component, pageProps }: AppProps) {
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-  
+
               gtag('config', '${ANALYTICS_ID}');
             `,
           }}

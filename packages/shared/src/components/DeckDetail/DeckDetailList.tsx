@@ -7,7 +7,6 @@ import { getCardSectionsForDeck } from '../../data/deckUtils';
 import { Card as CardModel } from '../../data/models/Card';
 import { Deck as DeckModel } from '../../data/models/Deck';
 import { IDeckCard } from '../../data/models/Deck';
-import { colors } from '../../styles';
 
 const isWeb = Platform.OS === 'web';
 
@@ -73,8 +72,8 @@ const CardList = styled(SectionList)`
 `;
 
 const SectionHeader = styled.View`
-  background-color: ${colors.slate600};
-  border-bottom-color: ${colors.slate500};
+  background-color: ${({ theme }) => theme.color.list.section.background};
+  border-bottom-color: ${({ theme }) => theme.color.list.section.border};
   border-bottom-width: ${StyleSheet.hairlineWidth}px;
   flex-direction: row;
   justify-content: space-between;
@@ -83,7 +82,7 @@ const SectionHeader = styled.View`
 `;
 
 const SectionHeaderText = styled.Text`
-  color: ${colors.slate100};
+  color: ${({ theme }) => theme.color.list.section.color};
   font-weight: ${({ theme }) => theme.fontWeight.black};
   text-transform: uppercase;
 `;

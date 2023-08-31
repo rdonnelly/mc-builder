@@ -3,6 +3,7 @@ import {
   NativeStackScreenProps,
 } from '@react-navigation/native-stack';
 import { Platform } from 'react-native';
+import { useTheme } from 'styled-components/native';
 
 import DecksCreateStackNavigator from '@navigation/DecksCreateStackNavigator';
 import CardDetailScreen from '@screens/Card/CardDetailScreen';
@@ -20,7 +21,6 @@ import {
   SetCode,
   TypeCode,
 } from '@mc-builder/shared/src/data';
-import { colors } from '@mc-builder/shared/src/styles';
 
 export type DecksStackParamList = {
   DecksList: undefined;
@@ -106,17 +106,19 @@ export default () => {
     }
   }
 
+  const theme = useTheme();
+
   return (
     <Stack.Navigator
       initialRouteName="DecksList"
       screenOptions={{
         headerStyle: {
-          backgroundColor: colors.violet600,
+          backgroundColor: theme.color.app.brand.decks,
         },
         headerTitleStyle: {
           fontSize: 20,
         },
-        headerTintColor: colors.white,
+        headerTintColor: theme.color.app.tint,
       }}
     >
       <Stack.Screen

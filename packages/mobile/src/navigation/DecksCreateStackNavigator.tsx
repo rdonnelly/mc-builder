@@ -3,13 +3,11 @@ import {
   NativeStackScreenProps,
 } from '@react-navigation/native-stack';
 import { Platform } from 'react-native';
-import styled from 'styled-components/native';
+import styled, { useTheme } from 'styled-components/native';
 
 import { DecksCreateProvider } from '@context/DecksCreateContext';
 import DecksCreateFormScreen from '@screens/Deck/DecksCreate/DecksCreateFormScreen';
 import DecksCreateSelectScreen from '@screens/Deck/DecksCreate/DecksCreateSelectScreen';
-
-import { colors } from '@mc-builder/shared/src/styles';
 
 export type DecksCreateStackParamList = {
   DecksCreateForm: undefined;
@@ -32,6 +30,8 @@ const isIOS = Platform.OS === 'ios';
 const HEADER_HEIGHT = isIOS ? 44 : 56;
 
 export default () => {
+  const theme = useTheme();
+
   return (
     <DecksCreateProvider>
       <KeyboardAvoidingView
@@ -43,12 +43,12 @@ export default () => {
           screenOptions={{
             title: 'Create Deck',
             headerStyle: {
-              backgroundColor: colors.violet600,
+              backgroundColor: theme.color.app.brand.decks,
             },
             headerTitleStyle: {
               fontSize: 20,
             },
-            headerTintColor: colors.white,
+            headerTintColor: theme.color.app.tint,
           }}
         >
           <Stack.Screen

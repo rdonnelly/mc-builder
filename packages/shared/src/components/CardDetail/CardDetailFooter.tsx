@@ -42,7 +42,7 @@ const CardDetailFooter = ({ card }: { card: CardModel }) => {
 
 const CardDetailFooterContainer = styled.View`
   align-items: center;
-  background-color: ${colors.slate100};
+  background-color: ${({ theme }) => theme.color.app.layer100};
   border-radius: ${({ theme }) => theme.borderRadius.md};
   flex-direction: row;
   justify-content: space-between;
@@ -63,7 +63,8 @@ const CardDetailFooterContainerSet = styled.View`
 const CardDetailFooterContainerSetText = styled.Text<{
   color: string;
 }>`
-  color: ${(props) => (props.color ? props.color : colors.slate600)};
+  color: ${({ color, theme }) =>
+    color ? color : theme.color.typography.primary};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;
 

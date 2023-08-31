@@ -10,7 +10,6 @@ import { getCardSectionsForDeck } from '@mc-builder/shared/src/data/deckUtils';
 import { Card as CardModel } from '@mc-builder/shared/src/data/models/Card';
 import { Deck as DeckModel } from '@mc-builder/shared/src/data/models/Deck';
 import { IDeckCard } from '@mc-builder/shared/src/data/models/Deck';
-import { colors } from '@mc-builder/shared/src/styles';
 
 const styles = StyleSheet.create({
   contentContainerStyle: {
@@ -83,6 +82,7 @@ const DeckEditList = ({
 };
 
 const Container = styled(base.Container)`
+  background-color: ${({ theme }) => theme.color.app.background};
   flex-direction: column;
 `;
 
@@ -92,8 +92,8 @@ const CardList = styled(SectionList)`
 `;
 
 const SectionHeader = styled.View`
-  background-color: ${colors.slate600};
-  border-bottom-color: ${colors.slate500};
+  background-color: ${({ theme }) => theme.color.list.section.background};
+  border-bottom-color: ${({ theme }) => theme.color.list.section.border};
   border-bottom-width: ${StyleSheet.hairlineWidth}px;
   flex-direction: row;
   justify-content: space-between;
@@ -102,7 +102,7 @@ const SectionHeader = styled.View`
 `;
 
 const SectionHeaderText = styled.Text`
-  color: ${colors.slate100};
+  color: ${({ theme }) => theme.color.list.section.color};
   font-weight: ${({ theme }) => theme.fontWeight.black};
   text-transform: uppercase;
 `;

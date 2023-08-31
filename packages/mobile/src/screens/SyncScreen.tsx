@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
 import { ActivityIndicator } from 'react-native';
 import styled from 'styled-components/native';
+import { useTheme } from 'styled-components/native';
 
 import base from '@mc-builder/shared/src/components/base';
-import { colors } from '@mc-builder/shared/src/styles';
 
 const SyncScreen = ({
   didSync,
@@ -40,6 +40,8 @@ const SyncScreen = ({
     }
   }, [didSync, performSync]);
 
+  const theme = useTheme();
+
   if (showRetry) {
     return (
       <Container>
@@ -64,7 +66,7 @@ const SyncScreen = ({
     <Container>
       {isSyncing ? (
         <ActivityContainer>
-          <ActivityIndicator color={colors.orange600} size="large" />
+          <ActivityIndicator color={theme.color.app.brand.cards} size="large" />
           <ActivityMessage>
             <ActivityMessageText>Syncing Data...</ActivityMessageText>
           </ActivityMessage>
@@ -74,14 +76,16 @@ const SyncScreen = ({
   );
 };
 
+// TODO theme for light and dark
+
 const Container = styled(base.Container)`
-  background-color: ${colors.slate100};
+  background-color: ${({ theme }) => theme.color.app.background};
   flex-direction: row;
   justify-content: center;
 `;
 
 const ActivityContainer = styled.View`
-  background: ${colors.white};
+  background: ${({ theme }) => theme.color.app.layer100};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   margin-horizontal: 32px;
   padding: 32px;
@@ -93,27 +97,27 @@ const ActivityMessage = styled.View`
 `;
 
 const ActivityMessageText = styled.Text`
-  color: ${({ theme }) => theme.fontColor.primary};
+  color: ${({ theme }) => theme.color.typography.primary};
   font-size: ${({ theme }) => theme.fontSize.label};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;
 
 const RetryContainer = styled.View`
-  background: ${colors.white};
+  background: ${({ theme }) => theme.color.app.layer100};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   margin-horizontal: 32px;
   padding: 32px;
 `;
 
 const RetryHeader = styled.Text`
-  color: ${({ theme }) => theme.fontColor.primary};
+  color: ${({ theme }) => theme.color.typography.primary};
   font-size: ${({ theme }) => theme.fontSize.heading};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
   margin-bottom: 8px;
 `;
 
 const RetryMessage = styled.Text`
-  color: ${({ theme }) => theme.fontColor.primary};
+  color: ${({ theme }) => theme.color.typography.primary};
   font-size: ${({ theme }) => theme.fontSize.label};
   margin-bottom: 16px;
 `;
@@ -121,8 +125,10 @@ const RetryMessage = styled.Text`
 const RetryButtonWrapper = styled(base.ButtonWrapper)``;
 
 const RetryButton = styled(base.Button)<{ pressed?: boolean }>`
-  background-color: ${(props) =>
-    props.pressed ? colors.green500 : colors.green400};
+  background-color: ${({ pressed, theme }) =>
+    pressed
+      ? theme.color.button.success.backgroundActive
+      : theme.color.button.success.background};
 `;
 
 const RetryButtonText = styled(base.ButtonText)<{ pressed?: boolean }>``;

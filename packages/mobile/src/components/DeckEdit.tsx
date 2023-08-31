@@ -64,7 +64,7 @@ const DeckEdit = ({
 };
 
 const Container = styled(base.Container)`
-  background-color: ${colors.slate100};
+  background-color: ${({ theme }) => theme.color.app.background};
   flex-direction: column;
 `;
 

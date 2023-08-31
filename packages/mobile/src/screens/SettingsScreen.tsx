@@ -4,7 +4,6 @@ import {
   Alert,
   Linking,
   Pressable,
-  ScrollView,
   StyleSheet,
 } from 'react-native';
 import InAppBrowser from 'react-native-inappbrowser-reborn';
@@ -171,14 +170,20 @@ const visitWebpage = async (url: string) => {
 };
 
 const Container = styled(base.Container)`
-  background-color: ${colors.slate100};
+  background-color: ${({ theme }) => theme.color.app.background};
+`;
+
+const ScrollView = styled.ScrollView`
+  background-color: ${({ theme }) => theme.color.list.background};
 `;
 
 const InfoButtonWrapper = styled(base.ButtonWrapper)``;
 
 const InfoButton = styled(base.Button)<{ pressed?: boolean }>`
-  background-color: ${(props) =>
-    props.pressed ? colors.sky600 : colors.sky500};
+  background-color: ${({ pressed, theme }) =>
+    pressed
+      ? theme.color.button.info.backgroundActive
+      : theme.color.button.info.background};
 `;
 
 const InfoButtonText = styled(base.ButtonText)<{ pressed?: boolean }>``;
@@ -186,29 +191,31 @@ const InfoButtonText = styled(base.ButtonText)<{ pressed?: boolean }>``;
 const DestructiveButtonWrapper = styled(base.ButtonWrapper)``;
 
 const DestructiveButton = styled(base.Button)<{ pressed?: boolean }>`
-  background-color: ${(props) =>
-    props.pressed ? colors.red600 : colors.red500};
+  background-color: ${({ pressed, theme }) =>
+    pressed
+      ? theme.color.button.destructive.backgroundActive
+      : theme.color.button.destructive.background};
 `;
 
 const DestructiveButtonText = styled(base.ButtonText)<{ pressed?: boolean }>``;
 
 const Information = styled.View`
-  border-top-color: ${colors.slate500};
+  border-top-color: ${({ theme }) => theme.color.list.border};
   border-top-width: ${StyleSheet.hairlineWidth}px;
   margin-bottom: 24px;
-  padding-horizontal: 16px;
+  margin-horizontal: 16px;
   padding-top: 24px;
 `;
 
 const DisclaimerText = styled.Text`
-  color: ${({ theme }) => theme.fontColor.subdued};
+  color: ${({ theme }) => theme.color.typography.subdued};
   text-align: center;
 `;
 
 const LinkText = styled.Text<{ pressed: boolean }>`
-  color: ${(props) => (props.pressed ? colors.sky600 : colors.sky500)};
-  font-size: ${({ pressed, theme }) =>
-    pressed ? theme.fontSize.subtext : theme.fontSize.regular};
+  color: ${({ theme, pressed }) =>
+    pressed ? theme.color.typography.linkActive : theme.color.typography.link};
+  font-size: ${({ theme }) => theme.fontSize.regular};
   text-align: center;
 `;
 

@@ -240,7 +240,7 @@ const CardListScreen = ({ navigation, route }: CardsListScreenProps) => {
 };
 
 const Container = styled(base.Container)`
-  background-color: ${colors.white};
+  background-color: ${({ theme }) => theme.color.app.background};
 `;
 
 const List = styled.View`
@@ -253,9 +253,7 @@ const SearchBar = styled(Animated.View)`
   width: 100%;
 `;
 
-const ListHeader = styled(base.ListHeader)`
-  background-color: ${colors.slate500};
-`;
+const ListHeader = styled(base.ListHeader)``;
 
 const ListHeaderInput = styled(base.TextInput)`
   flex: 1 1 0;

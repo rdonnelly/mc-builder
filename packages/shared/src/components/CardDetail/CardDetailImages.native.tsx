@@ -101,6 +101,7 @@ const CardDetailImageContainer = styled.View<{
 `;
 
 const CardImage = styled.Image`
+  border-radius: 16px;
   height: 100%;
   width: 100%;
 `;

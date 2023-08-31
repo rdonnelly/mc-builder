@@ -92,7 +92,7 @@ const DecksImportFormScreen = ({
 
 const Container = styled(base.Container)<{ bottom: number }>`
   align-items: center;
-  background-color: ${colors.slate100};
+  background-color: ${({ theme }) => theme.color.app.background};
   flex-direction: column;
   justify-content: space-around;
   padding-bottom: ${(props) => Math.max(props.bottom, 16)}px;
@@ -100,7 +100,7 @@ const Container = styled(base.Container)<{ bottom: number }>`
 `;
 
 const LoadingText = styled.Text`
-  color: ${colors.slate400};
+  color: ${({ theme }) => theme.color.typography.subdued};
   font-size: ${({ theme }) => theme.fontSize.heading};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
   text-align: center;

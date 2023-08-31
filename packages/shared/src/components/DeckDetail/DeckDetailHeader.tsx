@@ -106,9 +106,7 @@ const DeckDetailHeader = ({
 };
 
 const Container = styled.View`
-  background-color: ${colors.slate100};
-  border-bottom-color: ${colors.white};
-  border-bottom-width: ${StyleSheet.hairlineWidth}px;
+  background-color: ${({ theme }) => theme.color.app.background};
   padding: 16px;
   width: 100%;
 `;
@@ -119,8 +117,7 @@ const IdentityWrapper = styled.View`
 `;
 
 const Identity = styled(Pressable)`
-  background-color: ${colors.slate100};
-  border: 2px solid ${colors.white};
+  background-color: ${({ theme }) => theme.color.app.background};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   height: 72px;
   margin-right: 8px;
@@ -144,7 +141,7 @@ const TitleWrapper = styled.View`
 `;
 
 const Title = styled.Text`
-  color: ${({ theme }) => theme.fontColor.primary};
+  color: ${({ theme }) => theme.color.typography.primary};
   font-size: ${({ theme }) => theme.fontSize.heading};
   font-weight: ${({ theme }) => theme.fontWeight.black};
   text-align: center;
@@ -153,7 +150,7 @@ const Title = styled.Text`
 const TraitsWrapper = styled.View``;
 
 const Traits = styled.Text`
-  color: ${({ theme }) => theme.fontColor.subdued};
+  color: ${({ theme }) => theme.color.typography.subdued};
   font-size: ${({ theme }) => theme.fontSize.label};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
   text-align: center;

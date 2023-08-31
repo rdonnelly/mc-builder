@@ -163,7 +163,7 @@ const CardDetailText = ({ card }: { card: CardModel }) => {
 };
 
 const CardDetailTextContainer = styled.View`
-  background-color: ${colors.slate100};
+  background-color: ${({ theme }) => theme.color.app.layer100};
   border-radius: ${({ theme }) => theme.borderRadius.md};
   flex: 1 1 auto;
   margin-bottom: 16px;
@@ -183,7 +183,7 @@ const CardDetailTextContainerTraitsText = styled.Text`
 `;
 
 const CardDetailTextContainerDivider = styled.View`
-  background-color: ${colors.slate500};
+  background-color: ${({ theme }) => theme.color.typography.primary};
   height: ${StyleSheet.hairlineWidth}px;
   margin-horizontal: 32px;
   margin-bottom: 16px;

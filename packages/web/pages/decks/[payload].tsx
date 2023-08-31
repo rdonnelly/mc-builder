@@ -1,7 +1,7 @@
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import styled from 'styled-components/native';
+import styled, { useTheme } from 'styled-components/native';
 
 import Header from '@components/Header';
 import getAbsoluteUrl from '@utils/getAbsoluteUrl';
@@ -15,7 +15,6 @@ import {
 } from '@mc-builder/shared/src/data/deckUtils';
 import { Deck as DeckModel } from '@mc-builder/shared/src/data/models/Deck';
 import { IStoreDeck, IStoreDeckCard } from '@mc-builder/shared/src/store/types';
-import { colors } from '@mc-builder/shared/src/styles';
 import { parseDeckFromString } from '@mc-builder/shared/src/utils/DeckParser';
 
 const DeckPage = ({
@@ -37,6 +36,8 @@ const DeckPage = ({
     router.push(`/cards/${cardCode}`);
   };
 
+  const theme = useTheme();
+
   return (
     <>
       <Head>
@@ -48,7 +49,7 @@ const DeckPage = ({
         <meta property="og:image" content={meta.ogImageUrl} />
         <meta property="og:image:secure_url" content={meta.ogImageUrl} />
       </Head>
-      <Header color={colors.violet600}>Decks</Header>
+      <Header color={theme.color.app.brand.decks}>Decks</Header>
       <ScrollView>
         <DeckDetailWrapper>
           <DeckDetailHeader deck={deck} deckCards={deckCards} />
@@ -70,7 +71,7 @@ const ScrollView = styled.ScrollView`
 `;
 
 const DeckDetailWrapper = styled.View`
-  background: ${colors.slate100};
+  background: ${({ theme }) => theme.color.app.background};
   margin: 0 auto;
   max-width: 768px;
   width: 100%;

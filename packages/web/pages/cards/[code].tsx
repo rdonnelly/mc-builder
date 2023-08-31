@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import styled from 'styled-components/native';
+import { useTheme } from 'styled-components/native';
 
 import Header from '@components/Header';
 import getAbsoluteUrl from '@utils/getAbsoluteUrl';
@@ -11,10 +12,11 @@ import {
   getCardRoot,
   getCards,
 } from '@mc-builder/shared/src/data/raw/Card';
-import colors from '@mc-builder/shared/src/styles/colors';
 
 const CardPage = ({ rawCard, rootCard, meta }) => {
   const card = new Card(rawCard, rootCard);
+
+  const theme = useTheme();
 
   return (
     <>
@@ -31,7 +33,7 @@ const CardPage = ({ rawCard, rootCard, meta }) => {
         <meta name="og:image" content={meta.ogImageUrl} />
         <meta name="og:image:secure_url" content={meta.ogImageUrl} />
       </Head>
-      <Header color={colors.orange600}>Cards</Header>
+      <Header color={theme.color.app.brand.cards}>Cards</Header>
       <ScrollView>
         <CardDetailWrapper>
           <CardDetail card={card} />

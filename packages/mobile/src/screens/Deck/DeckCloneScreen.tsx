@@ -11,7 +11,6 @@ import { useAppDispatch, useAppSelector } from '@store/hooks';
 import { selectStoreDeck } from '@store/selectors';
 
 import base from '@mc-builder/shared/src/components/base';
-import { colors } from '@mc-builder/shared/src/styles';
 
 const isIOS = Platform.OS === 'ios';
 const HEADER_HEIGHT = isIOS ? 44 : 56;
@@ -72,7 +71,7 @@ const KeyboardAvoidingView = styled.KeyboardAvoidingView`
 `;
 
 const Container = styled(base.Container)<{ paddingBottom: number }>`
-  background-color: ${colors.slate100};
+  background-color: ${({ theme }) => theme.color.app.background};
   padding-bottom: ${(props) => Math.max(props.paddingBottom, 16)}px;
 `;
 

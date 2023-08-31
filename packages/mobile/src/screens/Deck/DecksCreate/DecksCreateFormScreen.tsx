@@ -265,7 +265,7 @@ const DecksCreateFormScreen = ({
 };
 
 const Container = styled(base.Container)<{ paddingBottom: number }>`
-  background-color: ${colors.slate100};
+  background-color: ${({ theme }) => theme.color.app.background};
   padding-bottom: ${(props) => Math.max(props.paddingBottom, 16)}px;
 `;
 
@@ -286,7 +286,7 @@ const ControlLabel = styled.View`
 `;
 
 const ControlLabelText = styled.Text`
-  color: ${({ theme }) => theme.fontColor.primary};
+  color: ${({ theme }) => theme.color.typography.primary};
   font-size: ${({ theme }) => theme.fontSize.label};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;
@@ -299,7 +299,7 @@ const ControlMessage = styled.View`
 `;
 
 const ControlMessageText = styled.Text`
-  color: ${colors.red500};
+  color: ${({ theme }) => theme.color.typography.error};
   font-size: ${({ theme }) => theme.fontSize.label};
   font-weight: 500;
   margin-left: 4px;
@@ -312,7 +312,10 @@ const Control = styled.View`
 `;
 
 const TextInput = styled(base.TextInput)<{ hasError?: boolean }>`
-  border-color: ${(props) => (props.hasError ? colors.red500 : 'transparent')};
+  background-color: ${({ theme }) =>
+    theme.theme === 'dark' ? theme.color.input.background : colors.violet50};
+  border-color: ${({ hasError, theme }) =>
+    hasError ? theme.color.typography.error : 'transparent'};
   border-width: 2px;
   width: 100%;
 `;
@@ -327,8 +330,14 @@ const LinkRowInner = styled.View<{
   pressed: boolean;
 }>`
   align-items: center;
-  background-color: ${(props) =>
-    props.disabled ? colors.whiteTranslucent : colors.white};
+  background-color: ${({ disabled, theme }) =>
+    disabled
+      ? theme.theme === 'dark'
+        ? colors.slate950
+        : colors.whiteTranslucent
+      : theme.theme === 'dark'
+      ? theme.color.input.background
+      : colors.violet50};
   border-color: ${(props) => (props.hasError ? colors.red500 : 'transparent')};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   border-width: 2px;
@@ -358,8 +367,10 @@ const AddButtonWrapper = styled(base.ButtonWrapper)`
 `;
 
 const AddButton = styled(base.Button)<{ pressed?: boolean }>`
-  background-color: ${(props) =>
-    props.pressed ? colors.green500 : colors.green400};
+  background-color: ${({ pressed, theme }) =>
+    pressed
+      ? theme.color.button.success.backgroundActive
+      : theme.color.button.success.background};
 `;
 
 const AddButtonText = styled(base.ButtonText)<{ pressed?: boolean }>``;
@@ -370,8 +381,10 @@ const CancelButtonWrapper = styled(base.ButtonWrapper)`
 `;
 
 const CancelButton = styled(base.Button)<{ pressed?: boolean }>`
-  background-color: ${(props) =>
-    props.pressed ? colors.slate500 : colors.slate400};
+  background-color: ${({ pressed, theme }) =>
+    pressed
+      ? theme.color.button.subdued.backgroundActive
+      : theme.color.button.subdued.background};
 `;
 
 const CancelButtonText = styled(base.ButtonText)<{ pressed?: boolean }>``;

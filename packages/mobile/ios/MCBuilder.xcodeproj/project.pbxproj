@@ -538,11 +538,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = MCBuilder/MCBuilder.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-<<<<<<< HEAD
-				CURRENT_PROJECT_VERSION = 194;
-=======
 				CURRENT_PROJECT_VERSION = 198;
->>>>>>> fd23f09 ([devops] bump and build)
 				DEVELOPMENT_TEAM = EZ4AQB6GC7;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = MCBuilder/Info.plist;
@@ -575,11 +571,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = MCBuilder/MCBuilder.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-<<<<<<< HEAD
-				CURRENT_PROJECT_VERSION = 194;
-=======
 				CURRENT_PROJECT_VERSION = 198;
->>>>>>> fd23f09 ([devops] bump and build)
 				DEVELOPMENT_TEAM = EZ4AQB6GC7;
 				INFOPLIST_FILE = MCBuilder/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;

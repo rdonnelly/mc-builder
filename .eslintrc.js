@@ -2,7 +2,7 @@ module.exports = {
   root: true,
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint', 'simple-import-sort'],
-  extends: ['@react-native-community', 'prettier'],
+  extends: ['@react-native', 'prettier'],
   settings: {
     'import/resolver': {
       'babel-module': {},

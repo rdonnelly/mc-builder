@@ -30,7 +30,7 @@
     "zod": "^3.20.2"
   },
   "devDependencies": {
-    "@react-native-community/eslint-config": "^3.2.0",
+    "@react-native/eslint-config": "^0.72.2",
     "@rnx-kit/dep-check": "^1.14.0",
     "@types/lodash": "^4.14.189",
     "@types/node": "^16.0.0",

@@ -38,6 +38,8 @@ const cards: ICardRaw[] = [].concat(
   require('marvelsdb-json-data/pack/mut_gen_encounter.json'),
   require('marvelsdb-json-data/pack/nebu.json'),
   require('marvelsdb-json-data/pack/nebu_encounter.json'),
+  require('marvelsdb-json-data/pack/next_evol.json'),
+  require('marvelsdb-json-data/pack/next_evol_encounter.json'),
   require('marvelsdb-json-data/pack/nova.json'),
   require('marvelsdb-json-data/pack/nova_encounter.json'),
   require('marvelsdb-json-data/pack/phoenix.json'),

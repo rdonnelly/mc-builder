@@ -1,8 +1,8 @@
 import typesRaw from 'marvelsdb-json-data/types.json';
 
-import { TypeCode, TypeRaw } from '../../data';
+import { TypeCode, TypeCodes, TypeRaw } from '../../data';
 
-export const typeRank = {
+export const typeRank: Record<TypeCodes, number> = {
   hero: 0,
   alter_ego: 1,
   ally: 2,
@@ -10,15 +10,16 @@ export const typeRank = {
   resource: 4,
   support: 5,
   upgrade: 6,
-  obligation: 7,
-  villain: 8,
-  main_scheme: 9,
-  side_scheme: 10,
-  attachment: 11,
-  environment: 12,
-  minion: 13,
-  treachery: 14,
-};
+  player_side_scheme: 7,
+  obligation: 8,
+  villain: 9,
+  main_scheme: 10,
+  side_scheme: 11,
+  attachment: 12,
+  environment: 13,
+  minion: 14,
+  treachery: 15,
+} as const;
 
 export class Type {
   raw: TypeRaw;

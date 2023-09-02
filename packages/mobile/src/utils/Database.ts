@@ -108,7 +108,12 @@ class Database {
       return;
     }
 
+    console.log(data);
+
     const query = squel.insert().into(tableName).setFieldsRows(data).toParam();
+
+    console.log(query);
+
     return await this.run({
       sql: query.text,
       params: query.values,
@@ -167,7 +172,7 @@ class Database {
         factions.map((factionRaw) => {
           return {
             ...factionRaw,
-            rank: factionRank[factionRaw.code],
+            rank: factionRank[factionRaw.code] || 9999,
           };
         }),
       );
@@ -177,7 +182,7 @@ class Database {
         types.map((typeRaw) => {
           return {
             ...typeRaw,
-            rank: typeRank[typeRaw.code],
+            rank: typeRank[typeRaw.code] || 9999,
           };
         }),
       );

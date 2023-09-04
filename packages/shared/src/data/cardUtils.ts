@@ -275,18 +275,25 @@ export const getEligibleCards = memoizeOne(
           card.type_code === TypeCodes.ALLY &&
           card.traits?.toLowerCase().includes('x-men');
 
+        const isCableEligible =
+          setCode === SetCodes.CABLE &&
+          card.type_code === TypeCodes.PLAYER_SIDE_SCHEME;
+
         // card must match at least one of the following:
         // 1) has matching set code
         // 2) in faction + no set code
         // 3) works with Gamora (attack or thwart event) + no set code
         // 4) works with Adam Warlock + no set code
+        // 5) works with Cyclops (X-Men ally) + no set code
+        // 6) works with Cable (player side scheme) + no set code
 
         if (
           !(card.set_code === setCode) &&
           !(isInFaction && card.set_code == null) &&
           !(isGamoraEligible && card.set_code == null) &&
           !(isAdamWarlockEligible && card.set_code == null) &&
-          !(isCyclopsEligible && card.set_code == null)
+          !(isCyclopsEligible && card.set_code == null) &&
+          !(isCableEligible && card.set_code == null)
         ) {
           return false;
         }

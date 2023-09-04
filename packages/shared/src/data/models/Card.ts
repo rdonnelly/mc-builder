@@ -287,9 +287,11 @@ export class Card {
   }
 
   get imageIsLandscape() {
-    const isLandscape = [TypeCodes.MAIN_SCHEME, TypeCodes.SIDE_SCHEME].includes(
-      this.merged.type_code as TypeCodes,
-    );
+    const isLandscape = [
+      TypeCodes.PLAYER_SIDE_SCHEME,
+      TypeCodes.MAIN_SCHEME,
+      TypeCodes.SIDE_SCHEME,
+    ].includes(this.merged.type_code as TypeCodes);
 
     return isLandscape;
   }

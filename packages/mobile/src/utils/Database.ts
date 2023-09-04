@@ -108,11 +108,7 @@ class Database {
       return;
     }
 
-    console.log(data);
-
     const query = squel.insert().into(tableName).setFieldsRows(data).toParam();
-
-    console.log(query);
 
     return await this.run({
       sql: query.text,

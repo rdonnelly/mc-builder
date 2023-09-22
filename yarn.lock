@@ -2896,10 +2896,15 @@
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.191.tgz#09511e7f7cba275acd8b419ddac8da9a6a79e2fa"
   integrity sha512-BdZ5BCCvho3EIXw6wUCXHe7rS53AIDPLE+JzwgT+OsJk53oBfbSmZZ7CX4VaRoN78N+TJpFi9QPlfIVNmJYWxQ==
 
-"@types/node@*", "@types/node@^16.0.0":
+"@types/node@*":
   version "16.18.11"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-16.18.11.tgz#cbb15c12ca7c16c85a72b6bdc4d4b01151bb3cae"
   integrity sha512-3oJbGBUWuS6ahSnEq1eN2XrCyf4YsWI8OyCvo7c64zQJNplk3mO84t53o8lfTk+2ji59g5ycfc6qQ3fdHliHuA==
+
+"@types/node@^18.0.0":
+  version "18.17.18"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.17.18.tgz#acae19ad9011a2ab3d792232501c95085ba1838f"
+  integrity sha512-/4QOuy3ZpV7Ya1GTRz5CYSz3DgkKpyUptXuQ5PPce7uuyJAOR7r9FhkmxJfvcNUXyklbC63a+YvB3jxy7s9ngw==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.1"
@@ -7124,7 +7129,7 @@ map-visit@^1.0.0:
 
 "marvelsdb-json-data@https://github.com/rdonnelly/marvelsdb-json-data.git#main":
   version "1.0.0"
-  resolved "https://github.com/rdonnelly/marvelsdb-json-data.git#5e8ef5b9f6594369d8104ae98c0eddbe0108ffd6"
+  resolved "https://github.com/rdonnelly/marvelsdb-json-data.git#e94b322c48840df7945fae8d2467a670854a5f09"
   dependencies:
     lodash "^4.13.1"
     mkdirp "^0.5.1"

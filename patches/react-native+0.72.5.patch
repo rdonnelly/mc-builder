@@ -1,8 +1,8 @@
 diff --git a/node_modules/react-native/scripts/react_native_pods.rb b/node_modules/react-native/scripts/react_native_pods.rb
-index 653385e..1eca078 100644
+index 0c28e68..ed2b97f 100644
 --- a/node_modules/react-native/scripts/react_native_pods.rb
 +++ b/node_modules/react-native/scripts/react_native_pods.rb
-@@ -64,7 +64,7 @@ end
+@@ -66,7 +66,7 @@ end
  # - config_file_dir: directory of the `package.json` file, required by the New Architecture.
  # - ios_folder: the folder where the iOS code base lives. For a template app, it is `ios`, the default. For RNTester, it is `.`.
  def use_react_native! (
@@ -11,7 +11,7 @@ index 653385e..1eca078 100644
    fabric_enabled: false,
    new_arch_enabled: ENV['RCT_NEW_ARCH_ENABLED'] == '1',
    production: ENV['PRODUCTION'] == '1',
-@@ -226,7 +226,7 @@ end
+@@ -228,7 +228,7 @@ end
  # - enable_hermes_profiler: whether the hermes profiler should be turned on in Release mode
  def react_native_post_install(
    installer,

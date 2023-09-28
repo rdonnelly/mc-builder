@@ -82,10 +82,13 @@ const cards: ICardRaw[] = [].concat(
 );
 
 export const getCardsMap = memoizeOne((): { [code: string]: ICardRaw } =>
-  getCards().reduce((map, card) => {
-    map[card.code] = card;
-    return map;
-  }, {} as { code: ICardRaw }),
+  getCards().reduce(
+    (map, card) => {
+      map[card.code] = card;
+      return map;
+    },
+    {} as { code: ICardRaw },
+  ),
 );
 
 export const getCard = (code: string) => getCardsMap()[code];

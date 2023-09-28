@@ -91,12 +91,15 @@ export const parseDeckJson = (string: string) => {
   // support for old deck format
   if (Array.isArray(deck.cards)) {
     try {
-      deck.cards = deck.cards.reduce((map, c) => {
-        return {
-          ...map,
-          [c.code]: c.quantity,
-        };
-      }, {} as { [code: string]: number });
+      deck.cards = deck.cards.reduce(
+        (map, c) => {
+          return {
+            ...map,
+            [c.code]: c.quantity,
+          };
+        },
+        {} as { [code: string]: number },
+      );
     } catch (e) {
       return null;
     }

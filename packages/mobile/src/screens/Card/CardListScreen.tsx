@@ -1,7 +1,7 @@
 import { useScrollToTop } from '@react-navigation/native';
 import debounce from 'lodash/debounce';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { ListRenderItem, StyleSheet } from 'react-native';
+import { FlatListComponent, ListRenderItem, StyleSheet } from 'react-native';
 import Animated, { useAnimatedRef } from 'react-native-reanimated';
 import styled from 'styled-components/native';
 
@@ -88,7 +88,7 @@ const CardListScreen = ({ navigation, route }: CardsListScreenProps) => {
   }, [fetchCards, searchString, filter, filterCode, sort]);
 
   // TODO cardsAnnotated type
-  const flatListRef = useAnimatedRef<Animated.FlatList<any>>();
+  const flatListRef = useAnimatedRef<Animated.FlatList<CardModel>>();
   useScrollToTop(flatListRef);
 
   const searchInputRef = useRef(null);
@@ -102,10 +102,11 @@ const CardListScreen = ({ navigation, route }: CardsListScreenProps) => {
         setSearchString(value);
 
         // scroll list to top
-        flatListRef?.current
-          // @ts-ignore
-          .getScrollResponder()
-          .scrollTo({ x: 0, y: 0, animated: true });
+        (
+          flatListRef?.current
+            // @ts-ignore
+            .getScrollResponder() as FlatListComponent
+        ).scrollTo({ x: 0, y: 0, animated: true });
       }, 250),
     [flatListRef],
   );

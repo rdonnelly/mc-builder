@@ -7,6 +7,7 @@ import {
 } from '@react-navigation/native';
 import { StatusBar, useColorScheme } from 'react-native';
 import RNBootSplash from 'react-native-bootsplash';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider as ReduxProvider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { ThemeProvider } from 'styled-components';
@@ -28,15 +29,17 @@ declare var global: { HermesInternal: null | {} };
 
 export default function AppContainer() {
   return (
-    <AppProvider>
-      <ReduxProvider store={store}>
-        <PersistGate persistor={persistor}>
-          <ActionSheetProvider>
-            <App />
-          </ActionSheetProvider>
-        </PersistGate>
-      </ReduxProvider>
-    </AppProvider>
+    <SafeAreaProvider>
+      <AppProvider>
+        <ReduxProvider store={store}>
+          <PersistGate persistor={persistor}>
+            <ActionSheetProvider>
+              <App />
+            </ActionSheetProvider>
+          </PersistGate>
+        </ReduxProvider>
+      </AppProvider>
+    </SafeAreaProvider>
   );
 }
 

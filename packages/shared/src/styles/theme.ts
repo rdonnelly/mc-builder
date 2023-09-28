@@ -48,7 +48,7 @@ const base = {
     bold: 700,
     black: 900,
   },
-};
+} as const;
 
 export const lightTheme: DefaultTheme = {
   ...base,

@@ -20,15 +20,13 @@ const styles = StyleSheet.create({
   },
 });
 
-const CardDetail = ({
-  card,
-  hideTitle,
-  shareCardImage,
-}: {
+type CardDetailProps = {
   card: CardModel;
   hideTitle?: boolean;
   shareCardImage?: (uri: string) => void;
-}) => {
+};
+
+const CardDetail = ({ card, hideTitle, shareCardImage }: CardDetailProps) => {
   return (
     <CardDetailContainer>
       <ContainerScrollView
@@ -55,4 +53,4 @@ const ContainerScrollView = styled(ScrollView)`
   width: 100%;
 `;
 
-export default memo(CardDetail);
+export default memo<CardDetailProps>(CardDetail);

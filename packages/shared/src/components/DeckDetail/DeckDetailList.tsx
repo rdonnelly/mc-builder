@@ -17,17 +17,19 @@ const styles = StyleSheet.create({
   },
 });
 
+type DeckDetailListProps = {
+  deck: DeckModel;
+  deckCards: IDeckCard[];
+  extraCards: IDeckCard[];
+  handlePressItem?: (cardCode: string, index: number) => void;
+};
+
 const DeckDetailList = ({
   deck,
   deckCards,
   extraCards,
   handlePressItem,
-}: {
-  deck: DeckModel;
-  deckCards: IDeckCard[];
-  extraCards: IDeckCard[];
-  handlePressItem?: (cardCode: string, index: number) => void;
-}) => {
+}: DeckDetailListProps) => {
   const sectionedCards = useMemo(() => {
     return getCardSectionsForDeck([...deckCards, ...extraCards], {
       includeExtra: true,
@@ -86,4 +88,4 @@ const SectionHeaderText = styled.Text`
   text-transform: uppercase;
 `;
 
-export default memo(DeckDetailList);
+export default memo<DeckDetailListProps>(DeckDetailList);

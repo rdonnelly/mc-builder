@@ -8,13 +8,12 @@ import base from './base';
 
 export const ITEM_HEIGHT = 64;
 
-const DecksListItem = ({
-  deck,
-  onPressItem,
-}: {
+type DecksListItemProps = {
   deck: DeckModel;
   onPressItem: any;
-}) => {
+};
+
+const DecksListItem = ({ deck, onPressItem }: DecksListItemProps) => {
   const deckAspectString = deck.aspects?.length
     ? deck.aspectNames.join(', ')
     : '';
@@ -102,4 +101,4 @@ const ListChevronWrapper = styled(base.ListChevronWrapper)``;
 
 const ListChevron = styled(base.ListChevron)``;
 
-export default memo(DecksListItem);
+export default memo<DecksListItemProps>(DecksListItem);

@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet } from 'react-native';
+import { FlatList, Pressable, StyleSheet, TextInput, View } from 'react-native';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
 import styled from 'styled-components/native';
 
@@ -14,7 +14,7 @@ const Container = styled.View`
 
 const ButtonWrapper = styled(Pressable)``;
 
-const Button = styled.View<{ pressed?: boolean }>`
+const Button = styled(View)<{ pressed?: boolean }>`
   align-items: center;
   background-color: ${colors.brand};
   border-radius: ${({ theme }) => theme.borderRadius.md};
@@ -34,7 +34,7 @@ const ButtonText = styled.Text<{ pressed?: boolean }>`
   text-align: center;
 `;
 
-const FlatList = styled.FlatList`
+const BaseFlatList = styled(FlatList)`
   background-color: ${colors.white};
   flex: 1 1 auto;
   width: 100%;
@@ -97,7 +97,7 @@ const ListIcon = ({
   />
 );
 
-const TextInput = styled.TextInput`
+const BaseTextInput = styled(TextInput)`
   background-color: ${colors.white};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   border-width: 0;
@@ -112,12 +112,12 @@ export default {
   ButtonWrapper: ButtonWrapper,
   Button: Button,
   ButtonText: ButtonText,
-  FlatList: FlatList,
+  FlatList: BaseFlatList,
   ListHeader: ListHeader,
   ListFooter: ListFooter,
   ListFooterText: ListFooterText,
   ListChevronWrapper: ListChevronWrapper,
   ListChevron: ListChevron,
   ListIcon: ListIcon,
-  TextInput: TextInput,
+  TextInput: BaseTextInput,
 };

@@ -19,17 +19,19 @@ import { colors } from '@mc-builder/shared/src/styles';
 
 type DeckEditNavigationProps = DeckEditScreenProps['navigation'];
 
+type DeckEditProps = {
+  deck: DeckModel;
+  deckCards: IDeckCard[];
+  eligibleDeckCards: IDeckCard[];
+  handlePressItem?: (cardCode: string, index: number) => void;
+};
+
 const DeckEdit = ({
   deck,
   deckCards,
   eligibleDeckCards,
   handlePressItem,
-}: {
-  deck: DeckModel;
-  deckCards: IDeckCard[];
-  eligibleDeckCards: IDeckCard[];
-  handlePressItem?: (cardCode: string, index: number) => void;
-}) => {
+}: DeckEditProps) => {
   const navigation = useNavigation<DeckEditNavigationProps>();
 
   const handlePressDone = () => {
@@ -66,4 +68,4 @@ const Container = styled(base.Container)`
   flex-direction: column;
 `;
 
-export default memo(DeckEdit);
+export default memo<DeckEditProps>(DeckEdit);

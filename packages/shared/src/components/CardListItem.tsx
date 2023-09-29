@@ -23,18 +23,7 @@ const getFactionOrSetText = (card: CardModel) => {
   );
 };
 
-const CardListItem = ({
-  card,
-  index,
-  count,
-  onPressItem,
-  showPackInfo = true,
-  showEditControls,
-  increment,
-  incrementIsDisabled,
-  decrement,
-  decrementIsDisabled,
-}: {
+type CardListItemProps = {
   card: CardModel;
   index: number;
   count?: number;
@@ -46,7 +35,20 @@ const CardListItem = ({
   incrementIsDisabled?: (card: CardModel, quantity: number) => boolean;
   decrement?: (card: CardModel, quantity: number) => void;
   decrementIsDisabled?: (card: CardModel, quantity: number) => boolean;
-}) => {
+};
+
+const CardListItem = ({
+  card,
+  index,
+  count,
+  onPressItem,
+  showPackInfo = true,
+  showEditControls,
+  increment,
+  incrementIsDisabled,
+  decrement,
+  decrementIsDisabled,
+}: CardListItemProps) => {
   let infoText = '';
 
   if (card.typeCode === TypeCodes.VILLAIN && card.stage != null) {
@@ -306,4 +308,4 @@ const ListChevronWrapper = styled(base.ListChevronWrapper)``;
 
 const ListChevron = base.ListChevron;
 
-export default memo(CardListItem);
+export default memo<CardListItemProps>(CardListItem);

@@ -7,13 +7,12 @@ import { colors } from '@mc-builder/shared/src/styles';
 
 export const ITEM_HEIGHT = 64;
 
-const ListItem = ({
-  item,
-  handlePressItem,
-}: {
+type ListItemProps = {
   item: { code: string; name: string; description: string };
   handlePressItem?: (code: string) => void;
-}) => {
+};
+
+const ListItem = ({ item, handlePressItem }: ListItemProps) => {
   return (
     <Container>
       <ListItemPressable onPress={() => handlePressItem(item.code)}>
@@ -78,4 +77,4 @@ const ListChevronWrapper = styled(base.ListChevronWrapper)``;
 
 const ListChevron = styled(base.ListChevron)``;
 
-export default memo(ListItem);
+export default memo<ListItemProps>(ListItem);

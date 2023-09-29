@@ -51,15 +51,13 @@ enum IconCodeString {
   WILD_OUTLINE = 'e912',
 }
 
-const Icon = ({
-  code,
-  color,
-  size,
-}: {
+type IconProps = {
   code: IconCode;
   color?: string;
   size?: number;
-}) => {
+};
+
+const Icon = ({ code, color, size }: IconProps) => {
   const codeString: IconCodeString = IconCodeString[code] || null;
   const fontString: string = codeString
     ? String.fromCharCode(parseInt(codeString, 16))
@@ -100,4 +98,4 @@ export const iconRenderer = (
   );
 };
 
-export default memo(Icon);
+export default memo<IconProps>(Icon);

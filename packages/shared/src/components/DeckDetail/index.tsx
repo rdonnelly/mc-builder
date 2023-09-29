@@ -8,17 +8,19 @@ import { IDeckCard } from '../../data/models/Deck';
 import { colors } from '../../styles';
 import base from '../base';
 
+type DeckDetailProps = {
+  deck: DeckModel;
+  deckCards: IDeckCard[];
+  extraCards: IDeckCard[];
+  handlePressItem?: (cardCode: string, index: number) => void;
+};
+
 const DeckDetail = ({
   deck,
   deckCards,
   extraCards,
   handlePressItem,
-}: {
-  deck: DeckModel;
-  deckCards: IDeckCard[];
-  extraCards: IDeckCard[];
-  handlePressItem?: (cardCode: string, index: number) => void;
-}) => {
+}: DeckDetailProps) => {
   return (
     <Container>
       <DeckDetailHeader deck={deck} deckCards={deckCards} />
@@ -37,4 +39,4 @@ const Container = styled(base.Container)`
   flex-direction: column;
 `;
 
-export default memo(DeckDetail);
+export default memo<DeckDetailProps>(DeckDetail);

@@ -7157,7 +7157,7 @@ makeerror@1.0.12:
 
 "marvelsdb-json-data@https://github.com/rdonnelly/marvelsdb-json-data.git#main":
   version "1.0.0"
-  resolved "https://github.com/rdonnelly/marvelsdb-json-data.git#e94b322c48840df7945fae8d2467a670854a5f09"
+  resolved "https://github.com/rdonnelly/marvelsdb-json-data.git#dbce638b93387b11a150542f395faa8990279a76"
   dependencies:
     lodash "^4.13.1"
     mkdirp "^0.5.1"

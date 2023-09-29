@@ -12,6 +12,7 @@ export enum FactionCodes {
 }
 
 export enum PackCodes {
+  ANGEL = 'angel',
   ANT = 'ant',
   BKW = 'bkw',
   CAP = 'cap',
@@ -34,6 +35,7 @@ export enum PackCodes {
   NEXT_EVOL = 'next_evol',
   NOVA = 'nova',
   PHOENIX = 'phoenix',
+  PSYLOCKE = 'psylocke',
   QSV = 'qsv',
   ROGUE = 'rogue',
   RON = 'ron',
@@ -59,6 +61,8 @@ export enum SetCodes {
   ABSORBING_MAN = 'absorbing_man',
   ACOLYTES = 'acolytes',
   ANACHRONAUTS = 'anachronauts',
+  ANGEL = 'angel',
+  ANGEL_NEMESIS = 'angel_nemesis',
   ANT = 'ant',
   ANT_NEMESIS = 'ant_nemesis',
   ARMADILLO = 'armadillo',
@@ -200,6 +204,8 @@ export enum SetCodes {
   POWER_DRAIN = 'power_drain',
   POWER_STONE = 'power_stone',
   PROJECT_WIDEAWAKE = 'project_wideawake',
+  PSYLOCKE = 'psylocke',
+  PSYLOCKE_NEMESIS = 'psylocke_nemesis',
   QSV = 'qsv',
   QSV_NEMESIS = 'qsv_nemesis',
   RANSACKED_ARMORY = 'ransacked_armory',

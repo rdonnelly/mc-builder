@@ -2,6 +2,28 @@ import { createSelector } from '@reduxjs/toolkit';
 
 import { StoreState } from '@store';
 
+export const selectStoreDecks = createSelector(
+  (state: StoreState) => state.root.decks.entities,
+  (state: StoreState) => state.root.app.sorting.deck,
+  (deckEntities, sortKey) =>
+    Object.values(deckEntities).sort((a, b) => {
+      if (['created', 'updated'].includes(sortKey)) {
+        if (a[sortKey] < b[sortKey]) {
+          return 1;
+        }
+
+        if (a[sortKey] > b[sortKey]) {
+          return -1;
+        }
+
+        return 0;
+      }
+      return a[sortKey].localeCompare(b[sortKey], 'en', {
+        sensitivity: 'base',
+      });
+    }),
+);
+
 export const selectStoreDeck = createSelector(
   (state: StoreState, _deckCode: string) => state.root.decks.entities,
   (_state: StoreState, deckCode: string) => deckCode,

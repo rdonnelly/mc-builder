@@ -1,5 +1,5 @@
 import { useActionSheet } from '@expo/react-native-action-sheet';
-import { useCallback, useLayoutEffect, useRef } from 'react';
+import { useCallback, useLayoutEffect, useMemo, useRef } from 'react';
 import {
   findNodeHandle,
   ListRenderItem,
@@ -18,6 +18,7 @@ import { DecksListScreenProps } from '@navigation/DecksStackNavigator';
 import { StoreState } from '@store';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
 import { setDeckSort } from '@store/reducers/app';
+import { selectStoreDecks } from '@store/selectors';
 import { getClipboard } from '@utils/Clipboard';
 
 import base from '@mc-builder/shared/src/components/base';
@@ -39,29 +40,10 @@ const DecksListScreen = ({ navigation }: DecksListScreenProps) => {
     return state.root.app.sorting.deck;
   });
 
-  const decks = useAppSelector((state: StoreState) => {
-    const deckEntities = state.root.decks.entities;
-    const sortKey = state.root.app.sorting.deck;
-
-    return Object.values(deckEntities)
-      .sort((a, b) => {
-        if (['created', 'updated'].includes(sortKey)) {
-          if (a[sortKey] < b[sortKey]) {
-            return 1;
-          }
-
-          if (a[sortKey] > b[sortKey]) {
-            return -1;
-          }
-
-          return 0;
-        }
-        return a[sortKey].localeCompare(b[sortKey], 'en', {
-          sensitivity: 'base',
-        });
-      })
-      .map((deckEntity) => new DeckModel(deckEntity));
-  });
+  const storeDecks = useAppSelector(selectStoreDecks);
+  const decks = useMemo(() => {
+    return storeDecks.map((deckEntity) => new DeckModel(deckEntity));
+  }, [storeDecks]);
 
   const { showActionSheetWithOptions } = useActionSheet();
   const decksActionSheetAnchorRef = useRef(null);

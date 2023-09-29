@@ -1,13 +1,15 @@
 {
+  "$schema": "https://json.schemastore.org/tsconfig",
+
   "compilerOptions": {
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
-    "lib": ["ESNext"],
+    "lib": ["DOM", "ESNext"],
     "module": "ESNext",
-    "moduleResolution": "Node",
+    "moduleResolution": "node",
     "noEmit": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
@@ -20,5 +22,13 @@
         "type": "config"
       }
     ]
-  }
+  },
+  "include": [
+    "reset.d.ts",
+    "**/*.js",
+    "**/*.json",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": ["**/node_modules", "babel.config.js", "metro.config.js", "jest.config.js"]
 }

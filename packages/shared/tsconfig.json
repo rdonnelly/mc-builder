@@ -5,5 +5,11 @@
     "module": "commonjs",
     "noEmit": true
   },
-  "include": ["*.js", "**/*.js", "**/*.json", "**/*.ts", "**/*.tsx"]
+  "include": [
+    "../../reset.d.ts",
+    "**/*.js",
+    "**/*.json",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
 }

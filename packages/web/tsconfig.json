@@ -13,10 +13,10 @@
   },
   "include": [
     "next-env.d.ts",
+    "../../reset.d.ts",
+    "**/*.js",
+    "**/*.json",
     "**/*.ts",
     "**/*.tsx"
-  ],
-  "exclude": [
-    "node_modules"
   ]
 }

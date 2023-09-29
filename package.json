@@ -32,6 +32,7 @@
   "devDependencies": {
     "@react-native/eslint-config": "^0.72.2",
     "@rnx-kit/dep-check": "^1.14.0",
+    "@total-typescript/ts-reset": "^0.5.1",
     "@types/lodash": "^4.14.199",
     "@types/node": "^18.0.0",
     "eslint": "^8.50.0",

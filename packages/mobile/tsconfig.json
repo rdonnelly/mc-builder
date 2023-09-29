@@ -7,7 +7,12 @@
       "@*": ["./src/*"]
     }
   },
-  "include": ["__tests__", "*.js", "**/*.js", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"],
+  "include": [
+    "../../reset.d.ts",
+    "**/*.js",
+    "**/*.json",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
   "typeRoots": ["./types"],
 }

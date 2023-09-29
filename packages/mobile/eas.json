@@ -1,6 +1,7 @@
 {
   "cli": {
     "version": ">= 3.5.2",
+    "appVersionSource": "remote",
     "promptToConfigurePushNotifications": false
   },
   "build": {
@@ -25,6 +26,7 @@
       }
     },
     "production": {
+      "autoIncrement": true,
       "node": "18.16.0",
       "ios": {}
     }

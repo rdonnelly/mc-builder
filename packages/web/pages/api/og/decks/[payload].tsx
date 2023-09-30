@@ -4,16 +4,9 @@ import { NextRequest } from 'next/server';
 
 import getAbsoluteUrl from '@utils/getAbsoluteUrl';
 
-import {
-  getCardsForDeck,
-  getDeckCardCount,
-  getDeckHero,
-  getDeckMeta,
-} from '@mc-builder/shared/src/data/deckUtils';
-import { Deck as DeckModel } from '@mc-builder/shared/src/data/models/Deck';
 import { getFaction } from '@mc-builder/shared/src/data/models/Faction';
+import { getSet } from '@mc-builder/shared/src/data/models/Set';
 import colors from '@mc-builder/shared/src/styles/colors';
-import { parseDeckFromString } from '@mc-builder/shared/src/utils/DeckParser';
 
 export const config = {
   runtime: 'edge',
@@ -40,30 +33,28 @@ export default async function handler(req: NextRequest) {
 
   const { searchParams } = req.nextUrl;
   const payload = searchParams.get('payload');
+  let rawDeckData;
 
-  const parseResult = await parseDeckFromString(payload);
-
-  if (!parseResult || !parseResult.storeDeck || !parseResult.storeDeckCards) {
+  try {
+    const rawDeckResponse = await fetch(
+      getAbsoluteUrl(`/api/decks/${payload}`),
+    );
+    rawDeckData = await rawDeckResponse.json();
+  } catch {
     return new ImageResponse(<>404 Not Found</>, {
       width: 1200,
       height: 630,
     });
   }
 
-  const { storeDeck, storeDeckCards } = parseResult;
-
-  const deck = new DeckModel(storeDeck, storeDeckCards);
-  const deckCards = getCardsForDeck(storeDeckCards);
-
-  const meta = getDeckMeta(deckCards);
   let backgroundImage = '';
-  if (meta?.colors?.length === 4) {
-    backgroundImage = `linear-gradient(100deg, ${meta.colors[0]} 56%, ${meta.colors[1]} 60%, ${meta.colors[2]} 100%)`;
+  if (rawDeckData.meta?.colors?.length === 4) {
+    backgroundImage = `linear-gradient(100deg, ${rawDeckData.meta.colors[0]} 56%, ${rawDeckData.meta.colors[1]} 60%, ${rawDeckData.meta.colors[2]} 100%)`;
   }
 
-  const heroCard = getDeckHero(deck, deckCards);
+  const set = getSet(rawDeckData.setCode);
 
-  const aspects = deck.aspectCodes.map((aspectCode) => ({
+  const aspects = rawDeckData.aspectCodes.map((aspectCode) => ({
     name: getFaction(aspectCode).name,
     color: colors.factions[aspectCode],
   }));
@@ -122,7 +113,7 @@ export default async function handler(req: NextRequest) {
                   lineHeight: 1,
                 }}
               >
-                {deck.setName}
+                {set.name}
               </div>
               <div style={{ display: 'flex', flexDirection: 'column' }}>
                 {aspects.map((aspect, index) => (
@@ -134,7 +125,7 @@ export default async function handler(req: NextRequest) {
                   </div>
                 ))}
                 <div style={{ color: colors.grayDark, display: 'flex' }}>
-                  {getDeckCardCount(deckCards)} Cards
+                  {rawDeckData.deckCardCount} Cards
                 </div>
               </div>
             </div>
@@ -148,7 +139,7 @@ export default async function handler(req: NextRequest) {
                 fontWeight: 400,
               }}
             >
-              {deck.name}
+              {rawDeckData.name}
             </div>
           </div>
           <div style={{ display: 'flex', width: '100%' }}>
@@ -176,7 +167,7 @@ export default async function handler(req: NextRequest) {
           }}
         >
           <img
-            src={heroCard.imageUriSet.at(0)}
+            src={rawDeckData.heroImageUri}
             height="566"
             style={{
               border: '4px solid white',

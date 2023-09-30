@@ -5,7 +5,6 @@ import { NextRequest } from 'next/server';
 import getAbsoluteUrl from '@utils/getAbsoluteUrl';
 
 import { Card } from '@mc-builder/shared/src/data/models/Card';
-import { getCard, getCardRoot } from '@mc-builder/shared/src/data/raw/Card';
 import colors from '@mc-builder/shared/src/styles/colors';
 
 export const config = {
@@ -29,17 +28,18 @@ export default async function handler(req: NextRequest) {
   const { searchParams } = req.nextUrl;
   const code = searchParams.get('code');
 
-  const rawCard = getCard(code);
-  const rawRoot = getCardRoot(code);
+  let card: Card;
 
-  if (!rawCard) {
+  try {
+    const rawCardResponse = await fetch(getAbsoluteUrl(`/api/cards/${code}`));
+    const rawCardData = await rawCardResponse.json();
+    card = new Card(rawCardData);
+  } catch {
     return new ImageResponse(<>404 Not Found</>, {
       width: 1200,
       height: 630,
     });
   }
-
-  const card = new Card(rawCard, rawRoot);
 
   const factionSetText =
     card.pack.name !== card.factionSetText ? ` | ${card.factionSetText}` : '';

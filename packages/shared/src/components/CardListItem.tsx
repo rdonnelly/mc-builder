@@ -1,7 +1,5 @@
 import { memo } from 'react';
-import { StyleSheet } from 'react-native';
-import NativeView from 'react-native/Libraries/Components/View/ViewNativeComponent';
-import { NativeText } from 'react-native/Libraries/Text/TextNativeComponent';
+import { StyleSheet, Text } from 'react-native';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
 import styled from 'styled-components/native';
 
@@ -64,7 +62,7 @@ const CardListItem = ({
   const resourceIcons = (
     <>
       {card.resources != null ? (
-        <NativeText key={'resource_icon_separator'}> · </NativeText>
+        <Text key={'resource_icon_separator'}> · </Text>
       ) : null}
       <CardResourceIcons card={card} />
     </>
@@ -169,7 +167,7 @@ const CardListItem = ({
   );
 };
 
-const ListItemOuter = styled(NativeView)`
+const ListItemOuter = styled.View`
   background-color: ${colors.lightGray};
   border-bottom-color: ${colors.lightGrayDark};
   border-bottom-width: ${StyleSheet.hairlineWidth}px;
@@ -188,7 +186,7 @@ const ListItemPressable = styled.Pressable`
   width: 100%;
 `;
 
-const ListItemInner = styled(NativeView)<{ pressed: boolean }>`
+const ListItemInner = styled.View<{ pressed: boolean }>`
   align-items: center;
   flex-direction: row;
   flex: 1 1 auto;
@@ -198,7 +196,7 @@ const ListItemInner = styled(NativeView)<{ pressed: boolean }>`
   width: 100%;
 `;
 
-const CardCount = styled(NativeView)<{ active?: boolean }>`
+const CardCount = styled.View<{ active?: boolean }>`
   align-items: center;
   background-color: ${(props) =>
     props.active ? colors.white : colors.lightGray};
@@ -211,13 +209,13 @@ const CardCount = styled(NativeView)<{ active?: boolean }>`
   width: 36px;
 `;
 
-const CardCountText = styled(NativeText)<{ active?: boolean }>`
+const CardCountText = styled.Text<{ active?: boolean }>`
   color: ${(props) => (props.active ? colors.blue : colors.lightGrayDark)};
   font-size: ${({ theme }) => theme.fontSize.label};
   font-weight: ${({ theme }) => theme.fontWeight.black};
 `;
 
-const CardDetails = styled(NativeView)`
+const CardDetails = styled.View`
   align-items: flex-start;
   flex: 1 1 auto;
   flex-direction: column;
@@ -225,7 +223,7 @@ const CardDetails = styled(NativeView)`
   margin-right: 8px;
 `;
 
-const CardDetailsName = styled(NativeView)`
+const CardDetailsName = styled.View`
   padding-bottom: 2px;
 `;
 
@@ -235,7 +233,7 @@ const CardDetailsNameText = styled.Text`
   font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;
 
-const CardDetailsInfo = styled(NativeView)`
+const CardDetailsInfo = styled.View`
   flex-direction: row;
 `;
 
@@ -244,14 +242,14 @@ const CardDetailsInfoText = styled.Text`
   font-size: ${({ theme }) => theme.fontSize.subtext};
 `;
 
-const CardDetailsInfoFactionOrSet = styled(NativeText)<{
+const CardDetailsInfoFactionOrSet = styled.Text<{
   color?: string;
 }>`
   color: ${(props) => (props.color ? props.color : colors.grayDark)};
   font-size: ${({ theme }) => theme.fontSize.subtext};
 `;
 
-const CardControls = styled(NativeView)`
+const CardControls = styled.View`
   flex-direction: row;
   margin-right: 8px;
 `;
@@ -268,7 +266,7 @@ const CardCountButton = styled.Pressable<{
   width: 36px;
 `;
 
-const CardCountButtonBackground = styled(NativeView)<{
+const CardCountButtonBackground = styled.View<{
   active: boolean;
 }>`
   align-items: center;

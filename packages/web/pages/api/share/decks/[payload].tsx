@@ -5,15 +5,9 @@ import qrcode from 'yaqrcode';
 
 import getAbsoluteUrl from '@utils/getAbsoluteUrl';
 
-import {
-  getCardsForDeck,
-  getDeckHero,
-  getDeckMeta,
-} from '@mc-builder/shared/src/data/deckUtils';
-import { Deck as DeckModel } from '@mc-builder/shared/src/data/models/Deck';
 import { getFaction } from '@mc-builder/shared/src/data/models/Faction';
+import { getSet } from '@mc-builder/shared/src/data/models/Set';
 import colors from '@mc-builder/shared/src/styles/colors';
-import { parseDeckFromString } from '@mc-builder/shared/src/utils/DeckParser';
 
 export const config = {
   runtime: 'edge',
@@ -40,30 +34,28 @@ export default async function handler(req: NextRequest) {
 
   const { searchParams } = req.nextUrl;
   const payload = searchParams.get('payload');
+  let rawDeckData;
 
-  const parseResult = await parseDeckFromString(payload);
-
-  if (!parseResult || !parseResult.storeDeck || !parseResult.storeDeckCards) {
+  try {
+    const rawDeckResponse = await fetch(
+      getAbsoluteUrl(`/api/decks/${payload}`),
+    );
+    rawDeckData = await rawDeckResponse.json();
+  } catch {
     return new ImageResponse(<>404 Not Found</>, {
       width: 1200,
       height: 630,
     });
   }
 
-  const { storeDeck, storeDeckCards } = parseResult;
-
-  const deck = new DeckModel(storeDeck, storeDeckCards);
-  const deckCards = getCardsForDeck(storeDeckCards);
-
-  const meta = getDeckMeta(deckCards);
   let backgroundImage = '';
-  if (meta?.colors?.length === 4) {
-    backgroundImage = `linear-gradient(100deg, ${meta.colors[0]} 56%, ${meta.colors[1]} 60%, ${meta.colors[2]} 100%)`;
+  if (rawDeckData.meta?.colors?.length === 4) {
+    backgroundImage = `linear-gradient(100deg, ${rawDeckData.meta.colors[0]} 56%, ${rawDeckData.meta.colors[1]} 60%, ${rawDeckData.meta.colors[2]} 100%)`;
   }
 
-  const heroCard = getDeckHero(deck, deckCards);
+  const set = getSet(rawDeckData.setCode);
 
-  const aspects = deck.aspectCodes.map((aspectCode) => ({
+  const aspects = rawDeckData.aspectCodes.map((aspectCode) => ({
     name: getFaction(aspectCode).name,
     color: colors.factions[aspectCode],
   }));
@@ -106,7 +98,7 @@ export default async function handler(req: NextRequest) {
           >
             <div
               style={{
-                backgroundImage: `url(${heroCard.imageUriSet.at(0)})`,
+                backgroundImage: `url(${rawDeckData.heroImageUri})`,
                 backgroundPosition: '-50px -40px',
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: '237 343',
@@ -143,7 +135,7 @@ export default async function handler(req: NextRequest) {
                 textAlign: 'center',
               }}
             >
-              {deck.name}
+              {rawDeckData.name}
             </div>
             <div
               style={{
@@ -152,7 +144,7 @@ export default async function handler(req: NextRequest) {
                 textAlign: 'center',
               }}
             >
-              {deck.setName}
+              {set.name}
             </div>
           </div>
           <div

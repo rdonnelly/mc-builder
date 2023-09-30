@@ -29,6 +29,7 @@
     "@react-navigation/native-stack": "^6.9.14",
     "@react-navigation/stack": "^6.3.18",
     "@reduxjs/toolkit": "^1.9.6",
+    "@shopify/flash-list": "^1.6.1",
     "react": "18.2.0",
     "react-native": "0.72.5",
     "react-native-bootsplash": "^5.0.3",

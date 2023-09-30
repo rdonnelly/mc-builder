@@ -1,7 +1,11 @@
 import { useScrollToTop } from '@react-navigation/native';
+import {
+  FlashList,
+  ListRenderItem as FlashListRenderItem,
+} from '@shopify/flash-list';
 import debounce from 'lodash/debounce';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { FlatListComponent, ListRenderItem, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import Animated, { useAnimatedRef } from 'react-native-reanimated';
 import styled from 'styled-components/native';
 
@@ -30,11 +34,6 @@ import { CardSortTypes } from '@mc-builder/shared/src/data/types';
 import { colors } from '@mc-builder/shared/src/styles';
 
 const styles = StyleSheet.create({
-  cardList: {
-    backgroundColor: colors.white,
-    flex: 1,
-    width: '100%',
-  },
   cardListContentContainerStyle: {
     paddingBottom: 72,
   },
@@ -42,11 +41,7 @@ const styles = StyleSheet.create({
 
 const SEARCH_BAR_HEIGHT = 64;
 
-const getItemLayout = (_data: any, index: number) => ({
-  length: ITEM_HEIGHT,
-  offset: ITEM_HEIGHT * index,
-  index,
-});
+const AnimatedFlashList = Animated.createAnimatedComponent(FlashList);
 
 const keyExtractor = (card: CardModel) => card.code;
 
@@ -105,7 +100,7 @@ const CardListScreen = ({ navigation, route }: CardsListScreenProps) => {
         (
           flatListRef?.current
             // @ts-ignore
-            .getScrollResponder() as FlatListComponent
+            .getScrollResponder() as FlashList
         ).scrollTo({ x: 0, y: 0, animated: true });
       }, 250),
     [flatListRef],
@@ -163,7 +158,7 @@ const CardListScreen = ({ navigation, route }: CardsListScreenProps) => {
     [navigation, searchString, filter, filterCode, sort],
   );
 
-  const renderCard: ListRenderItem<CardModel> = useCallback(
+  const renderCard: FlashListRenderItem<CardModel> = useCallback(
     ({ item: card, index }) => (
       <CardListItem card={card} index={index} onPressItem={handlePressItem} />
     ),
@@ -187,38 +182,40 @@ const CardListScreen = ({ navigation, route }: CardsListScreenProps) => {
 
   return (
     <Container>
-      <SearchBar style={[searchBarAnimatedStyles]}>
-        <ListHeader>
-          <ListHeaderInput
-            autoCapitalize={'none'}
-            autoCorrect={false}
-            clearButtonMode={'always'}
-            placeholder={'Search'}
-            placeholderTextColor={colors.gray}
-            ref={searchInputRef}
-            returnKeyType={'search'}
-            onSubmitEditing={handleSearch}
-            onChange={handleSearch}
-            defaultValue={searchString}
+      {cards.length ? (
+        <List>
+          <SearchBar style={[searchBarAnimatedStyles]}>
+            <ListHeader>
+              <ListHeaderInput
+                autoCapitalize={'none'}
+                autoCorrect={false}
+                clearButtonMode={'always'}
+                placeholder={'Search'}
+                placeholderTextColor={colors.gray}
+                ref={searchInputRef}
+                returnKeyType={'search'}
+                onSubmitEditing={handleSearch}
+                onChange={handleSearch}
+                defaultValue={searchString}
+              />
+            </ListHeader>
+          </SearchBar>
+
+          <AnimatedFlashList
+            // @ts-ignore
+            forwardedRef={flatListRef}
+            data={cards}
+            estimatedItemSize={ITEM_HEIGHT}
+            renderItem={renderCard}
+            keyExtractor={keyExtractor}
+            contentContainerStyle={styles.cardListContentContainerStyle}
+            ListFooterComponent={renderFooter}
+            scrollEventThrottle={1}
+            onScroll={searchBarScrollHandler}
+            onScrollBeginDrag={handleScrollBeginDrag}
           />
-        </ListHeader>
-      </SearchBar>
-      <Animated.FlatList
-        // @ts-ignore
-        forwardedRef={flatListRef}
-        renderItem={renderCard}
-        getItemLayout={getItemLayout}
-        data={cards}
-        keyExtractor={keyExtractor}
-        style={styles.cardList}
-        contentContainerStyle={styles.cardListContentContainerStyle}
-        ListFooterComponent={renderFooter}
-        maxToRenderPerBatch={14}
-        updateCellsBatchingPeriod={100}
-        scrollEventThrottle={1}
-        onScroll={searchBarScrollHandler}
-        onScrollBeginDrag={handleScrollBeginDrag}
-      />
+        </List>
+      ) : null}
 
       {!filter && !filterCode ? (
         <FloatingControlBar>
@@ -248,6 +245,11 @@ const CardListScreen = ({ navigation, route }: CardsListScreenProps) => {
 
 const Container = styled(base.Container)`
   background-color: ${colors.white};
+`;
+
+const List = styled.View`
+  flex: 1 1 auto;
+  width: 100%;
 `;
 
 const SearchBar = styled(Animated.View)`

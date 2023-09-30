@@ -39,7 +39,7 @@ export function useListSearchBar({ disabled, height }: useListSearchBarProps) {
         [0, -height],
         Extrapolate.CLAMP,
       ),
-      { duration: 10, easing: Easing.linear },
+      { duration: 100, easing: Easing.ease },
     );
 
     return {

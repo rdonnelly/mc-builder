@@ -3,6 +3,8 @@ import memoizeOne from 'memoize-one';
 import { ICardRaw } from '../../data';
 
 const cards: ICardRaw[] = [].concat(
+  require('marvelsdb-json-data/pack/angel.json'),
+  require('marvelsdb-json-data/pack/angel_encounter.json'),
   require('marvelsdb-json-data/pack/ant.json'),
   require('marvelsdb-json-data/pack/ant_encounter.json'),
   require('marvelsdb-json-data/pack/bkw.json'),
@@ -44,6 +46,8 @@ const cards: ICardRaw[] = [].concat(
   require('marvelsdb-json-data/pack/nova_encounter.json'),
   require('marvelsdb-json-data/pack/phoenix.json'),
   require('marvelsdb-json-data/pack/phoenix_encounter.json'),
+  require('marvelsdb-json-data/pack/psylocke.json'),
+  require('marvelsdb-json-data/pack/psylocke_encounter.json'),
   require('marvelsdb-json-data/pack/qsv.json'),
   require('marvelsdb-json-data/pack/qsv_encounter.json'),
   require('marvelsdb-json-data/pack/rogue.json'),

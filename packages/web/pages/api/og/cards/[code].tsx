@@ -16,18 +16,13 @@ const fontLatoFetch = fetch(
   new URL('../../../../assets/Lato-Regular.ttf', import.meta.url),
 ).then((res) => res.arrayBuffer());
 
-const fontLatoItalicFetch = fetch(
-  new URL('../../../../assets/Lato-Italic.ttf', import.meta.url),
-).then((res) => res.arrayBuffer());
-
 const fontOswaldFetch = fetch(
   new URL('../../../../assets/Oswald-Bold.ttf', import.meta.url),
 ).then((res) => res.arrayBuffer());
 
 export default async function handler(req: NextRequest) {
-  const [fontLato, fontLatoItalic, fontOswald] = await Promise.all([
+  const [fontLato, fontOswald] = await Promise.all([
     fontLatoFetch,
-    fontLatoItalicFetch,
     fontOswaldFetch,
   ]);
 
@@ -174,12 +169,6 @@ export default async function handler(req: NextRequest) {
           data: fontLato,
           weight: 400,
           style: 'normal',
-        },
-        {
-          name: 'Lato',
-          data: fontLatoItalic,
-          weight: 400,
-          style: 'italic',
         },
         {
           name: 'Oswald',

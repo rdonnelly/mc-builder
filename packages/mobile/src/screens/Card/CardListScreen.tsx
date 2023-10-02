@@ -41,7 +41,9 @@ const styles = StyleSheet.create({
 
 const SEARCH_BAR_HEIGHT = 64;
 
-const AnimatedFlashList = Animated.createAnimatedComponent(FlashList);
+const AnimatedFlashList = Animated.createAnimatedComponent(
+  FlashList<CardModel>,
+);
 
 const keyExtractor = (card: CardModel) => card.code;
 
@@ -82,28 +84,22 @@ const CardListScreen = ({ navigation, route }: CardsListScreenProps) => {
     fetchCards({ searchString, filter, filterCode: [filterCode], sort });
   }, [fetchCards, searchString, filter, filterCode, sort]);
 
-  // TODO cardsAnnotated type
-  const flatListRef = useAnimatedRef<Animated.FlatList<CardModel>>();
-  useScrollToTop(flatListRef);
-
   const searchInputRef = useRef(null);
   const handleScrollBeginDrag = () => {
     searchInputRef?.current?.blur();
   };
+
+  const flashListRef = useAnimatedRef<FlashList<CardModel>>();
+  useScrollToTop(flashListRef);
 
   const setSearchStringDebounced = useMemo(
     () =>
       debounce((value) => {
         setSearchString(value);
 
-        // scroll list to top
-        (
-          flatListRef?.current
-            // @ts-ignore
-            .getScrollResponder() as FlashList
-        ).scrollTo({ x: 0, y: 0, animated: true });
+        flashListRef?.current?.scrollToIndex({ index: 0, animated: true });
       }, 250),
-    [flatListRef],
+    [flashListRef],
   );
 
   const { searchBarScrollHandler, searchBarAnimatedStyles } = useListSearchBar({
@@ -203,7 +199,7 @@ const CardListScreen = ({ navigation, route }: CardsListScreenProps) => {
 
           <AnimatedFlashList
             // @ts-ignore
-            forwardedRef={flatListRef}
+            ref={flashListRef}
             data={cards}
             estimatedItemSize={ITEM_HEIGHT}
             renderItem={renderCard}

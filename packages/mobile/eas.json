@@ -28,7 +28,9 @@
     "production": {
       "autoIncrement": true,
       "node": "18.16.0",
-      "ios": {}
+      "ios": {
+        "image": "latest"
+      }
     }
   },
   "submit": {

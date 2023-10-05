@@ -87,6 +87,14 @@ function App() {
         updatedPath = path.replace(/^\/decks\/view/i, '/decks');
       }
 
+      // convert ?deck= to ?payload=
+      if (/^\/decks\?deck=/i.test(updatedPath)) {
+        updatedPath = updatedPath.replace(
+          /^\/decks\?deck=/i,
+          '/decks?payload=',
+        );
+      }
+
       let state = getStateFromPath<TabNavigatorParamList>(updatedPath, config);
 
       // make sure CardDetailScreen has a default type=card param

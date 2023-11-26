@@ -15,6 +15,8 @@ const cards: ICardRaw[] = [].concat(
   require('marvelsdb-json-data/pack/core_encounter.json'),
   require('marvelsdb-json-data/pack/cyclops.json'),
   require('marvelsdb-json-data/pack/cyclops_encounter.json'),
+  require('marvelsdb-json-data/pack/deadpool.json'),
+  require('marvelsdb-json-data/pack/deadpool_encounter.json'),
   require('marvelsdb-json-data/pack/drax.json'),
   require('marvelsdb-json-data/pack/drax_encounter.json'),
   require('marvelsdb-json-data/pack/drs.json'),
@@ -83,6 +85,8 @@ const cards: ICardRaw[] = [].concat(
   require('marvelsdb-json-data/pack/wolv_encounter.json'),
   require('marvelsdb-json-data/pack/wsp.json'),
   require('marvelsdb-json-data/pack/wsp_encounter.json'),
+  require('marvelsdb-json-data/pack/x23.json'),
+  require('marvelsdb-json-data/pack/x23_encounter.json'),
 );
 
 export const getCardsMap = memoizeOne((): { [code: string]: ICardRaw } =>

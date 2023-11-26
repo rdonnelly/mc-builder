@@ -1,5 +1,5 @@
-export const turquoise = '#1abc9c';
-export const turquoiseDark = '#16a085';
+export const turquoise = 'rgba(26, 188, 156, 1.0)';
+export const turquoiseDark = 'rgba(22, 160, 133, 1.0)';
 
 export const green = 'rgba(46, 204, 113, 1.0)';
 export const greenDark = 'rgba(39, 174, 96, 1.0)';
@@ -18,6 +18,9 @@ export const orangeDark = 'rgba(211, 84, 0, 1.0)';
 
 export const red = 'rgba(231, 76, 60, 1.0)';
 export const redDark = 'rgba(192, 57, 43, 1.0)';
+
+export const pink = 'rgba(253, 121, 168, 1.0)';
+export const pinkDark = 'rgba(232, 67, 147, 1.0)';
 
 export const lightGray = 'rgba(236, 240, 241, 1.0)';
 export const lightGrayDark = 'rgba(189, 195, 199, 1.0)';
@@ -47,23 +50,25 @@ export const factions = {
   justiceDark: yellowDark,
   leadership: blue,
   leadershipDark: blueDark,
+  pool: pink,
+  poolDark: pinkDark,
   protection: green,
   protectionDark: greenDark,
 };
 
 export const icons = {
-  energy: '#f6be33',
-  energyBackground: '#f6be33',
-  energyTint: '#86671b',
-  mental: '#b7c9eb',
-  mentalBackground: '#5c72c1',
-  mentalTint: '#b7c9eb',
-  physical: '#ee9080',
-  physicalBackground: '#aa3220',
-  physicalTint: '#ee9080',
-  wild: '#45bc5c',
-  wildBackground: '#247034',
-  wildTint: '#45bc5c',
+  energy: 'rgb(231, 191, 98)',
+  energyBackground: 'rgb(231, 191, 98)',
+  energyTint: 'rgb(122, 104, 54)',
+  mental: 'rgb(179, 193, 216)',
+  mentalBackground: 'rgb(93, 110, 163)',
+  mentalTint: 'rgb(179, 193, 216)',
+  physical: 'rgb(217, 157, 135)',
+  physicalBackground: 'rgb(144, 66, 48)',
+  physicalTint: 'rgb(217, 157, 135)',
+  wild: 'rgb(92, 171, 106)',
+  wildBackground: 'rgb(53, 103, 60)',
+  wildTint: 'rgb(92, 171, 106)',
 };
 
 export const primary = darkGray;

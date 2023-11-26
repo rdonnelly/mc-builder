@@ -134,6 +134,7 @@ export const fetchEligibleDeckCardsFromDatabase = async ({
       FactionCodes.JUSTICE,
       FactionCodes.LEADERSHIP,
       FactionCodes.PROTECTION,
+      FactionCodes.POOL,
     ];
   }
 

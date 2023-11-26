@@ -1,16 +1,18 @@
 import factionsRaw from 'marvelsdb-json-data/factions.json';
 
-import { FactionCode, FactionCodes, FactionRaw } from '../../data';
+import type { FactionCode } from '../../data';
+import { FactionCodes, FactionRaw } from '../../data';
 
 export const factionRank: Record<FactionCodes, number> = {
   hero: 0,
   encounter: 1,
   aggression: 2,
-  justice: 3,
-  leadership: 4,
+  leadership: 3,
+  justice: 4,
   protection: 5,
-  basic: 6,
-  campaign: 7,
+  pool: 6,
+  basic: 7,
+  campaign: 8,
 } as const;
 
 export class Faction {

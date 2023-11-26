@@ -8,6 +8,7 @@ export enum FactionCodes {
   HERO = 'hero',
   JUSTICE = 'justice',
   LEADERSHIP = 'leadership',
+  POOL = 'pool',
   PROTECTION = 'protection',
 }
 
@@ -18,6 +19,7 @@ export enum PackCodes {
   CAP = 'cap',
   CORE = 'core',
   CYCLOPS = 'cyclops',
+  DEADPOOL = 'deadpool',
   DRAX = 'drax',
   DRS = 'drs',
   GAM = 'gam',
@@ -55,6 +57,7 @@ export enum PackCodes {
   WARM = 'warm',
   WOLV = 'wolv',
   WSP = 'wsp',
+  X23 = 'x23',
 }
 
 export enum SetCodes {
@@ -104,6 +107,8 @@ export enum SetCodes {
   CROSSFIRE_CREW = 'crossfire_crew',
   CYCLOPS = 'cyclops',
   CYCLOPS_NEMESIS = 'cyclops_nemesis',
+  DEADPOOL = 'deadpool',
+  DEADPOOL_NEMESIS = 'deadpool_nemesis',
   DEATHSTRIKE = 'deathstrike',
   DEFENDER = 'defender',
   DOCTOR_STRANGE = 'doctor_strange',
@@ -113,6 +118,7 @@ export enum SetCodes {
   DOWN_TO_EARTH = 'down_to_earth',
   DRAX = 'drax',
   DRAX_NEMESIS = 'drax_nemesis',
+  DREADPOOL = 'dreadpool',
   EBONY_MAW = 'ebony_maw',
   ENCHANTRESS = 'enchantress',
   EXODUS = 'exodus',
@@ -298,6 +304,8 @@ export enum SetCodes {
   WRECKING_CREW_MODULAR = 'wrecking_crew_modular',
   WSP = 'wsp',
   WSP_NEMESIS = 'wsp_nemesis',
+  X23 = 'x23',
+  X23_NEMESIS = 'x23_nemesis',
   ZERO_TOLERANCE = 'zero_tolerance',
   ZOLA = 'zola',
   ZZZAX = 'zzzax',

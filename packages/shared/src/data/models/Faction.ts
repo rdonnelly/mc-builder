@@ -4,15 +4,15 @@ import type { FactionCode } from '../../data';
 import { FactionCodes, FactionRaw } from '../../data';
 
 export const factionRank: Record<FactionCodes, number> = {
-  hero: 0,
-  encounter: 1,
-  aggression: 2,
-  leadership: 3,
-  justice: 4,
-  protection: 5,
-  pool: 6,
-  basic: 7,
-  campaign: 8,
+  hero: 1,
+  encounter: 2,
+  aggression: 3,
+  leadership: 4,
+  justice: 5,
+  protection: 6,
+  pool: 7,
+  basic: 8,
+  campaign: 9,
 } as const;
 
 export class Faction {

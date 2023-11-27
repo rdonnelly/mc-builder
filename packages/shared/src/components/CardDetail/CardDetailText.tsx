@@ -69,6 +69,17 @@ const renderCardText = (card: CardModel, key: string, isFlavor = false) => {
 const renderCardSchemeTraits = (card: CardModel) => {
   const icons = [];
 
+  if (card.schemeCrisis) {
+    icons.push(
+      <Icon
+        code={IconCode.crisis}
+        color={colors.darkGray}
+        size={40}
+        key={'card-scheme-traits-crisis'}
+      />,
+    );
+  }
+
   if (card.schemeAcceleration) {
     icons.push(
       <Icon
@@ -80,20 +91,9 @@ const renderCardSchemeTraits = (card: CardModel) => {
     );
   }
 
-  // TODO amplify icon
+  // TODO amplify icon from font
   if (card.schemeAmplify) {
-    icons.push(<Text>Amplify</Text>);
-  }
-
-  if (card.schemeCrisis) {
-    icons.push(
-      <Icon
-        code={IconCode.crisis}
-        color={colors.darkGray}
-        size={40}
-        key={'card-scheme-traits-crisis'}
-      />,
-    );
+    icons.push(<Text key={'card-scheme-traits-amplify'}>AMPLIFY</Text>);
   }
 
   if (card.schemeHazard) {

@@ -66,7 +66,7 @@ const DeckDetailScreen = ({ navigation, route }: DeckDetailScreenProps) => {
     showActionSheetWithOptions(
       {
         options,
-        destructiveButtonIndex: 6,
+        destructiveButtonIndex: deck.mcdbId ? 6 : 5,
         cancelButtonIndex: 0,
         anchor:
           Platform.OS === 'ios'

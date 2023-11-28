@@ -1,6 +1,6 @@
 import { StyleSheet, Text } from 'react-native';
 import Html from 'react-native-render-html';
-import styled from 'styled-components/native';
+import styled, { useTheme } from 'styled-components/native';
 
 import Icon, { IconCode, iconRenderer } from '../../components/Icon';
 import { FactionCodes } from '../../data';
@@ -22,7 +22,7 @@ const customTagStyles = {
 };
 
 const renderCardText = (card: CardModel, key: string, isFlavor = false) => {
-  let text = card[key];
+  let text = card[key] as string;
 
   if (text == null || text === '') {
     return null;
@@ -32,18 +32,30 @@ const renderCardText = (card: CardModel, key: string, isFlavor = false) => {
   text = CardParser.replaceLineBreaks(text);
   text = CardParser.replaceIconPlaceholders(text);
 
+  return (
+    <CardText
+      text={text}
+      isFlavor={isFlavor}
+      key={`card-text-${card.code}-${key}`}
+    />
+  );
+};
+
+const CardText = ({ text, isFlavor }: { text: string; isFlavor?: boolean }) => {
+  const theme = useTheme();
+
   const customRenderers = {
     icon: { renderer: iconRenderer, wrapper: 'Text' as const },
   };
 
   return (
-    <CardDetailTextContainerSection key={`card-text-${card.code}-${key}`}>
+    <CardDetailTextContainerSection>
       <Html
         source={{ html: text }}
         baseFontStyle={
           isFlavor
             ? {
-                color: colors.text.subdued,
+                color: theme.color.typography.subdued,
                 fontSize: 14,
                 fontStyle: 'italic',
                 fontWeight: '600',
@@ -51,7 +63,7 @@ const renderCardText = (card: CardModel, key: string, isFlavor = false) => {
                 textAlign: 'center',
               }
             : {
-                color: colors.text.primary,
+                color: theme.color.typography.primary,
                 fontSize: 17,
                 fontWeight: '500',
                 letterSpacing: -0.408,

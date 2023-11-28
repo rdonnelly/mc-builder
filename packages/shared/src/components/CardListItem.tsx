@@ -155,7 +155,7 @@ const CardListItem = ({
             ) : null}
             {onPressItem != null ? (
               <ListChevronWrapper>
-                <ListChevron />
+                <ListChevron isActive={pressed} />
               </ListChevronWrapper>
             ) : null}
           </ListItemInner>

@@ -3,7 +3,7 @@ const colors = {
   black: '#000000',
   white: '#ffffff',
 
-  backdropLight: 'rgba(0, 0, 0, 0.1)',
+  backdropLight: 'rgba(0, 0, 0, 0.2)',
   backdropDark: 'rgba(255, 255, 255, 0.2)',
 
   slate50: '#f8fafc',
@@ -273,26 +273,17 @@ const colors = {
 
 const whiteTranslucent = 'rgba(255, 255, 255, 0.5)';
 
-const cards = {
-  // TODO update colors
-  blue: colors.sky500,
-  red: colors.red500,
-  yellow: colors.amber400,
-  gray: colors.zinc500,
-};
-
 const factions = {
-  // TODO update colors
-  aggression: colors.red500,
-  aggressionDark: colors.red700,
-  basic: colors.zinc400,
-  basicDark: colors.zinc600,
-  justice: colors.amber400,
-  justiceDark: colors.amber600,
-  leadership: colors.blue500,
-  leadershipDark: colors.blue700,
-  protection: colors.green400,
-  protectionDark: colors.green700,
+  aggression: 'rgb(151, 26, 39)',
+  aggressionDark: 'rgb(117, 26, 28)',
+  basic: 'rgb(149, 149, 149)',
+  basicDark: 'rgb(129, 129, 129)',
+  justice: 'rgb(232, 205, 53)',
+  justiceDark: 'rgb(208, 184, 49)',
+  leadership: 'rgb(57, 171, 190)',
+  leadershipDark: 'rgb(50, 139, 156)',
+  protection: 'rgb(96, 182, 70)',
+  protectionDark: 'rgb(76, 149, 59)',
 };
 
 export const icons = {
@@ -322,9 +313,6 @@ export default {
   ...colors,
 
   whiteTranslucent,
-
-  // cards
-  cards,
 
   // factions
   factions,

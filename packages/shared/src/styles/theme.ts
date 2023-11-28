@@ -213,24 +213,24 @@ export const darkTheme = getBaseTheme({
     },
     list: {
       background: colors.zinc950,
-      border: colors.zinc600,
+      border: colors.zinc700,
       icon: colors.zinc600,
-      iconActive: colors.zinc600,
+      iconActive: colors.zinc400,
       header: {
         background: colors.zinc800,
         border: colors.zinc700,
       },
       section: {
-        background: colors.zinc800,
+        background: colors.zinc900,
         border: colors.zinc700,
         color: colors.zinc400,
       },
     },
     navigation: {
-      primary: colors.zinc600,
-      background: colors.white,
-      card: colors.zinc100,
-      border: colors.zinc400,
+      primary: colors.zinc400,
+      background: colors.black,
+      card: colors.zinc900,
+      border: colors.zinc600,
     },
     tabs: {
       background: colors.zinc800,
@@ -243,8 +243,8 @@ export const darkTheme = getBaseTheme({
       },
     },
     typography: {
-      primary: colors.zinc300,
-      subdued: colors.zinc400,
+      primary: colors.zinc400,
+      subdued: colors.zinc500,
       link: colors.sky600,
       linkActive: colors.sky700,
       error: colors.red800,

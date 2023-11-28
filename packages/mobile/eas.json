@@ -8,7 +8,6 @@
     "development": {
       "developmentClient": true,
       "distribution": "internal",
-      "node": "18.16.0",
       "android": {
         "gradleCommand": ":app:assembleDebug"
       },
@@ -20,14 +19,12 @@
     },
     "preview": {
       "distribution": "internal",
-      "node": "18.16.0",
       "ios": {
         "resourceClass": "m1-medium"
       }
     },
     "production": {
       "autoIncrement": true,
-      "node": "18.16.0",
       "ios": {
         "image": "latest"
       }

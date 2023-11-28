@@ -97,7 +97,7 @@ export const lightTheme = getBaseTheme({
     },
     input: {
       background: colors.white,
-      color: colors.text.primary,
+      color: colors.zinc600,
     },
     list: {
       background: colors.zinc50,
@@ -131,8 +131,9 @@ export const lightTheme = getBaseTheme({
       },
     },
     typography: {
-      primary: colors.text.primary,
-      subdued: colors.text.subdued,
+      primary: colors.zinc600,
+      subdued: colors.zinc500,
+      icon: colors.zinc400,
       link: colors.sky600,
       linkActive: colors.sky700,
       error: colors.red500,
@@ -245,6 +246,7 @@ export const darkTheme = getBaseTheme({
     typography: {
       primary: colors.zinc400,
       subdued: colors.zinc500,
+      icon: colors.zinc600,
       link: colors.sky600,
       linkActive: colors.sky700,
       error: colors.red800,

@@ -77,6 +77,7 @@ export interface ThemeColors {
     typography: {
       primary: Color;
       subdued: Color;
+      icon: Color;
       link: Color;
       linkActive: Color;
       error: Color;

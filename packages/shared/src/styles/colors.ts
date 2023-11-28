@@ -303,12 +303,6 @@ export const icons = {
   wildTint: 'rgb(92, 171, 106)',
 };
 
-const text = {
-  // TODO update colors
-  primary: colors.zinc600,
-  subdued: colors.zinc500,
-};
-
 export type Color = (typeof colors)[keyof typeof colors];
 
 export default {
@@ -321,7 +315,4 @@ export default {
 
   // icons
   icons,
-
-  // text
-  text,
 } as const;

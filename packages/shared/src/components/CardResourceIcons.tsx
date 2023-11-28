@@ -44,7 +44,7 @@ const CardResourceIcons = ({
           return (
             <Icon
               code={IconCode[resourceKey]}
-              color={theme.color.typography.subdued}
+              color={theme.color.typography.icon}
               key={`resource_icon_${resourceKey}_${i}`}
             />
           );

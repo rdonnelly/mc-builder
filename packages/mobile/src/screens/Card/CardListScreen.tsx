@@ -178,25 +178,25 @@ const CardListScreen = ({ navigation, route }: CardsListScreenProps) => {
 
   return (
     <Container>
-      {cards.length ? (
-        <List>
-          <SearchBar style={[searchBarAnimatedStyles]}>
-            <ListHeader>
-              <ListHeaderInput
-                autoCapitalize={'none'}
-                autoCorrect={false}
-                clearButtonMode={'always'}
-                placeholder={'Search'}
-                placeholderTextColor={colors.zinc400}
-                ref={searchInputRef}
-                returnKeyType={'search'}
-                onSubmitEditing={handleSearch}
-                onChange={handleSearch}
-                defaultValue={searchString}
-              />
-            </ListHeader>
-          </SearchBar>
+      <List>
+        <SearchBar style={[searchBarAnimatedStyles]}>
+          <ListHeader>
+            <ListHeaderInput
+              autoCapitalize={'none'}
+              autoCorrect={false}
+              clearButtonMode={'always'}
+              placeholder={'Search'}
+              placeholderTextColor={colors.zinc400}
+              ref={searchInputRef}
+              returnKeyType={'search'}
+              onSubmitEditing={handleSearch}
+              onChange={handleSearch}
+              defaultValue={searchString}
+            />
+          </ListHeader>
+        </SearchBar>
 
+        {cards.length ? (
           <AnimatedFlashList
             // @ts-ignore
             ref={flashListRef}
@@ -210,8 +210,8 @@ const CardListScreen = ({ navigation, route }: CardsListScreenProps) => {
             onScroll={searchBarScrollHandler}
             onScrollBeginDrag={handleScrollBeginDrag}
           />
-        </List>
-      ) : null}
+        ) : null}
+      </List>
 
       {!filter && !filterCode ? (
         <FloatingControlBar>

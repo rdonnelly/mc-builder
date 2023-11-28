@@ -12,17 +12,6 @@ import CardResourceIcons from './CardResourceIcons';
 
 export const ITEM_HEIGHT = 64;
 
-const getFactionOrSetText = (card: CardModel) => {
-  const text = card.setName != null ? card.setName : card.factionName;
-  const color = getCardColor(card);
-
-  return (
-    <CardDetailsInfoFactionOrSet color={color}>
-      {text}
-    </CardDetailsInfoFactionOrSet>
-  );
-};
-
 type CardListItemProps = {
   card: CardModel;
   index: number;
@@ -50,6 +39,10 @@ const CardListItem = ({
   decrementIsDisabled,
 }: CardListItemProps) => {
   const theme = useTheme();
+
+  const factionOrSetText =
+    card.setName != null ? card.setName : card.factionName;
+  const factionOrSetColor = getCardColor(card, theme);
 
   let infoText = '';
 
@@ -96,7 +89,9 @@ const CardListItem = ({
               </CardDetailsName>
               <CardDetailsInfo>
                 <CardDetailsInfoText numberOfLines={1}>
-                  {getFactionOrSetText(card)}
+                  <CardDetailsInfoFactionOrSet color={factionOrSetColor}>
+                    {factionOrSetText}
+                  </CardDetailsInfoFactionOrSet>
                   {infoText}
                   {resourceIcons}
                   {packText}
@@ -248,7 +243,7 @@ const CardDetailsInfoFactionOrSet = styled.Text<{
   color: ${({ color, theme }) =>
     color ? color : theme.color.typography.subdued};
   font-size: ${({ theme }) => theme.fontSize.subtext};
-  font-weight: 500;
+  font-weight: 600;
 `;
 
 const CardControls = styled.View`

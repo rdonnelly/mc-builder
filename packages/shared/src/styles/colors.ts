@@ -276,14 +276,16 @@ const whiteTranslucent = 'rgba(255, 255, 255, 0.5)';
 const factions = {
   aggression: 'rgb(151, 26, 39)',
   aggressionDark: 'rgb(117, 26, 28)',
-  basic: 'rgb(149, 149, 149)',
-  basicDark: 'rgb(129, 129, 129)',
   justice: 'rgb(232, 205, 53)',
   justiceDark: 'rgb(208, 184, 49)',
   leadership: 'rgb(57, 171, 190)',
   leadershipDark: 'rgb(50, 139, 156)',
+  pool: 'rgb(208, 113, 166)',
+  poolDark: 'rgb(162, 82, 131)',
   protection: 'rgb(96, 182, 70)',
   protectionDark: 'rgb(76, 149, 59)',
+  basic: 'rgb(149, 149, 149)',
+  basicDark: 'rgb(129, 129, 129)',
 };
 
 export const icons = {

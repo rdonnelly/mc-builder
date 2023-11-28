@@ -1,4 +1,4 @@
-import styled from 'styled-components/native';
+import styled, { useTheme } from 'styled-components/native';
 
 import { Card as CardModel } from '../data/models/Card';
 import { colors } from '../styles';
@@ -11,6 +11,8 @@ const CardResourceIcons = ({
   card: CardModel;
   wrapped?: boolean;
 }) => {
+  const theme = useTheme();
+
   const resources = card.resources;
   if (resources == null) {
     return null;
@@ -42,7 +44,7 @@ const CardResourceIcons = ({
           return (
             <Icon
               code={IconCode[resourceKey]}
-              color={colors.icons[resourceKey]}
+              color={theme.color.typography.subdued}
               key={`resource_icon_${resourceKey}_${i}`}
             />
           );

@@ -48,7 +48,6 @@ const DeckEditList = ({
   const renderSectionHeader = ({ section }) => (
     <SectionHeader>
       <SectionHeaderText>{section.title}</SectionHeaderText>
-      <SectionHeaderText>{section.count}</SectionHeaderText>
     </SectionHeader>
   );
 

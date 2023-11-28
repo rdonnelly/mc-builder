@@ -6,7 +6,7 @@ import { useCallback, useContext, useEffect, useState } from 'react';
 import { Pressable } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
-import styled from 'styled-components/native';
+import styled, { useTheme } from 'styled-components/native';
 
 import { DecksCreateContext } from '@context/DecksCreateContext';
 import { DecksCreateFormScreenProps } from '@navigation/DecksCreateStackNavigator';
@@ -40,6 +40,7 @@ const DecksCreateFormScreen = ({
 
   const dispatch = useAppDispatch();
   const insets = useSafeAreaInsets();
+  const theme = useTheme();
 
   const set = getSet(deckSet);
   const factionNames = deckAspect.map((aspect) => {
@@ -164,7 +165,7 @@ const DecksCreateFormScreen = ({
             <ControlMessage>
               <FontAwesomeIcon
                 name="exclamation-circle"
-                color={colors.red500}
+                color={theme.color.typography.error}
                 size={16}
                 solid
               />
@@ -204,7 +205,7 @@ const DecksCreateFormScreen = ({
             <ControlMessage>
               <FontAwesomeIcon
                 name="exclamation-circle"
-                color={colors.red500}
+                color={theme.color.typography.error}
                 size={16}
                 solid
               />
@@ -223,7 +224,7 @@ const DecksCreateFormScreen = ({
               clearButtonMode={'always'}
               editable={true}
               placeholder={'Enter Deck Name'}
-              placeholderTextColor={colors.slate500}
+              placeholderTextColor={colors.zinc500}
               returnKeyType={'done'}
               value={deckName}
               onChangeText={(value) => setDeckName(value)}
@@ -234,7 +235,7 @@ const DecksCreateFormScreen = ({
             <ControlMessage>
               <FontAwesomeIcon
                 name="exclamation-circle"
-                color={colors.red500}
+                color={theme.color.typography.error}
                 size={16}
                 solid
               />
@@ -312,8 +313,7 @@ const Control = styled.View`
 `;
 
 const TextInput = styled(base.TextInput)<{ hasError?: boolean }>`
-  background-color: ${({ theme }) =>
-    theme.theme === 'dark' ? theme.color.input.background : colors.violet50};
+  background-color: ${({ theme }) => theme.color.input.background};
   border-color: ${({ hasError, theme }) =>
     hasError ? theme.color.typography.error : 'transparent'};
   border-width: 2px;
@@ -333,12 +333,13 @@ const LinkRowInner = styled.View<{
   background-color: ${({ disabled, theme }) =>
     disabled
       ? theme.theme === 'dark'
-        ? colors.slate950
+        ? colors.zinc950
         : colors.whiteTranslucent
       : theme.theme === 'dark'
       ? theme.color.input.background
       : colors.violet50};
-  border-color: ${(props) => (props.hasError ? colors.red500 : 'transparent')};
+  border-color: ${({ hasError, theme }) =>
+    hasError ? theme.color.typography.error : 'transparent'};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   border-width: 2px;
   flex-direction: row;
@@ -348,7 +349,7 @@ const LinkRowInner = styled.View<{
 `;
 
 const LinkRowText = styled.Text<{ active: boolean }>`
-  color: ${(props) => (props.active ? colors.slate600 : colors.slate500)};
+  color: ${(props) => (props.active ? colors.zinc600 : colors.zinc500)};
   font-size: ${({ theme }) => theme.fontSize.input};
 `;
 

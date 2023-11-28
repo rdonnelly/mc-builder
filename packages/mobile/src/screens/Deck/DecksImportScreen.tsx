@@ -60,7 +60,7 @@ const DecksImportFormScreen = ({
     return (
       <Container bottom={insets.bottom}>
         <LoadingText>Loading...</LoadingText>
-        <ActivityIndicator color={colors.slate400} />
+        <ActivityIndicator color={colors.zinc400} />
       </Container>
     );
   }

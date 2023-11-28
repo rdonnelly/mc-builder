@@ -73,7 +73,7 @@ const renderCardSchemeTraits = (card: CardModel) => {
     icons.push(
       <Icon
         code={IconCode.crisis}
-        color={colors.slate600}
+        color={colors.zinc600}
         size={40}
         key={'card-scheme-traits-crisis'}
       />,
@@ -84,7 +84,7 @@ const renderCardSchemeTraits = (card: CardModel) => {
     icons.push(
       <Icon
         code={IconCode.acceleration}
-        color={colors.slate600}
+        color={colors.zinc600}
         size={40}
         key={'card-scheme-traits-acceleration'}
       />,
@@ -100,7 +100,7 @@ const renderCardSchemeTraits = (card: CardModel) => {
     icons.push(
       <Icon
         code={IconCode.hazard}
-        color={colors.slate600}
+        color={colors.zinc600}
         size={40}
         key={'card-scheme-traits-hazard'}
       />,

@@ -120,7 +120,7 @@ const FloatingControlBarText = forwardRef<
 FloatingControlBar.Text = FloatingControlBarText;
 
 const FloatingControlBarContainer = styled.View`
-  background-color: rgba(52, 73, 94, 0.1);
+  background-color: ${({ theme }) => theme.color.app.backdrop};
   border-radius: ${({ theme }) => theme.borderRadius.md};
   bottom: 8px;
   flex-direction: row;
@@ -158,23 +158,23 @@ const FloatingControlView = styled(base.Button)<{
           : theme.color.button.disabled.background;
       case FloatingControlButtonVariant.INVERTED:
         return pressed
-          ? theme.color.button.primary.color
-          : theme.color.button.primary.color;
+          ? theme.color.button.primary.backgroundActiveInverted
+          : theme.color.button.primary.backgroundInverted;
       case FloatingControlButtonVariant.INVERTED_SUCCESS:
         return pressed
-          ? theme.color.button.success.color
-          : theme.color.button.success.color;
+          ? theme.color.button.success.backgroundActiveInverted
+          : theme.color.button.success.backgroundInverted;
       case FloatingControlButtonVariant.INVERTED_DESTRUCTIVE:
         return pressed
-          ? theme.color.button.destructive.color
-          : theme.color.button.destructive.color;
+          ? theme.color.button.destructive.backgroundActiveInverted
+          : theme.color.button.destructive.backgroundInverted;
       case FloatingControlButtonVariant.ORANGE:
         return pressed
-          ? theme.color.button.orange.background
+          ? theme.color.button.orange.backgroundActive
           : theme.color.button.orange.background;
       case FloatingControlButtonVariant.PURPLE:
         return pressed
-          ? theme.color.button.purple.background
+          ? theme.color.button.purple.backgroundActive
           : theme.color.button.purple.background;
       case FloatingControlButtonVariant.SUBDUED:
         return pressed
@@ -207,17 +207,11 @@ const FloatingControlText = styled(base.ButtonText)<{
       case FloatingControlButtonVariant.DISABLED:
         return theme.color.button.disabled.color;
       case FloatingControlButtonVariant.INVERTED:
-        return pressed
-          ? theme.color.button.primary.backgroundActive
-          : theme.color.button.primary.background;
+        return theme.color.button.primary.colorInverted;
       case FloatingControlButtonVariant.INVERTED_SUCCESS:
-        return pressed
-          ? theme.color.button.success.backgroundActive
-          : theme.color.button.success.background;
+        return theme.color.button.success.colorInverted;
       case FloatingControlButtonVariant.INVERTED_DESTRUCTIVE:
-        return pressed
-          ? theme.color.button.destructive.backgroundActive
-          : theme.color.button.destructive.background;
+        return theme.color.button.destructive.colorInverted;
       case FloatingControlButtonVariant.ORANGE:
       case FloatingControlButtonVariant.PURPLE:
       case FloatingControlButtonVariant.SUBDUED:

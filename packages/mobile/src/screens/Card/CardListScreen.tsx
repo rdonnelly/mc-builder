@@ -187,7 +187,7 @@ const CardListScreen = ({ navigation, route }: CardsListScreenProps) => {
                 autoCorrect={false}
                 clearButtonMode={'always'}
                 placeholder={'Search'}
-                placeholderTextColor={colors.slate400}
+                placeholderTextColor={colors.zinc400}
                 ref={searchInputRef}
                 returnKeyType={'search'}
                 onSubmitEditing={handleSearch}

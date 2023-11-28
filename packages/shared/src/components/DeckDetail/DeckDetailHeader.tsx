@@ -1,12 +1,11 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Image, Pressable, StyleSheet } from 'react-native';
+import { Image, Pressable } from 'react-native';
 import styled from 'styled-components/native';
 
 import { TypeCodes } from '../../data';
 import { getDeckCardCount } from '../../data/deckUtils';
 import { Deck as DeckModel } from '../../data/models/Deck';
 import { IDeckCard } from '../../data/models/Deck';
-import { colors } from '../../styles';
 
 const DeckDetailHeader = ({
   deck,

@@ -19,12 +19,12 @@ const CardDetailFooter = ({ card }: { card: CardModel }) => {
       {card.boost == null && card.boostText == null ? null : (
         <CardDetailFooterContainerBoost>
           {card.boostText ? (
-            <Icon code={IconCode.special} color={colors.slate600} size={16} />
+            <Icon code={IconCode.special} color={colors.zinc600} size={16} />
           ) : null}
           {[...Array(card.boost || 0).keys()].map((i) => (
             <Icon
               code={IconCode.boost}
-              color={colors.slate600}
+              color={colors.zinc600}
               size={16}
               key={`icon-${i}`}
             />

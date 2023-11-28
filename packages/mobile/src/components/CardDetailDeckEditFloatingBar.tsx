@@ -1,11 +1,11 @@
 import { useMemo } from 'react';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
+import { useTheme } from 'styled-components/native';
 
 import { useDeckModifications } from '@hooks';
 
 import { SetCode } from '@mc-builder/shared/src/data/';
 import { Card as CardModel } from '@mc-builder/shared/src/data/models/Card';
-import { colors } from '@mc-builder/shared/src/styles';
 
 import FloatingControlBar, {
   FloatingControlButtonVariant,
@@ -22,6 +22,7 @@ const CardDetailDeckEditFloatingBar = ({
   deckSetCode: SetCode;
   deckCards: any[];
 }) => {
+  const theme = useTheme();
   const { increment, incrementIsDisabled, decrement, decrementIsDisabled } =
     useDeckModifications(deckCode, deckSetCode);
 
@@ -58,8 +59,8 @@ const CardDetailDeckEditFloatingBar = ({
           name="plus"
           color={
             activeCard == null || incrementIsDisabled(activeCard, deckCardCount)
-              ? colors.slate500
-              : colors.green400
+              ? theme.color.button.disabled.color
+              : theme.color.button.success.colorInverted
           }
           size={16}
           solid
@@ -80,8 +81,8 @@ const CardDetailDeckEditFloatingBar = ({
           name="minus"
           color={
             activeCard == null || decrementIsDisabled(activeCard, deckCardCount)
-              ? colors.slate500
-              : colors.red500
+              ? theme.color.button.disabled.color
+              : theme.color.button.destructive.colorInverted
           }
           size={16}
           solid

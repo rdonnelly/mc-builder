@@ -56,16 +56,16 @@ export default async function handler(req: NextRequest) {
 
   const aspects = rawDeckData.aspectCodes.map((aspectCode) => ({
     name: getFaction(aspectCode).name,
-    color: colors.factions[aspectCode],
+    color: colors.factions[`${aspectCode}Dark`],
   }));
 
   return new ImageResponse(
     (
       <div
         style={{
-          backgroundColor: colors.slate700,
+          backgroundColor: colors.zinc700,
           backgroundImage: backgroundImage,
-          color: colors.slate100,
+          color: colors.zinc100,
           display: 'flex',
           height: '100%',
           padding: 32,
@@ -86,7 +86,7 @@ export default async function handler(req: NextRequest) {
             style={{
               background: colors.white,
               borderRadius: 16,
-              color: colors.slate600,
+              color: colors.zinc600,
               display: 'flex',
               flexDirection: 'column',
               flexGrow: 1,
@@ -124,7 +124,7 @@ export default async function handler(req: NextRequest) {
                     {aspect.name}
                   </div>
                 ))}
-                <div style={{ color: colors.slate500, display: 'flex' }}>
+                <div style={{ color: colors.zinc500, display: 'flex' }}>
                   {rawDeckData.deckCardCount} Cards
                 </div>
               </div>
@@ -132,7 +132,7 @@ export default async function handler(req: NextRequest) {
 
             <div
               style={{
-                color: colors.slate500,
+                color: colors.zinc500,
                 fontFamily: 'Lato',
                 fontSize: 36,
                 fontStyle: 'italic',

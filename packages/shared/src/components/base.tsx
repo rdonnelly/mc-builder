@@ -20,7 +20,6 @@ const Button = styled(View)<{ pressed?: boolean }>`
   justify-content: center;
   min-height: 48px;
   min-width: 48px;
-  opacity: ${(props) => (props.pressed ? '0.9' : '1.0')};
   padding: 12px;
 `;
 

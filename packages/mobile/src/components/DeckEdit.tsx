@@ -15,7 +15,6 @@ import {
   Deck as DeckModel,
   IDeckCard,
 } from '@mc-builder/shared/src/data/models/Deck';
-import { colors } from '@mc-builder/shared/src/styles';
 
 type DeckEditNavigationProps = DeckEditScreenProps['navigation'];
 

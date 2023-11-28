@@ -3,6 +3,9 @@ const colors = {
   black: '#000000',
   white: '#ffffff',
 
+  backdropLight: 'rgba(0, 0, 0, 0.1)',
+  backdropDark: 'rgba(255, 255, 255, 0.2)',
+
   slate50: '#f8fafc',
   slate100: '#f1f5f9',
   slate200: '#e2e8f0',
@@ -275,42 +278,42 @@ const cards = {
   blue: colors.sky500,
   red: colors.red500,
   yellow: colors.amber400,
-  gray: colors.slate500,
+  gray: colors.zinc500,
 };
 
 const factions = {
   // TODO update colors
   aggression: colors.red500,
-  aggressionDark: colors.red600,
-  basic: colors.slate400,
-  basicDark: colors.slate500,
+  aggressionDark: colors.red700,
+  basic: colors.zinc400,
+  basicDark: colors.zinc600,
   justice: colors.amber400,
-  justiceDark: colors.amber500,
+  justiceDark: colors.amber600,
   leadership: colors.blue500,
-  leadershipDark: colors.blue600,
+  leadershipDark: colors.blue700,
   protection: colors.green400,
-  protectionDark: colors.green500,
+  protectionDark: colors.green700,
 };
 
 export const icons = {
-  energy: 'rgb(231, 191, 98)',
+  energy: 'rgb(122, 104, 54)',
   energyBackground: 'rgb(231, 191, 98)',
   energyTint: 'rgb(122, 104, 54)',
-  mental: 'rgb(179, 193, 216)',
+  mental: 'rgb(93, 110, 163)',
   mentalBackground: 'rgb(93, 110, 163)',
   mentalTint: 'rgb(179, 193, 216)',
-  physical: 'rgb(217, 157, 135)',
+  physical: 'rgb(144, 66, 48)',
   physicalBackground: 'rgb(144, 66, 48)',
   physicalTint: 'rgb(217, 157, 135)',
-  wild: 'rgb(92, 171, 106)',
+  wild: 'rgb(53, 103, 60)',
   wildBackground: 'rgb(53, 103, 60)',
   wildTint: 'rgb(92, 171, 106)',
 };
 
 const text = {
   // TODO update colors
-  primary: colors.slate600,
-  subdued: colors.slate500,
+  primary: colors.zinc600,
+  subdued: colors.zinc500,
 };
 
 export type Color = (typeof colors)[keyof typeof colors];

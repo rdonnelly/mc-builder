@@ -11,14 +11,14 @@ export const getCardColor = (card: CardModel) => {
   }
 
   if (card.typeCode === TypeCodes.VILLAIN) {
-    return colors.violet600;
+    return colors.violet800;
   }
 
   if (card.factionCode === FactionCodes.ENCOUNTER) {
-    return colors.orange600;
+    return colors.orange700;
   }
 
-  return colors.slate500;
+  return colors.zinc500;
 };
 
 export const getFactionColor = (card: CardModel) => {

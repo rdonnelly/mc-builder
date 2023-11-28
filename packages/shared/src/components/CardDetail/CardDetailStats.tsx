@@ -17,7 +17,7 @@ const CardDetailStats = ({ card }: { card: CardModel }) => {
               {card.schemeText ? (
                 <Icon
                   code={IconCode.special}
-                  color={colors.slate500}
+                  color={colors.zinc500}
                   size={16}
                 />
               ) : null}
@@ -35,7 +35,7 @@ const CardDetailStats = ({ card }: { card: CardModel }) => {
               {card.attackText ? (
                 <Icon
                   code={IconCode.special}
-                  color={colors.slate500}
+                  color={colors.zinc500}
                   size={16}
                 />
               ) : null}
@@ -116,7 +116,7 @@ const CardDetailStats = ({ card }: { card: CardModel }) => {
                 {card.threat}
                 <Icon
                   code={IconCode.perHero}
-                  color={colors.slate500}
+                  color={colors.zinc500}
                   size={16}
                 />
               </StatDataText>
@@ -134,7 +134,7 @@ const CardDetailStats = ({ card }: { card: CardModel }) => {
               {!card.threatBase || card.threatBaseIsFixed ? null : (
                 <Icon
                   code={IconCode.perHero}
-                  color={colors.slate500}
+                  color={colors.zinc500}
                   size={16}
                 />
               )}
@@ -156,14 +156,14 @@ const CardDetailStats = ({ card }: { card: CardModel }) => {
                 card.threatEscalationIsFixed ? null : (
                   <Icon
                     code={IconCode.perHero}
-                    color={colors.slate500}
+                    color={colors.zinc500}
                     size={16}
                   />
                 )}
                 {card.threatEscalationIsFixed ? null : (
                   <Icon
                     code={IconCode.special}
-                    color={colors.slate500}
+                    color={colors.zinc500}
                     size={16}
                   />
                 )}
@@ -188,7 +188,7 @@ const CardDetailStats = ({ card }: { card: CardModel }) => {
                 {card.attackText ? (
                   <Icon
                     code={IconCode.special}
-                    color={colors.slate500}
+                    color={colors.zinc500}
                     size={16}
                   />
                 ) : null}
@@ -210,7 +210,7 @@ const CardDetailStats = ({ card }: { card: CardModel }) => {
                 {card.schemeText ? (
                   <Icon
                     code={IconCode.special}
-                    color={colors.slate500}
+                    color={colors.zinc500}
                     size={16}
                   />
                 ) : null}
@@ -253,14 +253,14 @@ const CardDetailStats = ({ card }: { card: CardModel }) => {
                 {card.schemeText ? (
                   <Icon
                     code={IconCode.special}
-                    color={colors.slate500}
+                    color={colors.zinc500}
                     size={16}
                   />
                 ) : null}
                 {[...Array(card.thwartCost || 0).keys()].map((i) => (
                   <Icon
                     code={IconCode.cost}
-                    color={colors.slate500}
+                    color={colors.zinc500}
                     size={16}
                     key={`icon-${i}`}
                   />
@@ -279,14 +279,14 @@ const CardDetailStats = ({ card }: { card: CardModel }) => {
                 {card.attackText ? (
                   <Icon
                     code={IconCode.special}
-                    color={colors.slate500}
+                    color={colors.zinc500}
                     size={16}
                   />
                 ) : null}
                 {[...Array(card.attackCost || 0).keys()].map((i) => (
                   <Icon
                     code={IconCode.cost}
-                    color={colors.slate500}
+                    color={colors.zinc500}
                     size={16}
                     key={`icon-${i}`}
                   />
@@ -326,7 +326,7 @@ const CardDetailStats = ({ card }: { card: CardModel }) => {
               {card.schemeText ? (
                 <Icon
                   code={IconCode.special}
-                  color={colors.slate500}
+                  color={colors.zinc500}
                   size={16}
                 />
               ) : null}
@@ -344,7 +344,7 @@ const CardDetailStats = ({ card }: { card: CardModel }) => {
               {card.attackText ? (
                 <Icon
                   code={IconCode.special}
-                  color={colors.slate500}
+                  color={colors.zinc500}
                   size={16}
                 />
               ) : null}
@@ -362,7 +362,7 @@ const CardDetailStats = ({ card }: { card: CardModel }) => {
               {card.isHealthPerHero ? (
                 <Icon
                   code={IconCode.perHero}
-                  color={colors.slate500}
+                  color={colors.zinc500}
                   size={16}
                 />
               ) : null}

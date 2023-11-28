@@ -120,6 +120,7 @@ const DecksCreateSelectScreen = ({
 };
 
 const Container = styled(base.Container)<{ paddingBottom: number }>`
+  background-color: ${({ theme }) => theme.color.app.background};
   padding-bottom: ${(props) => Math.max(props.paddingBottom, 16)}px;
 `;
 
@@ -159,7 +160,7 @@ const ListIconWrapper = styled.View``;
 const ListIcon = ({ active }) => (
   <base.ListIcon
     name={active ? 'check-circle' : 'circle'}
-    color={active ? colors.green400 : colors.slate400}
+    color={active ? colors.green400 : colors.zinc400}
     size={20}
     solid={active}
   />

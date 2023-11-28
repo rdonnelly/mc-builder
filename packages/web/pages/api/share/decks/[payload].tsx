@@ -57,7 +57,7 @@ export default async function handler(req: NextRequest) {
 
   const aspects = rawDeckData.aspectCodes.map((aspectCode) => ({
     name: getFaction(aspectCode).name,
-    color: colors.factions[aspectCode],
+    color: colors.factions[`${aspectCode}Dark`],
   }));
 
   const linkQrData = qrcode(getAbsoluteUrl(`/decks/view?deck=${payload}`), {
@@ -68,9 +68,9 @@ export default async function handler(req: NextRequest) {
     (
       <div
         style={{
-          backgroundColor: colors.slate700,
+          backgroundColor: colors.zinc700,
           backgroundImage: backgroundImage,
-          color: colors.slate100,
+          color: colors.zinc100,
           display: 'flex',
           flexDirection: 'column',
           height: '100%',
@@ -114,7 +114,7 @@ export default async function handler(req: NextRequest) {
               alignItems: 'center',
               background: colors.white,
               borderRadius: 16,
-              color: colors.slate600,
+              color: colors.zinc600,
               display: 'flex',
               flex: 1,
               flexDirection: 'column',
@@ -139,7 +139,7 @@ export default async function handler(req: NextRequest) {
             </div>
             <div
               style={{
-                color: colors.slate500,
+                color: colors.zinc500,
                 fontStyle: 'italic',
                 textAlign: 'center',
               }}

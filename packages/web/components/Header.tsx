@@ -34,7 +34,7 @@ const Header = ({
 };
 
 const Container = styled(base.Container)<{ color?: string }>`
-  background-color: ${(props) => (props.color ? props.color : colors.slate600)};
+  background-color: ${(props) => (props.color ? props.color : colors.zinc600)};
   flex: 0 0 auto;
   flex-direction: row;
   height: 48px;

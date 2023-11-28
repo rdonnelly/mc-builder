@@ -85,7 +85,7 @@ const Container = styled(base.Container)`
 `;
 
 const ActivityContainer = styled.View`
-  background: ${({ theme }) => theme.color.app.layer100};
+  background: ${({ theme }) => theme.color.app.layer50};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   margin-horizontal: 32px;
   padding: 32px;
@@ -103,7 +103,7 @@ const ActivityMessageText = styled.Text`
 `;
 
 const RetryContainer = styled.View`
-  background: ${({ theme }) => theme.color.app.layer100};
+  background: ${({ theme }) => theme.color.app.layer50};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   margin-horizontal: 32px;
   padding: 32px;

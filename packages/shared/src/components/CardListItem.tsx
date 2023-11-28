@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import { StyleSheet, Text } from 'react-native';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5Pro';
-import styled from 'styled-components/native';
+import styled, { useTheme } from 'styled-components/native';
 
 import { TypeCodes } from '../data';
 import { Card as CardModel } from '../data/models/Card';
@@ -49,6 +49,8 @@ const CardListItem = ({
   decrement,
   decrementIsDisabled,
 }: CardListItemProps) => {
+  const theme = useTheme();
+
   let infoText = '';
 
   if (card.typeCode === TypeCodes.VILLAIN && card.stage != null) {
@@ -117,10 +119,8 @@ const CardListItem = ({
                         name="plus"
                         color={
                           incrementIsDisabled(card, count)
-                            ? colors.slate400
-                            : cardControlPressed
-                            ? colors.green600
-                            : colors.green500
+                            ? theme.color.button.disabled.color
+                            : theme.color.button.success.colorInverted
                         }
                         size={16}
                         solid
@@ -142,10 +142,8 @@ const CardListItem = ({
                         name="minus"
                         color={
                           decrementIsDisabled(card, count)
-                            ? colors.slate400
-                            : cardControlPressed
-                            ? colors.red600
-                            : colors.red500
+                            ? theme.color.button.disabled.color
+                            : theme.color.button.destructive.colorInverted
                         }
                         size={16}
                         solid
@@ -199,10 +197,10 @@ const ListItemInner = styled.View<{ pressed: boolean }>`
 const CardCount = styled.View<{ active?: boolean }>`
   align-items: center;
   background-color: ${({ active, theme }) =>
-    active ? colors.white : theme.color.list.background};
+    active ? theme.color.app.background : theme.color.list.background};
   border: 1px solid
     ${({ active, theme }) =>
-      active ? theme.color.app.brand.decks : theme.color.list.background};
+      active ? theme.color.tabs.tint.decks : theme.color.list.background};
   border-radius: 18px;
   height: 36px;
   justify-content: center;
@@ -212,7 +210,7 @@ const CardCount = styled.View<{ active?: boolean }>`
 
 const CardCountText = styled.Text<{ active?: boolean }>`
   color: ${({ active, theme }) =>
-    active ? theme.color.app.brand.decks : theme.color.list.icon};
+    active ? theme.color.tabs.tint.decks : theme.color.list.icon};
   font-size: ${({ theme }) => theme.fontSize.label};
   font-weight: ${({ theme }) => theme.fontWeight.black};
 `;
@@ -250,6 +248,7 @@ const CardDetailsInfoFactionOrSet = styled.Text<{
   color: ${({ color, theme }) =>
     color ? color : theme.color.typography.subdued};
   font-size: ${({ theme }) => theme.fontSize.subtext};
+  font-weight: 500;
 `;
 
 const CardControls = styled.View`
@@ -264,7 +263,7 @@ const CardCountButton = styled.Pressable<{
   background-color: ${({ active, theme }) =>
     active
       ? theme.theme === 'dark'
-        ? colors.slate900
+        ? colors.zinc900
         : colors.white
       : theme.color.list.background};
   border: ${StyleSheet.hairlineWidth}px solid

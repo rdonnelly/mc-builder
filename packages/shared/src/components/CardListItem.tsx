@@ -193,9 +193,6 @@ const CardCount = styled.View<{ active?: boolean }>`
   align-items: center;
   background-color: ${({ active, theme }) =>
     active ? theme.color.app.background : theme.color.list.background};
-  border: 1px solid
-    ${({ active, theme }) =>
-      active ? theme.color.tabs.tint.decks : theme.color.list.background};
   border-radius: 18px;
   height: 36px;
   justify-content: center;
@@ -205,7 +202,11 @@ const CardCount = styled.View<{ active?: boolean }>`
 
 const CardCountText = styled.Text<{ active?: boolean }>`
   color: ${({ active, theme }) =>
-    active ? theme.color.tabs.tint.decks : theme.color.list.icon};
+    active
+      ? theme.theme === 'dark'
+        ? colors.purple300
+        : colors.violet700
+      : theme.color.list.icon};
   font-size: ${({ theme }) => theme.fontSize.label};
   font-weight: ${({ theme }) => theme.fontWeight.black};
 `;

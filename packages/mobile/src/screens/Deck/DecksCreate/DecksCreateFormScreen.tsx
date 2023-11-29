@@ -313,7 +313,8 @@ const Control = styled.View`
 `;
 
 const TextInput = styled(base.TextInput)<{ hasError?: boolean }>`
-  background-color: ${({ theme }) => theme.color.input.background};
+  background-color: ${({ theme }) =>
+    theme.theme === 'dark' ? theme.color.input.background : colors.violet50};
   border-color: ${({ hasError, theme }) =>
     hasError ? theme.color.typography.error : 'transparent'};
   border-width: 2px;

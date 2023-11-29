@@ -116,31 +116,27 @@ const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
           </Pressable>
         </Information>
 
-        <Information>
-          <InfoButtonWrapper onPress={sync} disabled={isSyncing}>
-            {({ pressed }) => (
-              <InfoButton pressed={pressed}>
-                {isSyncing ? (
-                  <ActivityIndicator color={colors.white} />
-                ) : (
-                  <InfoButtonText>Sync Card Data</InfoButtonText>
-                )}
-              </InfoButton>
-            )}
-          </InfoButtonWrapper>
-        </Information>
+        <InfoButtonWrapper onPress={sync} disabled={isSyncing}>
+          {({ pressed }) => (
+            <InfoButton pressed={pressed}>
+              {isSyncing ? (
+                <ActivityIndicator color={colors.white} />
+              ) : (
+                <InfoButtonText>Sync Card Data</InfoButtonText>
+              )}
+            </InfoButton>
+          )}
+        </InfoButtonWrapper>
 
-        <Information>
-          <DestructiveButtonWrapper onPress={clearStore}>
-            {({ pressed }) => (
-              <DestructiveButton pressed={pressed}>
-                <DestructiveButtonText>
-                  Reset Application Data
-                </DestructiveButtonText>
-              </DestructiveButton>
-            )}
-          </DestructiveButtonWrapper>
-        </Information>
+        <DestructiveButtonWrapper onPress={clearStore}>
+          {({ pressed }) => (
+            <DestructiveButton pressed={pressed}>
+              <DestructiveButtonText>
+                Reset Application Data
+              </DestructiveButtonText>
+            </DestructiveButton>
+          )}
+        </DestructiveButtonWrapper>
       </ScrollView>
     </Container>
   );
@@ -175,9 +171,15 @@ const Container = styled(base.Container)`
 
 const ScrollView = styled.ScrollView`
   background-color: ${({ theme }) => theme.color.list.background};
+  padding-top: 16px;
 `;
 
-const InfoButtonWrapper = styled(base.ButtonWrapper)``;
+const InfoButtonWrapper = styled(base.ButtonWrapper)`
+  border-bottom-color: ${({ theme }) => theme.color.list.border};
+  border-bottom-width: ${StyleSheet.hairlineWidth}px;
+  margin-bottom: 24px;
+  margin-horizontal: 16px;
+`;
 
 const InfoButton = styled(base.Button)<{ pressed?: boolean }>`
   background-color: ${({ pressed, theme }) =>
@@ -188,7 +190,10 @@ const InfoButton = styled(base.Button)<{ pressed?: boolean }>`
 
 const InfoButtonText = styled(base.ButtonText)<{ pressed?: boolean }>``;
 
-const DestructiveButtonWrapper = styled(base.ButtonWrapper)``;
+const DestructiveButtonWrapper = styled(base.ButtonWrapper)`
+  margin-bottom: 24px;
+  margin-horizontal: 16px;
+`;
 
 const DestructiveButton = styled(base.Button)<{ pressed?: boolean }>`
   background-color: ${({ pressed, theme }) =>
@@ -200,11 +205,11 @@ const DestructiveButton = styled(base.Button)<{ pressed?: boolean }>`
 const DestructiveButtonText = styled(base.ButtonText)<{ pressed?: boolean }>``;
 
 const Information = styled.View`
-  border-top-color: ${({ theme }) => theme.color.list.border};
-  border-top-width: ${StyleSheet.hairlineWidth}px;
+  border-bottom-color: ${({ theme }) => theme.color.list.border};
+  border-bottom-width: ${StyleSheet.hairlineWidth}px;
   margin-bottom: 24px;
   margin-horizontal: 16px;
-  padding-top: 24px;
+  padding-bottom: 24px;
 `;
 
 const DisclaimerText = styled.Text`

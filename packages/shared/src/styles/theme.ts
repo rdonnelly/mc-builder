@@ -153,7 +153,7 @@ export const darkTheme = getBaseTheme({
       tint: colors.white,
       brand: {
         cards: colors.amber900,
-        decks: colors.violet900,
+        decks: colors.purple900,
         settings: colors.sky900,
       },
     },
@@ -198,8 +198,8 @@ export const darkTheme = getBaseTheme({
         color: colors.white,
       },
       purple: {
-        background: colors.violet900,
-        backgroundActive: colors.violet950,
+        background: colors.purple900,
+        backgroundActive: colors.purple950,
         color: colors.white,
       },
       disabled: {
@@ -237,7 +237,7 @@ export const darkTheme = getBaseTheme({
       background: colors.zinc800,
       tint: {
         cards: colors.amber800,
-        decks: colors.violet700,
+        decks: colors.purple800,
         settings: colors.sky700,
         default: colors.zinc300,
         inactive: colors.zinc500,
@@ -247,8 +247,8 @@ export const darkTheme = getBaseTheme({
       primary: colors.zinc400,
       subdued: colors.zinc500,
       icon: colors.zinc600,
-      link: colors.sky600,
-      linkActive: colors.sky700,
+      link: colors.sky700,
+      linkActive: colors.sky800,
       error: colors.red800,
     },
   },

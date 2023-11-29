@@ -138,6 +138,16 @@ export const lightTheme = getBaseTheme({
       linkActive: colors.sky700,
       error: colors.red500,
     },
+    components: {
+      factions: {
+        aggression: colors.factions.aggressionDark,
+        justice: colors.factions.justiceDark,
+        leadership: colors.factions.leadershipDark,
+        pool: colors.factions.poolDark,
+        protection: colors.factions.protectionDark,
+        basic: colors.factions.basicDark,
+      },
+    },
   },
 });
 
@@ -244,12 +254,22 @@ export const darkTheme = getBaseTheme({
       },
     },
     typography: {
-      primary: colors.zinc400,
-      subdued: colors.zinc500,
-      icon: colors.zinc600,
-      link: colors.sky700,
-      linkActive: colors.sky800,
+      primary: colors.zinc300,
+      subdued: colors.zinc400,
+      icon: colors.zinc500,
+      link: colors.sky600,
+      linkActive: colors.sky700,
       error: colors.red800,
+    },
+    components: {
+      factions: {
+        aggression: colors.factions.aggression,
+        justice: colors.factions.justice,
+        leadership: colors.factions.leadership,
+        pool: colors.factions.pool,
+        protection: colors.factions.protection,
+        basic: colors.factions.basic,
+      },
     },
   },
 });

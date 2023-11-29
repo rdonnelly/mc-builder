@@ -1,4 +1,4 @@
-import styled from 'styled-components/native';
+import styled, { useTheme } from 'styled-components/native';
 
 import Icon, { IconCode } from '../../components/Icon';
 import { Card as CardModel } from '../../data/models/Card';
@@ -7,7 +7,8 @@ import { getFactionColor } from '../../styles/utils';
 import CardResourceIcons from '../CardResourceIcons';
 
 const CardDetailFooter = ({ card }: { card: CardModel }) => {
-  const factionColor = getFactionColor(card);
+  const theme = useTheme();
+  const factionColor = getFactionColor(card, theme);
 
   return (
     <CardDetailFooterContainer>

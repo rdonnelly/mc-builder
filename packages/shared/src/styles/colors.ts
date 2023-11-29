@@ -286,7 +286,7 @@ const factions = {
   protectionDark: 'rgb(76, 149, 59)',
   basic: 'rgb(149, 149, 149)',
   basicDark: 'rgb(129, 129, 129)',
-};
+} as const;
 
 export const icons = {
   energy: 'rgb(122, 104, 54)',
@@ -301,7 +301,7 @@ export const icons = {
   wild: 'rgb(53, 103, 60)',
   wildBackground: 'rgb(53, 103, 60)',
   wildTint: 'rgb(92, 171, 106)',
-};
+} as const;
 
 export type Color = (typeof colors)[keyof typeof colors];
 

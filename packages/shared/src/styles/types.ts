@@ -82,6 +82,16 @@ export interface ThemeColors {
       linkActive: Color;
       error: Color;
     };
+    components: {
+      factions: {
+        aggression: string;
+        basic: string;
+        justice: string;
+        leadership: string;
+        pool: string;
+        protection: string;
+      };
+    };
   };
 }
 

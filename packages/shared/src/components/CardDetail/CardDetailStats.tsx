@@ -14,7 +14,7 @@ const CardDetailStats = ({ card }: { card: CardModel }) => {
           <StatData>
             <StatDataText>
               {card.thwart}
-              {card.schemeText ? (
+              {card.thwartStar ? (
                 <Icon
                   code={IconCode.special}
                   color={colors.zinc500}
@@ -32,7 +32,7 @@ const CardDetailStats = ({ card }: { card: CardModel }) => {
           <StatData>
             <StatDataText>
               {card.attack}
-              {card.attackText ? (
+              {card.attackStar ? (
                 <Icon
                   code={IconCode.special}
                   color={colors.zinc500}
@@ -48,7 +48,16 @@ const CardDetailStats = ({ card }: { card: CardModel }) => {
         <StatSpacer key={'defense-spacer'} />,
         <Stat key={'defense'}>
           <StatData>
-            <StatDataText>{card.defense}</StatDataText>
+            <StatDataText>
+              {card.defense}
+              {card.defenseStar ? (
+                <Icon
+                  code={IconCode.special}
+                  color={colors.zinc500}
+                  size={16}
+                />
+              ) : null}
+            </StatDataText>
           </StatData>
           <StatHeader>
             <StatHeaderText>DEF</StatHeaderText>
@@ -66,7 +75,16 @@ const CardDetailStats = ({ card }: { card: CardModel }) => {
         <StatSpacer key={'health-spacer'} />,
         <Stat key={'health'}>
           <StatData>
-            <StatDataText>{card.health}</StatDataText>
+            <StatDataText>
+              {card.health}
+              {card.healthStar ? (
+                <Icon
+                  code={IconCode.special}
+                  color={colors.zinc500}
+                  size={16}
+                />
+              ) : null}
+            </StatDataText>
           </StatData>
           <StatHeader>
             <StatHeaderText>HP</StatHeaderText>
@@ -79,7 +97,16 @@ const CardDetailStats = ({ card }: { card: CardModel }) => {
       stats.push(
         <Stat key={'recover'}>
           <StatData>
-            <StatDataText>{card.recover}</StatDataText>
+            <StatDataText>
+              {card.recover}
+              {card.recoverStar ? (
+                <Icon
+                  code={IconCode.special}
+                  color={colors.zinc500}
+                  size={16}
+                />
+              ) : null}
+            </StatDataText>
           </StatData>
           <StatHeader>
             <StatHeaderText>REC</StatHeaderText>
@@ -97,7 +124,16 @@ const CardDetailStats = ({ card }: { card: CardModel }) => {
         <StatSpacer key={'health-spacer'} />,
         <Stat key={'health'}>
           <StatData>
-            <StatDataText>{card.health}</StatDataText>
+            <StatDataText>
+              {card.health}
+              {card.healthStar ? (
+                <Icon
+                  code={IconCode.special}
+                  color={colors.zinc500}
+                  size={16}
+                />
+              ) : null}
+            </StatDataText>
           </StatData>
           <StatHeader>
             <StatHeaderText>HP</StatHeaderText>
@@ -185,7 +221,7 @@ const CardDetailStats = ({ card }: { card: CardModel }) => {
             <StatData>
               <StatDataText>
                 +{card.attack}
-                {card.attackText ? (
+                {card.attackStar ? (
                   <Icon
                     code={IconCode.special}
                     color={colors.zinc500}
@@ -207,7 +243,7 @@ const CardDetailStats = ({ card }: { card: CardModel }) => {
             <StatData>
               <StatDataText>
                 +{card.scheme}
-                {card.schemeText ? (
+                {card.schemeStar ? (
                   <Icon
                     code={IconCode.special}
                     color={colors.zinc500}
@@ -250,7 +286,7 @@ const CardDetailStats = ({ card }: { card: CardModel }) => {
             <StatData>
               <StatDataText>
                 {card.thwart != null ? card.thwart : '–'}
-                {card.schemeText ? (
+                {card.thwartStar ? (
                   <Icon
                     code={IconCode.special}
                     color={colors.zinc500}
@@ -276,7 +312,7 @@ const CardDetailStats = ({ card }: { card: CardModel }) => {
             <StatData>
               <StatDataText>
                 {card.attack}
-                {card.attackText ? (
+                {card.attackStar ? (
                   <Icon
                     code={IconCode.special}
                     color={colors.zinc500}
@@ -305,7 +341,16 @@ const CardDetailStats = ({ card }: { card: CardModel }) => {
           <StatSpacer key={'health-spacer'} />,
           <Stat key={'health'}>
             <StatData>
-              <StatDataText>{card.health}</StatDataText>
+              <StatDataText>
+                {card.health}
+                {card.healthStar ? (
+                  <Icon
+                    code={IconCode.special}
+                    color={colors.zinc500}
+                    size={16}
+                  />
+                ) : null}
+              </StatDataText>
             </StatData>
             <StatHeader>
               <StatHeaderText>HP</StatHeaderText>
@@ -341,7 +386,7 @@ const CardDetailStats = ({ card }: { card: CardModel }) => {
           <StatData>
             <StatDataText>
               {card.attack}
-              {card.attackText ? (
+              {card.attackStar || card.attackText ? (
                 <Icon
                   code={IconCode.special}
                   color={colors.zinc500}

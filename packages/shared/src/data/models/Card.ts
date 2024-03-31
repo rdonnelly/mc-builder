@@ -132,8 +132,20 @@ export class Card {
     return this.merged.attack_cost;
   }
 
+  get attackStar() {
+    return this.merged.attack_star;
+  }
+
+  get attackText() {
+    return this.merged.attack_text;
+  }
+
   get defense() {
     return this.merged.defense;
+  }
+
+  get defenseStar() {
+    return this.merged.defense_star;
   }
 
   get handSize() {
@@ -144,6 +156,10 @@ export class Card {
     return this.merged.health;
   }
 
+  get healthStar() {
+    return this.merged.health_star;
+  }
+
   get isHealthPerHero() {
     return !!this.merged.health_per_hero;
   }
@@ -152,8 +168,36 @@ export class Card {
     return this.merged.recover;
   }
 
+  get recoverStar() {
+    return this.merged.recover_star;
+  }
+
   get scheme() {
     return this.merged.scheme;
+  }
+
+  get schemeAcceleration() {
+    return this.merged.scheme_acceleration;
+  }
+
+  get schemeAmplify() {
+    return this.merged.scheme_amplify;
+  }
+
+  get schemeCrisis() {
+    return this.merged.scheme_crisis;
+  }
+
+  get schemeHazard() {
+    return this.merged.scheme_hazard;
+  }
+
+  get schemeStar() {
+    return this.merged.scheme_star;
+  }
+
+  get schemeText() {
+    return this.merged.scheme_text;
   }
 
   get threat() {
@@ -176,12 +220,20 @@ export class Card {
     return this.merged.escalation_threat_fixed;
   }
 
+  get threatStar() {
+    return this.merged.threat_star;
+  }
+
   get thwart() {
     return this.merged.thwart === -1 ? 'X' : this.merged.thwart;
   }
 
   get thwartCost() {
     return this.merged.thwart_cost;
+  }
+
+  get thwartStar() {
+    return this.merged.thwart_star;
   }
 
   get text() {
@@ -196,32 +248,12 @@ export class Card {
     return this.merged.back_text;
   }
 
-  get attackText() {
-    return this.merged.attack_text;
-  }
-
-  get schemeAcceleration() {
-    return this.merged.scheme_acceleration;
-  }
-
-  get schemeAmplify() {
-    return this.merged.scheme_amplify;
-  }
-
-  get schemeCrisis() {
-    return this.merged.scheme_crisis;
-  }
-
-  get schemeHazard() {
-    return this.merged.scheme_hazard;
-  }
-
-  get schemeText() {
-    return this.merged.scheme_text;
-  }
-
   get boost() {
     return this.merged.boost;
+  }
+
+  get boostStar() {
+    return this.merged.boost_star;
   }
 
   get boostText() {

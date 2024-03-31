@@ -12,8 +12,6 @@ import {
 
 import reducer from '@store/reducers';
 
-import Reactotron from '../ReactotronConfig';
-
 export type StoreState = ReturnType<typeof reducer>;
 export type AppDispatch = typeof store.dispatch;
 export type AppThunk<ReturnType = void> = ThunkAction<
@@ -33,7 +31,6 @@ const configureApplicationStore = (preloadedState: undefined) => {
         },
       }),
     preloadedState,
-    enhancers: [Reactotron.createEnhancer()],
   });
   const persistor = persistStore(store);
   return { store, persistor };

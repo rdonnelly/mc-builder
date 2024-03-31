@@ -12,6 +12,7 @@ import {
   FactionCode,
   FactionRaw,
   FilterCode,
+  getPacks,
   PackCode,
   PackRaw,
   SetCode,
@@ -78,7 +79,10 @@ export function useDatabase() {
 
     const cards = [];
 
-    for (const pack of packs) {
+    // TODO remove this when reading all data from database
+    const localPacks = getPacks();
+
+    for (const pack of localPacks) {
       const cardsResponse = await fetch(
         `${MCBUILDER_BASE_URI}/api/packs/${pack.code}/cards`,
       );
@@ -138,6 +142,7 @@ export function useDatabase() {
             stage: card.stage != null ? card.stage : null,
             thwart: card.thwart != null ? card.thwart : null,
             thwart_cost: card.thwart_cost != null ? card.thwart_cost : null,
+            thwart_star: card.thwart_star || false,
 
             base_threat_fixed:
               card.base_threat_fixed != null ? card.base_threat_fixed : null,

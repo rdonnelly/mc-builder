@@ -3,7 +3,6 @@ import { Pressable, StyleSheet, Text } from 'react-native';
 import styled from 'styled-components/native';
 
 import { Deck as DeckModel } from '../data/models/Deck';
-import { colors } from '../styles';
 import base from './base';
 
 export const ITEM_HEIGHT = 64;

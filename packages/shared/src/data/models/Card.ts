@@ -113,7 +113,7 @@ export class Card {
   }
 
   get cost() {
-    return this.merged.cost;
+    return this.merged.cost === -1 ? 'X' : this.merged.cost;
   }
 
   get flavor() {
@@ -125,7 +125,7 @@ export class Card {
   }
 
   get attack() {
-    return this.merged.attack;
+    return this.merged.attack === -1 ? 'X' : this.merged.attack;
   }
 
   get attackCost() {
@@ -177,7 +177,7 @@ export class Card {
   }
 
   get thwart() {
-    return this.merged.thwart;
+    return this.merged.thwart === -1 ? 'X' : this.merged.thwart;
   }
 
   get thwartCost() {

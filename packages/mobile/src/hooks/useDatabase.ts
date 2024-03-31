@@ -117,30 +117,33 @@ export function useDatabase() {
             resource_physical: card.resource_physical || null,
             resource_wild: card.resource_wild || null,
 
-            attack_cost: card.attack_cost != null ? card.attack_cost : null,
-            attack_text: card.attack_text || null,
             attack: card.attack != null ? card.attack : null,
+            attack_cost: card.attack_cost != null ? card.attack_cost : null,
+            attack_star: card.attack_star || false,
             defense: card.defense != null ? card.defense : null,
+            defense_star: card.defense_star || false,
             hand_size: card.hand_size != null ? card.hand_size : null,
             health_per_hero:
               card.health_per_hero != null ? card.health_per_hero : null,
             health: card.health != null ? card.health : null,
+            health_star: card.health_star || false,
             recover: card.recover != null ? card.recover : null,
+            recover_star: card.recover_star || false,
+            scheme: card.scheme || null,
             scheme_acceleration: card.scheme_acceleration || false,
             scheme_amplify: card.scheme_amplify || false,
             scheme_crisis: card.scheme_crisis || false,
             scheme_hazard: card.scheme_hazard || false,
-            scheme_text: card.scheme_text || null,
-            scheme: card.scheme || null,
+            scheme_star: card.scheme_star || false,
             stage: card.stage != null ? card.stage : null,
-            thwart_cost: card.thwart_cost != null ? card.thwart_cost : null,
             thwart: card.thwart != null ? card.thwart : null,
+            thwart_cost: card.thwart_cost != null ? card.thwart_cost : null,
 
             base_threat_fixed:
               card.base_threat_fixed != null ? card.base_threat_fixed : null,
             base_threat: card.base_threat != null ? card.base_threat : null,
-            boost_text: card.boost_text || null,
             boost: card.boost != null ? card.boost : null,
+            boost_star: card.boost_star || false,
             escalation_threat_fixed:
               card.escalation_threat_fixed != null
                 ? card.escalation_threat_fixed
@@ -148,6 +151,7 @@ export function useDatabase() {
             escalation_threat:
               card.escalation_threat != null ? card.escalation_threat : null,
             threat: card.threat != null ? card.threat : null,
+            threat_star: card.threat_star || false,
           };
         }),
       );
@@ -169,6 +173,7 @@ export function useDatabase() {
     try {
       await Database.init({ factions, packs, sets, types, cards });
     } catch (e) {
+      console.log(e);
       setState((prevState) => ({ ...prevState, isSyncing: false }));
       return false;
     }

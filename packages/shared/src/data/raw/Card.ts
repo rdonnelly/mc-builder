@@ -5,6 +5,8 @@ import { ICardRaw } from '../../data';
 const cards: ICardRaw[] = [].concat(
   require('marvelsdb-json-data/pack/angel.json'),
   require('marvelsdb-json-data/pack/angel_encounter.json'),
+  require('marvelsdb-json-data/pack/aoa.json'),
+  require('marvelsdb-json-data/pack/aoa_encounter.json'),
   require('marvelsdb-json-data/pack/ant.json'),
   require('marvelsdb-json-data/pack/ant_encounter.json'),
   require('marvelsdb-json-data/pack/bkw.json'),
@@ -103,13 +105,14 @@ export const getCard = (code: string) => getCardsMap()[code];
 
 export const getCardRoot = (code: string) => {
   const cardsMap = getCardsMap();
-  const raw = cardsMap[code];
 
-  if (raw?.duplicate_of && raw?.duplicate_of in cardsMap) {
-    return getCardsMap()[raw.duplicate_of];
+  let rootCode = code;
+
+  while (cardsMap[rootCode].duplicate_of) {
+    rootCode = cardsMap[rootCode].duplicate_of;
   }
 
-  return null;
+  return cardsMap[rootCode] || null;
 };
 
 export const getCards = memoizeOne(() =>

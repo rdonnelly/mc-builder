@@ -2,12 +2,12 @@ import { MCBUILDER_BASE_URI } from '@env';
 import NetInfo from '@react-native-community/netinfo';
 import { useCallback, useState } from 'react';
 
+import Database from '@utils/Database';
 import {
   fetchDeckCardsFromDatabase,
   fetchEligibleDeckCardsFromDatabase,
 } from '@utils/deckUtils';
 
-import Database from '@mc-builder/mobile/src/utils/Database';
 import {
   FactionCode,
   FactionRaw,

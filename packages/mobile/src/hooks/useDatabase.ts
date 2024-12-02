@@ -56,9 +56,13 @@ export function useDatabase() {
   }, []);
 
   const syncCardData = useCallback(async () => {
-    const netInfo = await NetInfo.fetch();
+    try {
+      const netInfo = await NetInfo.fetch();
 
-    if (!netInfo.isConnected) {
+      if (!netInfo.isConnected) {
+        return false;
+      }
+    } catch (e) {
       return false;
     }
 
@@ -79,7 +83,8 @@ export function useDatabase() {
 
     const cards = [];
 
-    // TODO remove this when reading all data from database
+    // TODO remove this when reading all data from database,
+    //      otherwise will only fetch packs that are locally in the app
     const localPacks = getPacks();
 
     for (const pack of localPacks) {

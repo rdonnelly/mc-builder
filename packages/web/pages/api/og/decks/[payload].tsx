@@ -4,9 +4,8 @@ import { NextRequest } from 'next/server';
 
 import getAbsoluteUrl from '@utils/getAbsoluteUrl';
 
-import { getFaction } from '@mc-builder/shared/src/data/models/Faction';
-import { getSet } from '@mc-builder/shared/src/data/models/Set';
-import colors from '@mc-builder/shared/src/styles/colors';
+import { getFaction, getSet } from '@mc-builder/shared/src/data';
+import { colors } from '@mc-builder/shared/src/styles';
 
 export const config = {
   runtime: 'edge',

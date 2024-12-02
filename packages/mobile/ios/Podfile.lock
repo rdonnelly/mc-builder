@@ -1,6 +1,6 @@
 PODS:
   - boost (1.83.0)
-  - BugsnagReactNative (7.22.6):
+  - BugsnagReactNative (7.25.1):
     - React-Core
   - DoubleConversion (1.1.6)
   - FBLazyVector (0.73.6)
@@ -890,17 +890,17 @@ PODS:
     - React-debug
   - react-native-get-random-values (1.11.0):
     - React-Core
-  - react-native-netinfo (11.3.1):
+  - react-native-netinfo (11.4.1):
     - React-Core
   - react-native-render-html (5.1.1):
     - React-Core
-  - react-native-safe-area-context (4.9.0):
+  - react-native-safe-area-context (4.14.0):
     - React-Core
   - react-native-sensitive-info (5.5.8):
     - React
   - react-native-sqlite-storage (6.0.1):
     - React-Core
-  - react-native-webview (13.8.4):
+  - react-native-webview (13.12.4):
     - glog
     - RCT-Folly (= 2022.05.16.00)
     - React-Core
@@ -1073,34 +1073,57 @@ PODS:
     - React-perflogger (= 0.73.6)
   - rn-fetch-blob (0.12.0):
     - React-Core
-  - RNBootSplash (5.0.3):
+  - RNBootSplash (5.5.3):
     - React-Core
-  - RNCAsyncStorage (1.23.1):
+  - RNCAsyncStorage (1.24.0):
     - React-Core
-  - RNCClipboard (1.13.2):
+  - RNCClipboard (1.15.0):
     - React-Core
   - RNCMaskedView (0.2.9):
     - React-Core
-  - RNFlashList (1.6.4):
+  - RNFlashList (1.7.2):
+    - glog
+    - RCT-Folly (= 2022.05.16.00)
     - React-Core
-  - RNGestureHandler (2.16.0):
+  - RNGestureHandler (2.21.2):
     - glog
     - RCT-Folly (= 2022.05.16.00)
     - React-Core
   - RNInAppBrowser (3.7.0):
     - React-Core
-  - RNReactNativeHapticFeedback (1.14.0):
+  - RNReactNativeHapticFeedback (2.3.3):
+    - glog
+    - RCT-Folly (= 2022.05.16.00)
     - React-Core
-  - RNReanimated (3.8.1):
+  - RNReanimated (3.16.3):
     - glog
     - RCT-Folly (= 2022.05.16.00)
     - React-Core
     - ReactCommon/turbomodule/core
-  - RNScreens (3.30.1):
+    - RNReanimated/reanimated (= 3.16.3)
+    - RNReanimated/worklets (= 3.16.3)
+  - RNReanimated/reanimated (3.16.3):
     - glog
     - RCT-Folly (= 2022.05.16.00)
     - React-Core
-  - RNVectorIcons (10.0.3):
+    - ReactCommon/turbomodule/core
+    - RNReanimated/reanimated/apple (= 3.16.3)
+  - RNReanimated/reanimated/apple (3.16.3):
+    - glog
+    - RCT-Folly (= 2022.05.16.00)
+    - React-Core
+    - ReactCommon/turbomodule/core
+  - RNReanimated/worklets (3.16.3):
+    - glog
+    - RCT-Folly (= 2022.05.16.00)
+    - React-Core
+    - ReactCommon/turbomodule/core
+  - RNScreens (3.35.0):
+    - glog
+    - RCT-Folly (= 2022.05.16.00)
+    - React-Core
+    - React-RCTImage
+  - RNVectorIcons (10.2.0):
     - glog
     - RCT-Folly (= 2022.05.16.00)
     - React-Core
@@ -1177,7 +1200,7 @@ DEPENDENCIES:
   - RNReactNativeHapticFeedback (from `../../../node_modules/react-native-haptic-feedback`)
   - RNReanimated (from `../../../node_modules/react-native-reanimated`)
   - RNScreens (from `../../../node_modules/react-native-screens`)
-  - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
+  - RNVectorIcons (from `../../../node_modules/react-native-vector-icons`)
   - Yoga (from `../../../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -1321,18 +1344,18 @@ EXTERNAL SOURCES:
   RNScreens:
     :path: "../../../node_modules/react-native-screens"
   RNVectorIcons:
-    :path: "../node_modules/react-native-vector-icons"
+    :path: "../../../node_modules/react-native-vector-icons"
   Yoga:
     :path: "../../../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
   boost: d3f49c53809116a5d38da093a8aa78bf551aed09
-  BugsnagReactNative: 366a7e11c0bcf34842e54f40b15dd937cb267aa7
-  DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
+  BugsnagReactNative: 0e335dab2447e0cb761ca271d6d26699e4ae61db
+  DoubleConversion: fea03f2699887d960129cc54bba7e52542b6f953
   FBLazyVector: f64d1e2ea739b4d8f7e4740cde18089cd97fe864
   FBReactNativeSpec: ab7aa29bb10daf11053887eb19369fe2eed047f0
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
-  glog: 04b94705f318337d7ead9e6d17c019bd9b1f6b1b
+  glog: c5d68082e772fa1c511173d6b30a9de2c05a69a2
   hermes-engine: 9cecf9953a681df7556b8cc9c74905de8f3293c0
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   RCT-Folly: 7169b2b1c44399c76a47b5deaaba715eeeb476c0
@@ -1357,12 +1380,12 @@ SPEC CHECKSUMS:
   React-logger: 3eb80a977f0d9669468ef641a5e1fabbc50a09ec
   React-Mapbuffer: 84ea43c6c6232049135b1550b8c60b2faac19fab
   react-native-get-random-values: 21325b2244dfa6b58878f51f9aa42821e7ba3d06
-  react-native-netinfo: bdb108d340cdb41875c9ced535977cac6d2ff321
+  react-native-netinfo: f0a9899081c185db1de5bb2fdc1c88c202a059ac
   react-native-render-html: 012780b92993ab33b3ae0240b90e585d00c70808
-  react-native-safe-area-context: b97eb6f9e3b7f437806c2ce5983f479f8eb5de4b
+  react-native-safe-area-context: 4532f1a0c5d34a46b9324ccaaedcb5582a302b7d
   react-native-sensitive-info: 400c6e3d27945e15c8cddb5b4b92233c85ee06f8
   react-native-sqlite-storage: f6d515e1c446d1e6d026aa5352908a25d4de3261
-  react-native-webview: 9395e82c917d81407deb9b1fe53158dd6c8880ff
+  react-native-webview: 3e512ed8be8d36d24acc6fdfd7f7d1476a096b3c
   React-nativeconfig: b4d4e9901d4cabb57be63053fd2aa6086eb3c85f
   React-NativeModulesApple: cd26e56d56350e123da0c1e3e4c76cb58a05e1ee
   React-perflogger: 5f49905de275bac07ac7ea7f575a70611fa988f2
@@ -1384,20 +1407,20 @@ SPEC CHECKSUMS:
   React-utils: d16c1d2251c088ad817996621947d0ac8167b46c
   ReactCommon: 2aa35648354bd4c4665b9a5084a7d37097b89c10
   rn-fetch-blob: f065bb7ab7fb48dd002629f8bdcb0336602d3cba
-  RNBootSplash: a496398664e0bd17a6de2845a1c7c73deccb5ae3
-  RNCAsyncStorage: 826b603ae9c0f88b5ac4e956801f755109fa4d5c
-  RNCClipboard: 60fed4b71560d7bfe40e9d35dea9762b024da86d
+  RNBootSplash: e025d4ee98d942ee6c8b495a6fe66339a6b5f6dd
+  RNCAsyncStorage: ec53e44dc3e75b44aa2a9f37618a49c3bc080a7a
+  RNCClipboard: 69ab8e51324d5b351f6ba72bbdb72478087a2c64
   RNCMaskedView: 949696f25ec596bfc697fc88e6f95cf0c79669b6
-  RNFlashList: b521ebdd7f9352673817f1d98e8bdc0c8cf8545b
-  RNGestureHandler: bc2cdb2dc42facdf34992ae364b8a728e19a3686
+  RNFlashList: 556074dc4bc8b89e60635bd02447c3338bf88191
+  RNGestureHandler: 57144b74a3402b21180df3ec7b3a0266ddf89548
   RNInAppBrowser: e36d6935517101ccba0e875bac8ad7b0cb655364
-  RNReactNativeHapticFeedback: 1e3efeca9628ff9876ee7cdd9edec1b336913f8c
-  RNReanimated: 8763d306762d558ebc0df4cbf67128dcadfa6299
-  RNScreens: b6b64d956af3715adbfe84808694ae82d3fec74f
-  RNVectorIcons: 73ab573085f65a572d3b6233e68996d4707fd505
+  RNReactNativeHapticFeedback: a1ed613d86e678202fe8bb930b92afa06f601cc3
+  RNReanimated: 82a04a7caf78157520984b30e869f424f055ca4d
+  RNScreens: 69850d4519d95b9359cec15a67bb5f9d0bd75262
+  RNVectorIcons: 04d49881dab53fb3397b1129085271d9d21885c1
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
   Yoga: d17d2cc8105eed528474683b42e2ea310e1daf61
 
 PODFILE CHECKSUM: b3b104ac2d542fce6c80c752302bf8c28de08036
 
-COCOAPODS: 1.15.2
+COCOAPODS: 1.14.3

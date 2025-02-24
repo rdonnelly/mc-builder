@@ -9,6 +9,8 @@ const cards: ICardRaw[] = [].concat(
   require('marvelsdb-json-data/pack/ant_encounter.json'),
   require('marvelsdb-json-data/pack/aoa.json'),
   require('marvelsdb-json-data/pack/aoa_encounter.json'),
+  require('marvelsdb-json-data/pack/aos.json'),
+  require('marvelsdb-json-data/pack/aos_encounter.json'),
   require('marvelsdb-json-data/pack/bkw.json'),
   require('marvelsdb-json-data/pack/bkw_encounter.json'),
   require('marvelsdb-json-data/pack/cap.json'),

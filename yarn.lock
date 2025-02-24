@@ -7058,7 +7058,7 @@ marky@^1.2.2:
 
 "marvelsdb-json-data@https://github.com/rdonnelly/marvelsdb-json-data.git#main":
   version "1.0.0"
-  resolved "https://github.com/rdonnelly/marvelsdb-json-data.git#e53a80e12e357c0ffa81b667115f1691dde05eef"
+  resolved "https://github.com/rdonnelly/marvelsdb-json-data.git#18e716f19198172744cfe3d282b9b2b1fff73b6e"
   dependencies:
     lodash "^4.13.1"
     mkdirp "^0.5.1"

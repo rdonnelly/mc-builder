@@ -32,7 +32,7 @@ fs.appendFileSync(FILE, 'export enum FactionCodes {\n');
 factionsSorted.forEach((faction) => {
   fs.appendFileSync(
     FILE,
-    `  ${faction.code.toUpperCase().replaceAll(/-/g, '_')} = '${
+    `  ${faction.code.toUpperCase().replaceAll(/[-.]/g, '_')} = '${
       faction.code
     }',\n`,
   );
@@ -46,7 +46,7 @@ fs.appendFileSync(FILE, 'export enum PackCodes {\n');
 packsSorted.forEach((pack) => {
   fs.appendFileSync(
     FILE,
-    `  ${pack.code.toUpperCase().replaceAll(/-/g, '_')} = '${pack.code}',\n`,
+    `  ${pack.code.toUpperCase().replaceAll(/[-.]/g, '_')} = '${pack.code}',\n`,
   );
 });
 fs.appendFileSync(FILE, '}\n\n');
@@ -58,7 +58,7 @@ fs.appendFileSync(FILE, 'export enum SetCodes {\n');
 setsSorted.forEach((set) => {
   fs.appendFileSync(
     FILE,
-    `  ${set.code.toUpperCase().replaceAll(/-/g, '_')} = '${set.code}',\n`,
+    `  ${set.code.toUpperCase().replaceAll(/[-.]/g, '_')} = '${set.code}',\n`,
   );
 });
 fs.appendFileSync(FILE, '}\n\n');
@@ -70,7 +70,7 @@ fs.appendFileSync(FILE, 'export enum SetTypeCodes {\n');
 setTypesSorted.forEach((setType) => {
   fs.appendFileSync(
     FILE,
-    `  ${setType.code.toUpperCase().replaceAll(/-/g, '_')} = '${
+    `  ${setType.code.toUpperCase().replaceAll(/[-.]/g, '_')} = '${
       setType.code
     }',\n`,
   );
@@ -84,7 +84,7 @@ fs.appendFileSync(FILE, 'export enum TypeCodes {\n');
 typesSorted.forEach((type) => {
   fs.appendFileSync(
     FILE,
-    `  ${type.code.toUpperCase().replaceAll(/-/g, '_')} = '${type.code}',\n`,
+    `  ${type.code.toUpperCase().replaceAll(/[-.]/g, '_')} = '${type.code}',\n`,
   );
 });
 fs.appendFileSync(FILE, '}\n');

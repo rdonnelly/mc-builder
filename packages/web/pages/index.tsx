@@ -89,16 +89,6 @@ const IndexPage = () => {
             </Link>
           </StoreLinkContainer>
 
-          <Paragraph>
-            <ParagraphText center={true}>
-              If you would like to stay on the cutting edge and help test the
-              app, please{' '}
-              <Link href="https://forms.gle/yqpHm3V9t8AKr7v46" target="_blank">
-                fill out this form to join the beta!
-              </Link>
-            </ParagraphText>
-          </Paragraph>
-
           <Heading>
             <HeadingText>Support the App</HeadingText>
           </Heading>

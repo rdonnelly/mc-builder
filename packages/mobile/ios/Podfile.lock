@@ -1,6 +1,6 @@
 PODS:
   - boost (1.83.0)
-  - BugsnagReactNative (7.25.1):
+  - BugsnagReactNative (7.22.6):
     - React-Core
   - DoubleConversion (1.1.6)
   - FBLazyVector (0.73.6)
@@ -1073,9 +1073,9 @@ PODS:
     - React-perflogger (= 0.73.6)
   - rn-fetch-blob (0.12.0):
     - React-Core
-  - RNBootSplash (5.5.3):
+  - RNBootSplash (5.0.3):
     - React-Core
-  - RNCAsyncStorage (1.24.0):
+  - RNCAsyncStorage (1.23.1):
     - React-Core
   - RNCClipboard (1.15.0):
     - React-Core
@@ -1118,11 +1118,10 @@ PODS:
     - RCT-Folly (= 2022.05.16.00)
     - React-Core
     - ReactCommon/turbomodule/core
-  - RNScreens (3.35.0):
+  - RNScreens (3.30.1):
     - glog
     - RCT-Folly (= 2022.05.16.00)
     - React-Core
-    - React-RCTImage
   - RNVectorIcons (10.2.0):
     - glog
     - RCT-Folly (= 2022.05.16.00)
@@ -1350,7 +1349,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   boost: d3f49c53809116a5d38da093a8aa78bf551aed09
-  BugsnagReactNative: 0e335dab2447e0cb761ca271d6d26699e4ae61db
+  BugsnagReactNative: 366a7e11c0bcf34842e54f40b15dd937cb267aa7
   DoubleConversion: fea03f2699887d960129cc54bba7e52542b6f953
   FBLazyVector: f64d1e2ea739b4d8f7e4740cde18089cd97fe864
   FBReactNativeSpec: ab7aa29bb10daf11053887eb19369fe2eed047f0
@@ -1407,8 +1406,8 @@ SPEC CHECKSUMS:
   React-utils: d16c1d2251c088ad817996621947d0ac8167b46c
   ReactCommon: 2aa35648354bd4c4665b9a5084a7d37097b89c10
   rn-fetch-blob: f065bb7ab7fb48dd002629f8bdcb0336602d3cba
-  RNBootSplash: e025d4ee98d942ee6c8b495a6fe66339a6b5f6dd
-  RNCAsyncStorage: ec53e44dc3e75b44aa2a9f37618a49c3bc080a7a
+  RNBootSplash: a496398664e0bd17a6de2845a1c7c73deccb5ae3
+  RNCAsyncStorage: 826b603ae9c0f88b5ac4e956801f755109fa4d5c
   RNCClipboard: 69ab8e51324d5b351f6ba72bbdb72478087a2c64
   RNCMaskedView: 949696f25ec596bfc697fc88e6f95cf0c79669b6
   RNFlashList: 556074dc4bc8b89e60635bd02447c3338bf88191
@@ -1416,7 +1415,7 @@ SPEC CHECKSUMS:
   RNInAppBrowser: e36d6935517101ccba0e875bac8ad7b0cb655364
   RNReactNativeHapticFeedback: a1ed613d86e678202fe8bb930b92afa06f601cc3
   RNReanimated: 82a04a7caf78157520984b30e869f424f055ca4d
-  RNScreens: 69850d4519d95b9359cec15a67bb5f9d0bd75262
+  RNScreens: b6b64d956af3715adbfe84808694ae82d3fec74f
   RNVectorIcons: 04d49881dab53fb3397b1129085271d9d21885c1
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
   Yoga: d17d2cc8105eed528474683b42e2ea310e1daf61

@@ -1,5 +1,4 @@
 GEM
-  remote: https://rubygems.org/
   specs:
     CFPropertyList (3.0.7)
       base64
@@ -97,4 +96,4 @@ DEPENDENCIES
   cocoapods (>= 1.13, < 1.15)
 
 BUNDLED WITH
-   2.2.27
+   2.4.22

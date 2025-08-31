@@ -19,6 +19,9 @@ export const typeRank: Record<TypeCodes, number> = {
   environment: 14,
   minion: 15,
   treachery: 16,
+  evidence_means: 17,
+  evidence_motive: 18,
+  evidence_opportunity: 19,
 } as const;
 
 export class Type {
